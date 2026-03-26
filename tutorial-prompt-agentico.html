@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Prompts Agênticos (Framework META)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F9FAFB;
+    --white: #ffffff;
+    --accent: #57674E;
+    --accent2: #475840;
+    --accent-light: #EEF1EB;
+    --accent-lighter: #F5F7F3;
+    --accent-border: #C8D1C0;
+    --accent-text: #3D4A36;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #D97706;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 450;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block */
+  .copy-block {
+    position: relative;
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Visao Geral ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .class-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .class-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .class-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 0.72rem;
+  }
+
+  .class-table tr:last-child td { border-bottom: none; }
+
+  .tag-green { color: var(--green); font-weight: 600; }
+  .tag-yellow { color: var(--yellow); font-weight: 600; }
+  .tag-orange { color: var(--orange); font-weight: 600; }
+  .tag-red { color: var(--red); font-weight: 600; }
+
+  .resource-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .res-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
+
+  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
+  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); }
+  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+
+  /* Ref table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .ref-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 12px;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+
+  /* ========== RIGHT SIDEBAR ========== */
+  .right-sidebar {
+    border-left: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  .right-sidebar::-webkit-scrollbar { width: 3px; }
+  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .rs-section-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .rs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .rs-table th {
+    background: var(--surface2);
+    color: var(--text3);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rs-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .rs-table tr:last-child td { border-bottom: none; }
+
+  /* Framework META cards */
+  .meta-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-xs);
+    border-left: 4px solid var(--accent);
+  }
+
+  .meta-card .meta-letter {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    display: inline;
+  }
+
+  .meta-card .meta-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    display: inline;
+    margin-left: 4px;
+  }
+
+  .meta-card .meta-desc {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  .meta-card .meta-example {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  .meta-card .meta-example-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 3px;
+  }
+
+  /* Pipeline table */
+  .pipeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.74rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .pipeline-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pipeline-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+
+  .pipeline-table tr:last-child td { border-bottom: none; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .resource-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 1024px) {
+    .right-sidebar { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Inicio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="fundamentos" onclick="showSection('step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Fundamentos</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="meta" onclick="showSection('step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Framework META</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="creditos" onclick="showSection('step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Creditos</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pipeline" onclick="showSection('step4')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pipeline</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pratica1" onclick="showSection('step5')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pratica 01</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pratica2" onclick="showSection('step8')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pratica 02</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="tarefa" onclick="showSection('step9')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Tarefa</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Prompts Agenticos</h2>
+      <p>Engenharia de Prompt Avancada</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">INICIO</div>
+        <a class="nav-item active" data-section="home" onclick="showSection('home')">
+          <span class="ni-num">~</span> Visao Geral
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">CONTEUDO</div>
+        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
+          <span class="ni-num">01</span> O Ponto de Partida
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+          <span class="ni-num">02</span> Framework META
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
+          <span class="ni-num">03</span> Otimizar Creditos
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Pipeline de Ferramentas
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">PRATICAS</div>
+        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
+          <span class="ni-num">05</span> Pratica 01 — Etapa 1
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
+          <span class="ni-num">06</span> Pratica 01 — Etapa 2
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step7" onclick="showSection('step7')">
+          <span class="ni-num">07</span> Pratica 01 — Etapa 3
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step8" onclick="showSection('step8')">
+          <span class="ni-num">08</span> Pratica 02 — Mapa
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ENTREGA</div>
+        <a class="nav-item" data-section="step9" onclick="showSection('step9')">
+          <span class="ni-num">09</span> Tarefa da Semana
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso</div>
+      <div class="sp-bar">
+        <div class="sp-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 9</div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+<!-- ===== HOME ===== -->
+    <div class="section active" id="sec-home">
+      <h1 class="sec-title">Prompts Agenticos</h1>
+      <p class="sec-desc">Engenharia de Prompt Avancada &mdash; Delta Skills &middot; Marco 2026</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Decisao Central</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Toda tarefa que consome energia operacional demais merece ser repensada com IA.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai aprender</h3>
+        <p>Ao sair desta aula, voce sera capaz de:</p>
+        <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0 0;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">1</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Distinguir</strong> um prompt simples de um prompt agentico e saber exatamente quando usar cada um.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">2</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Estruturar</strong> qualquer prompt agentico usando o Framework META: Missao, Evidencias, Trilhos e Artefato.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">3</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Montar</strong> uma orquestracao de ferramentas de AI &mdash; Perplexity, Claude e Manus AI &mdash; para executar tarefas complexas com mais qualidade e sem desperdicar creditos.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">4</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Identificar</strong> pelo menos 5 oportunidades concretas de usar prompts agenticos no seu proprio trabalho, com estimativa de ganho de tempo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Navegacao Rapida</h3>
+        <div class="resource-row">
+          <div class="res-card" onclick="showSection('step1')">
+            <div class="rc-icon">&#128218;</div>
+            <div class="rc-title">Comecar Conteudo</div>
+            <div class="rc-desc">Fundamentos e Framework META.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step5')">
+            <div class="rc-icon">&#127937;</div>
+            <div class="rc-title">Ir para Praticas</div>
+            <div class="rc-desc">Exercicios guiados com prompts prontos.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step9')">
+            <div class="rc-icon">&#128640;</div>
+            <div class="rc-title">Tarefa da Semana</div>
+            <div class="rc-desc">Aplique no seu trabalho real.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <div></div>
+        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 1: O Ponto de Partida ===== -->
+    <div class="section" id="sec-step1">
+      <h1 class="sec-title"><span class="snum">01.</span> O Ponto de Partida</h1>
+      <p class="sec-desc">Entenda a diferenca entre usar IA e delegar trabalho para IA.</p>
+
+      <div class="overview-card">
+        <p>Quantas vezes por semana voce abre o ChatGPT ou Claude, faz uma pergunta, le a resposta, fecha a janela &mdash; e 5 minutos depois abre de novo para outra coisa?</p>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--yellow);">
+        <h3 style="color:var(--yellow);">Nivel 1 &mdash; Usar IA</h3>
+        <p>Voce trabalha <strong>com</strong> uma ferramenta. Pergunta, le a resposta, aplica manualmente.</p>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3 style="color:var(--green);">Nivel 2 &mdash; Prompt Agentico</h3>
+        <p>Voce descreve um <strong>objetivo complexo</strong>, define o escopo, as fontes, as regras e o formato de entrega &mdash; e o prompt agentico <strong>executa tudo de forma autonoma</strong>: navega na web, abre arquivos, toma microdecisoes no caminho e te entrega uma tarefa acabada.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Ponto-chave</div>
+        <p>Um prompt agentico nao pede uma resposta &mdash; ele <strong>delega um trabalho</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">Framework META &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 2: Framework META ===== -->
+    <div class="section" id="sec-step2">
+      <h1 class="sec-title"><span class="snum">02.</span> O Framework META</h1>
+      <p class="sec-desc">4 camadas para estruturar qualquer prompt agentico.</p>
+
+      <p style="font-size:0.76rem; color:var(--text2); margin-bottom:16px;">O Manus AI pode navegar na web, abrir conectores como Gmail, Notion e Google Sheets, criar arquivos, comparar dados e tomar microdecisoes durante a execucao. Para fazer isso bem, ele precisa de um <strong>briefing completo</strong> &mdash; nao de uma pergunta.</p>
+
+      <div class="meta-card">
+        <span class="meta-letter">M</span>
+        <span class="meta-name">&mdash; Missao</span>
+        <p class="meta-desc">O que precisa ser entregue no final? Defina o objetivo com uma frase direta. O agente vai consultar essa frase se perder o fio durante a execucao.</p>
+        <div class="meta-example">
+          <div class="meta-example-label">Exemplo</div>
+          "Seu objetivo e identificar as 8 melhores ferramentas de IA para atendimento ao cliente disponiveis no Brasil em 2026, com analise comparativa e recomendacao final."
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <span class="meta-letter">E</span>
+        <span class="meta-name">&mdash; Evidencias</span>
+        <p class="meta-desc">Onde o agente deve buscar? Quais fontes, arquivos ou conectores ele deve usar? Delimite o espaco de busca. Quanto mais preciso voce for aqui, menos credito e desperdicado e menor o risco de desvio.</p>
+        <div class="meta-example">
+          <div class="meta-example-label">Exemplo</div>
+          "Use prioritariamente os sites oficiais de cada ferramenta e suas paginas de precos. Se eu anexar arquivos, trate-os como contexto prioritario. Priorize fontes de 2025-2026."
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <span class="meta-letter">T</span>
+        <span class="meta-name">&mdash; Trilhos</span>
+        <p class="meta-desc">Quais sao as regras do trabalho? O que fazer, o que evitar, e como decidir quando houver duvida? Este e o campo mais ignorado &mdash; e o mais importante. Sem trilhos, o agente toma decisoes por conta propria, muitas vezes erradas.</p>
+        <div class="meta-example">
+          <div class="meta-example-label">Exemplo</div>
+          "Nao invente dados. Se uma informacao nao estiver disponivel, marque como 'nao encontrado'. Limite a analise a 8 opcoes. Nao faca mais de 3 rodadas de refinamento sozinho."
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <span class="meta-letter">A</span>
+        <span class="meta-name">&mdash; Artefato</span>
+        <p class="meta-desc">Como a resposta final deve chegar? Formato, estrutura, linguagem. Especifique o entregavel. O agente precisa saber exatamente qual e a linha de chegada.</p>
+        <div class="meta-example">
+          <div class="meta-example-label">Exemplo</div>
+          "Entregue: (1) tabela comparativa com os criterios definidos; (2) ranking das 3 melhores opcoes; (3) recomendacao final com pros, contras e cenario ideal; (4) resumo executivo de ate 200 palavras."
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Em linguagem simples</div>
+        <p><strong>Missao</strong> = qual trabalho voce quer delegar &bull; <strong>Evidencias</strong> = onde ele deve olhar &bull; <strong>Trilhos</strong> = como ele deve se comportar &bull; <strong>Artefato</strong> = como voce quer receber a tarefa concluida</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step3')">Otimizar Creditos &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 3: Otimizar Creditos ===== -->
+    <div class="section" id="sec-step3">
+      <h1 class="sec-title"><span class="snum">03.</span> Otimizar Creditos no Manus AI</h1>
+      <p class="sec-desc">8 regras para gastar menos e obter resultados melhores.</p>
+
+      <p style="font-size:0.76rem; color:var(--text2); margin-bottom:14px;">O Manus AI consome creditos enquanto processa sua tarefa. Um prompt mal definido gera mais loops, mais decisoes intermediarias e, no fim, um resultado pior com custo maior.</p>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>#</th><th>Regra</th><th>Como aplicar</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td><strong>Uma tarefa completa</strong></td><td>Inclua pesquisa + analise + entrega em um unico prompt. Nao divida em microtarefas sequenciais.</td></tr>
+          <tr><td><strong>2</strong></td><td><strong>Elimine ambiguidade</strong></td><td>Defina escopo, periodo, geografia, publico-alvo, criterio de decisao e formato de saida desde o inicio.</td></tr>
+          <tr><td><strong>3</strong></td><td><strong>Limite o espaco de busca</strong></td><td>Diga quais sites priorizar, quantas opcoes retornar, qual periodo analisar.</td></tr>
+          <tr><td><strong>4</strong></td><td><strong>Peca versao 1, nao perfeicao</strong></td><td>"Entregue uma primeira versao objetiva e de alta utilidade." Refinamento excessivo custa credito.</td></tr>
+          <tr><td><strong>5</strong></td><td><strong>So abra conectores quando precisar</strong></td><td>Conectores ampliam o poder do agente, mas ampliam o espaco operacional. Use apenas o que a tarefa exige.</td></tr>
+          <tr><td><strong>6</strong></td><td><strong>Evite exemplos demais</strong></td><td>Para agentes, muitos exemplos (few-shot longo) podem reduzir a robustez da execucao.</td></tr>
+          <tr><td><strong>7</strong></td><td><strong>Defina regras de parada</strong></td><td>"Pare apos analisar 10 opcoes", "use no maximo 5 fontes", "se nao houver evidencia, sinalize a lacuna."</td></tr>
+          <tr><td><strong>8</strong></td><td><strong>Formula economica</strong></td><td>1 objetivo + 1 escopo + 1 conjunto de fontes + 1 formato de saida + 3 a 5 regras criticas.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Pipeline de Ferramentas &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 4: Pipeline de Ferramentas ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> O Pipeline de Ferramentas</h1>
+      <p class="sec-desc">Cada ferramenta tem um papel. Usar a errada desperdiça resultado.</p>
+
+      <table class="pipeline-table">
+        <thead>
+          <tr><th>Etapa</th><th>Ferramenta</th><th>Por que</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pesquisa de contexto</strong></td>
+            <td><span class="tag-green">Perplexity</span></td>
+            <td>Busca em tempo real com fontes citadas. Gratuito e rapido para reunir referencias.</td>
+          </tr>
+          <tr>
+            <td><strong>Estruturar o prompt</strong></td>
+            <td><span class="tag-yellow">Claude</span></td>
+            <td>Raciocinio profundo para organizar o briefing. Nao consome creditos de execucao.</td>
+          </tr>
+          <tr>
+            <td><strong>Executar acoes</strong></td>
+            <td><span class="tag-orange">Manus AI</span></td>
+            <td>Age de forma autonoma: navega, clica, extrai, escreve, cria arquivos, integra conectores.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra pratica</div>
+        <p>Pense no <strong>Claude como o estrategista</strong> e no <strong>Manus como o operador</strong>. O estrategista define o que deve ser feito e estrutura o briefing. O operador executa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step5')">Pratica 01 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 5: Pratica 01 - Etapa 1 (Perplexity) ===== -->
+    <div class="section" id="sec-step5">
+      <h1 class="sec-title"><span class="snum">05.</span> Pratica 01 &mdash; Contratando com IA</h1>
+      <p class="sec-desc">Etapa 1: Pesquise benchmarks com o Perplexity.</p>
+
+      <div class="overview-card">
+        <h3>O que voce vai produzir nesta pratica</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px;">
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Job Description</strong> completa</div>
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Persona</strong> do candidato ideal</div>
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Scorecard</strong> de entrevista</div>
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Case pratico</strong> (Roleplay)</div>
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Mensagem</strong> de Hunting</div>
+          <div style="padding:8px 10px; background:var(--accent-lighter); border:1px solid var(--accent-border); border-radius:6px; font-size:0.72rem;"><strong>Lista de 15</strong> candidatos</div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse <strong>perplexity.ai</strong> no seu navegador.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Substitua os campos entre <span class="field">[colchetes]</span> no prompt abaixo com os dados reais da sua vaga.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Cole o prompt no Perplexity e execute.</div>
+        </div>
+      </div>
+
+      <div class="copy-block" id="prompt-perplexity">
+        <span class="label">PROMPT PARA O PERPLEXITY</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-perplexity-text').textContent)">Copiar</button>
+        <span id="prompt-perplexity-text">Faca uma pesquisa aprofundada com base nas melhores praticas e benchmarks globais sobre recrutamento e selecao para a vaga de [vaga] na empresa [empresa]. Estruture a resposta abordando:
+
+(1) Job Description Ideal, com exemplos utilizados por empresas referencia;
+(2) Job To Be Done (JTBD) com foco em resultados esperados e dores resolvidas pela funcao;
+(3) Perfis comportamentais e tecnicos recomendados com base em dados de alta performance;
+(4) Hiring Strategies modernas: hunting outbound, entrevistas por competencia, uso de IA e cases praticos;
+(5) Benchmark de faixa salarial e remuneracao variavel atualizados para Brasil e America Latina;
+(6) Principais KPIs e metricas de sucesso para acompanhamento do desempenho no curto e medio prazo;
+(7) Red Flags comuns no processo seletivo que devem ser observados.
+
+Contextualize tudo para que a aplicacao seja compativel com empresas do setor [adicione aqui o setor: educacao, saude, etc.]</span>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Antes de continuar</div>
+        <p>Salve o resultado do Perplexity em um arquivo (PDF ou TXT). Voce vai usa-lo como contexto na proxima etapa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step6')">Etapa 2 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 6: Pratica 01 - Etapa 2 (Assistente GPT + Manus) ===== -->
+    <div class="section" id="sec-step6">
+      <h1 class="sec-title"><span class="snum">06.</span> Pratica 01 &mdash; Etapa 2</h1>
+      <p class="sec-desc">Gere o workflow completo com o Assistente GPT + Manus AI.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse o assistente GPT customizado: <a href="https://chatgpt.com/g/g-6809103e9b2c81918e5ce4408210e655-manus-lendario" target="_blank" style="color:var(--accent); font-weight:600;">Manus Lendario</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o prompt abaixo no assistente. Substitua os campos entre <span class="field">[colchetes]</span> e cole o resultado do Perplexity ao final.</div>
+        </div>
+      </div>
+
+      <div class="copy-block" id="prompt-assistente">
+        <span class="label">PROMPT PARA O ASSISTENTE GPT</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-assistente-text').textContent)">Copiar</button>
+        <span id="prompt-assistente-text">Crie um prompt em markdown para eu usar no Manus AI e realizar a tarefa a seguir:
+
+Com base nas melhores praticas de mercado em recrutamento e selecao de profissionais de alta performance para a [vaga], crie um workflow completo para a empresa [nome da empresa], que atua no setor [setor].
+
+A estrutura do workflow deve conter:
+
+1. Ficha de vaga (Job Description): titulo, missao, responsabilidades, requisitos tecnicos e comportamentais, faixa salarial (base + variavel), jornada de crescimento e diferenciais.
+
+2. Persona do Candidato Ideal: com base no JTBD da funcao — dores resolvidas, perfil comportamental, experiencias desejadas, indicadores de sucesso e motivacoes profissionais.
+
+3. Scorecard de Entrevista: matriz de avaliacao por competencias com criterios claros, perguntas comportamentais/situacionais e sistema simples de pontuacao.
+
+4. Case Pratico (Roleplay): simulacao de venda consultiva para testar abordagem de objecoes, proposta de valor e fechamento — cenario realista da empresa.
+
+5. Processo Seletivo por Etapas: funil completo (triagem, teste, entrevista tecnica, entrevista final), com objetivos, metodos de avaliacao e criterios go/no-go.
+
+6. Mensagem de Hunting para LinkedIn/e-mail: curta, persuasiva, com CTA claro.
+
+7. Lista de Candidatos Alvo (LinkedIn Sourcing): 15 potenciais candidatos — nome, cargo, empresa, localizacao e link do perfil.
+
+Adapte todas as entregas a realidade da empresa e aos detalhes da vaga anexa.
+[cole aqui o resultado salvo do Perplexity]</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step7')">Etapa 3 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 7: Pratica 01 - Etapa 3 (Executar no Manus) ===== -->
+    <div class="section" id="sec-step7">
+      <h1 class="sec-title"><span class="snum">07.</span> Pratica 01 &mdash; Etapa 3</h1>
+      <p class="sec-desc">Execute no Manus AI e receba o workflow de recrutamento completo.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Crie sua conta no Manus AI: <a href="https://manus.im/invitation/CS578TNFYKELWMC" target="_blank" style="color:var(--accent); font-weight:600;">manus.im/invitation/CS578TNFYKELWMC</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o <strong>prompt em markdown</strong> gerado pelo assistente GPT na etapa anterior.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Aguarde o Manus AI executar o workflow completo de recrutamento.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>O Manus AI vai navegar na web, buscar candidatos reais no LinkedIn, e criar todos os documentos automaticamente. Isso pode levar alguns minutos &mdash; e normal.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step6')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step8')">Pratica 02 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 8: Pratica 02 - Mapa de Ganhos ===== -->
+    <div class="section" id="sec-step8">
+      <h1 class="sec-title"><span class="snum">08.</span> Pratica 02 &mdash; Mapa de Ganhos</h1>
+      <p class="sec-desc">Rode um prompt no Claude/ChatGPT que analisa sua rotina e entrega um mapa personalizado de oportunidades.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Preencha os campos entre <span class="field">[colchetes]</span> no prompt abaixo com as informacoes reais da sua rotina.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole no <strong>Claude</strong> ou <strong>ChatGPT</strong> e execute.</div>
+        </div>
+      </div>
+
+      <div class="copy-block" id="prompt-mapa" style="font-size:0.66rem;">
+        <span class="label">PROMPT PARA MAPEAR OPORTUNIDADES</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-mapa-text').textContent)">Copiar</button>
+        <span id="prompt-mapa-text"># Contexto
+Voce e um especialista em produtividade com IA, com experiencia em mapear oportunidades de automacao e uso de prompts agenticos em empresas brasileiras de medio porte. Conheca profundamente o Manus AI e saiba criar prompts agenticos eficientes para ele.
+
+# Minha rotina de trabalho
+Cargo: [ex: Coordenador de Marketing / Analista de RH]
+Setor da empresa: [ex: industria / saude / varejo / tecnologia]
+Porte da empresa: [ex: 80 funcionarios / R$40MM de faturamento]
+
+Minhas 8 principais tarefas semanais:
+1. [descreva a tarefa — ex: montar relatorio de vendas toda segunda-feira]
+2. [descreva a tarefa]
+3. [descreva a tarefa]
+4. [descreva a tarefa]
+5. [descreva a tarefa]
+6. [descreva a tarefa]
+7. [descreva a tarefa]
+8. [descreva a tarefa]
+
+Tarefas que mais me consomem tempo ou energia: [descreva livremente — ex: pesquisar fornecedores, responder sempre as mesmas duvidas de clientes, montar apresentacoes para a diretoria]
+
+Ferramentas que ja uso no trabalho: [ex: Excel, Google Docs, LinkedIn]
+
+# Sua Missao
+Analise minha rotina e identifique as 5 melhores oportunidades de usar prompts agenticos no meu dia a dia. Priorize oportunidades que:
+- Envolvam tarefas repetitivas de alta frequencia
+- Nao exijam empatia ou julgamento humano para serem executadas
+- Possam ser feitas com Perplexity, Claude e/ou Manus AI
+
+Para cada oportunidade, entregue neste formato:
+01. Nome da oportunidade mapeada
+02. Descricao: uma frase objetiva descrevendo qual tarefa o prompt agentico realizaria.
+03. Resultados tangiveis esperados:
+  Tempo atual: [estimativa hoje]
+  Tempo com prompt agentico: [estimativa com IA]
+  Ganho por semana: [X horas]
+  Ganho por mes: [X horas = X dias de trabalho]
+  Beneficio adicional: [ex: menos retrabalho, maior consistencia]
+04. Rascunho de prompt agentico para o Manus AI realizar esta tarefa. O prompt agentico deve ter esta estrutura: MISSAO, EVIDENCIAS, TRILHOS, ARTEFATO.</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Quanto mais especifico, melhor</div>
+        <p>Quanto mais detalhes voce colocar sobre sua rotina, mais preciso sera o mapa de oportunidades gerado pela IA.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step7')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step9')">Tarefa da Semana &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 9: Tarefa da Semana ===== -->
+    <div class="section" id="sec-step9">
+      <h1 class="sec-title"><span class="snum">09.</span> Tarefa da Semana</h1>
+      <p class="sec-desc">Aplique o que aprendeu no seu trabalho real.</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Instrucoes</h3>
+        <p>Com base no mapa de oportunidades que voce gerou na Pratica 02, escolha a <strong>maior oportunidade de impacto</strong> para a sua empresa e execute ainda esta semana.</p>
+      </div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text"><strong>Escreva</strong> o prompt agentico completo para essa oportunidade usando o Framework META.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text"><strong>Execute</strong> no Manus AI.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text"><strong>Documente</strong> o resultado: quanto tempo levava antes? Quanto levou com o agente? Como foi o resultado?</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Na proxima sessao, <strong>traga o relato</strong>: o que funcionou, o que precisou ajustar no prompt.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Framework META — Lembrete</div>
+        <p><strong>M</strong> = Missao &bull; <strong>E</strong> = Evidencias &bull; <strong>T</strong> = Trilhos &bull; <strong>A</strong> = Artefato</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step8')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== RIGHT SIDEBAR ========== -->
+  <aside class="right-sidebar">
+    <div>
+      <div class="rs-section-title">Framework META</div>
+      <table class="rs-table">
+        <thead><tr><th>Letra</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><strong style="color:var(--accent);">M</strong></td><td>Missao</td></tr>
+          <tr><td><strong style="color:var(--accent);">E</strong></td><td>Evidencias</td></tr>
+          <tr><td><strong style="color:var(--accent);">T</strong></td><td>Trilhos</td></tr>
+          <tr><td><strong style="color:var(--accent);">A</strong></td><td>Artefato</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Pipeline</div>
+      <table class="rs-table">
+        <thead><tr><th>Etapa</th><th>Ferramenta</th></tr></thead>
+        <tbody>
+          <tr><td>Pesquisa</td><td class="tag-green">Perplexity</td></tr>
+          <tr><td>Prompt</td><td class="tag-yellow">Claude</td></tr>
+          <tr><td>Execucao</td><td class="tag-orange">Manus AI</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Links Uteis</div>
+      <a href="https://perplexity.ai" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Perplexity</a>
+      <a href="https://claude.ai" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Claude</a>
+      <a href="https://manus.im/invitation/CS578TNFYKELWMC" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Manus AI</a>
+      <a href="https://chatgpt.com/g/g-6809103e9b2c81918e5ce4408210e655-manus-lendario" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); text-decoration:none;">&#8594; Assistente GPT</a>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// ========== STATE ==========
+const stepToFlow = {
+  home:'home',
+  step1:'fundamentos',
+  step2:'meta',
+  step3:'creditos',
+  step4:'pipeline',
+  step5:'pratica1', step6:'pratica1', step7:'pratica1',
+  step8:'pratica2',
+  step9:'tarefa'
+};
+const flowOrder = ['home','fundamentos','meta','creditos','pipeline','pratica1','pratica2','tarefa'];
+
+const visited = new Set(['home']);
+const completedFlows = new Set();
+
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+
+  visited.add(id);
+
+  // Mark previous flows as completed
+  const currentFlow = stepToFlow[id];
+  if (currentFlow) {
+    const currentIdx = flowOrder.indexOf(currentFlow);
+    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
+  }
+
+  // Update stepper
+  const stepperEl = document.getElementById('stepper');
+  if (stepperEl) {
+    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
+      const flow = node.dataset.flow;
+      node.classList.remove('active','completed','future');
+      if (flow === currentFlow) {
+        node.classList.add('active');
+      } else if (completedFlows.has(flow)) {
+        node.classList.add('completed');
+      } else {
+        node.classList.add('future');
+      }
+    });
+  }
+
+  // Update sidebar nav
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.remove('active');
+    if (visited.has(el.dataset.section)) el.classList.add('completed');
+  });
+  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
+
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress() {
+  const total = 9;
+  let count = 0;
+  for (let i = 1; i <= 9; i++) {
+    if (visited.has('step' + i)) count++;
+  }
+  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
+  document.getElementById('progress-text').textContent = count + ' / ' + total;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

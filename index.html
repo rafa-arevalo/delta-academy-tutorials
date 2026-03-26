@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delta Academy — Tutoriais</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:#F9FAFB;color:#111827;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
+  .container{max-width:480px;width:100%}
+  .logo{text-align:center;margin-bottom:32px}
+  .logo img{height:48px}
+  h1{font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;text-align:center;margin-bottom:4px}
+  .subtitle{font-size:0.72rem;color:#9CA3AF;text-align:center;text-transform:uppercase;letter-spacing:0.1em;font-weight:500;margin-bottom:28px}
+  .card{display:block;background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:20px;margin-bottom:12px;text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(0,0,0,0.04);transition:all 0.15s}
+  .card:hover{border-color:#C8D1C0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.07)}
+  .card-title{font-size:0.88rem;font-weight:700;color:#111827;margin-bottom:4px}
+  .card-desc{font-size:0.74rem;color:#6B7280;line-height:1.5}
+  .card-tag{display:inline-block;font-size:0.58rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;padding:2px 8px;border-radius:4px;margin-bottom:8px}
+  .tag-green{background:#ECFDF5;color:#065F46}
+  .tag-purple{background:#EEF1EB;color:#3D4A36}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <img src="logo-delta-light.svg" alt="Delta Academy">
+  </div>
+  <h1>Tutoriais</h1>
+  <p class="subtitle">Delta Skills &middot; 2026</p>
+
+  <a class="card" href="tutorial-prompt-agentico.html">
+    <span class="card-tag tag-purple">A04</span>
+    <div class="card-title">Prompts Agenticos — Framework META</div>
+    <div class="card-desc">Engenharia de prompt avancada. Aprenda a delegar trabalho complexo para IA usando Perplexity, Claude e Manus AI.</div>
+  </a>
+
+  <a class="card" href="tutorial-n8n-cobranca.html">
+    <span class="card-tag tag-green">N8N</span>
+    <div class="card-title">Automacao de Cobranca com N8N</div>
+    <div class="card-desc">Monte um workflow completo de cobranca automatizada: leitura de planilha, classificacao e envio de e-mails.</div>
+  </a>
+</div>
+</body>
+</html>
