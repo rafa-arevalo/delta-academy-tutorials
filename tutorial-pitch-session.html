@@ -593,38 +593,6 @@
 
   .ref-table tr:last-child td { border-bottom: none; }
 
-  /* Pipeline table */
-  .pipeline-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.74rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 10px 0;
-  }
-
-  .pipeline-table th {
-    background: #F3F4F6;
-    color: var(--text2);
-    font-weight: 600;
-    text-align: left;
-    padding: 8px 12px;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .pipeline-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-    vertical-align: top;
-  }
-
-  .pipeline-table tr:last-child td { border-bottom: none; }
-
   /* Mobile */
   @media (max-width: 768px) {
     .sidebar { display: none; }
@@ -659,12 +627,7 @@
     <span class="sn-label">Manus AI</span>
   </div>
   <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="revisar" onclick="showSection('step4')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Revisar</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="checklist" onclick="showSection('step5')">
+  <div class="stepper-node future" data-flow="checklist" onclick="showSection('step4')">
     <span class="sn-check">&#10003;</span>
     <span class="sn-label">Checklist</span>
   </div>
@@ -676,7 +639,7 @@
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h2>Roteiro Pitch Session</h2>
-      <p>Como montar o seu pitch com Manus AI</p>
+      <p>Como montar o seu pitch a partir do Roadmap de AI</p>
     </div>
 
     <div id="nav-main">
@@ -695,7 +658,7 @@
           <span class="ni-check">&#10003;</span>
         </a>
         <a class="nav-item" data-section="step2" onclick="showSection('step2')">
-          <span class="ni-num">02</span> Preencha as Variaveis
+          <span class="ni-num">02</span> Variaveis do Roadmap
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
@@ -706,16 +669,12 @@
           <span class="ni-num">03</span> Gerar no Manus AI
           <span class="ni-check">&#10003;</span>
         </a>
-        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
-          <span class="ni-num">04</span> Revisar e Exportar
-          <span class="ni-check">&#10003;</span>
-        </a>
       </div>
 
       <div class="nav-group">
         <div class="nav-group-title">ENTREGA</div>
-        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
-          <span class="ni-num">05</span> Checklist Final
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Checklist Final
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
@@ -726,7 +685,7 @@
       <div class="sp-bar">
         <div class="sp-fill" id="progress-fill"></div>
       </div>
-      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 5</div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 4</div>
     </div>
   </nav>
 
@@ -736,34 +695,30 @@
 <!-- ===== HOME ===== -->
     <div class="section active" id="sec-home">
       <h1 class="sec-title">Roteiro Pitch Session</h1>
-      <p class="sec-desc">Como montar o seu pitch com Manus AI &mdash; Delta Academy</p>
+      <p class="sec-desc">Como montar o seu pitch a partir do Roadmap de AI &mdash; Delta Academy</p>
 
       <div class="overview-card" style="border-left:4px solid var(--accent);">
         <h3>Decisao Central</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Voce mapeou as oportunidades, identificou o problema, construiu a solucao. O pitch e so o momento de mostrar o que voce ja fez.</p>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">O diagnostico esta feito. Agora e hora de apresentar. Voce mapeou as oportunidades, identificou o problema e definiu a proposta de solucao. O pitch e o momento de mostrar esse raciocinio.</p>
       </div>
 
       <div class="overview-card">
-        <p>Voce esta prestes a montar a sua apresentacao de pitch para a Pitch Session do Delta Board. Nao precisa saber design nem PowerPoint &mdash; o Manus AI vai fazer tudo por voce.</p>
-      </div>
-
-      <div class="overview-card">
-        <h3>Este guia tem 3 etapas simples:</h3>
+        <p>Voce participou do workshop de Roadmap de AI e ja mapeou as oportunidades da sua empresa. Agora e hora de transformar esse trabalho em um pitch de 3 minutos para a Pitch Session do Delta Board. Nao precisa saber design nem PowerPoint &mdash; o Manus AI vai gerar a apresentacao para voce.</p>
         <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0 0;">
           <div style="display:flex; align-items:flex-start; gap:10px;">
             <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">1</div>
-            <p style="margin:0; font-size:0.76rem;"><strong>Entenda a estrutura do seu pitch</strong> (o que vai em cada momento da apresentacao)</p>
+            <p style="margin:0; font-size:0.76rem;"><strong>Entenda</strong> a estrutura do pitch (o que vai em cada slide)</p>
           </div>
           <div style="display:flex; align-items:flex-start; gap:10px;">
             <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">2</div>
-            <p style="margin:0; font-size:0.76rem;"><strong>Preencha as variaveis</strong> com as informacoes da sua solucao</p>
+            <p style="margin:0; font-size:0.76rem;"><strong>Extraia</strong> do seu PDF de Roadmap as informacoes de cada variavel</p>
           </div>
           <div style="display:flex; align-items:flex-start; gap:10px;">
             <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">3</div>
-            <p style="margin:0; font-size:0.76rem;"><strong>Cole o prompt completo no Manus AI</strong> e gere a sua apresentacao</p>
+            <p style="margin:0; font-size:0.76rem;"><strong>Cole</strong> o prompt preenchido no Manus AI e gere a sua apresentacao</p>
           </div>
         </div>
-        <p style="font-size:0.68rem; color:var(--text3); margin-top:14px;">Tempo estimado: 30 a 45 minutos.</p>
+        <p style="font-size:0.68rem; color:var(--text3); margin-top:12px;">O que voce vai apresentar: a oportunidade que voce priorizou no Roadmap e a solucao que voce propoe construir com vibe coding usando Lovable.</p>
       </div>
 
       <div class="overview-card">
@@ -772,17 +727,17 @@
           <div class="res-card" onclick="showSection('step1')">
             <div class="rc-icon">&#128218;</div>
             <div class="rc-title">Estrutura do Pitch</div>
-            <div class="rc-desc">7 slides, 3 minutos. Entenda cada momento.</div>
+            <div class="rc-desc">Entenda o que vai em cada slide.</div>
           </div>
           <div class="res-card" onclick="showSection('step2')">
-            <div class="rc-icon">&#9999;&#65039;</div>
-            <div class="rc-title">Variaveis</div>
-            <div class="rc-desc">Preencha os campos antes de usar o prompt.</div>
+            <div class="rc-icon">&#128196;</div>
+            <div class="rc-title">Variaveis do Roadmap</div>
+            <div class="rc-desc">Extraia as informacoes do seu PDF.</div>
           </div>
           <div class="res-card" onclick="showSection('step3')">
             <div class="rc-icon">&#128640;</div>
             <div class="rc-title">Gerar no Manus</div>
-            <div class="rc-desc">Cole o prompt e gere seus slides.</div>
+            <div class="rc-desc">Transforme tudo em slides prontos.</div>
           </div>
         </div>
       </div>
@@ -796,26 +751,22 @@
 <!-- ===== STEP 1: Estrutura do Pitch ===== -->
     <div class="section" id="sec-step1">
       <h1 class="sec-title"><span class="snum">01.</span> Entenda a Estrutura do Pitch</h1>
-      <p class="sec-desc">3 minutos, 7 slides. Cada um com funcao clara.</p>
+      <p class="sec-desc">3 minutos, 7 slides. A narrativa segue: Dor real &rarr; Diagnostico estrategico &rarr; Solucao proposta &rarr; Impacto esperado</p>
 
       <div class="overview-card">
-        <p>Antes de preencher qualquer campo, entenda o que precisa acontecer em cada momento da apresentacao.</p>
+        <p>Antes de preencher qualquer campo, entenda o que acontece em cada momento da apresentacao. Voce tem exatamente 3 minutos e 7 slides.</p>
       </div>
 
       <table class="class-table">
         <thead>
-          <tr>
-            <th>Slide</th>
-            <th>Nome</th>
-            <th>Tempo</th>
-          </tr>
+          <tr><th>Slide</th><th>Nome</th><th>Tempo</th></tr>
         </thead>
         <tbody>
           <tr><td><strong>1</strong></td><td>Capa</td><td>0:00</td></tr>
           <tr><td><strong>2</strong></td><td>Problema</td><td>0:00 &ndash; 0:20</td></tr>
           <tr><td><strong>3</strong></td><td>Oportunidades</td><td>0:20 &ndash; 0:55</td></tr>
-          <tr><td><strong>4</strong></td><td>Problema detalhado</td><td>0:55 &ndash; 1:20</td></tr>
-          <tr><td><strong>5</strong></td><td>Solucao</td><td>1:20 &ndash; 2:15</td></tr>
+          <tr><td><strong>4</strong></td><td>Prob. Detalhado</td><td>0:55 &ndash; 1:20</td></tr>
+          <tr><td><strong>5</strong></td><td>Solucao Proposta</td><td>1:20 &ndash; 2:15</td></tr>
           <tr><td><strong>6</strong></td><td>Resultados</td><td>2:15 &ndash; 2:45</td></tr>
           <tr><td><strong>7</strong></td><td>Fechamento</td><td>2:45 &ndash; 3:00</td></tr>
         </tbody>
@@ -824,9 +775,9 @@
       <!-- Slide 1 -->
       <div class="overview-card" style="border-left:4px solid var(--text); margin-top:18px;">
         <h3>Slide 1 &mdash; Capa (0:00)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>Seu nome e empresa</li>
-          <li>A frase-gancho &mdash; a mesma pergunta ou dado que voce vai falar para abrir</li>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Seu nome, empresa e area</li>
+          <li>A frase-gancho &mdash; a pergunta ou dado que voce vai falar para abrir</li>
           <li>Layout limpo. O slide nao deve ter texto corrido.</li>
         </ul>
         <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">A frase-gancho e falada, nao lida. O slide so ancora quem esta na sala.</p>
@@ -834,162 +785,233 @@
 
       <!-- Slide 2 -->
       <div class="overview-card" style="border-left:4px solid var(--red);">
-        <h3>Slide 2 &mdash; O Problema (0:00&ndash;0:20)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>1 numero grande e em destaque (ex: "12h / semana")</li>
+        <h3>Slide 2 &mdash; O Problema (0:00 &ndash; 0:20)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>1 numero grande em destaque &mdash; extraido do seu Roadmap (ex: &ldquo;12h / semana&rdquo;)</li>
           <li>1 linha de contexto abaixo do numero</li>
-          <li>Fundo escuro, numero centralizado e bem grande. Sem bullets.</li>
+          <li>Fundo escuro, numero centralizado e grande. Sem bullets.</li>
         </ul>
-        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">O numero deve ser o unico elemento que a audiencia precisa ler.</p>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Use os dados de impacto que voce levantou no workshop. Esse numero ja esta no seu PDF.</p>
       </div>
 
       <!-- Slide 3 -->
       <div class="overview-card" style="border-left:4px solid #5E4EA6;">
-        <h3>Slide 3 &mdash; Mapa de Oportunidades (0:20&ndash;0:55)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>Titulo: "Onde AI pode ajudar na [sua empresa/area]"</li>
-          <li>3 a 5 oportunidades que voce identificou</li>
+        <h3>Slide 3 &mdash; Mapa de Oportunidades (0:20 &ndash; 0:55)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Titulo: &ldquo;Oportunidades de AI mapeadas em [sua empresa/area]&rdquo;</li>
+          <li>3 a 5 oportunidades que estao no seu Roadmap</li>
           <li>A oportunidade escolhida em destaque visual</li>
-          <li>Criterio de priorizacao indicado brevemente</li>
+          <li>Criterio de priorizacao usado</li>
         </ul>
-        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Mostrar o mapa prova que houve diagnostico, nao achismo.</p>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Tudo isso ja esta no seu PDF do Roadmap &mdash; voce so precisa copiar.</p>
       </div>
 
       <!-- Slide 4 -->
       <div class="overview-card" style="border-left:4px solid var(--yellow);">
-        <h3>Slide 4 &mdash; Problema Detalhado (0:55&ndash;1:20)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>Titulo: o problema em uma frase curta e direta</li>
-          <li>Layout duas colunas: esquerda com descricao, direita com dados de impacto</li>
-          <li>Use: horas perdidas, frequencia, custo, retrabalho</li>
+        <h3>Slide 4 &mdash; Problema Detalhado (0:55 &ndash; 1:20)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Titulo: o problema priorizado em uma frase direta</li>
+          <li>Duas colunas: esquerda com descricao, direita com dados de impacto</li>
+          <li>Use os campos &ldquo;Problema&rdquo; e &ldquo;Metrica&rdquo; da secao 02 do seu Roadmap</li>
         </ul>
         <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Nao explique causas. Mostre o sintoma e o custo.</p>
       </div>
 
       <!-- Slide 5 -->
       <div class="overview-card" style="border-left:4px solid var(--green);">
-        <h3>Slide 5 &mdash; A Solucao (1:20&ndash;2:15)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+        <h3>Slide 5 &mdash; A Solucao Proposta (1:20 &ndash; 2:15)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
           <li>Nome da solucao + frase de posicionamento</li>
-          <li>Print de tela da solucao criada no Lovable &mdash; grande, pelo menos metade do slide</li>
-          <li>2-3 bullets curtissimos: o que ela faz (nao como funciona)</li>
+          <li>Proposta de valor da solucao &mdash; campos do seu Roadmap</li>
+          <li>2-3 bullets sobre o que a solucao vai fazer</li>
+          <li>Visual: mockup, diagrama de fluxo ou icones</li>
         </ul>
-        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Se fizer demo ao vivo, o slide e o pano de fundo. Fale, nao leia.</p>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Voce ainda nao construiu a solucao &mdash; o slide apresenta a proposta. Seja especifico sobre o que ela vai resolver.</p>
       </div>
 
       <!-- Slide 6 -->
       <div class="overview-card" style="border-left:4px solid #1A7A44;">
-        <h3>Slide 6 &mdash; Resultados Esperados (2:15&ndash;2:45)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>2 ou 3 metricas em destaque: numeros grandes com label abaixo</li>
-          <li>Ex: "20h/mes economizadas", "0 erros de consolidacao", "2min vs 4h"</li>
-          <li>1 linha com a premissa do calculo</li>
+        <h3>Slide 6 &mdash; Resultados Esperados (2:15 &ndash; 2:45)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>2 ou 3 metricas em destaque: numeros grandes com label</li>
+          <li>Use a secao &ldquo;Resultados Esperados&rdquo; do seu Roadmap</li>
+          <li>Ex: &ldquo;70% do tempo liberado&rdquo;, &ldquo;Custo operacional -50%&rdquo;</li>
+          <li>1 linha com a premissa</li>
         </ul>
-        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">"Muito tempo" nao convence. "20 horas por mes" convence.</p>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">&ldquo;Muito tempo economizado&rdquo; nao convence. &ldquo;70% do tempo liberado para decisoes estrategicas&rdquo; convence.</p>
       </div>
 
       <!-- Slide 7 -->
       <div class="overview-card" style="border-left:4px solid var(--text);">
-        <h3>Slide 7 &mdash; Fechamento (2:45&ndash;3:00)</h3>
-        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
-          <li>1 frase central em destaque &mdash; a ideia que deve ficar na memoria</li>
+        <h3>Slide 7 &mdash; Fechamento (2:45 &ndash; 3:00)</h3>
+        <ul style="font-size:0.76rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>1 frase central em destaque</li>
+          <li>Proximo passo: o que voce vai construir com Lovable e vibe coding</li>
           <li>Seu nome e contato (opcional)</li>
-          <li>Visual limpo, fundo escuro como a capa &mdash; simetria visual.</li>
         </ul>
-        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">O ultimo slide precisa ter a mesma forca visual do primeiro.</p>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">O fechamento conecta o diagnostico ao futuro: &ldquo;Identifiquei o problema. Tenho a proposta. Agora vou construir.&rdquo;</p>
       </div>
 
       <div class="nav-buttons">
         <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
-        <a class="nav-btn primary" onclick="showSection('step2')">Variaveis &#8594;</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">Variaveis do Roadmap &#8594;</a>
       </div>
     </div>
 
-<!-- ===== STEP 2: Preencha as Variaveis ===== -->
+<!-- ===== STEP 2: Extraia as Variaveis ===== -->
     <div class="section" id="sec-step2">
-      <h1 class="sec-title"><span class="snum">02.</span> Preencha as Suas Variaveis</h1>
-      <p class="sec-desc">Tenha todas as informacoes em maos antes de usar o prompt.</p>
+      <h1 class="sec-title"><span class="snum">02.</span> Extraia as Variaveis do seu Roadmap</h1>
+      <p class="sec-desc">Abra o PDF do Roadmap de AI gerado no workshop. Todas as informacoes ja estao la.</p>
 
-      <div class="tip-box">
-        <div class="tip-label">Dica</div>
-        <p>Se alguma informacao voce ainda nao tiver (como o numero exato de horas economizadas), faca uma estimativa com base no que voce sabe. Uma projecao bem explicada e tao valida quanto um dado real.</p>
+      <div class="overview-card">
+        <p>O PDF do seu Roadmap tem 3 secoes principais:</p>
+        <div style="display:flex; flex-direction:column; gap:6px; margin:10px 0 0;">
+          <p style="margin:0; font-size:0.76rem;"><strong>01 &mdash; Mapeamento de Oportunidades</strong> (onde estao as oportunidades e prioridades)</p>
+          <p style="margin:0; font-size:0.76rem;"><strong>02 &mdash; Definicao da Solucao</strong> (problema, proposta de valor, validacao, metrica)</p>
+          <p style="margin:0; font-size:0.76rem;"><strong>03 &mdash; Definicao da Automacao</strong> (o que automatizar e os resultados esperados)</p>
+        </div>
+        <p style="font-size:0.72rem; color:var(--text3); margin-top:10px;">Cada variavel abaixo indica de qual secao do PDF voce vai extrair a informacao.</p>
       </div>
 
       <!-- Identidade -->
-      <div class="overview-card" style="margin-top:14px;">
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
         <h3>Identidade</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Nome do aluno]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Empresa]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Area ou departamento]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Tema da apresentacao]</span> &mdash; ex: "Automacao de relatorios mensais com AI"</div>
+        <div class="instructions" style="margin-bottom:0; margin-top:8px;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Nome do aluno</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Empresa</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Area ou departamento</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Tema da apresentacao</span> &mdash; ex: &ldquo;Automacao do Chief of Staff com AI&rdquo;</div>
+          </div>
         </div>
       </div>
 
       <!-- Hook -->
-      <div class="overview-card">
-        <h3>Hook &mdash; a abertura (Slides 1 e 2)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase-gancho de abertura]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Dado principal de impacto]</span> &mdash; ex: "12h / semana"</div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Contexto do numero]</span> &mdash; ex: "gastas pelo time de operacoes consolidando relatorios"</div>
+      <div class="overview-card" style="border-left:4px solid var(--red);">
+        <h3>Hook &mdash; abertura (Slides 1 e 2)</h3>
+        <p style="font-size:0.66rem; color:var(--text3); font-weight:500; margin-bottom:8px;">PDF &rarr; Secao 02 &mdash; Definicao da Solucao &rarr; campo &ldquo;Problema&rdquo; e &ldquo;Metrica&rdquo;</p>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Frase-gancho de abertura</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Dado principal de impacto &mdash; o numero grande</span> &mdash; ex: &ldquo;15h / semana&rdquo;</div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Contexto do numero</span> &mdash; ex: &ldquo;do C-level gastas em tarefas operacionais que travam decisoes estrategicas&rdquo;</div>
+          </div>
         </div>
       </div>
 
       <!-- Mapeamento -->
-      <div class="overview-card">
+      <div class="overview-card" style="border-left:4px solid #5E4EA6;">
         <h3>Mapeamento de oportunidades (Slide 3)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Lista de oportunidades mapeadas &mdash; 3 a 5 itens]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Oportunidade escolhida como prioridade]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Criterio de priorizacao]</span></div>
+        <p style="font-size:0.66rem; color:var(--text3); font-weight:500; margin-bottom:8px;">PDF &rarr; Secao 01 &mdash; Mapeamento de Oportunidades</p>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Lista de oportunidades mapeadas &mdash; 3 a 5 itens do seu Roadmap</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Oportunidade escolhida como prioridade</span> &mdash; copie o item marcado como &ldquo;Prioridade&rdquo; no seu PDF</div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Criterio de priorizacao</span></div>
+          </div>
         </div>
       </div>
 
       <!-- Problema -->
-      <div class="overview-card">
+      <div class="overview-card" style="border-left:4px solid var(--yellow);">
         <h3>O problema (Slide 4)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Problema principal &mdash; 1 frase direta]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Descricao do problema &mdash; 2 a 3 linhas]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Dados de impacto adicionais &mdash; tempo, custo, frequencia, erros]</span></div>
+        <p style="font-size:0.66rem; color:var(--text3); font-weight:500; margin-bottom:8px;">PDF &rarr; Secao 02 &mdash; Definicao da Solucao &rarr; campo &ldquo;Problema&rdquo;</p>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Problema principal &mdash; 1 frase direta</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Descricao completa do problema &mdash; use o campo &ldquo;Problema&rdquo; do seu PDF</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Dados de impacto &mdash; use o campo &ldquo;Metrica&rdquo; do seu PDF</span></div>
+          </div>
         </div>
       </div>
 
       <!-- Solucao -->
-      <div class="overview-card">
-        <h3>A solucao (Slide 5)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Nome da solucao]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase de posicionamento]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Descricao do que a solucao faz &mdash; 2 a 3 bullets curtos]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Link ou descricao do print da solucao no Lovable]</span></div>
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3>A solucao proposta (Slide 5)</h3>
+        <p style="font-size:0.66rem; color:var(--text3); font-weight:500; margin-bottom:8px;">PDF &rarr; Secao 02 &ldquo;Proposta de Valor&rdquo; e &ldquo;Validacao&rdquo; + Secao 03 &ldquo;O que Automatizar&rdquo;</p>
+        <div class="warning-box" style="margin-top:4px;">
+          <div class="warning-label">Importante</div>
+          <p>Voce ainda nao construiu esta solucao &mdash; e tudo bem. O pitch apresenta a proposta com clareza: o que vai ser construido, para quem e por que faz sentido.</p>
+        </div>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Nome da solucao</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Frase de posicionamento</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Proposta de valor &mdash; use o campo &ldquo;Proposta de Valor&rdquo; do seu PDF</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">O que a solucao vai automatizar &mdash; use o campo &ldquo;O que Automatizar&rdquo; do seu PDF</span></div>
+          </div>
         </div>
       </div>
 
       <!-- Resultados -->
-      <div class="overview-card">
+      <div class="overview-card" style="border-left:4px solid #1A7A44;">
         <h3>Resultados esperados (Slide 6)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 1 &mdash; numero + descricao]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 2 &mdash; numero + descricao]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 3 &mdash; numero + descricao (opcional)]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Premissa dos resultados]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase de impacto estrategico (opcional)]</span></div>
+        <p style="font-size:0.66rem; color:var(--text3); font-weight:500; margin-bottom:8px;">PDF &rarr; Secao 03 &mdash; campo &ldquo;Resultados Esperados&rdquo;</p>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Metrica 1 &mdash; numero + descricao</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Metrica 2 &mdash; numero + descricao</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Metrica 3 &mdash; numero + descricao (se houver)</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Premissa dos resultados</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Frase de impacto estrategico</span></div>
+          </div>
         </div>
       </div>
 
       <!-- Fechamento -->
-      <div class="overview-card">
+      <div class="overview-card" style="border-left:4px solid var(--text);">
         <h3>Fechamento (Slide 7)</h3>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase final de fechamento]</span></div>
-          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Contato ou informacao adicional (opcional)]</span></div>
+        <div class="tip-box" style="margin-top:4px;">
+          <div class="tip-label">Dica</div>
+          <p>O fechamento deve conectar o que voce diagnosticou com o que voce vai construir. Encerre com o proximo passo concreto: voce vai usar Lovable para criar esta solucao.</p>
+        </div>
+        <div class="instructions" style="margin-bottom:0;">
+          <div class="inst">
+            <div class="inst-text"><span class="field">Frase final de fechamento</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Proximo passo &mdash; o que voce vai construir com Lovable</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-text"><span class="field">Seu nome e contato &mdash; opcional</span></div>
+          </div>
         </div>
       </div>
 
       <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Estrutura</a>
         <a class="nav-btn primary" onclick="showSection('step3')">Gerar no Manus AI &#8594;</a>
       </div>
     </div>
@@ -997,36 +1019,37 @@
 <!-- ===== STEP 3: Gerar no Manus AI ===== -->
     <div class="section" id="sec-step3">
       <h1 class="sec-title"><span class="snum">03.</span> Gere a Apresentacao no Manus AI</h1>
-      <p class="sec-desc">3 passos para transformar suas variaveis em slides prontos.</p>
+      <p class="sec-desc">3 passos para transformar seu Roadmap em slides prontos.</p>
 
       <div class="instructions">
         <div class="inst">
           <div class="inst-num">1</div>
-          <div class="inst-text">Acesse o Manus AI em <strong>manus.im</strong> &mdash; faca login com sua conta Google</div>
+          <div class="inst-text">Acesse o <strong>Manus AI</strong> em <a href="https://manus.im" target="_blank" style="color:var(--accent); font-weight:600;">manus.im</a> &mdash; entre com a sua conta Google</div>
         </div>
         <div class="inst">
           <div class="inst-num">2</div>
-          <div class="inst-text">Copie o prompt completo abaixo e cole no Manus AI</div>
+          <div class="inst-text">Copie o <strong>prompt completo</strong> abaixo, substitua as variaveis e cole no Manus AI</div>
         </div>
         <div class="inst">
           <div class="inst-num">3</div>
-          <div class="inst-text">Substitua cada <span class="field">[variavel entre colchetes]</span> pelas suas informacoes reais antes de enviar</div>
+          <div class="inst-text">Revise a apresentacao gerada e <strong>exporte em PowerPoint ou PDF</strong></div>
         </div>
       </div>
 
       <div class="warning-box">
         <div class="warning-label">Atencao</div>
-        <p>Nao envie o prompt antes de substituir TODAS as variaveis. As variaveis sao os campos que voce preencheu na Parte 2.</p>
+        <p>Copie o bloco abaixo completo. Antes de apertar Enter, substitua cada <span class="field">[variavel entre colchetes]</span> pela informacao que voce preencheu na Parte 2.</p>
       </div>
 
-      <div class="copy-block" id="prompt-manus" style="font-size:0.66rem;">
+      <div class="copy-block" id="prompt-pitch" style="font-size:0.66rem;">
         <span class="label">PROMPT COMPLETO PARA O MANUS AI</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-manus-text').textContent)">Copiar</button>
-        <span id="prompt-manus-text">Voce e um sistema especializado em criacao de apresentacoes executivas de alto impacto.
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pitch-text').textContent)">Copiar</button>
+        <span id="prompt-pitch-text">Voce e um sistema especializado em criacao de apresentacoes executivas de alto impacto.
 Seu objetivo e gerar uma apresentacao de 7 slides para um pitch de 3 minutos,
-seguindo rigorosamente a estrutura, o tempo e o estilo definidos abaixo.
-
-Antes de comecar, leia e utilize as variaveis fornecidas:
+baseada em um Roadmap de AI desenvolvido durante um curso de inovacao.
+O apresentador mapeou oportunidades de AI na sua empresa e selecionou uma
+oportunidade prioritaria para propor como solucao a ser construida com vibe coding.
+Nao existe um produto pronto — o pitch apresenta a proposta e o impacto esperado.
 
 ## VARIAVEIS
 [Nome do aluno]:
@@ -1034,56 +1057,63 @@ Antes de comecar, leia e utilize as variaveis fornecidas:
 [Area/departamento]:
 [Tema da apresentacao]:
 [Frase-gancho de abertura]:
-[Problema principal (1 frase)]:
 [Dado principal de impacto (numero grande)]:
 [Contexto do numero]:
 [Lista de oportunidades mapeadas (3 a 5 itens)]:
-[Oportunidade escolhida]:
+[Oportunidade escolhida como prioridade]:
 [Criterio de priorizacao]:
-[Descricao do problema (2-3 linhas)]:
-[Dados de impacto adicionais (tempo, custo, erros etc.)]:
+[Problema principal (1 frase)]:
+[Descricao completa do problema]:
+[Dados de impacto (metricas do Roadmap)]:
 [Nome da solucao]:
 [Frase de posicionamento da solucao]:
-[Descricao do que a solucao faz (2-3 bullets curtos)]:
-[Link ou descricao do print da solucao]:
+[Proposta de valor]:
+[O que a solucao vai automatizar]:
 [Metrica 1 — numero + descricao]:
 [Metrica 2 — numero + descricao]:
 [Metrica 3 — numero + descricao (opcional)]:
 [Premissa dos resultados]:
 [Frase de impacto estrategico (opcional)]:
 [Frase final de fechamento]:
+[Proximo passo — o que sera construido com Lovable]:
 [Contato ou informacao adicional (opcional)]:
 
-## ESTRUTURA DOS SLIDES
+## ESTRUTURA DOS 7 SLIDES
 
 # Slide 1 — Capa
-Nome do aluno | Empresa | Frase-gancho | Layout minimalista
+Nome do aluno | Empresa | Area | Frase-gancho | Layout minimalista e limpo
 
 # Slide 2 — O Problema (numero)
 Numero grande centralizado | 1 linha de contexto | Fundo escuro | Sem bullets
 
 # Slide 3 — Mapa de Oportunidades
-Titulo com empresa/area | 3-5 oportunidades | Destacar a escolhida | Criterio de priorizacao
+Titulo com empresa/area | 3-5 oportunidades listadas | Oportunidade escolhida em destaque
+Criterio de priorizacao indicado brevemente
 
 # Slide 4 — Problema Detalhado
-Titulo com o problema | 2-3 linhas descritivas | Dados de impacto destacados
+Titulo com o problema em 1 frase | Layout 2 colunas: descricao + dados de impacto
+Usar os dados da metrica do Roadmap
 
-# Slide 5 — A Solucao
-Nome + posicionamento | Espaco para print | 2-3 bullets do que faz
+# Slide 5 — A Solucao Proposta
+Nome da solucao + frase de posicionamento | Proposta de valor em destaque
+O que a solucao vai automatizar — 2 a 3 bullets diretos
+Visual sugerido: diagrama de fluxo, mockup ou icones (sem print de produto)
 
 # Slide 6 — Resultados Esperados
-2-3 metricas com numeros grandes | Premissa dos calculos | Frase estrategica
+2-3 metricas com numeros grandes | Premissa dos calculos | Frase de impacto estrategico
 
 # Slide 7 — Fechamento
-Frase final forte | Nome + contato | Visual limpo e simetrico com a capa
+Frase final forte | Proximo passo (construir com Lovable) | Nome + contato
+Visual limpo e simetrico com a capa
 
 ## REGRAS
 - NAO exceder 3 linhas por bloco de texto
 - NAO transformar slides em texto corrido
 - 1 ideia principal por slide
-- Usar numeros grandes e destaque visual nos dados
+- Usar numeros grandes nos dados — sem adjetivos vagos
 - Linguagem clara, objetiva e orientada a negocio
-- Evitar jargoes tecnicos
+- Evitar jargoes tecnicos desnecessarios
+- No Slide 5, NAO incluir print de produto — a solucao ainda nao foi construida
 
 ## FINALIZACAO
 Ao terminar, apresente os 7 slides completos e pergunte:
@@ -1092,83 +1122,68 @@ A) Mais impacto  B) Mais objetividade  C) Mais detalhamento
 D) Ajustar linguagem  E) Outro"</span>
       </div>
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step4')">Revisar e Exportar &#8594;</a>
-      </div>
-    </div>
-
-<!-- ===== STEP 4: Revisar e Exportar ===== -->
-    <div class="section" id="sec-step4">
-      <h1 class="sec-title"><span class="snum">04.</span> Revise e Exporte</h1>
-      <p class="sec-desc">Ajuste o que precisar e baixe o arquivo final.</p>
-
-      <div class="overview-card">
-        <p>Depois que o Manus AI gerar a apresentacao, revise cada slide. Se quiser ajustar algo, responda com a opcao indicada ou descreva o que mudar. Quando estiver satisfeito, exporte em formato PowerPoint ou PDF.</p>
-      </div>
-
       <div class="tip-box">
         <div class="tip-label">Dica</div>
-        <p>Se o Manus AI deixar alguma variavel sem preencher ou gerar texto generico, basta pedir: "Preencha [variavel] com [a sua informacao]". Ele ajusta slide por slide.</p>
+        <p>Se o Manus deixar algum campo generico ou vago, basta pedir: &ldquo;Preencha o slide X com [a informacao correta]&rdquo;. Ele ajusta slide por slide.</p>
       </div>
 
       <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step5')">Checklist Final &#8594;</a>
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Variaveis</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Checklist Final &#8594;</a>
       </div>
     </div>
 
-<!-- ===== STEP 5: Checklist Final ===== -->
-    <div class="section" id="sec-step5">
-      <h1 class="sec-title"><span class="snum">05.</span> Checklist &mdash; Antes de Apresentar</h1>
+<!-- ===== STEP 4: Checklist Final ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> Checklist &mdash; Antes de Apresentar</h1>
       <p class="sec-desc">Confirme que tudo esta pronto antes da Pitch Session.</p>
 
       <div class="instructions">
         <div class="inst">
           <div class="inst-num">1</div>
-          <div class="inst-text">Preenchi todas as variaveis com informacoes reais da minha empresa.</div>
+          <div class="inst-text">Abri o PDF do meu Roadmap de AI e usei as informacoes das secoes 01, 02 e 03.</div>
         </div>
         <div class="inst">
           <div class="inst-num">2</div>
-          <div class="inst-text">O hook abre com um dado ou pergunta concreta &mdash; nao com "Ola, me chamo...".</div>
+          <div class="inst-text">O hook abre com um <strong>dado concreto</strong> &mdash; nao com &ldquo;Ola, me chamo...&rdquo;.</div>
         </div>
         <div class="inst">
           <div class="inst-num">3</div>
-          <div class="inst-text">O mapa de oportunidades mostra pelo menos 3 opcoes e o criterio de priorizacao.</div>
+          <div class="inst-text">O mapa de oportunidades mostra pelo menos <strong>3 opcoes</strong> e a que foi priorizada.</div>
         </div>
         <div class="inst">
           <div class="inst-num">4</div>
-          <div class="inst-text">O problema esta descrito com pelo menos 1 numero concreto.</div>
+          <div class="inst-text">O problema tem pelo menos <strong>1 numero concreto</strong> extraido do Roadmap.</div>
         </div>
         <div class="inst">
           <div class="inst-num">5</div>
-          <div class="inst-text">A solucao foi demonstrada com print de tela ou demo ao vivo.</div>
+          <div class="inst-text">O slide da solucao apresenta a proposta com clareza &mdash; <strong>sem print de produto</strong>.</div>
         </div>
         <div class="inst">
           <div class="inst-num">6</div>
-          <div class="inst-text">Os resultados tem numeros e uma premissa clara (nao so adjetivos).</div>
+          <div class="inst-text">Os resultados usam as metricas do campo &ldquo;Resultados Esperados&rdquo; do Roadmap.</div>
         </div>
         <div class="inst">
           <div class="inst-num">7</div>
-          <div class="inst-text">O fechamento termina com uma frase forte &mdash; nao com "e isso".</div>
+          <div class="inst-text">O fechamento termina com a frase forte e o proximo passo (construir com Lovable).</div>
         </div>
         <div class="inst">
           <div class="inst-num">8</div>
-          <div class="inst-text">O pitch foi cronometrado e cabe em 3 minutos sem correria.</div>
+          <div class="inst-text">O pitch foi cronometrado e <strong>cabe em 3 minutos</strong> sem correria.</div>
         </div>
         <div class="inst">
           <div class="inst-num">9</div>
-          <div class="inst-text">Ensaiei em voz alta pelo menos 2 vezes antes de subir.</div>
+          <div class="inst-text">Ensaiei em voz alta <strong>pelo menos 2 vezes</strong> antes de subir.</div>
         </div>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Agora e com voce</div>
-        <p>Voce mapeou as oportunidades, identificou o problema, construiu a solucao. O pitch e so o momento de mostrar o que voce ja fez.</p>
+        <div class="tip-label">Lembrete</div>
+        <p>O diagnostico esta feito. Agora e hora de apresentar. Voce mapeou as oportunidades, identificou o problema e definiu a proposta de solucao. O pitch e o momento de mostrar esse raciocinio &mdash; e de anunciar o que voce vai construir.</p>
       </div>
 
       <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Manus AI</a>
         <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
       </div>
     </div>
@@ -1184,10 +1199,9 @@ const stepToFlow = {
   step1:'estrutura',
   step2:'variaveis',
   step3:'manus',
-  step4:'revisar',
-  step5:'checklist'
+  step4:'checklist'
 };
-const flowOrder = ['home','estrutura','variaveis','manus','revisar','checklist'];
+const flowOrder = ['home','estrutura','variaveis','manus','checklist'];
 
 const visited = new Set(['home']);
 const completedFlows = new Set();
@@ -1236,9 +1250,9 @@ function showSection(id) {
 }
 
 function updateProgress() {
-  const total = 5;
+  const total = 4;
   let count = 0;
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 4; i++) {
     if (visited.has('step' + i)) count++;
   }
   document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
