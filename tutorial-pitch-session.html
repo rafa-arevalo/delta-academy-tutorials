@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Roteiro Pitch Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F9FAFB;
+    --white: #ffffff;
+    --accent: #57674E;
+    --accent2: #475840;
+    --accent-light: #EEF1EB;
+    --accent-lighter: #F5F7F3;
+    --accent-border: #C8D1C0;
+    --accent-text: #3D4A36;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #D97706;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 450;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block */
+  .copy-block {
+    position: relative;
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Visao Geral ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .class-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .class-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .class-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 0.72rem;
+  }
+
+  .class-table tr:last-child td { border-bottom: none; }
+
+  .tag-green { color: var(--green); font-weight: 600; }
+  .tag-yellow { color: var(--yellow); font-weight: 600; }
+  .tag-orange { color: var(--orange); font-weight: 600; }
+  .tag-red { color: var(--red); font-weight: 600; }
+
+  .resource-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .res-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
+
+  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
+  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); }
+  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+
+  /* Ref table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .ref-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 12px;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+
+  /* Pipeline table */
+  .pipeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.74rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .pipeline-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pipeline-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+
+  .pipeline-table tr:last-child td { border-bottom: none; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .resource-row { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Inicio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="estrutura" onclick="showSection('step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Estrutura</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="variaveis" onclick="showSection('step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Variaveis</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="manus" onclick="showSection('step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Manus AI</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="revisar" onclick="showSection('step4')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Revisar</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="checklist" onclick="showSection('step5')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Checklist</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Roteiro Pitch Session</h2>
+      <p>Como montar o seu pitch com Manus AI</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">INICIO</div>
+        <a class="nav-item active" data-section="home" onclick="showSection('home')">
+          <span class="ni-num">~</span> Visao Geral
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">CONTEUDO</div>
+        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
+          <span class="ni-num">01</span> Estrutura do Pitch
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+          <span class="ni-num">02</span> Preencha as Variaveis
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">PRATICA</div>
+        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
+          <span class="ni-num">03</span> Gerar no Manus AI
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Revisar e Exportar
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ENTREGA</div>
+        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
+          <span class="ni-num">05</span> Checklist Final
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso</div>
+      <div class="sp-bar">
+        <div class="sp-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 5</div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+<!-- ===== HOME ===== -->
+    <div class="section active" id="sec-home">
+      <h1 class="sec-title">Roteiro Pitch Session</h1>
+      <p class="sec-desc">Como montar o seu pitch com Manus AI &mdash; Delta Academy</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Decisao Central</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Voce mapeou as oportunidades, identificou o problema, construiu a solucao. O pitch e so o momento de mostrar o que voce ja fez.</p>
+      </div>
+
+      <div class="overview-card">
+        <p>Voce esta prestes a montar a sua apresentacao de pitch para a Pitch Session do Delta Board. Nao precisa saber design nem PowerPoint &mdash; o Manus AI vai fazer tudo por voce.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Este guia tem 3 etapas simples:</h3>
+        <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0 0;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">1</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Entenda a estrutura do seu pitch</strong> (o que vai em cada momento da apresentacao)</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">2</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Preencha as variaveis</strong> com as informacoes da sua solucao</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">3</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Cole o prompt completo no Manus AI</strong> e gere a sua apresentacao</p>
+          </div>
+        </div>
+        <p style="font-size:0.68rem; color:var(--text3); margin-top:14px;">Tempo estimado: 30 a 45 minutos.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Navegacao Rapida</h3>
+        <div class="resource-row">
+          <div class="res-card" onclick="showSection('step1')">
+            <div class="rc-icon">&#128218;</div>
+            <div class="rc-title">Estrutura do Pitch</div>
+            <div class="rc-desc">7 slides, 3 minutos. Entenda cada momento.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step2')">
+            <div class="rc-icon">&#9999;&#65039;</div>
+            <div class="rc-title">Variaveis</div>
+            <div class="rc-desc">Preencha os campos antes de usar o prompt.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step3')">
+            <div class="rc-icon">&#128640;</div>
+            <div class="rc-title">Gerar no Manus</div>
+            <div class="rc-desc">Cole o prompt e gere seus slides.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <div></div>
+        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 1: Estrutura do Pitch ===== -->
+    <div class="section" id="sec-step1">
+      <h1 class="sec-title"><span class="snum">01.</span> Entenda a Estrutura do Pitch</h1>
+      <p class="sec-desc">3 minutos, 7 slides. Cada um com funcao clara.</p>
+
+      <div class="overview-card">
+        <p>Antes de preencher qualquer campo, entenda o que precisa acontecer em cada momento da apresentacao.</p>
+      </div>
+
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>Slide</th>
+            <th>Nome</th>
+            <th>Tempo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>Capa</td><td>0:00</td></tr>
+          <tr><td><strong>2</strong></td><td>Problema</td><td>0:00 &ndash; 0:20</td></tr>
+          <tr><td><strong>3</strong></td><td>Oportunidades</td><td>0:20 &ndash; 0:55</td></tr>
+          <tr><td><strong>4</strong></td><td>Problema detalhado</td><td>0:55 &ndash; 1:20</td></tr>
+          <tr><td><strong>5</strong></td><td>Solucao</td><td>1:20 &ndash; 2:15</td></tr>
+          <tr><td><strong>6</strong></td><td>Resultados</td><td>2:15 &ndash; 2:45</td></tr>
+          <tr><td><strong>7</strong></td><td>Fechamento</td><td>2:45 &ndash; 3:00</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Slide 1 -->
+      <div class="overview-card" style="border-left:4px solid var(--text); margin-top:18px;">
+        <h3>Slide 1 &mdash; Capa (0:00)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Seu nome e empresa</li>
+          <li>A frase-gancho &mdash; a mesma pergunta ou dado que voce vai falar para abrir</li>
+          <li>Layout limpo. O slide nao deve ter texto corrido.</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">A frase-gancho e falada, nao lida. O slide so ancora quem esta na sala.</p>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="overview-card" style="border-left:4px solid var(--red);">
+        <h3>Slide 2 &mdash; O Problema (0:00&ndash;0:20)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>1 numero grande e em destaque (ex: "12h / semana")</li>
+          <li>1 linha de contexto abaixo do numero</li>
+          <li>Fundo escuro, numero centralizado e bem grande. Sem bullets.</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">O numero deve ser o unico elemento que a audiencia precisa ler.</p>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="overview-card" style="border-left:4px solid #5E4EA6;">
+        <h3>Slide 3 &mdash; Mapa de Oportunidades (0:20&ndash;0:55)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Titulo: "Onde AI pode ajudar na [sua empresa/area]"</li>
+          <li>3 a 5 oportunidades que voce identificou</li>
+          <li>A oportunidade escolhida em destaque visual</li>
+          <li>Criterio de priorizacao indicado brevemente</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Mostrar o mapa prova que houve diagnostico, nao achismo.</p>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="overview-card" style="border-left:4px solid var(--yellow);">
+        <h3>Slide 4 &mdash; Problema Detalhado (0:55&ndash;1:20)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Titulo: o problema em uma frase curta e direta</li>
+          <li>Layout duas colunas: esquerda com descricao, direita com dados de impacto</li>
+          <li>Use: horas perdidas, frequencia, custo, retrabalho</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Nao explique causas. Mostre o sintoma e o custo.</p>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3>Slide 5 &mdash; A Solucao (1:20&ndash;2:15)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>Nome da solucao + frase de posicionamento</li>
+          <li>Print de tela da solucao criada no Lovable &mdash; grande, pelo menos metade do slide</li>
+          <li>2-3 bullets curtissimos: o que ela faz (nao como funciona)</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">Se fizer demo ao vivo, o slide e o pano de fundo. Fale, nao leia.</p>
+      </div>
+
+      <!-- Slide 6 -->
+      <div class="overview-card" style="border-left:4px solid #1A7A44;">
+        <h3>Slide 6 &mdash; Resultados Esperados (2:15&ndash;2:45)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>2 ou 3 metricas em destaque: numeros grandes com label abaixo</li>
+          <li>Ex: "20h/mes economizadas", "0 erros de consolidacao", "2min vs 4h"</li>
+          <li>1 linha com a premissa do calculo</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">"Muito tempo" nao convence. "20 horas por mes" convence.</p>
+      </div>
+
+      <!-- Slide 7 -->
+      <div class="overview-card" style="border-left:4px solid var(--text);">
+        <h3>Slide 7 &mdash; Fechamento (2:45&ndash;3:00)</h3>
+        <ul style="font-size:0.74rem; color:var(--text2); line-height:1.6; padding-left:18px; margin-top:6px;">
+          <li>1 frase central em destaque &mdash; a ideia que deve ficar na memoria</li>
+          <li>Seu nome e contato (opcional)</li>
+          <li>Visual limpo, fundo escuro como a capa &mdash; simetria visual.</li>
+        </ul>
+        <p style="font-size:0.72rem; color:var(--text3); font-style:italic; margin-top:8px;">O ultimo slide precisa ter a mesma forca visual do primeiro.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">Variaveis &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 2: Preencha as Variaveis ===== -->
+    <div class="section" id="sec-step2">
+      <h1 class="sec-title"><span class="snum">02.</span> Preencha as Suas Variaveis</h1>
+      <p class="sec-desc">Tenha todas as informacoes em maos antes de usar o prompt.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se alguma informacao voce ainda nao tiver (como o numero exato de horas economizadas), faca uma estimativa com base no que voce sabe. Uma projecao bem explicada e tao valida quanto um dado real.</p>
+      </div>
+
+      <!-- Identidade -->
+      <div class="overview-card" style="margin-top:14px;">
+        <h3>Identidade</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Nome do aluno]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Empresa]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Area ou departamento]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Tema da apresentacao]</span> &mdash; ex: "Automacao de relatorios mensais com AI"</div>
+        </div>
+      </div>
+
+      <!-- Hook -->
+      <div class="overview-card">
+        <h3>Hook &mdash; a abertura (Slides 1 e 2)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase-gancho de abertura]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Dado principal de impacto]</span> &mdash; ex: "12h / semana"</div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Contexto do numero]</span> &mdash; ex: "gastas pelo time de operacoes consolidando relatorios"</div>
+        </div>
+      </div>
+
+      <!-- Mapeamento -->
+      <div class="overview-card">
+        <h3>Mapeamento de oportunidades (Slide 3)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Lista de oportunidades mapeadas &mdash; 3 a 5 itens]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Oportunidade escolhida como prioridade]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Criterio de priorizacao]</span></div>
+        </div>
+      </div>
+
+      <!-- Problema -->
+      <div class="overview-card">
+        <h3>O problema (Slide 4)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Problema principal &mdash; 1 frase direta]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Descricao do problema &mdash; 2 a 3 linhas]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Dados de impacto adicionais &mdash; tempo, custo, frequencia, erros]</span></div>
+        </div>
+      </div>
+
+      <!-- Solucao -->
+      <div class="overview-card">
+        <h3>A solucao (Slide 5)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Nome da solucao]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase de posicionamento]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Descricao do que a solucao faz &mdash; 2 a 3 bullets curtos]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Link ou descricao do print da solucao no Lovable]</span></div>
+        </div>
+      </div>
+
+      <!-- Resultados -->
+      <div class="overview-card">
+        <h3>Resultados esperados (Slide 6)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 1 &mdash; numero + descricao]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 2 &mdash; numero + descricao]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Metrica 3 &mdash; numero + descricao (opcional)]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Premissa dos resultados]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase de impacto estrategico (opcional)]</span></div>
+        </div>
+      </div>
+
+      <!-- Fechamento -->
+      <div class="overview-card">
+        <h3>Fechamento (Slide 7)</h3>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Frase final de fechamento]</span></div>
+          <div style="font-size:0.74rem; color:var(--text2);"><span class="field">[Contato ou informacao adicional (opcional)]</span></div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step3')">Gerar no Manus AI &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 3: Gerar no Manus AI ===== -->
+    <div class="section" id="sec-step3">
+      <h1 class="sec-title"><span class="snum">03.</span> Gere a Apresentacao no Manus AI</h1>
+      <p class="sec-desc">3 passos para transformar suas variaveis em slides prontos.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse o Manus AI em <strong>manus.im</strong> &mdash; faca login com sua conta Google</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Copie o prompt completo abaixo e cole no Manus AI</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Substitua cada <span class="field">[variavel entre colchetes]</span> pelas suas informacoes reais antes de enviar</div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Atencao</div>
+        <p>Nao envie o prompt antes de substituir TODAS as variaveis. As variaveis sao os campos que voce preencheu na Parte 2.</p>
+      </div>
+
+      <div class="copy-block" id="prompt-manus" style="font-size:0.66rem;">
+        <span class="label">PROMPT COMPLETO PARA O MANUS AI</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-manus-text').textContent)">Copiar</button>
+        <span id="prompt-manus-text">Voce e um sistema especializado em criacao de apresentacoes executivas de alto impacto.
+Seu objetivo e gerar uma apresentacao de 7 slides para um pitch de 3 minutos,
+seguindo rigorosamente a estrutura, o tempo e o estilo definidos abaixo.
+
+Antes de comecar, leia e utilize as variaveis fornecidas:
+
+## VARIAVEIS
+[Nome do aluno]:
+[Empresa]:
+[Area/departamento]:
+[Tema da apresentacao]:
+[Frase-gancho de abertura]:
+[Problema principal (1 frase)]:
+[Dado principal de impacto (numero grande)]:
+[Contexto do numero]:
+[Lista de oportunidades mapeadas (3 a 5 itens)]:
+[Oportunidade escolhida]:
+[Criterio de priorizacao]:
+[Descricao do problema (2-3 linhas)]:
+[Dados de impacto adicionais (tempo, custo, erros etc.)]:
+[Nome da solucao]:
+[Frase de posicionamento da solucao]:
+[Descricao do que a solucao faz (2-3 bullets curtos)]:
+[Link ou descricao do print da solucao]:
+[Metrica 1 — numero + descricao]:
+[Metrica 2 — numero + descricao]:
+[Metrica 3 — numero + descricao (opcional)]:
+[Premissa dos resultados]:
+[Frase de impacto estrategico (opcional)]:
+[Frase final de fechamento]:
+[Contato ou informacao adicional (opcional)]:
+
+## ESTRUTURA DOS SLIDES
+
+# Slide 1 — Capa
+Nome do aluno | Empresa | Frase-gancho | Layout minimalista
+
+# Slide 2 — O Problema (numero)
+Numero grande centralizado | 1 linha de contexto | Fundo escuro | Sem bullets
+
+# Slide 3 — Mapa de Oportunidades
+Titulo com empresa/area | 3-5 oportunidades | Destacar a escolhida | Criterio de priorizacao
+
+# Slide 4 — Problema Detalhado
+Titulo com o problema | 2-3 linhas descritivas | Dados de impacto destacados
+
+# Slide 5 — A Solucao
+Nome + posicionamento | Espaco para print | 2-3 bullets do que faz
+
+# Slide 6 — Resultados Esperados
+2-3 metricas com numeros grandes | Premissa dos calculos | Frase estrategica
+
+# Slide 7 — Fechamento
+Frase final forte | Nome + contato | Visual limpo e simetrico com a capa
+
+## REGRAS
+- NAO exceder 3 linhas por bloco de texto
+- NAO transformar slides em texto corrido
+- 1 ideia principal por slide
+- Usar numeros grandes e destaque visual nos dados
+- Linguagem clara, objetiva e orientada a negocio
+- Evitar jargoes tecnicos
+
+## FINALIZACAO
+Ao terminar, apresente os 7 slides completos e pergunte:
+"Voce deseja alguma melhoria antes de finalizar?
+A) Mais impacto  B) Mais objetividade  C) Mais detalhamento
+D) Ajustar linguagem  E) Outro"</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Revisar e Exportar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 4: Revisar e Exportar ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> Revise e Exporte</h1>
+      <p class="sec-desc">Ajuste o que precisar e baixe o arquivo final.</p>
+
+      <div class="overview-card">
+        <p>Depois que o Manus AI gerar a apresentacao, revise cada slide. Se quiser ajustar algo, responda com a opcao indicada ou descreva o que mudar. Quando estiver satisfeito, exporte em formato PowerPoint ou PDF.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se o Manus AI deixar alguma variavel sem preencher ou gerar texto generico, basta pedir: "Preencha [variavel] com [a sua informacao]". Ele ajusta slide por slide.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step5')">Checklist Final &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 5: Checklist Final ===== -->
+    <div class="section" id="sec-step5">
+      <h1 class="sec-title"><span class="snum">05.</span> Checklist &mdash; Antes de Apresentar</h1>
+      <p class="sec-desc">Confirme que tudo esta pronto antes da Pitch Session.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Preenchi todas as variaveis com informacoes reais da minha empresa.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">O hook abre com um dado ou pergunta concreta &mdash; nao com "Ola, me chamo...".</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">O mapa de oportunidades mostra pelo menos 3 opcoes e o criterio de priorizacao.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text">O problema esta descrito com pelo menos 1 numero concreto.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">5</div>
+          <div class="inst-text">A solucao foi demonstrada com print de tela ou demo ao vivo.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">6</div>
+          <div class="inst-text">Os resultados tem numeros e uma premissa clara (nao so adjetivos).</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">7</div>
+          <div class="inst-text">O fechamento termina com uma frase forte &mdash; nao com "e isso".</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">8</div>
+          <div class="inst-text">O pitch foi cronometrado e cabe em 3 minutos sem correria.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">9</div>
+          <div class="inst-text">Ensaiei em voz alta pelo menos 2 vezes antes de subir.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Agora e com voce</div>
+        <p>Voce mapeou as oportunidades, identificou o problema, construiu a solucao. O pitch e so o momento de mostrar o que voce ja fez.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+// ========== STATE ==========
+const stepToFlow = {
+  home:'home',
+  step1:'estrutura',
+  step2:'variaveis',
+  step3:'manus',
+  step4:'revisar',
+  step5:'checklist'
+};
+const flowOrder = ['home','estrutura','variaveis','manus','revisar','checklist'];
+
+const visited = new Set(['home']);
+const completedFlows = new Set();
+
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+
+  visited.add(id);
+
+  // Mark previous flows as completed
+  const currentFlow = stepToFlow[id];
+  if (currentFlow) {
+    const currentIdx = flowOrder.indexOf(currentFlow);
+    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
+  }
+
+  // Update stepper
+  const stepperEl = document.getElementById('stepper');
+  if (stepperEl) {
+    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
+      const flow = node.dataset.flow;
+      node.classList.remove('active','completed','future');
+      if (flow === currentFlow) {
+        node.classList.add('active');
+      } else if (completedFlows.has(flow)) {
+        node.classList.add('completed');
+      } else {
+        node.classList.add('future');
+      }
+    });
+  }
+
+  // Update sidebar nav
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.remove('active');
+    if (visited.has(el.dataset.section)) el.classList.add('completed');
+  });
+  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
+
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress() {
+  const total = 5;
+  let count = 0;
+  for (let i = 1; i <= 5; i++) {
+    if (visited.has('step' + i)) count++;
+  }
+  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
+  document.getElementById('progress-text').textContent = count + ' / ' + total;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
