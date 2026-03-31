@@ -54,12 +54,18 @@ Siga esta estrutura **exatamente** — não invente componentes novos:
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Cole aqui o CSS completo — copie de tutorial-eng-prompt.html e adapte apenas as variáveis --accent se necessário */
+
+  /* Botão voltar para o índice — OBRIGATÓRIO em toda aula */
+  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s}
+  .back-btn:hover{color:var(--accent)}
+  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
 </style>
 </head>
 <body>
 
-<!-- STEPPER HEADER: uma bolinha por flow, separadas por setas -->
+<!-- STEPPER HEADER: botão voltar + bolinhas de progresso -->
 <div class="stepper-header">
+  <a class="back-btn" href="index.html"><span class="back-arrow">←</span>Índice</a>
   <div class="stepper-node active" onclick="showSection('sec-home')" id="sn-home">
     <span class="sn-check">✓</span>
     <span class="sn-label">Início</span>
