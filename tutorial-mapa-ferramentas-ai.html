@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Mapa de Ferramentas de AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F9FAFB;
+    --white: #ffffff;
+    --accent: #57674E;
+    --accent2: #475840;
+    --accent-light: #EEF1EB;
+    --accent-lighter: #F5F7F3;
+    --accent-border: #C8D1C0;
+    --accent-text: #3D4A36;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #D97706;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s}
+  .back-btn:hover{color:var(--accent)}
+  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 450;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block */
+  .copy-block {
+    position: relative;
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Visao Geral ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .resource-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .res-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
+
+  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
+  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); }
+  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+
+  /* Ref table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .ref-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 12px;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+
+  /* Category cards */
+  .cat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-xs);
+    border-left: 4px solid var(--accent);
+  }
+
+  .cat-card .cat-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+  }
+
+  .cat-card .cat-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    display: inline;
+  }
+
+  .cat-card .cat-trigger {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .cat-card .cat-tool {
+    display: inline-block;
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent-text);
+    margin-top: 8px;
+  }
+
+  /* Comparison cards */
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .comparison-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .comparison-card h4 {
+    font-size: 0.76rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .comparison-card .prompt-text {
+    font-size: 0.74rem;
+    color: var(--text);
+    line-height: 1.55;
+    font-style: italic;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    background: var(--surface2);
+    border-radius: 6px;
+  }
+
+  .comparison-card .explanation {
+    font-size: 0.7rem;
+    color: var(--text2);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* Demo card */
+  .demo-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .demo-card h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .demo-card .demo-subtitle {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .demo-card p {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  /* Capability list */
+  .capability-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .capability-tag {
+    display: inline-block;
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+
+  .tag-green { color: var(--green); font-weight: 600; }
+  .tag-yellow { color: var(--yellow); font-weight: 600; }
+  .tag-orange { color: var(--orange); font-weight: 600; }
+  .tag-red { color: var(--red); font-weight: 600; }
+
+  /* ========== RIGHT SIDEBAR ========== */
+  .right-sidebar {
+    border-left: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  .right-sidebar::-webkit-scrollbar { width: 3px; }
+  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .rs-section-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .rs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .rs-table th {
+    background: var(--surface2);
+    color: var(--text3);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rs-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .rs-table tr:last-child td { border-bottom: none; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .resource-row { grid-template-columns: 1fr; }
+    .comparison-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 1024px) {
+    .right-sidebar { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <a class="back-btn" href="index.html"><span class="back-arrow">&#8592;</span>Indice</a>
+  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Inicio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="abertura" onclick="showSection('step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Abertura</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="logica" onclick="showSection('step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Logica do Fit</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="categorias" onclick="showSection('step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">6 Categorias</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="demos1" onclick="showSection('step4')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Demos 1-3</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="demos2" onclick="showSection('step5')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Demos 4-6</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="mapa" onclick="showSection('step6')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Mapa</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pratica" onclick="showSection('step7')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pratica</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="entregavel" onclick="showSection('step8')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Entregavel</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Mapa de Ferramentas de AI</h2>
+      <p>A05 &mdash; Delta Skills</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">INICIO</div>
+        <a class="nav-item active" data-section="home" onclick="showSection('home')">
+          <span class="ni-num">~</span> Visao Geral
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">CONTEUDO</div>
+        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
+          <span class="ni-num">01</span> A Pergunta Errada
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+          <span class="ni-num">02</span> A Logica do Fit
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
+          <span class="ni-num">03</span> As 6 Categorias
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">DEMONSTRACOES</div>
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Pensar, Pesquisar, Aprender
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
+          <span class="ni-num">05</span> Criar, Automatizar, Construir
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
+          <span class="ni-num">06</span> Mapa Completo
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">PRATICA</div>
+        <a class="nav-item" data-section="step7" onclick="showSection('step7')">
+          <span class="ni-num">07</span> Mapeie sua Semana
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ENTREGAVEL</div>
+        <a class="nav-item" data-section="step8" onclick="showSection('step8')">
+          <span class="ni-num">08</span> Fechamento
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso</div>
+      <div class="sp-bar">
+        <div class="sp-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 8</div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+<!-- ===== HOME ===== -->
+    <div class="section active" id="sec-home">
+      <h1 class="sec-title">Mapa de Ferramentas de AI</h1>
+      <p class="sec-desc">O que usar e quando &mdash; Delta Skills 2026</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Decisao Central</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Nao existe a melhor ferramenta de AI. Existe a certa para cada trabalho. A pergunta certa e: melhor para que?</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai aprender</h3>
+        <p>Ao sair desta aula, voce sera capaz de:</p>
+        <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0 0;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">1</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Entender</strong> que nao existe a melhor ferramenta &mdash; existe a certa para cada trabalho.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">2</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Conhecer</strong> as 6 categorias do Mapa de Ferramentas e um exemplo pratico de cada uma.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">3</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Desenvolver</strong> o raciocinio de decidir o que delegar a AI e o que manter com o humano.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">4</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Avaliar</strong> se o resultado de uma ferramenta esta pronto para uso real.</p>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="min-width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0; margin-top:2px;">5</div>
+            <p style="margin:0; font-size:0.76rem;"><strong>Antecipar</strong> as ferramentas que aparecerao nas proximas aulas do ciclo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Informacoes da Aula</h3>
+        <table class="ref-table">
+          <tbody>
+            <tr><td><strong>Duracao</strong></td><td>120 minutos</td></tr>
+            <tr><td><strong>Bloco</strong></td><td>Bloco 0 &mdash; Letramento e Prompt Engineering</td></tr>
+            <tr><td><strong>Nivel</strong></td><td>&#916;1 &#8594; &#916;2</td></tr>
+            <tr><td><strong>Demos ao vivo</strong></td><td>6 categorias, 6 ferramentas</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <h3>Navegacao Rapida</h3>
+        <div class="resource-row">
+          <div class="res-card" onclick="showSection('step3')">
+            <div class="rc-icon">&#128506;</div>
+            <div class="rc-title">6 Categorias</div>
+            <div class="rc-desc">Mapa completo de ferramentas.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step4')">
+            <div class="rc-icon">&#127916;</div>
+            <div class="rc-title">Demos ao Vivo</div>
+            <div class="rc-desc">6 ferramentas em acao.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step7')">
+            <div class="rc-icon">&#128640;</div>
+            <div class="rc-title">Pratica</div>
+            <div class="rc-desc">Mapeie sua semana com AI.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <div></div>
+        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 1: Abertura ===== -->
+    <div class="section" id="sec-step1">
+      <h1 class="sec-title"><span class="snum">01.</span> A Pergunta que Todo Mundo Faz</h1>
+      <p class="sec-desc">Abertura &mdash; por que a pergunta esta errada</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--yellow);">
+        <h3>Pergunta no chat</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">"Qual e a melhor ferramenta de AI?"</p>
+        <p style="margin-top:8px;">O professor coleta 5 a 8 respostas dos alunos. Anota sem comentar.</p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">A virada</div>
+        <p>"Nenhuma dessas respostas esta errada. Mas nenhuma esta completa. Porque a pergunta em si esta errada."</p>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>A pergunta certa</h3>
+        <p style="font-size:0.88rem; font-weight:800; color:var(--accent); text-align:center; padding:12px 0;">"Melhor para que?"</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Mensagem-chave</div>
+        <p>Ser fluente em AI nao e saber usar o ChatGPT. E saber qual ferramenta acionar para cada trabalho, como pedir o que voce quer, e como julgar se o resultado presta.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">A Logica do Fit &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 2: A Logica do Fit ===== -->
+    <div class="section" id="sec-step2">
+      <h1 class="sec-title"><span class="snum">02.</span> A Logica do Fit</h1>
+      <p class="sec-desc">Por que nao existe a melhor ferramenta &mdash; e sim a certa para cada preparo</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>A analogia da cozinha</h3>
+        <p>Nao existe o melhor utensilio de cozinha. Existe o certo para cada preparo. Voce nao usa faca para mexer risoto. Nao usa colher de pau para cortar carne. Com AI e igual &mdash; e a aula de hoje entrega o mapa para tomar essa decisao.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A pergunta que precede qualquer ferramenta</div>
+        <p>"O que eu vou deixar para a AI fazer aqui? E o que eu preciso manter comigo?" &mdash; Essa decisao e o que separa quem usa AI de quem e usado por ela.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Regra de ouro: ferramentas combinam</h3>
+        <p>Uma tarefa pode usar mais de uma categoria. Exemplo completo:</p>
+        <div class="instructions" style="margin-top:10px;">
+          <div class="inst">
+            <div class="inst-num">1</div>
+            <div class="inst-text">Pesquisar no <strong>Perplexity</strong> &rarr; informacao atualizada com fonte</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">2</div>
+            <div class="inst-text">Levar o resultado para o <strong>Claude</strong> &rarr; raciocinar e rascunhar</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">3</div>
+            <div class="inst-text">Transformar em apresentacao no <strong>Gamma</strong> &rarr; criar o entregavel</div>
+          </div>
+        </div>
+        <p style="margin-top:8px; font-style:italic;">As ferramentas funcionam juntas, nao em competicao.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step3')">6 Categorias &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 3: As 6 Categorias ===== -->
+    <div class="section" id="sec-step3">
+      <h1 class="sec-title"><span class="snum">03.</span> As 6 Categorias do Mapa</h1>
+      <p class="sec-desc">Nome &rarr; pergunta-gatilho &rarr; ferramenta de referencia</p>
+
+      <div class="cat-card" style="border-left-color:#3B82F6;">
+        <span class="cat-num" style="background:#3B82F6;">1</span>
+        <span class="cat-name">Pensar</span>
+        <p class="cat-trigger">"Preciso de um interlocutor para raciocinar, rascunhar ou revisar algo"</p>
+        <span class="cat-tool">Claude, ChatGPT</span>
+      </div>
+
+      <div class="cat-card" style="border-left-color:#8B5CF6;">
+        <span class="cat-num" style="background:#8B5CF6;">2</span>
+        <span class="cat-name">Pesquisar</span>
+        <p class="cat-trigger">"Preciso de informacao atual com fonte confiavel"</p>
+        <span class="cat-tool">Perplexity</span>
+      </div>
+
+      <div class="cat-card" style="border-left-color:var(--green);">
+        <span class="cat-num" style="background:var(--green);">3</span>
+        <span class="cat-name">Aprender</span>
+        <p class="cat-trigger">"Preciso entender um documento, livro ou conteudo longo"</p>
+        <span class="cat-tool">NotebookLM</span>
+      </div>
+
+      <div class="cat-card" style="border-left-color:var(--orange);">
+        <span class="cat-num" style="background:var(--orange);">4</span>
+        <span class="cat-name">Criar</span>
+        <p class="cat-trigger">"Preciso produzir algo visual, escrito ou em audio"</p>
+        <span class="cat-tool">Gamma, ElevenLabs</span>
+      </div>
+
+      <div class="cat-card" style="border-left-color:var(--yellow);">
+        <span class="cat-num" style="background:var(--yellow);">5</span>
+        <span class="cat-name">Automatizar</span>
+        <p class="cat-trigger">"Preciso que isso aconteca sozinho, sem eu fazer manualmente"</p>
+        <span class="cat-tool">Make, Zapier, n8n</span>
+      </div>
+
+      <div class="cat-card" style="border-left-color:var(--red);">
+        <span class="cat-num" style="background:var(--red);">6</span>
+        <span class="cat-name">Construir</span>
+        <p class="cat-trigger">"Preciso criar uma ferramenta, app ou sistema"</p>
+        <span class="cat-tool">Lovable, Cursor</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota para o instrutor</div>
+        <p>Apresente cada categoria com a mesma sequencia: nome &rarr; pergunta-gatilho &rarr; ferramenta &rarr; exemplo de 10 segundos. Nao entre em detalhes tecnicos. O objetivo e reconhecimento, nao dominio.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Demos 1-3 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 4: Demos 1-3 ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> Demos: Pensar, Pesquisar, Aprender</h1>
+      <p class="sec-desc">3 demonstracoes ao vivo &mdash; 6 minutos cada</p>
+
+      <!-- Demo 1 -->
+      <div class="demo-card" style="border-left:4px solid #3B82F6;">
+        <div class="demo-subtitle">Demo 1 &mdash; Categoria Pensar (Claude)</div>
+        <h4>Preparar argumentos para reuniao dificil</h4>
+        <div class="copy-block" id="demo1-prompt">
+          <span class="label">PROMPT AO VIVO</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('demo1-text').textContent)">Copiar</button>
+          <span id="demo1-text">Tenho uma reuniao dificil amanha com um cliente insatisfeito com atraso na entrega. Me ajuda a preparar os principais argumentos e a estrutura da conversa. Tom: direto e empatico.</span>
+        </div>
+        <p><strong>O que mostrar:</strong> como o prompt estruturado &mdash; contexto + output esperado + tom &mdash; gera uma resposta util em segundos.</p>
+        <p style="margin-top:8px;"><strong>Perguntar a turma:</strong> "Esse resultado esta pronto para usar? O que voces mudariam antes de levar para a reuniao?"</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota do instrutor</div>
+        <p>"Repara que o pedido tem tres partes: o que e a situacao, o que eu quero como resultado, e como eu quero que seja. Prompt sem estrutura gera resposta sem estrutura."</p>
+      </div>
+
+      <!-- Demo 2 -->
+      <div class="demo-card" style="border-left:4px solid #8B5CF6;">
+        <div class="demo-subtitle">Demo 2 &mdash; Categoria Pesquisar (Perplexity)</div>
+        <h4>Tendencias de AI para RH em 2026</h4>
+        <div class="copy-block" id="demo2-prompt">
+          <span class="label">PROMPT AO VIVO</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('demo2-text').textContent)">Copiar</button>
+          <span id="demo2-text">Quais sao as principais tendencias de AI para o setor de RH em 2026? Quero fontes confiaveis e dados recentes.</span>
+        </div>
+        <p><strong>O que mostrar:</strong> como o Perplexity entrega fontes junto com a resposta. Comparar rapidamente com a mesma busca no Google.</p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Responsabilidade</div>
+        <p>"A AI deu a resposta. Mas quem garante que esta certo e voce, nao ela. Sempre que o resultado for para um lugar importante &mdash; reuniao, relatorio, e-mail para o CEO &mdash; voce verifica a fonte."</p>
+      </div>
+
+      <!-- Demo 3 -->
+      <div class="demo-card" style="border-left:4px solid var(--green);">
+        <div class="demo-subtitle">Demo 3 &mdash; Categoria Aprender (NotebookLM)</div>
+        <h4>Analisar documento longo</h4>
+        <div class="copy-block" id="demo3-prompt">
+          <span class="label">PROMPT AO VIVO</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('demo3-text').textContent)">Copiar</button>
+          <span id="demo3-text">Quais sao os 3 pontos mais importantes deste documento? O que o autor recomenda como proximos passos?</span>
+        </div>
+        <p><strong>Antes:</strong> subir um PDF de relatorio ou artigo. A ferramenta responde com base exclusivamente no documento enviado, sem inventar.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota do instrutor</div>
+        <p>"Essa ferramenta so sabe o que voce ensinou a ela. Isso e diferente do ChatGPT &mdash; e e uma vantagem enorme quando voce precisa de precisao. Caso de uso principal: contratos longos, relatorios internos, manuais tecnicos."</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step5')">Demos 4-6 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 5: Demos 4-6 ===== -->
+    <div class="section" id="sec-step5">
+      <h1 class="sec-title"><span class="snum">05.</span> Demos: Criar, Automatizar, Construir</h1>
+      <p class="sec-desc">3 demonstracoes ao vivo &mdash; 5 a 6 minutos cada</p>
+
+      <!-- Demo 4 -->
+      <div class="demo-card" style="border-left:4px solid var(--orange);">
+        <div class="demo-subtitle">Demo 4 &mdash; Categoria Criar (Gamma)</div>
+        <h4>Apresentacao em 60 segundos</h4>
+        <div class="copy-block" id="demo4-prompt">
+          <span class="label">PROMPT AO VIVO</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('demo4-text').textContent)">Copiar</button>
+          <span id="demo4-text">Crie uma apresentacao de 5 slides sobre os beneficios de AI para times de vendas. Publico: diretores comerciais. Tom: executivo e direto.</span>
+        </div>
+        <p><strong>O que mostrar:</strong> do prompt ao slide em menos de 60 segundos.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota do instrutor</div>
+        <p>"Em 60 segundos voce tem uma estrutura que levaria 40 minutos para montar do zero. O trabalho do humano comeca agora &mdash; editar, ajustar, colocar o dado real, tirar o que esta generico demais. A AI faz o trabalho pesado. Voce faz o trabalho de julgamento."</p>
+      </div>
+
+      <!-- Demo 5 -->
+      <div class="demo-card" style="border-left:4px solid var(--yellow);">
+        <div class="demo-subtitle">Demo 5 &mdash; Categoria Automatizar (Make ou Zapier)</div>
+        <h4>Automacao funcionando</h4>
+        <p><strong>O que mostrar:</strong> uma automacao ja construida e rodando &mdash; por exemplo: formulario recebe resposta &rarr; e-mail personalizado e enviado automaticamente.</p>
+        <p style="margin-top:6px;">Nao mostrar o processo de construcao. Mostrar o resultado funcionando.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota do instrutor</div>
+        <p>"Isso acontece sozinho, sem ninguem apertar nada. O humano configurou uma vez. A AI executa sempre. Essa categoria vai ser o foco inteiro do Bloco 2 do ciclo &mdash; por enquanto, so reconheca o padrao: se voce faz a mesma coisa mais de 3 vezes por semana, provavelmente da para automatizar."</p>
+      </div>
+
+      <!-- Demo 6 -->
+      <div class="demo-card" style="border-left:4px solid var(--red);">
+        <div class="demo-subtitle">Demo 6 &mdash; Categoria Construir (Lovable)</div>
+        <h4>App sem codigo</h4>
+        <p><strong>O que mostrar:</strong> um app simples ja construido &mdash; por exemplo, uma calculadora de ROI ou um formulario de diagnostico. Mostrar o resultado final e o prompt que gerou.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota do instrutor</div>
+        <p>"Isso foi construido sem uma linha de codigo. O professor descreveu o que queria, a AI construiu. O Bloco 4 do Delta Skills e inteiro dedicado a isso. Hoje voce so precisa saber que essa categoria existe e para que ela serve."</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step6')">Mapa Completo &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 6: Mapa Completo ===== -->
+    <div class="section" id="sec-step6">
+      <h1 class="sec-title"><span class="snum">06.</span> Mapa Completo + Visao do Ciclo</h1>
+      <p class="sec-desc">Todas as ferramentas do Delta Skills 2026 posicionadas no mapa</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Mapa de Ferramentas &mdash; Delta Skills 2026</h3>
+        <table class="ref-table">
+          <thead>
+            <tr><th>#</th><th>Categoria</th><th>Ferramentas</th><th>Bloco</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td>Pensar</td><td>Claude, ChatGPT</td><td>Bloco 0</td></tr>
+            <tr><td><strong>2</strong></td><td>Pesquisar</td><td>Perplexity</td><td>Bloco 0</td></tr>
+            <tr><td><strong>3</strong></td><td>Aprender</td><td>NotebookLM</td><td>Bloco 1</td></tr>
+            <tr><td><strong>4</strong></td><td>Criar</td><td>Gamma, ElevenLabs</td><td>Bloco 1</td></tr>
+            <tr><td><strong>5</strong></td><td>Automatizar</td><td>Make, Zapier, n8n</td><td>Bloco 2</td></tr>
+            <tr><td><strong>6</strong></td><td>Construir</td><td>Lovable, Cursor</td><td>Bloco 4</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Visao do ciclo</div>
+        <p>"Hoje voce aprendeu a logica. Ao longo do ano, voce vai aprender cada camada. Quando chegarmos em Agentes, voce ja vai saber onde esse bloco se encaixa no mapa. Voce nao esta perdido &mdash; esta num ponto especifico de uma trilha que ja tem destino."</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Onde estamos agora</h3>
+        <div class="instructions">
+          <div class="inst">
+            <div class="inst-num" style="background:var(--green);">&#10003;</div>
+            <div class="inst-text"><strong>Bloco 0</strong> &mdash; Letramento e Prompt Engineering (voce esta aqui)</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--text4);">2</div>
+            <div class="inst-text"><strong>Bloco 1</strong> &mdash; Ferramentas de Criacao e Aprendizado</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--text4);">3</div>
+            <div class="inst-text"><strong>Bloco 2</strong> &mdash; Automacao e Integracao</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--text4);">4</div>
+            <div class="inst-text"><strong>Bloco 3</strong> &mdash; Agentes e Workflows Avancados</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--text4);">5</div>
+            <div class="inst-text"><strong>Bloco 4</strong> &mdash; Construcao de Apps e Sistemas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step7')">Pratica &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 7: Pratica ===== -->
+    <div class="section" id="sec-step7">
+      <h1 class="sec-title"><span class="snum">07.</span> Pratica &mdash; Mapeie sua Semana</h1>
+      <p class="sec-desc">25 minutos &mdash; atividade individual com compartilhamento</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Instrucao</h3>
+        <p style="font-style:italic;">"Para cada tarefa, quero tres coisas: a categoria, a ferramenta, e o que voce ainda faria depois que a AI entregasse o resultado. Essa terceira parte e a mais importante."</p>
+      </div>
+
+      <div class="copy-block" id="template-pratica" style="font-size:0.66rem;">
+        <span class="label">TEMPLATE &mdash; MAPA DE FERRAMENTAS &mdash; MINHA SEMANA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('template-text').textContent)">Copiar</button>
+        <span id="template-text">Para cada tarefa abaixo, responda:
+(a) Qual categoria se encaixa melhor?
+(b) Qual ferramenta voce usaria?
+(c) O que voce ainda faria depois que a AI entregasse o resultado?
+
+TAREFA 1
+Situacao: voce precisa preparar um e-mail delicado para um cliente que reclamou de atraso na entrega.
+Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
+Ferramenta escolhida: ___
+O que voce ainda faria depois: ___
+
+TAREFA 2
+Situacao: seu gestor pediu um resumo dos principais concorrentes do setor para a reuniao de segunda.
+Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
+Ferramenta escolhida: ___
+O que voce ainda faria depois: ___
+
+TAREFA 3
+Situacao: voce recebeu um contrato de 40 paginas e precisa entender os pontos principais antes de assinar.
+Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
+Ferramenta escolhida: ___
+O que voce ainda faria depois: ___
+
+TAREFA 4
+Situacao: voce faz toda semana o mesmo relatorio de vendas - copia dados, monta tabela, envia por e-mail.
+Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
+Ferramenta escolhida: ___
+O que voce ainda faria depois: ___
+
+TAREFA 5 - TAREFA LIVRE
+Situacao: escreva uma tarefa real da sua semana que voce gostaria de resolver com AI.
+Descreva a tarefa: ___
+Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
+Ferramenta escolhida: ___
+O que voce ainda faria depois: ___</span>
+      </div>
+
+      <div class="overview-card">
+        <h3>Dinamica da atividade</h3>
+        <div class="instructions">
+          <div class="inst">
+            <div class="inst-num">1</div>
+            <div class="inst-text"><strong>Setup (3 min):</strong> compartilhar o link do template no chat.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">2</div>
+            <div class="inst-text"><strong>Execucao (15 min):</strong> alunos preenchem individualmente. Professor circula pelo chat respondendo duvidas. Nao corrigir &mdash; deixar o aluno raciocinar.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">3</div>
+            <div class="inst-text"><strong>Compartilhamento (7 min):</strong> 3 alunos compartilham a Tarefa 5 (livre). Professor comenta com foco na terceira coluna.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Nota do instrutor &mdash; quando o aluno nao sabe o que faria depois</div>
+        <p>"Se voce nao sabe o que verificar no resultado da AI, isso e um sinal. Significa que voce ainda nao tem clareza sobre o que e um bom resultado para essa tarefa. E sem esse criterio, voce nao sabe se a AI te ajudou ou te enganou."</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Conexao com a Aula 06</h3>
+        <p>O professor pega os resultados da Tarefa 5 de 2 ou 3 alunos e mostra como aquela escolha se transforma em uma rotina:</p>
+        <p style="margin-top:8px; font-style:italic;">"Voce disse que usaria o Perplexity para pesquisar concorrentes toda segunda. Isso e exatamente o que a Aula 06 vai transformar em rotina &mdash; com horario, ferramenta, formato e criterio de qualidade definidos."</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Tarefa ate a Aula 06</div>
+        <p>Testar pelo menos uma ferramenta de uma categoria que o aluno ainda nao usa. Trazer o resultado &mdash; funcionou, nao funcionou, o que aconteceu. Esse relato abre a Aula 06.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step6')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step8')">Fechamento &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 8: Fechamento ===== -->
+    <div class="section" id="sec-step8">
+      <h1 class="sec-title"><span class="snum">08.</span> Fechamento e Checkpoint</h1>
+      <p class="sec-desc">15 minutos &mdash; resposta definitiva + checkpoint no chat</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Resposta definitiva</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">"Qual e a melhor ferramenta de AI? Depende do trabalho, nao da ferramenta. Agora voce tem um mapa para tomar essa decisao. E mais do que o mapa: voce tem o habito de perguntar 'melhor para que?' antes de abrir qualquer ferramenta."</p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Responsabilidade</div>
+        <p>"Quando voce usar qualquer ferramenta desse mapa no seu trabalho e entregar o resultado para alguem &mdash; um colega, um cliente, seu gestor &mdash; a responsabilidade pelo que esta ali e sua, nao da ferramenta. A AI erra. Voce valida. Sempre."</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Checkpoint no chat (7 min)</h3>
+        <p>Cada aluno digita uma frase no formato:</p>
+        <div class="copy-block" id="checkpoint-format">
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('checkpoint-text').textContent)">Copiar</button>
+          <span id="checkpoint-text">Para [tipo de tarefa], eu usaria [ferramenta] porque [categoria]. Depois eu ainda [o que faria].</span>
+        </div>
+        <p style="margin-top:8px;">O professor le 5 a 8 respostas em voz alta e valida ou redireciona. Criterio de encerramento: respostas consistentes nas tres partes &mdash; categoria, ferramenta e o que o humano ainda faz.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que o aluno agora e capaz de fazer</h3>
+        <p>Dado uma tarefa real do seu trabalho, o aluno consegue identificar a categoria certa, escolher uma ferramenta, estruturar o pedido com clareza e julgar se o resultado esta pronto para uso. Essa logica sera aplicada diretamente na Aula 06.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Entregaveis da aula</h3>
+        <div class="instructions">
+          <div class="inst">
+            <div class="inst-num" style="background:var(--green);">&#10003;</div>
+            <div class="inst-text">Template "Mapa de Ferramentas &mdash; Minha Semana" preenchido com 5 tarefas</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--green);">&#10003;</div>
+            <div class="inst-text">Tarefa 5 (livre) com categoria, ferramenta e criterio de avaliacao definidos</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--green);">&#10003;</div>
+            <div class="inst-text">Checkpoint no chat: frase no formato "Para X, eu usaria Y porque Z. Depois eu ainda W."</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num" style="background:var(--green);">&#10003;</div>
+            <div class="inst-text">Uma ferramenta de categoria nova para testar ate a Aula 06</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid #3B82F6;">
+        <h3>Proxima aula</h3>
+        <p><strong>Aula 06 &mdash; IA no Dia a Dia: 7 Rotinas Praticas</strong></p>
+        <p style="margin-top:6px;">As ferramentas mapeadas hoje entram em rotinas concretas &mdash; com horario, formato e criterio de qualidade definidos. Traga uma tarefa repetitiva que voce faz toda semana: ela sera o material da proxima aula.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step7')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== RIGHT SIDEBAR ========== -->
+  <aside class="right-sidebar">
+    <div>
+      <div class="rs-section-title">6 Categorias</div>
+      <table class="rs-table">
+        <thead><tr><th>Categoria</th><th>Ferramenta</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pensar</strong></td><td>Claude, ChatGPT</td></tr>
+          <tr><td><strong>Pesquisar</strong></td><td>Perplexity</td></tr>
+          <tr><td><strong>Aprender</strong></td><td>NotebookLM</td></tr>
+          <tr><td><strong>Criar</strong></td><td>Gamma, ElevenLabs</td></tr>
+          <tr><td><strong>Automatizar</strong></td><td>Make, Zapier, n8n</td></tr>
+          <tr><td><strong>Construir</strong></td><td>Lovable, Cursor</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Pergunta-chave</div>
+      <p style="font-size:0.7rem; color:var(--text2); font-style:italic; line-height:1.5;">"Melhor para que?"</p>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Regra de Ouro</div>
+      <p style="font-size:0.7rem; color:var(--text2); line-height:1.5;">Ferramentas combinam. Uma tarefa pode usar mais de uma categoria.</p>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Links Uteis</div>
+      <a href="https://claude.ai" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Claude</a>
+      <a href="https://perplexity.ai" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Perplexity</a>
+      <a href="https://notebooklm.google" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; NotebookLM</a>
+      <a href="https://gamma.app" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); margin-bottom:4px; text-decoration:none;">&#8594; Gamma</a>
+      <a href="https://lovable.dev" target="_blank" style="display:block; font-size:0.7rem; color:var(--accent); text-decoration:none;">&#8594; Lovable</a>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// ========== STATE ==========
+const stepToFlow = {
+  home:'home',
+  step1:'abertura',
+  step2:'logica',
+  step3:'categorias',
+  step4:'demos1',
+  step5:'demos2',
+  step6:'mapa',
+  step7:'pratica',
+  step8:'entregavel'
+};
+const flowOrder = ['home','abertura','logica','categorias','demos1','demos2','mapa','pratica','entregavel'];
+
+const visited = new Set(['home']);
+const completedFlows = new Set();
+
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+
+  visited.add(id);
+
+  // Mark previous flows as completed
+  const currentFlow = stepToFlow[id];
+  if (currentFlow) {
+    const currentIdx = flowOrder.indexOf(currentFlow);
+    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
+  }
+
+  // Update stepper
+  const stepperEl = document.getElementById('stepper');
+  if (stepperEl) {
+    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
+      const flow = node.dataset.flow;
+      node.classList.remove('active','completed','future');
+      if (flow === currentFlow) {
+        node.classList.add('active');
+      } else if (completedFlows.has(flow)) {
+        node.classList.add('completed');
+      } else {
+        node.classList.add('future');
+      }
+    });
+  }
+
+  // Update sidebar nav
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.remove('active');
+    if (visited.has(el.dataset.section)) el.classList.add('completed');
+  });
+  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
+
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress() {
+  const total = 8;
+  let count = 0;
+  for (let i = 1; i <= 8; i++) {
+    if (visited.has('step' + i)) count++;
+  }
+  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
+  document.getElementById('progress-text').textContent = count + ' / ' + total;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
