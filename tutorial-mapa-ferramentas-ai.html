@@ -1125,52 +1125,73 @@
       <div class="demo-card" style="border-left:4px solid #3B82F6;">
         <div class="demo-subtitle">Demo 1 &mdash; Categoria Pensar (Claude)</div>
         <h4>Preparar argumentos para reuniao dificil</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa exige raciocinio, estrutura e julgamento &mdash; nao informacao nova do mundo. O Claude nao busca dados externos, ele raciocina com o que voce deu a ele. Perplexity seria a escolha errada aqui porque a resposta nao precisa de fonte &mdash; precisa de logica.</p>
         <div class="copy-block" id="demo1-prompt">
           <span class="label">PROMPT AO VIVO</span>
           <button class="copy-btn" onclick="copyText(this, document.getElementById('demo1-text').textContent)">Copiar</button>
-          <span id="demo1-text">Tenho uma reuniao dificil amanha com um cliente insatisfeito com atraso na entrega. Me ajuda a preparar os principais argumentos e a estrutura da conversa. Tom: direto e empatico.</span>
+          <span id="demo1-text">Contexto: sou gerente comercial de uma distribuidora. Temos um cliente que representa 18% da nossa receita e esta insatisfeito com dois atrasos seguidos nas entregas. Tenho uma reuniao com ele amanha as 14h.
+
+Quero que voce me ajude a preparar:
+1. Os 3 argumentos mais importantes para reconhecer o problema sem parecer que estou dando desculpas
+2. Uma proposta concreta de compensacao que eu possa oferecer
+3. Como fechar a reuniao reforcando o relacionamento
+
+Tom: direto, empatico, executivo. Sem enrolacao.</span>
         </div>
-        <p><strong>O que mostrar:</strong> como o prompt estruturado &mdash; contexto + output esperado + tom &mdash; gera uma resposta util em segundos.</p>
-        <p style="margin-top:8px;"><strong>Perguntar a turma:</strong> "Esse resultado esta pronto para usar? O que voces mudariam antes de levar para a reuniao?"</p>
+        <p style="margin-top:8px;"><strong>O que observar:</strong> A resposta chegou estruturada nos tres itens pedidos? O tom esta adequado para uma reuniao executiva ou ficou generico? Se voce tirasse o nome da empresa e desse para um gerente de outro setor, ele poderia usar do mesmo jeito? Se sim, o prompt precisa de mais contexto especifico.</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> Voce conhece o historico real com esse cliente. Voce sabe o que pode prometer. Voce vai julgar se o tom esta calibrado para a personalidade especifica desse cliente. A AI estruturou &mdash; voce decide o que levar.</p>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Nota do instrutor</div>
-        <p>"Repara que o pedido tem tres partes: o que e a situacao, o que eu quero como resultado, e como eu quero que seja. Prompt sem estrutura gera resposta sem estrutura."</p>
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Esta categoria aparece em todas as aulas do Bloco 0 e e a base do Bloco 1 &mdash; Assistentes.</p>
       </div>
 
       <!-- Demo 2 -->
       <div class="demo-card" style="border-left:4px solid #8B5CF6;">
         <div class="demo-subtitle">Demo 2 &mdash; Categoria Pesquisar (Perplexity)</div>
-        <h4>Tendencias de AI para RH em 2026</h4>
+        <h4>Legislacao trabalhista atualizada</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa precisa de informacao atual e verificavel &mdash; nao de raciocinio. Claude saberia falar sobre o assunto, mas com dados que podem estar desatualizados e sem fonte para verificar. Perplexity traz o dado de hoje com a fonte junto.</p>
         <div class="copy-block" id="demo2-prompt">
           <span class="label">PROMPT AO VIVO</span>
           <button class="copy-btn" onclick="copyText(this, document.getElementById('demo2-text').textContent)">Copiar</button>
-          <span id="demo2-text">Quais sao as principais tendencias de AI para o setor de RH em 2026? Quero fontes confiaveis e dados recentes.</span>
+          <span id="demo2-text">Quais sao as principais mudancas na legislacao trabalhista brasileira em 2025 e 2026 que afetam empresas com mais de 50 funcionarios?
+
+Quero: as 3 mudancas mais impactantes, a data de vigencia de cada uma e a fonte oficial onde posso confirmar.</span>
         </div>
-        <p><strong>O que mostrar:</strong> como o Perplexity entrega fontes junto com a resposta. Comparar rapidamente com a mesma busca no Google.</p>
+        <p style="margin-top:8px;"><strong>O que observar:</strong> As fontes citadas sao oficiais (Diario Oficial, sites de ministerios, publicacoes juridicas) ou sao blogs genericos? A data de vigencia esta explicita? Se a fonte for fraca ou a data imprecisa, o resultado nao esta pronto para uso.</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> Clicar na fonte e confirmar que a informacao esta correta antes de levar para o RH ou juridico. A AI trouxe o caminho &mdash; voce percorre a ultima milha.</p>
       </div>
 
-      <div class="warning-box">
-        <div class="warning-label">Responsabilidade</div>
-        <p>"A AI deu a resposta. Mas quem garante que esta certo e voce, nao ela. Sempre que o resultado for para um lugar importante &mdash; reuniao, relatorio, e-mail para o CEO &mdash; voce verifica a fonte."</p>
+      <div class="tip-box">
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Esta categoria aparece nas aulas setoriais do ciclo inteiro, sempre que o conteudo precisar de dado atual.</p>
       </div>
 
       <!-- Demo 3 -->
       <div class="demo-card" style="border-left:4px solid var(--green);">
         <div class="demo-subtitle">Demo 3 &mdash; Categoria Aprender (NotebookLM)</div>
-        <h4>Analisar documento longo</h4>
+        <h4>Analisar contrato ou relatorio longo</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa envolve um documento especifico que voce tem em maos &mdash; nao informacao geral do mundo. Claude e Perplexity trabalhariam com o conhecimento geral deles, nao com o seu documento. O NotebookLM so sabe o que voce ensinou a ele &mdash; e isso e uma vantagem quando voce precisa de precisao.</p>
+        <p style="margin-bottom:8px;"><strong>Prep:</strong> subir um PDF de contrato de fornecimento, relatorio financeiro ou qualquer documento de pelo menos 10 paginas.</p>
         <div class="copy-block" id="demo3-prompt">
-          <span class="label">PROMPT AO VIVO</span>
+          <span class="label">PROMPT AO VIVO (apos upload do documento)</span>
           <button class="copy-btn" onclick="copyText(this, document.getElementById('demo3-text').textContent)">Copiar</button>
-          <span id="demo3-text">Quais sao os 3 pontos mais importantes deste documento? O que o autor recomenda como proximos passos?</span>
+          <span id="demo3-text">Com base apenas neste documento, responda:
+
+1. Quais sao as 3 obrigacoes principais de cada parte?
+2. Existe alguma clausula de multa ou penalidade? Se sim, qual e o valor ou percentual e em que situacao ela se aplica?
+3. Qual e o prazo de vigencia e como funciona a renovacao?
+
+Se alguma dessas informacoes nao estiver no documento, diga explicitamente que nao encontrou &mdash; nao tente completar com suposicoes.</span>
         </div>
-        <p><strong>Antes:</strong> subir um PDF de relatorio ou artigo. A ferramenta responde com base exclusivamente no documento enviado, sem inventar.</p>
+        <p style="margin-top:8px;"><strong>O que observar:</strong> A ferramenta citou de onde tirou a informacao (pagina, secao)? Se voce perguntar algo que nao esta no documento, ela admite que nao sabe &mdash; ou tenta responder mesmo assim? Esse comportamento e o que diferencia o NotebookLM de uma resposta generica.</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> A interpretacao juridica e comercial das clausulas. A AI localizou e resumiu &mdash; o julgamento sobre o que e aceitavel ou arriscado e seu.</p>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Nota do instrutor</div>
-        <p>"Essa ferramenta so sabe o que voce ensinou a ela. Isso e diferente do ChatGPT &mdash; e e uma vantagem enorme quando voce precisa de precisao. Caso de uso principal: contratos longos, relatorios internos, manuais tecnicos."</p>
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Esta categoria reaparece no Bloco 5 &mdash; Dados, quando trabalharemos com bases de conhecimento internas conectadas a modelos de AI (RAG).</p>
       </div>
 
       <div class="nav-buttons">
@@ -1187,43 +1208,85 @@
       <!-- Demo 4 -->
       <div class="demo-card" style="border-left:4px solid var(--orange);">
         <div class="demo-subtitle">Demo 4 &mdash; Categoria Criar (Gamma)</div>
-        <h4>Apresentacao em 60 segundos</h4>
+        <h4>Apresentacao executiva em 60 segundos</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa e produzir um entregavel visual &mdash; nao raciocinar ou pesquisar. O Claude poderia escrever o conteudo, mas nao geraria os slides. Gamma transforma o prompt diretamente em apresentacao navegavel.</p>
         <div class="copy-block" id="demo4-prompt">
           <span class="label">PROMPT AO VIVO</span>
           <button class="copy-btn" onclick="copyText(this, document.getElementById('demo4-text').textContent)">Copiar</button>
-          <span id="demo4-text">Crie uma apresentacao de 5 slides sobre os beneficios de AI para times de vendas. Publico: diretores comerciais. Tom: executivo e direto.</span>
+          <span id="demo4-text">Crie uma apresentacao executiva com 6 slides sobre os riscos de nao adotar AI nos processos da empresa nos proximos 2 anos.
+
+Estrutura sugerida:
+- Slide 1: O cenario atual &mdash; o que esta mudando
+- Slide 2: O que os concorrentes ja estao fazendo
+- Slide 3: Os 3 principais riscos de ficar para tras
+- Slide 4: O custo da inacao (tempo, margem, pessoas)
+- Slide 5: Por onde comecar &mdash; as 3 primeiras acoes
+- Slide 6: Proximos passos concretos
+
+Publico: diretores e C-Level de empresas de medio porte.
+Tom: direto, baseado em dados, sem alarmismo.</span>
         </div>
-        <p><strong>O que mostrar:</strong> do prompt ao slide em menos de 60 segundos.</p>
+        <p style="margin-top:8px;"><strong>O que observar:</strong> Os titulos de cada slide sao claros e autossuficientes? O Slide 3 tem exemplos concretos ou ficou generico? O Slide 5 e acionavel? Um slide com "implemente AI na sua empresa" nao e um proximo passo &mdash; e uma intencao.</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> Substituir os dados genericos pelos dados reais da empresa. Ajustar o tom para o estilo do seu publico. A AI deu a estrutura &mdash; voce da a substancia.</p>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Nota do instrutor</div>
-        <p>"Em 60 segundos voce tem uma estrutura que levaria 40 minutos para montar do zero. O trabalho do humano comeca agora &mdash; editar, ajustar, colocar o dado real, tirar o que esta generico demais. A AI faz o trabalho pesado. Voce faz o trabalho de julgamento."</p>
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Esta categoria aparece no Bloco 4 &mdash; Vibe Coding, quando passaremos de criar apresentacoes para construir ferramentas interativas.</p>
       </div>
 
       <!-- Demo 5 -->
       <div class="demo-card" style="border-left:4px solid var(--yellow);">
         <div class="demo-subtitle">Demo 5 &mdash; Categoria Automatizar (Make ou Zapier)</div>
-        <h4>Automacao funcionando</h4>
-        <p><strong>O que mostrar:</strong> uma automacao ja construida e rodando &mdash; por exemplo: formulario recebe resposta &rarr; e-mail personalizado e enviado automaticamente.</p>
-        <p style="margin-top:6px;">Nao mostrar o processo de construcao. Mostrar o resultado funcionando.</p>
+        <h4>Automacao rodando ao vivo</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa e repetitiva, tem sempre a mesma sequencia de passos e nao exige julgamento diferente a cada vez. Quando uma tarefa tem essas tres caracteristicas, ela e candidata a automacao.</p>
+        <p style="margin-bottom:8px;"><strong>O que observar</strong> (automacao ja construida, rodando ao vivo):</p>
+        <div class="copy-block" style="font-family:inherit; font-size:0.74rem;">
+          <span class="label">FLUXO DA AUTOMACAO</span>
+[Formulario preenchido]
+        &#8595;
+[Make verifica a categoria da solicitacao]
+        &#8595;
+[AI gera resposta personalizada com base na categoria]
+        &#8595;
+[E-mail enviado automaticamente para quem preencheu]
+        </div>
+        <p style="margin-top:8px;">O humano esta presente em algum passo? Nao. O resultado e sempre o mesmo para o mesmo input? Sim. Esses sao os dois criterios: quando a resposta for "nao" e "sim", a tarefa e automatizavel.</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> Definir as regras da automacao. Monitorar quando ela quebra. Decidir quando uma excecao precisa de julgamento humano. A AI executa &mdash; voce governa.</p>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Nota do instrutor</div>
-        <p>"Isso acontece sozinho, sem ninguem apertar nada. O humano configurou uma vez. A AI executa sempre. Essa categoria vai ser o foco inteiro do Bloco 2 do ciclo &mdash; por enquanto, so reconheca o padrao: se voce faz a mesma coisa mais de 3 vezes por semana, provavelmente da para automatizar."</p>
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Automacao e o foco do Bloco 2 do ciclo &mdash; Aulas 14 a 20. Neste bloco voce vai construir suas proprias automacoes do zero.</p>
       </div>
 
       <!-- Demo 6 -->
       <div class="demo-card" style="border-left:4px solid var(--red);">
         <div class="demo-subtitle">Demo 6 &mdash; Categoria Construir (Lovable)</div>
-        <h4>App sem codigo</h4>
-        <p><strong>O que mostrar:</strong> um app simples ja construido &mdash; por exemplo, uma calculadora de ROI ou um formulario de diagnostico. Mostrar o resultado final e o prompt que gerou.</p>
+        <h4>Ferramenta de diagnostico de maturidade em AI</h4>
+        <p style="margin-bottom:8px;"><strong>Por que esta categoria?</strong> A tarefa e criar uma ferramenta &mdash; nao usar uma que ja existe. Claude pode ajudar a pensar, Gamma pode criar uma apresentacao, mas nenhuma delas gera um sistema funcional que outras pessoas podem usar.</p>
+        <div class="copy-block" id="demo6-prompt">
+          <span class="label">PROMPT AO VIVO</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('demo6-text').textContent)">Copiar</button>
+          <span id="demo6-text">Crie uma ferramenta simples de diagnostico de maturidade em AI para empresas.
+
+A ferramenta deve:
+- Ter uma tela inicial com o nome da empresa e o cargo de quem esta respondendo
+- Apresentar 10 perguntas de multipla escolha sobre uso de AI na empresa (processos, pessoas, dados, estrategia)
+- Calcular um score de 0 a 100 ao final
+- Mostrar o resultado com uma classificacao:
+  0-30: Iniciante | 31-60: Em desenvolvimento | 61-100: Avancado
+- Mostrar 3 recomendacoes praticas baseadas no nivel atingido
+
+Design: limpo, profissional, fundo branco, cores neutras.</span>
+        </div>
+        <p style="margin-top:8px;"><strong>O que observar:</strong> A ferramenta e navegavel no browser? Uma pessoa sem conhecimento tecnico conseguiria usar sem instrucao? O score esta sendo calculado corretamente? O que precisaria ajustar antes de enviar para um cliente real?</p>
+        <p style="margin-top:6px;"><strong>O que continua sendo seu:</strong> Definir se as perguntas fazem sentido para o seu contexto. Testar com alguem real antes de publicar. Decidir o que fazer com os dados coletados. A AI construiu a estrutura &mdash; voce valida se ela funciona para o seu proposito.</p>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Nota do instrutor</div>
-        <p>"Isso foi construido sem uma linha de codigo. O professor descreveu o que queria, a AI construiu. O Bloco 4 do Delta Skills e inteiro dedicado a isso. Hoje voce so precisa saber que essa categoria existe e para que ela serve."</p>
+        <div class="tip-label">Conexao ao ciclo</div>
+        <p>Esta categoria e o foco do Bloco 4 &mdash; Vibe Coding, Aulas 29 a 35. Neste bloco voce vai construir ferramentas internas para a sua empresa.</p>
       </div>
 
       <div class="nav-buttons">
@@ -1257,6 +1320,22 @@
       <div class="tip-box">
         <div class="tip-label">Visao do ciclo</div>
         <p>"Hoje voce aprendeu a logica. Ao longo do ano, voce vai aprender cada camada. Quando chegarmos em Agentes, voce ja vai saber onde esse bloco se encaixa no mapa. Voce nao esta perdido &mdash; esta num ponto especifico de uma trilha que ja tem destino."</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que esta por tras de cada demo</h3>
+        <table class="ref-table">
+          <thead>
+            <tr><th>Elemento</th><th>Objetivo servido</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Por que esta categoria?</strong></td><td>Nao existe melhor, existe o certo</td></tr>
+            <tr><td><strong>Prompt pronto + execucao</strong></td><td>Exemplo pratico de cada categoria</td></tr>
+            <tr><td><strong>O que observar no resultado</strong></td><td>Avaliar se esta pronto para uso</td></tr>
+            <tr><td><strong>O que continua sendo seu</strong></td><td>O que delegar e o que manter</td></tr>
+            <tr><td><strong>Conexao ao ciclo</strong></td><td>Antecipar as proximas aulas</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="overview-card">
@@ -1294,85 +1373,74 @@
 <!-- ===== STEP 7: Pratica ===== -->
     <div class="section" id="sec-step7">
       <h1 class="sec-title"><span class="snum">07.</span> Pratica &mdash; Mapeie sua Semana</h1>
-      <p class="sec-desc">25 minutos &mdash; atividade individual com compartilhamento</p>
+      <p class="sec-desc">25 minutos &mdash; visualizacao + formulario + compartilhamento</p>
 
       <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Instrucao</h3>
-        <p style="font-style:italic;">"Para cada tarefa, quero tres coisas: a categoria, a ferramenta, e o que voce ainda faria depois que a AI entregasse o resultado. Essa terceira parte e a mais importante."</p>
-      </div>
-
-      <div class="copy-block" id="template-pratica" style="font-size:0.66rem;">
-        <span class="label">TEMPLATE &mdash; MAPA DE FERRAMENTAS &mdash; MINHA SEMANA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('template-text').textContent)">Copiar</button>
-        <span id="template-text">Para cada tarefa abaixo, responda:
-(a) Qual categoria se encaixa melhor?
-(b) Qual ferramenta voce usaria?
-(c) O que voce ainda faria depois que a AI entregasse o resultado?
-
-TAREFA 1
-Situacao: voce precisa preparar um e-mail delicado para um cliente que reclamou de atraso na entrega.
-Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
-Ferramenta escolhida: ___
-O que voce ainda faria depois: ___
-
-TAREFA 2
-Situacao: seu gestor pediu um resumo dos principais concorrentes do setor para a reuniao de segunda.
-Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
-Ferramenta escolhida: ___
-O que voce ainda faria depois: ___
-
-TAREFA 3
-Situacao: voce recebeu um contrato de 40 paginas e precisa entender os pontos principais antes de assinar.
-Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
-Ferramenta escolhida: ___
-O que voce ainda faria depois: ___
-
-TAREFA 4
-Situacao: voce faz toda semana o mesmo relatorio de vendas - copia dados, monta tabela, envia por e-mail.
-Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
-Ferramenta escolhida: ___
-O que voce ainda faria depois: ___
-
-TAREFA 5 - TAREFA LIVRE
-Situacao: escreva uma tarefa real da sua semana que voce gostaria de resolver com AI.
-Descreva a tarefa: ___
-Categoria: ( ) Pensar  ( ) Pesquisar  ( ) Aprender  ( ) Criar  ( ) Automatizar  ( ) Construir
-Ferramenta escolhida: ___
-O que voce ainda faria depois: ___</span>
-      </div>
-
-      <div class="overview-card">
-        <h3>Dinamica da atividade</h3>
+        <h3>Como funciona</h3>
         <div class="instructions">
           <div class="inst">
             <div class="inst-num">1</div>
-            <div class="inst-text"><strong>Setup (3 min):</strong> compartilhar o link do template no chat.</div>
+            <div class="inst-text"><strong>Visualizacao (5 min):</strong> leia as perguntas abaixo para entender o que sera pedido.</div>
           </div>
           <div class="inst">
             <div class="inst-num">2</div>
-            <div class="inst-text"><strong>Execucao (15 min):</strong> alunos preenchem individualmente. Professor circula pelo chat respondendo duvidas. Nao corrigir &mdash; deixar o aluno raciocinar.</div>
+            <div class="inst-text"><strong>Formulario (15 min):</strong> acesse o link enviado no chat e responda &mdash; uma pergunta por vez.</div>
           </div>
           <div class="inst">
             <div class="inst-num">3</div>
-            <div class="inst-text"><strong>Compartilhamento (7 min):</strong> 3 alunos compartilham a Tarefa 5 (livre). Professor comenta com foco na terceira coluna.</div>
+            <div class="inst-text"><strong>Compartilhamento (5 min):</strong> 3 alunos compartilham a Pergunta 6 (tarefa livre). Professor comenta ao vivo com foco na terceira coluna.</div>
           </div>
+        </div>
+        <div class="warning-box" style="margin:12px 0 0;">
+          <div class="warning-label">Registro de presenca</div>
+          <p>O formulario comeca pedindo seu <strong>nome completo</strong>. Isso e o registro de presenca da aula &mdash; sem nome preenchido, a atividade nao conta.</p>
         </div>
       </div>
 
-      <div class="warning-box">
-        <div class="warning-label">Nota do instrutor &mdash; quando o aluno nao sabe o que faria depois</div>
-        <p>"Se voce nao sabe o que verificar no resultado da AI, isso e um sinal. Significa que voce ainda nao tem clareza sobre o que e um bom resultado para essa tarefa. E sem esse criterio, voce nao sabe se a AI te ajudou ou te enganou."</p>
-      </div>
-
       <div class="overview-card">
-        <h3>Conexao com a Aula 06</h3>
-        <p>O professor pega os resultados da Tarefa 5 de 2 ou 3 alunos e mostra como aquela escolha se transforma em uma rotina:</p>
-        <p style="margin-top:8px; font-style:italic;">"Voce disse que usaria o Perplexity para pesquisar concorrentes toda segunda. Isso e exatamente o que a Aula 06 vai transformar em rotina &mdash; com horario, ferramenta, formato e criterio de qualidade definidos."</p>
+        <h3>As perguntas do formulario</h3>
+
+        <p style="font-size:0.74rem; color:var(--text2); margin-bottom:12px; font-style:italic;">Para cada situacao voce vai responder: qual categoria, qual ferramenta e o que ainda faria depois que a AI entregasse o resultado.</p>
+
+        <div class="cat-card" style="border-left-color:#3B82F6; margin-bottom:10px;">
+          <span class="cat-name" style="font-size:0.74rem;">Pergunta 2 &mdash; O e-mail dificil</span>
+          <p class="cat-trigger">Voce precisa preparar um e-mail delicado para um cliente que reclamou de atraso na entrega. Ele e um cliente importante e o tom precisa ser empatico mas profissional.</p>
+          <p style="font-size:0.68rem; color:var(--text3); margin-top:6px;">→ Categoria | Ferramenta especifica | O que voce ainda faria depois</p>
+        </div>
+
+        <div class="cat-card" style="border-left-color:#8B5CF6; margin-bottom:10px;">
+          <span class="cat-name" style="font-size:0.74rem;">Pergunta 3 &mdash; A pesquisa de concorrentes</span>
+          <p class="cat-trigger">Seu gestor pediu um resumo dos principais concorrentes do setor para a reuniao de segunda-feira. Voce tem ate sexta para entregar.</p>
+          <p style="font-size:0.68rem; color:var(--text3); margin-top:6px;">→ Categoria | Ferramenta especifica | O que voce ainda faria depois</p>
+        </div>
+
+        <div class="cat-card" style="border-left-color:var(--green); margin-bottom:10px;">
+          <span class="cat-name" style="font-size:0.74rem;">Pergunta 4 &mdash; O contrato de 40 paginas</span>
+          <p class="cat-trigger">Voce recebeu um contrato de fornecimento com 40 paginas e precisa entender os pontos principais antes de assinar. O juridico esta ocupado e voce precisa de uma primeira leitura hoje.</p>
+          <p style="font-size:0.68rem; color:var(--text3); margin-top:6px;">→ Categoria | Ferramenta especifica | O que voce ainda faria depois</p>
+        </div>
+
+        <div class="cat-card" style="border-left-color:var(--yellow); margin-bottom:10px;">
+          <span class="cat-name" style="font-size:0.74rem;">Pergunta 5 &mdash; O relatorio semanal</span>
+          <p class="cat-trigger">Toda segunda-feira voce passa 1 hora copiando dados de uma planilha, montando uma tabela de resultados e enviando por e-mail para o time. A tarefa e sempre igual, semana apos semana.</p>
+          <p style="font-size:0.68rem; color:var(--text3); margin-top:6px;">→ Categoria | Ferramenta especifica | O que voce ainda faria depois</p>
+        </div>
+
+        <div class="cat-card" style="border-left-color:var(--accent); margin-bottom:0;">
+          <span class="cat-name" style="font-size:0.74rem;">Pergunta 6 &mdash; Tarefa livre: a sua semana</span>
+          <p class="cat-trigger">Descreva uma tarefa real que voce faz no trabalho e que gostaria de resolver com AI. Depois: categoria, ferramenta e o que ainda faria apos o resultado da AI.</p>
+          <p style="font-size:0.68rem; color:var(--accent); margin-top:6px; font-weight:600;">→ Esta e a mais importante &mdash; o rascunho da sua rotina na Aula 06.</p>
+        </div>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Tarefa ate a Aula 06</div>
-        <p>Testar pelo menos uma ferramenta de uma categoria que o aluno ainda nao usa. Trazer o resultado &mdash; funcionou, nao funcionou, o que aconteceu. Esse relato abre a Aula 06.</p>
+        <div class="tip-label">Conexao com a Aula 06</div>
+        <p>A Pergunta 6 &mdash; a tarefa livre &mdash; e o rascunho da rotina que voce vai instalar na Aula 06. A escolha que voce fez &mdash; categoria, ferramenta, criterio de avaliacao &mdash; e exatamente o que a proxima aula vai transformar em comportamento semanal com horario e formato definidos.</p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Tarefa ate a Aula 06</div>
+        <p>Testar pelo menos uma ferramenta de uma categoria que voce ainda nao usa. Trazer o resultado &mdash; funcionou, nao funcionou, o que aconteceu. Esse relato abre a Aula 06.</p>
       </div>
 
       <div class="nav-buttons">
@@ -1383,32 +1451,29 @@ O que voce ainda faria depois: ___</span>
 
 <!-- ===== STEP 8: Fechamento ===== -->
     <div class="section" id="sec-step8">
-      <h1 class="sec-title"><span class="snum">08.</span> Fechamento e Checkpoint</h1>
-      <p class="sec-desc">15 minutos &mdash; resposta definitiva + checkpoint no chat</p>
-
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Resposta definitiva</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">"Qual e a melhor ferramenta de AI? Depende do trabalho, nao da ferramenta. Agora voce tem um mapa para tomar essa decisao. E mais do que o mapa: voce tem o habito de perguntar 'melhor para que?' antes de abrir qualquer ferramenta."</p>
-      </div>
-
-      <div class="warning-box">
-        <div class="warning-label">Responsabilidade</div>
-        <p>"Quando voce usar qualquer ferramenta desse mapa no seu trabalho e entregar o resultado para alguem &mdash; um colega, um cliente, seu gestor &mdash; a responsabilidade pelo que esta ali e sua, nao da ferramenta. A AI erra. Voce valida. Sempre."</p>
-      </div>
+      <h1 class="sec-title"><span class="snum">08.</span> Fechamento + Tarefa Pos-Aula</h1>
+      <p class="sec-desc">Aprendizados, entregaveis e podcast personalizado no NotebookLM</p>
 
       <div class="overview-card">
-        <h3>Checkpoint no chat (7 min)</h3>
-        <p>Cada aluno digita uma frase no formato:</p>
-        <div class="copy-block" id="checkpoint-format">
-          <button class="copy-btn" onclick="copyText(this, document.getElementById('checkpoint-text').textContent)">Copiar</button>
-          <span id="checkpoint-text">Para [tipo de tarefa], eu usaria [ferramenta] porque [categoria]. Depois eu ainda [o que faria].</span>
+        <h3>Principais aprendizados desta aula</h3>
+        <div class="instructions">
+          <div class="inst">
+            <div class="inst-num">1</div>
+            <div class="inst-text">A pergunta certa nao e "qual e a melhor ferramenta?" &mdash; e <strong>"melhor para que?"</strong></div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">2</div>
+            <div class="inst-text">Cada categoria tem uma <strong>pergunta-gatilho</strong> que ajuda a decidir qual ferramenta acionar.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">3</div>
+            <div class="inst-text">Uma tarefa pode e deve <strong>combinar mais de uma categoria</strong> e ferramenta.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">4</div>
+            <div class="inst-text">O criterio de avaliacao do resultado e sempre do humano &mdash; <strong>a AI erra, voce valida.</strong></div>
+          </div>
         </div>
-        <p style="margin-top:8px;">O professor le 5 a 8 respostas em voz alta e valida ou redireciona. Criterio de encerramento: respostas consistentes nas tres partes &mdash; categoria, ferramenta e o que o humano ainda faz.</p>
-      </div>
-
-      <div class="overview-card">
-        <h3>O que o aluno agora e capaz de fazer</h3>
-        <p>Dado uma tarefa real do seu trabalho, o aluno consegue identificar a categoria certa, escolher uma ferramenta, estruturar o pedido com clareza e julgar se o resultado esta pronto para uso. Essa logica sera aplicada diretamente na Aula 06.</p>
       </div>
 
       <div class="overview-card">
@@ -1416,15 +1481,15 @@ O que voce ainda faria depois: ___</span>
         <div class="instructions">
           <div class="inst">
             <div class="inst-num" style="background:var(--green);">&#10003;</div>
-            <div class="inst-text">Template "Mapa de Ferramentas &mdash; Minha Semana" preenchido com 5 tarefas</div>
+            <div class="inst-text">Formulario "Mapeie sua Semana" respondido com nome completo</div>
           </div>
           <div class="inst">
             <div class="inst-num" style="background:var(--green);">&#10003;</div>
-            <div class="inst-text">Tarefa 5 (livre) com categoria, ferramenta e criterio de avaliacao definidos</div>
+            <div class="inst-text">Pergunta 6 (tarefa livre) com categoria, ferramenta e criterio de avaliacao definidos</div>
           </div>
           <div class="inst">
             <div class="inst-num" style="background:var(--green);">&#10003;</div>
-            <div class="inst-text">Checkpoint no chat: frase no formato "Para X, eu usaria Y porque Z. Depois eu ainda W."</div>
+            <div class="inst-text">Checkpoint: frase no formato "Para X, eu usaria Y porque Z. Depois eu ainda W."</div>
           </div>
           <div class="inst">
             <div class="inst-num" style="background:var(--green);">&#10003;</div>
@@ -1433,10 +1498,93 @@ O que voce ainda faria depois: ___</span>
         </div>
       </div>
 
+      <div class="overview-card">
+        <h3>Checkpoint no chat</h3>
+        <p>Cada aluno digita uma frase no formato:</p>
+        <div class="copy-block" id="checkpoint-format" style="margin-top:10px;">
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('checkpoint-text').textContent)">Copiar</button>
+          <span id="checkpoint-text">Para [tipo de tarefa], eu usaria [ferramenta] porque [categoria]. Depois eu ainda [o que faria].</span>
+        </div>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3>&#127911; Tarefa Pos-Aula &mdash; Crie seu podcast personalizado no NotebookLM</h3>
+        <p style="font-size:0.7rem; color:var(--text3); margin-bottom:10px;">Voce vai precisar de: Claude e NotebookLM. Tempo estimado: 15 minutos.</p>
+        <p style="font-size:0.74rem; color:var(--text2); margin-bottom:12px;">Esta tarefa deve ser feita antes da Aula 06. Voce vai gerar um podcast personalizado com base no seu contexto de trabalho real.</p>
+
+        <div class="instructions">
+          <div class="inst">
+            <div class="inst-num">1</div>
+            <div class="inst-text"><strong>Abra o Claude</strong> e cole o prompt abaixo. Preencha os campos entre colchetes com suas informacoes reais antes de enviar.</div>
+          </div>
+        </div>
+
+        <div class="copy-block" id="prompt-notebooklm" style="margin:10px 0; font-size:0.66rem;">
+          <span class="label">PROMPT PARA O CLAUDE</span>
+          <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-notebooklm-text').textContent)">Copiar</button>
+          <span id="prompt-notebooklm-text">Voce e um especialista em AI aplicada ao trabalho. Vou te dar informacoes sobre o meu contexto profissional e quero que voce gere um documento que servira de base para um podcast no NotebookLM.
+
+MEU CONTEXTO
+- Nome: [seu nome]
+- Empresa e setor: [ex: distribuidora de alimentos, 80 funcionarios]
+- Cargo e responsabilidades: [ex: gerente comercial, responsavel por equipe de 5 vendedores, metas mensais, reunioes com clientes]
+- Minhas 5 tarefas mais frequentes no trabalho:
+  1. [ex: montar relatorio semanal de vendas]
+  2. [ex: responder e-mails de clientes]
+  3. [ex: preparar apresentacoes para reunioes]
+  4. [ex: pesquisar concorrentes e novidades do setor]
+  5. [ex: revisar contratos e propostas comerciais]
+- Ferramentas de AI que ja uso (se houver): [ex: ChatGPT as vezes]
+- Maior dificuldade com AI hoje: [ex: nao sei qual ferramenta usar para cada situacao]
+
+Com base nessas informacoes, gere um documento com estas secoes:
+
+1. MEU PERFIL DE TRABALHO
+   Resumo do meu contexto e das tarefas onde AI pode ter mais impacto.
+
+2. MAPA DE FERRAMENTAS PARA A MINHA REALIDADE
+   Para cada uma das minhas 5 tarefas: qual das 6 categorias se aplica (Pensar, Pesquisar, Aprender, Criar, Automatizar ou Construir), qual ferramenta usar, como estruturar o pedido e o que eu ainda precisaria fazer apos o resultado da AI.
+
+3. MINHA ROTINA SEMANAL SUGERIDA COM AI
+   5 momentos concretos da minha semana onde devo usar AI &mdash; com dia, tarefa, categoria, ferramenta e criterio para saber se o resultado esta bom o suficiente para usar.
+
+4. O QUE EU PROVAVELMENTE ESTOU FAZENDO ERRADO
+   Com base no meu perfil, 3 erros comuns de quem esta no meu estagio de uso de AI &mdash; e como corrigir cada um.
+
+5. PERGUNTAS PARA REFLEXAO
+   5 perguntas que me ajudem a pensar sobre como estou usando AI hoje e o que posso mudar ja na proxima semana.
+
+Escreva em tom conversacional e direto &mdash; este documento vai virar um podcast narrado em voz alta, entao precisa soar natural.</span>
+        </div>
+
+        <div class="instructions" style="margin-top:10px;">
+          <div class="inst">
+            <div class="inst-num">2</div>
+            <div class="inst-text"><strong>Salve o documento:</strong> selecione todo o texto da resposta e cole em um Google Doc. Salve como: <span class="field">Meu Mapa de Ferramentas &mdash; [seu nome]</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">3</div>
+            <div class="inst-text"><strong>Acesse o NotebookLM</strong> em notebooklm.google.com e crie um notebook chamado: <span class="field">Aula 05 &mdash; Meu Mapa de Ferramentas</span></div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">4</div>
+            <div class="inst-text"><strong>Adicione o documento como fonte:</strong> clique em "Adicionar fonte" e faca upload do Google Doc.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">5</div>
+            <div class="inst-text"><strong>Gere o podcast:</strong> no painel direito, em "Audio Overview", clique em "Generate". Aguarde cerca de 2 minutos.</div>
+          </div>
+          <div class="inst">
+            <div class="inst-num">6</div>
+            <div class="inst-text"><strong>Ouca e anote duas coisas:</strong> uma mudanca que voce vai fazer na forma como usa AI, e a primeira rotina semanal que vai implementar. Traga para compartilhar no inicio da Aula 06.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="overview-card" style="border-left:4px solid #3B82F6;">
         <h3>Proxima aula</h3>
         <p><strong>Aula 06 &mdash; IA no Dia a Dia: 7 Rotinas Praticas</strong></p>
-        <p style="margin-top:6px;">As ferramentas mapeadas hoje entram em rotinas concretas &mdash; com horario, formato e criterio de qualidade definidos. Traga uma tarefa repetitiva que voce faz toda semana: ela sera o material da proxima aula.</p>
+        <p style="margin-top:6px;">As ferramentas mapeadas hoje entram em rotinas concretas &mdash; com frequencia, formato e criterio de qualidade definidos. Traga uma tarefa repetitiva que voce faz toda semana: ela sera o material da proxima aula.</p>
       </div>
 
       <div class="nav-buttons">
