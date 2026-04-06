@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — IA nas Vendas B2B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F9FAFB;
+    --white: #ffffff;
+    --accent: #57674E;
+    --accent2: #475840;
+    --accent-light: #EEF1EB;
+    --accent-lighter: #F5F7F3;
+    --accent-border: #C8D1C0;
+    --accent-text: #3D4A36;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #D97706;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s}
+  .back-btn:hover{color:var(--accent)}
+  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 450;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  /* Copy block */
+  .copy-block {
+    position: relative;
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Visao Geral ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .overview-card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 6px;
+  }
+
+  .overview-card ul li {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+    padding: 2px 0 2px 16px;
+    position: relative;
+  }
+
+  .overview-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .class-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .class-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .class-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 0.72rem;
+  }
+
+  .class-table tr:last-child td { border-bottom: none; }
+
+  /* Content text */
+  .content-text {
+    font-size: 0.78rem;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .content-text strong { color: var(--text); font-weight: 600; }
+
+  .content-text a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .content-text a:hover { color: var(--accent2); }
+
+  /* Stat cards */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: var(--shadow-xs);
+    text-align: center;
+  }
+
+  .stat-card .stat-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+
+  .stat-card .stat-desc {
+    font-size: 0.66rem;
+    color: var(--text2);
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  /* Tool cards */
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-xs);
+    border-left: 4px solid var(--accent);
+  }
+
+  .tool-card h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .tool-card h4 a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .tool-card p {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .tool-card .tool-role {
+    font-size: 0.68rem;
+    color: var(--accent-text);
+    font-weight: 600;
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* Observe list */
+  .observe-list {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .observe-list li {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.55;
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+
+  .observe-list li::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Deliverable cards */
+  .deliverable-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .deliverable-card h4 {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .deliverable-card p {
+    font-size: 0.72rem;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  /* Section subtitle */
+  .sec-subtitle {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ========== RIGHT SIDEBAR ========== */
+  .right-sidebar {
+    border-left: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 112px;
+    height: calc(100vh - 112px);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  .right-sidebar::-webkit-scrollbar { width: 3px; }
+  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .rs-section-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .rs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .rs-table th {
+    background: var(--surface2);
+    color: var(--text3);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rs-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .rs-table tr:last-child td { border-bottom: none; }
+
+  .rs-table a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .rs-table a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .right-sidebar { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .stat-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <a class="back-btn" href="index.html"><span class="back-arrow">&larr;</span>&Iacute;ndice</a>
+  <div class="stepper-node active" data-flow="home" onclick="showSection('sec-home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">In&iacute;cio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="teoria" onclick="showSection('sec-step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Teoria</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="ferramentas" onclick="showSection('sec-step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Ferramentas</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="demos" onclick="showSection('sec-step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Demos</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pratica" onclick="showSection('sec-step6')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pr&aacute;tica</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>IA nas Vendas B2B</h2>
+      <p>ABES-01 &middot; Delta Academy</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">Introdu&ccedil;&atilde;o</div>
+        <div class="nav-item active" onclick="showSection('sec-home')" data-section="sec-home">
+          <span class="ni-num">00</span>Vis&atilde;o Geral<span class="ni-check">&#10003;</span>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Teoria</div>
+        <div class="nav-item" onclick="showSection('sec-step1')" data-section="sec-step1">
+          <span class="ni-num">01</span>Vendas B2B em 2026<span class="ni-check">&#10003;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step2')" data-section="sec-step2">
+          <span class="ni-num">02</span>As tr&ecirc;s ferramentas<span class="ni-check">&#10003;</span>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Demonstra&ccedil;&otilde;es</div>
+        <div class="nav-item" onclick="showSection('sec-step3')" data-section="sec-step3">
+          <span class="ni-num">03</span>Demo 1 &mdash; Perplexity<span class="ni-check">&#10003;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step4')" data-section="sec-step4">
+          <span class="ni-num">04</span>Demo 2 &mdash; Claude<span class="ni-check">&#10003;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step5')" data-section="sec-step5">
+          <span class="ni-num">05</span>Demo 3 &mdash; Manus AI<span class="ni-check">&#10003;</span>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Pr&aacute;tica</div>
+        <div class="nav-item" onclick="showSection('sec-step6')" data-section="sec-step6">
+          <span class="ni-num">06</span>Pr&aacute;tica + Prompts<span class="ni-check">&#10003;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <div class="main">
+
+    <!-- ===== SEC HOME ===== -->
+    <div class="section active" id="sec-home">
+      <div class="sec-title"><span class="snum">00.</span> Vis&atilde;o Geral</div>
+      <div class="sec-desc">IA nas Vendas B2B &mdash; ABES 2026</div>
+
+      <div class="overview-card">
+        <h3>Sobre este tutorial</h3>
+        <table class="class-table">
+          <tr><th>Item</th><th>Detalhe</th></tr>
+          <tr><td>Evento</td><td>ABES 2026</td></tr>
+          <tr><td>Dura&ccedil;&atilde;o</td><td>30 minutos + pr&aacute;tica individual</td></tr>
+          <tr><td>Temas</td><td>Perplexity &middot; Claude &middot; Manus AI</td></tr>
+          <tr><td>Exemplo</td><td>SaaS de gest&atilde;o de contratos para manufatura industrial</td></tr>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <p>Voc&ecirc; construiu um produto s&oacute;lido &mdash; mas o processo de chegar no cliente certo ainda &eacute; manual, lento e dependente de voc&ecirc; fazendo tudo.</p>
+        <p style="margin-top:8px">Este tutorial te mostra como usar tr&ecirc;s ferramentas de IA em sequ&ecirc;ncia para montar um <strong>Sales Intelligence Pack</strong>: lista de prospects qualificados, email de abertura personalizado e roteiro para a primeira reuni&atilde;o &mdash; gerados em menos de 15 minutos.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Objetivos de aprendizagem</h3>
+        <ul>
+          <li>Usar o <strong>Perplexity</strong> para pesquisa profunda sobre o seu ICP (perfil de cliente ideal)</li>
+          <li>Usar o <strong>Claude</strong> para transformar a pesquisa em estrat&eacute;gia e gerar o prompt de execu&ccedil;&atilde;o</li>
+          <li>Usar o <strong>Manus AI</strong> para executar de forma aut&ocirc;noma e entregar o pack comercial completo</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <span></span>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 1 ===== -->
+    <div class="section" id="sec-step1">
+      <div class="sec-title"><span class="snum">01.</span> Vendas B2B em 2026</div>
+      <div class="sec-desc">O cen&aacute;rio atual e a diferen&ccedil;a entre AI-Enabled e AI-First</div>
+
+      <p class="content-text">Tr&ecirc;s dados que resumem o cen&aacute;rio atual:</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">40%</div>
+          <div class="stat-desc">redu&ccedil;&atilde;o no ciclo de vendas com IA estruturada</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3&times;</div>
+          <div class="stat-desc">mais conversas comerciais com o mesmo time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">72%</div>
+          <div class="stat-desc">dos compradores esperam que o vendedor j&aacute; conhe&ccedil;a o contexto</div>
+        </div>
+      </div>
+
+      <p class="content-text" style="font-size:0.66rem;color:var(--text3);margin-top:4px"><em>Fontes: Salesforce State of Sales 2025 &middot; Gartner B2B Buying Report 2025</em></p>
+
+      <p class="content-text">A barreira de entrada caiu. Hoje uma empresa de 5 pessoas consegue operar com a infraestrutura comercial de uma de 50 &mdash; se souber usar as ferramentas certas em sequ&ecirc;ncia.</p>
+
+      <div class="sec-subtitle">AI-Enabled vs AI-First</div>
+
+      <p class="content-text">A maioria dos founders usa IA de forma avulsa: abre o ChatGPT, pede um email, copia e cola. Cada ferramenta no seu compartimento, o processo depende de voc&ecirc; lembrar de fazer. Isso &eacute; ser <strong>AI-Enabled</strong> &mdash; melhoria pontual, sem padr&atilde;o.</p>
+
+      <p class="content-text">Ser <strong>AI-First</strong> &eacute; diferente: pesquisa &rarr; s&iacute;ntese &rarr; execu&ccedil;&atilde;o em sequ&ecirc;ncia conectada. O processo roda igual independente de quem executa, os dados fluem entre as ferramentas e voc&ecirc; chega na reuni&atilde;o com intelig&ecirc;ncia, n&atilde;o com achismo.</p>
+
+      <p class="content-text">A diferen&ccedil;a n&atilde;o est&aacute; nas ferramentas. Est&aacute; em como elas se conectam.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Destaque</div>
+        <p>Os founders mais avan&ccedil;ados do Founders AI Club (programa de mentoria da Delta Academy) est&atilde;o cancelando assinaturas de SaaS e construindo as pr&oacute;prias ferramentas com IA. O ganho n&atilde;o &eacute; s&oacute; corte de custo &mdash; &eacute; controle total do fluxo de dados da empresa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-home')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 2 ===== -->
+    <div class="section" id="sec-step2">
+      <div class="sec-title"><span class="snum">02.</span> As tr&ecirc;s ferramentas</div>
+      <div class="sec-desc">Tr&ecirc;s ferramentas, tr&ecirc;s pap&eacute;is distintos no processo comercial</div>
+
+      <div class="tool-card">
+        <h4>Perplexity &mdash; <a href="https://www.perplexity.ai" target="_blank">perplexity.ai</a></h4>
+        <p>Pesquisa com IA em tempo real, com fontes verificadas. Diferente de uma busca no Google, ela j&aacute; sintetiza o que voc&ecirc; precisa saber sobre um mercado, setor ou perfil de cliente.</p>
+        <div class="tool-role">Papel no processo: intelig&ecirc;ncia sobre o ICP antes da abordagem</div>
+      </div>
+
+      <div class="tool-card">
+        <h4>Claude &mdash; <a href="https://www.claude.ai" target="_blank">claude.ai</a></h4>
+        <p>O melhor modelo de racioc&iacute;nio e escrita dispon&iacute;vel hoje. Recebe a pesquisa, raciocina sobre o contexto e gera a estrat&eacute;gia &mdash; incluindo o prompt que instrui o Manus a executar.</p>
+        <div class="tool-role">Papel no processo: s&iacute;ntese estrat&eacute;gica e gera&ccedil;&atilde;o do prompt de execu&ccedil;&atilde;o</div>
+      </div>
+
+      <div class="tool-card">
+        <h4>Manus AI &mdash; <a href="https://www.manus.im" target="_blank">manus.im</a></h4>
+        <p>Agente aut&ocirc;nomo que executa tarefas complexas de ponta a ponta. Voc&ecirc; d&aacute; o briefing completo, ele entrega o resultado estruturado sem precisar de interven&ccedil;&atilde;o a cada etapa.</p>
+        <div class="tool-role">Papel no processo: execu&ccedil;&atilde;o aut&ocirc;noma do pack comercial completo</div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Custo zero para come&ccedil;ar</div>
+        <p>Perplexity tem plano gratuito. Claude tem plano gratuito. Manus AI tem trial gratuito. Voc&ecirc; consegue rodar o processo completo sem custo inicial.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step1')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 3 — DEMO 1 ===== -->
+    <div class="section" id="sec-step3">
+      <div class="sec-title"><span class="snum">03.</span> Demo 1 &mdash; Pesquisa do ICP com Perplexity</div>
+      <div class="sec-desc">Tempo estimado: 4 minutos</div>
+
+      <p class="content-text">Esta &eacute; a demo executada ao vivo na palestra. O exemplo usa um SaaS de gest&atilde;o de contratos cujo ICP &eacute; a ind&uacute;stria de manufatura. Observe a estrutura do prompt &mdash; especialmente como ele define perfil, foco e formato de sa&iacute;da ao mesmo tempo.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Instru&ccedil;&atilde;o</div>
+        <p>Abra o Perplexity em <a href="https://www.perplexity.ai" target="_blank" style="color:var(--accent);text-decoration:underline">perplexity.ai</a>. Use o modo <strong>Pro Search</strong> ou <strong>Deep Research</strong> se dispon&iacute;vel no seu plano. Em seguida, cole o prompt abaixo.</p>
+      </div>
+
+      <div class="copy-block" id="prompt-demo1">
+        <span class="label">Prompt &mdash; Perplexity</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1-text').textContent)">Copiar</button>
+<span id="prompt-demo1-text">Preciso de uma an&aacute;lise de intelig&ecirc;ncia comercial sobre
+o seguinte perfil de cliente ideal (ICP):
+
+Setor: Manufatura industrial
+Porte: 50 a 300 funcion&aacute;rios
+Decisor: Diretor de Opera&ccedil;&otilde;es ou Gerente Industrial
+Regi&atilde;o: Brasil &mdash; foco em S&atilde;o Paulo, Paran&aacute; e Santa Catarina
+
+Me retorne:
+
+1. As 5 principais dores operacionais deste perfil que
+   levam &agrave; compra de software de gest&atilde;o
+
+2. O vocabul&aacute;rio que este decisor usa no dia a dia
+   (termos t&eacute;cnicos do setor, m&eacute;tricas que acompanha,
+   express&otilde;es comuns em reuni&otilde;es)
+
+3. 3 tend&ecirc;ncias ou press&otilde;es de 2025-2026 que est&atilde;o
+   impactando este setor e que um fornecedor de software
+   deve conhecer antes de uma abordagem comercial
+
+4. Os crit&eacute;rios de decis&atilde;o mais comuns na hora de
+   contratar software &mdash; em ordem de prioridade para
+   este perfil
+
+Seja espec&iacute;fico e direto. Usarei este output para criar
+uma abordagem comercial personalizada para este ICP.</span>
+      </div>
+
+      <div class="sec-subtitle">O que observar no resultado</div>
+      <ul class="observe-list">
+        <li>As dores descritas no vocabul&aacute;rio do decisor &mdash; n&atilde;o do vendedor</li>
+        <li>M&eacute;tricas e termos t&eacute;cnicos do setor que voc&ecirc; pode usar no email de abordagem</li>
+        <li>Os crit&eacute;rios de decis&atilde;o em ordem de prioridade &mdash; isso define o argumento central da sua proposta</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step2')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 4 — DEMO 2 ===== -->
+    <div class="section" id="sec-step4">
+      <div class="sec-title"><span class="snum">04.</span> Demo 2 &mdash; S&iacute;ntese e prompt para o Manus com Claude</div>
+      <div class="sec-desc">Tempo estimado: 5 minutos</div>
+
+      <p class="content-text">O Claude recebe o output do Perplexity e tem duas tarefas: entender o contexto comercial completo e gerar um prompt &uacute;nico para o Manus executar. Observe a estrutura XML do prompt &mdash; role, context, task e format separados. Isso &eacute; prompt engineering estruturado, n&atilde;o s&oacute; um pedido em linguagem natural.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Instru&ccedil;&atilde;o</div>
+        <p>Abra o Claude em <a href="https://www.claude.ai" target="_blank" style="color:var(--accent);text-decoration:underline">claude.ai</a>. Cole o prompt abaixo, substituindo o trecho <strong>[COLAR AQUI O OUTPUT DO PERPLEXITY]</strong> pelo resultado completo da Demo 1.</p>
+      </div>
+
+      <div class="copy-block" id="prompt-demo2">
+        <span class="label">Prompt &mdash; Claude</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2-text').textContent)">Copiar</button>
+<span id="prompt-demo2-text">&lt;role&gt;
+Voc&ecirc; &eacute; especialista em vendas B2B consultivas para
+empresas de software no Brasil. Conhece profundamente
+o processo de compra de software em empresas industriais
+brasileiras de m&eacute;dio porte &mdash; incluindo como os decisores
+pensam, o que os trava e o que os move.
+&lt;/role&gt;
+
+&lt;context&gt;
+Produto: SaaS de gest&atilde;o de contratos
+O que faz: automatiza o ciclo de vida de contratos &mdash;
+cria&ccedil;&atilde;o, aprova&ccedil;&atilde;o, assinatura digital, renova&ccedil;&atilde;o e
+alertas de vencimento.
+Para quem: empresas de manufatura com 50-300 funcion&aacute;rios
+Resultado entregue: redu&ccedil;&atilde;o de 60% no tempo de gest&atilde;o
+de contratos, elimina&ccedil;&atilde;o de contratos vencidos sem
+renova&ccedil;&atilde;o, rastreabilidade completa para auditorias.
+Diferencial: integra com ERP (SAP, TOTVS) sem precisar
+de time de TI interno da empresa cliente.
+
+Pesquisa de mercado sobre meu ICP:
+[COLAR AQUI O OUTPUT DO PERPLEXITY]
+&lt;/context&gt;
+
+&lt;task&gt;
+Escreva um &uacute;nico prompt cont&iacute;nuo, pronto para ser
+colado diretamente no Manus AI sem nenhuma edi&ccedil;&atilde;o.
+
+O prompt deve instruir o Manus a agir como especialista
+em intelig&ecirc;ncia comercial B2B e a gerar um Sales
+Intelligence Pack com tr&ecirc;s entreg&aacute;veis:
+
+1. Lista de 3 prospects qualificados (nome, cidade,
+   subsetor, porte estimado, por que &eacute; um bom prospect)
+
+2. Email de abertura personalizado (assunto + corpo,
+   m&aacute;x. 150 palavras, tom direto e consultivo, sem
+   linguagem gen&eacute;rica de vendedor, com dor espec&iacute;fica
+   do ICP e CTA claro)
+
+3. Brief de discovery call (frase de posicionamento
+   para os primeiros 30 segundos + 5 perguntas abertas
+   com hip&oacute;tese de dor para cada uma)
+
+O prompt deve embutir todo o contexto necess&aacute;rio
+(produto, ICP, dores, vocabul&aacute;rio do decisor) para que
+o Manus execute sem depender de nenhum conhecimento
+externo. Especifique o formato exato de cada entreg&aacute;vel
+dentro do pr&oacute;prio prompt.
+&lt;/task&gt;
+
+&lt;format&gt;
+Sua resposta deve ser SOMENTE o prompt para o Manus AI &mdash;
+um &uacute;nico bloco de texto cont&iacute;nuo, sem t&iacute;tulo, sem
+introdu&ccedil;&atilde;o, sem explica&ccedil;&atilde;o, sem coment&aacute;rio antes ou
+depois. Come&ccedil;a com a instru&ccedil;&atilde;o de papel do Manus e
+termina com a &uacute;ltima instru&ccedil;&atilde;o de formato. Nada mais.
+&lt;/format&gt;</span>
+      </div>
+
+      <div class="sec-subtitle">O que observar no resultado</div>
+      <ul class="observe-list">
+        <li>O Claude entrega um &uacute;nico bloco de texto &mdash; pronto para copiar e colar no Manus sem edi&ccedil;&atilde;o</li>
+        <li>O prompt gerado j&aacute; tem o contexto do produto e do ICP embutido &mdash; o Manus n&atilde;o precisa de informa&ccedil;&atilde;o adicional</li>
+        <li>A estrutura com entreg&aacute;veis numerados garante que o Manus n&atilde;o invente formato pr&oacute;prio</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step3')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 5 — DEMO 3 ===== -->
+    <div class="section" id="sec-step5">
+      <div class="sec-title"><span class="snum">05.</span> Demo 3 &mdash; Sales Intelligence Pack com Manus AI</div>
+      <div class="sec-desc">Tempo estimado: 3 a 5 minutos (agente roda de forma aut&ocirc;noma)</div>
+
+      <p class="content-text">O Manus recebe o prompt gerado pelo Claude e executa de forma aut&ocirc;noma &mdash; sem precisar de mais instru&ccedil;&atilde;o. O resultado &eacute; um Sales Intelligence Pack com tr&ecirc;s entreg&aacute;veis prontos para usar.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Instru&ccedil;&atilde;o</div>
+        <p>Abra o Manus AI em <a href="https://www.manus.im" target="_blank" style="color:var(--accent);text-decoration:underline">manus.im</a>. Crie uma nova tarefa e cole o prompt gerado pelo Claude na etapa anterior. Aguarde a execu&ccedil;&atilde;o &mdash; o Manus levar&aacute; entre 3 e 5 minutos para completar os tr&ecirc;s entreg&aacute;veis.</p>
+      </div>
+
+      <div class="sec-subtitle">O que o Manus entrega</div>
+
+      <div class="deliverable-card">
+        <h4>Entreg&aacute;vel 1 &mdash; Lista de 3 Prospects</h4>
+        <p>Para cada empresa: nome, cidade e estado, subsetor da manufatura, porte estimado e justificativa de por que &eacute; um bom prospect para o produto.</p>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>Entreg&aacute;vel 2 &mdash; Email de Abertura</h4>
+        <p>Assunto (m&aacute;ximo 8 palavras) + corpo (m&aacute;ximo 150 palavras). Tom direto e consultivo, sem jarg&atilde;o de vendedor. Menciona uma dor espec&iacute;fica identificada na pesquisa e termina com CTA claro.</p>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>Entreg&aacute;vel 3 &mdash; Brief de Discovery Call</h4>
+        <p>Frase de posicionamento para os primeiros 30 segundos da call + 5 perguntas abertas com a hip&oacute;tese de dor que cada pergunta investiga.</p>
+      </div>
+
+      <div class="sec-subtitle">O que observar no resultado</div>
+      <ul class="observe-list">
+        <li>O email usa o vocabul&aacute;rio do decisor &mdash; os termos que o Perplexity identificou na pesquisa aparecem na abordagem</li>
+        <li>As perguntas do brief investigam dores reais, n&atilde;o fazem pitch do produto</li>
+        <li>Os tr&ecirc;s entreg&aacute;veis s&atilde;o consistentes &mdash; falam para o mesmo prospect, com a mesma narrativa</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step4')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 6 — PRATICA ===== -->
+    <div class="section" id="sec-step6">
+      <div class="sec-title"><span class="snum">06.</span> Pr&aacute;tica &mdash; aplique para o seu produto</div>
+      <div class="sec-desc">Use os prompts abaixo substituindo as vari&aacute;veis entre [colchetes]</div>
+
+      <p class="content-text">Agora &eacute; a sua vez. Use os tr&ecirc;s prompts abaixo substituindo as vari&aacute;veis entre <strong>[colchetes]</strong> pelo contexto do seu produto e do seu cliente ideal. Siga a sequ&ecirc;ncia &mdash; o output de cada etapa alimenta a pr&oacute;xima.</p>
+
+      <!-- PASSO 1 -->
+      <div class="sec-subtitle">Passo 1 &mdash; Perplexity: pesquisa do seu ICP</div>
+      <p class="content-text">Acesse: <a href="https://www.perplexity.ai" target="_blank">perplexity.ai</a> &middot; Use Pro Search ou Deep Research</p>
+
+      <div class="copy-block" id="prompt-pratica1">
+        <span class="label">Prompt &mdash; Passo 1 (Perplexity)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica1-text').textContent)">Copiar</button>
+<span id="prompt-pratica1-text">Preciso de uma an&aacute;lise de intelig&ecirc;ncia comercial sobre
+o seguinte perfil de cliente ideal (ICP):
+
+Setor: [setor da empresa que voc&ecirc; quer prospectar]
+Porte: [faixa de tamanho &mdash; ex: 50 a 300 funcion&aacute;rios]
+Decisor: [cargo do decisor de compra &mdash; ex: Diretor de Opera&ccedil;&otilde;es]
+Regi&atilde;o: [regi&otilde;es de foco &mdash; ex: Brasil, foco em SP e SC]
+
+Me retorne:
+
+1. As 5 principais dores operacionais deste perfil que
+   levam &agrave; compra de [tipo de solu&ccedil;&atilde;o que voc&ecirc; vende]
+
+2. O vocabul&aacute;rio que este decisor usa no dia a dia
+   (termos t&eacute;cnicos do setor, m&eacute;tricas que acompanha,
+   express&otilde;es comuns em reuni&otilde;es)
+
+3. 3 tend&ecirc;ncias ou press&otilde;es de 2025-2026 que est&atilde;o
+   impactando este setor e que um fornecedor de software
+   deve conhecer antes de uma abordagem comercial
+
+4. Os crit&eacute;rios de decis&atilde;o mais comuns na hora de
+   contratar software &mdash; em ordem de prioridade para
+   este perfil
+
+Seja espec&iacute;fico e direto. Usarei este output para criar
+uma abordagem comercial personalizada para este ICP.</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Importante</div>
+        <p>Salve o resultado completo &mdash; voc&ecirc; vai precisar dele no Passo 2.</p>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="sec-subtitle">Passo 2 &mdash; Claude: s&iacute;ntese e prompt para o Manus</div>
+      <p class="content-text">Acesse: <a href="https://www.claude.ai" target="_blank">claude.ai</a> &mdash; Cole o prompt abaixo e, ao final, cole o resultado do Passo 1.</p>
+
+      <div class="copy-block" id="prompt-pratica2">
+        <span class="label">Prompt &mdash; Passo 2 (Claude)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica2-text').textContent)">Copiar</button>
+<span id="prompt-pratica2-text">&lt;role&gt;
+Voc&ecirc; &eacute; especialista em vendas B2B consultivas para
+empresas de software no Brasil. Conhece profundamente
+o processo de compra de software no setor de
+[setor do seu ICP] &mdash; incluindo como os decisores
+pensam, o que os trava e o que os move.
+&lt;/role&gt;
+
+&lt;context&gt;
+Produto: [nome do seu produto ou servi&ccedil;o]
+O que faz: [descreva em 1-2 frases o que o produto faz]
+Para quem: [perfil do cliente ideal &mdash; setor, porte, cargo do decisor]
+Resultado entregue: [principal resultado mensur&aacute;vel que o produto gera]
+Diferencial: [o que diferencia do concorrente direto]
+
+Pesquisa de mercado sobre meu ICP:
+[COLAR AQUI O OUTPUT COMPLETO DO PASSO 1]
+&lt;/context&gt;
+
+&lt;task&gt;
+Escreva um &uacute;nico prompt cont&iacute;nuo, pronto para ser
+colado diretamente no Manus AI sem nenhuma edi&ccedil;&atilde;o.
+
+O prompt deve instruir o Manus a agir como especialista
+em intelig&ecirc;ncia comercial B2B e a gerar um Sales
+Intelligence Pack com tr&ecirc;s entreg&aacute;veis:
+
+1. Lista de 3 prospects qualificados (nome, cidade,
+   subsetor, porte estimado, por que &eacute; um bom prospect)
+
+2. Email de abertura personalizado (assunto + corpo,
+   m&aacute;x. 150 palavras, tom direto e consultivo, sem
+   linguagem gen&eacute;rica de vendedor, com dor espec&iacute;fica
+   do ICP e CTA claro)
+
+3. Brief de discovery call (frase de posicionamento
+   para os primeiros 30 segundos + 5 perguntas abertas
+   com hip&oacute;tese de dor para cada uma)
+
+O prompt deve embutir todo o contexto necess&aacute;rio
+(produto, ICP, dores, vocabul&aacute;rio do decisor) para que
+o Manus execute sem depender de nenhum conhecimento
+externo. Especifique o formato exato de cada entreg&aacute;vel
+dentro do pr&oacute;prio prompt.
+&lt;/task&gt;
+
+&lt;format&gt;
+Sua resposta deve ser SOMENTE o prompt para o Manus AI &mdash;
+um &uacute;nico bloco de texto cont&iacute;nuo, sem t&iacute;tulo, sem
+introdu&ccedil;&atilde;o, sem explica&ccedil;&atilde;o, sem coment&aacute;rio antes ou
+depois. Come&ccedil;a com a instru&ccedil;&atilde;o de papel do Manus e
+termina com a &uacute;ltima instru&ccedil;&atilde;o de formato. Nada mais.
+&lt;/format&gt;</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Importante</div>
+        <p>Copie o bloco de texto que o Claude devolver &mdash; voc&ecirc; vai colar diretamente no Manus no Passo 3.</p>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="sec-subtitle">Passo 3 &mdash; Manus AI: gera&ccedil;&atilde;o do Sales Intelligence Pack</div>
+      <p class="content-text">Acesse: <a href="https://www.manus.im" target="_blank">manus.im</a></p>
+
+      <div class="instructions">
+        <div class="inst">
+          <span class="inst-num">1</span>
+          <span class="inst-text">Crie uma nova tarefa no Manus</span>
+        </div>
+        <div class="inst">
+          <span class="inst-num">2</span>
+          <span class="inst-text">Cole o prompt gerado pelo Claude no Passo 2</span>
+        </div>
+        <div class="inst">
+          <span class="inst-num">3</span>
+          <span class="inst-text">Aguarde entre 3 e 5 minutos &mdash; o Manus executar&aacute; de forma aut&ocirc;noma</span>
+        </div>
+      </div>
+
+      <div class="sec-subtitle">Voc&ecirc; receber&aacute;</div>
+
+      <div class="deliverable-card">
+        <h4>&#10003; Lista de 3 prospects qualificados com justificativa</h4>
+      </div>
+      <div class="deliverable-card">
+        <h4>&#10003; Email de abertura personalizado pronto para enviar</h4>
+      </div>
+      <div class="deliverable-card">
+        <h4>&#10003; Brief de discovery call com perguntas e hip&oacute;teses de dor</h4>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Entreg&aacute;vel</div>
+        <p>Salve o Sales Intelligence Pack gerado. Na pr&oacute;xima semana: escolha um dos prospects da lista e envie o email gerado. Registre a taxa de resposta &mdash; esse &eacute; o seu baseline para medir a melhoria.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step5')">&larr; Anterior</button>
+        <button class="nav-btn secondary" onclick="showSection('sec-home')">&#8617; In&iacute;cio</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========== RIGHT SIDEBAR ========== -->
+  <aside class="right-sidebar">
+    <div>
+      <div class="rs-section-title">As tr&ecirc;s ferramentas</div>
+      <table class="rs-table">
+        <tr><th>Ferramenta</th><th>Link</th><th>Plano</th></tr>
+        <tr><td>Perplexity</td><td><a href="https://www.perplexity.ai" target="_blank">perplexity.ai</a></td><td>Gratuito</td></tr>
+        <tr><td>Claude</td><td><a href="https://www.claude.ai" target="_blank">claude.ai</a></td><td>Gratuito</td></tr>
+        <tr><td>Manus AI</td><td><a href="https://www.manus.im" target="_blank">manus.im</a></td><td>Trial</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Estrutura do processo</div>
+      <table class="rs-table">
+        <tr><th>Passo</th><th>Ferramenta</th><th>Output</th></tr>
+        <tr><td>1</td><td>Perplexity</td><td>Intelig&ecirc;ncia do ICP</td></tr>
+        <tr><td>2</td><td>Claude</td><td>Prompt para o Manus</td></tr>
+        <tr><td>3</td><td>Manus AI</td><td>Sales Intelligence Pack</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">O que voc&ecirc; gera</div>
+      <table class="rs-table">
+        <tr><td>&#10003;</td><td>Lista de 3 prospects qualificados</td></tr>
+        <tr><td>&#10003;</td><td>Email de abertura personalizado</td></tr>
+        <tr><td>&#10003;</td><td>Brief de discovery call</td></tr>
+      </table>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+const stepToFlow = {
+  'sec-home': 'home',
+  'sec-step1': 'teoria',
+  'sec-step2': 'ferramentas',
+  'sec-step3': 'demos',
+  'sec-step4': 'demos',
+  'sec-step5': 'demos',
+  'sec-step6': 'pratica'
+}
+const flowOrder = ['home','teoria','ferramentas','demos','pratica']
+const visited = new Set(['sec-home'])
+const completedFlows = new Set()
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  const flow = stepToFlow[id]
+  if (flow) {
+    const idx = flowOrder.indexOf(flow)
+    if (idx > 0) completedFlows.add(flowOrder[idx-1])
+  }
+  updateStepper(flow)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+
+function updateStepper(activeFlow) {
+  document.querySelectorAll('.stepper-node').forEach(n => {
+    const f = n.dataset.flow
+    const idx = flowOrder.indexOf(f)
+    const activeIdx = flowOrder.indexOf(activeFlow)
+    n.classList.remove('active','completed','future')
+    if (f === activeFlow) n.classList.add('active')
+    else if (completedFlows.has(f) || idx < activeIdx) n.classList.add('completed')
+    else n.classList.add('future')
+  })
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+
+function goHome() { showSection('sec-home') }
+
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    btn.classList.add('copied')
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied') }, 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    btn.classList.add('copied')
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied') }, 1800)
+  })
+}
+
+updateStepper('home')
+updateProgress()
+</script>
+</body>
+</html>
