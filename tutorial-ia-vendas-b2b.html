@@ -794,6 +794,11 @@
     <span class="sn-check">&#10003;</span>
     <span class="sn-label">Pr&aacute;tica</span>
   </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="deltaboard" onclick="showSection('sec-step7')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Delta Board</span>
+  </div>
 </header>
 
 <div class="layout">
@@ -840,6 +845,13 @@
         <div class="nav-group-title">Pr&aacute;tica</div>
         <div class="nav-item" onclick="showSection('sec-step6')" data-section="sec-step6">
           <span class="ni-num">06</span>Pr&aacute;tica + Prompts<span class="ni-check">&#10003;</span>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Delta Board</div>
+        <div class="nav-item" onclick="showSection('sec-step7')" data-section="sec-step7">
+          <span class="ni-num">07</span>Desconto 50% para Delta Board<span class="ni-check">&#10003;</span>
         </div>
       </div>
     </div>
@@ -1280,6 +1292,29 @@ termina com a &uacute;ltima instru&ccedil;&atilde;o de formato. Nada mais.
 
       <div class="nav-buttons">
         <button class="nav-btn secondary" onclick="showSection('sec-step5')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Pr&oacute;ximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SEC STEP 7 — DELTA BOARD ===== -->
+    <div class="section" id="sec-step7">
+      <div class="sec-title"><span class="snum">07.</span> Desconto 50% para Delta Board</div>
+      <div class="sec-desc">Exclusivo para a plateia de hoje</div>
+
+      <p class="content-text">Tudo que voc&ecirc; viu hoje &eacute; o come&ccedil;o. O <strong>Delta Board</strong> &eacute; onde voc&ecirc; aprofunda isso em 2 dias presenciais em S&atilde;o Paulo &mdash; junto com outros founders que est&atilde;o no mesmo caminho de transformar suas empresas em AI-First.</p>
+
+      <p class="content-text">Diagn&oacute;stico da sua empresa, prioriza&ccedil;&atilde;o de casos de uso, constru&ccedil;&atilde;o do roadmap de 90 dias e certifica&ccedil;&atilde;o Delta ao final.</p>
+
+      <p class="content-text"><strong>Exclusivo para a plateia de hoje: 2 ingressos com 50% de desconto &mdash; de R$ 10.000 por R$ 5.000.</strong></p>
+
+      <p class="content-text">Escaneie o QR Code e garanta o seu.</p>
+
+      <div style="text-align:center;margin:24px 0">
+        <img src="qr-delta-board.png" alt="QR Code Delta Board" style="max-width:280px;width:100%;border-radius:8px">
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step6')">&larr; Anterior</button>
         <button class="nav-btn secondary" onclick="showSection('sec-home')">&#8617; In&iacute;cio</button>
       </div>
     </div>
@@ -1328,9 +1363,10 @@ const stepToFlow = {
   'sec-step3': 'demos',
   'sec-step4': 'demos',
   'sec-step5': 'demos',
-  'sec-step6': 'pratica'
+  'sec-step6': 'pratica',
+  'sec-step7': 'deltaboard'
 }
-const flowOrder = ['home','teoria','ferramentas','demos','pratica']
+const flowOrder = ['home','teoria','ferramentas','demos','pratica','deltaboard']
 const visited = new Set(['sec-home'])
 const completedFlows = new Set()
 
