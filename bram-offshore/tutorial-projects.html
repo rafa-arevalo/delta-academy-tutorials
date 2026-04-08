@@ -10,1006 +10,542 @@
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
   :root {
-    --bg: #F5F0EB;
-    --white: #FFFFFF;
-    --accent: #5C6C51;
-    --accent2: #1F3331;
-    --accent-light: #EDE8E2;
-    --accent-lighter: #F0EBE4;
-    --accent-border: #DDD8D2;
-    --accent-text: #1F3331;
-    --green: #5C6C51;
-    --green-bg: #EDE8E2;
-    --green-border: #DDD8D2;
-    --green-text: #1F3331;
-    --yellow: #D97706;
-    --orange: #EA580C;
-    --red: #DC2626;
-    --red-bg: #FEF2F2;
-    --red-border: #FECACA;
-    --text: #1A1A1A;
-    --text2: #4A4A4A;
-    --text3: #7A7A7A;
-    --text4: #B0A89F;
-    --border: #EDE8E2;
-    --border2: #DDD8D2;
-    --bg2: #FFFFFF;
-    --surface2: #F5F0EB;
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --bg: #F5F0EB; --white: #FFFFFF; --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4; --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A; --text4: #B0A89F;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04); --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
   }
 
-  body {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .layout { display: flex; min-height: 100vh; }
 
-  h1, h2, h3, h4, h5, h6,
-  .sec-title, .sidebar-header h2, .overview-card h3,
-  .nav-group-title {
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  /* ========== LAYOUT ========== */
-  .layout {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* ========== LEFT SIDEBAR ========== */
-  .sidebar {
-    width: 256px;
-    min-width: 256px;
-    background: #1F3331;
-    border-right: 1px solid rgba(245,240,235,0.1);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* Sidebar */
+  .sidebar { width: 256px; min-width: 256px; background: #1F3331; border-right: 1px solid rgba(245,240,235,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
   .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
-
-  .sidebar-header {
-    padding: 20px 16px 16px;
-    border-bottom: 1px solid rgba(245,240,235,0.1);
-  }
-
-  .sidebar-header h2 {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #F5F0EB;
-    letter-spacing: -0.02em;
-  }
-
-  .sidebar-header p {
-    font-size: 0.65rem;
-    color: #5C6C51;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 500;
-    margin-top: 2px;
-  }
-
-  .nav-group {
-    padding: 12px 0 4px;
-  }
-
-  .nav-group-title {
-    padding: 2px 16px 6px;
-    font-size: 0.58rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(245,240,235,0.4);
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px 6px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-decoration: none;
-    color: rgba(245,240,235,0.7);
-    font-size: 0.78rem;
-    font-weight: 400;
-    border-left: 2px solid transparent;
-    margin: 0;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .nav-item:hover {
-    background: rgba(92,108,81,0.2);
-    color: #F5F0EB;
-  }
-
-  .nav-item.active {
-    background: #5C6C51;
-    color: #F5F0EB;
-    border-left-color: #F5F0EB;
-    font-weight: 600;
-  }
-
-  .nav-item .ni-num {
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: rgba(245,240,235,0.4);
-    min-width: 17px;
-    font-variant-numeric: tabular-nums;
-  }
-
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
+  .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 16px; cursor: pointer; transition: all 0.15s; text-decoration: none; color: rgba(245,240,235,0.7); font-size: 0.78rem; font-weight: 400; border-left: 2px solid transparent; }
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; }
   .nav-item.active .ni-num { color: #F5F0EB; }
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+  .nav-item.completed .ni-check { opacity: 1; color: rgba(245,240,235,0.5); }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
 
-  .nav-item .ni-check {
-    margin-left: auto;
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
-
-  .nav-item.completed .ni-check { opacity: 1; }
-
-  /* Progress */
-  .sidebar-progress {
-    padding: 14px 16px;
-    border-top: 1px solid rgba(245,240,235,0.1);
-    margin-top: auto;
-  }
-
-  .sp-label {
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-
-  .sp-bar {
-    height: 3px;
-    background: rgba(245,240,235,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .sp-fill {
-    height: 100%;
-    background: #5C6C51;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* ========== MAIN CONTENT ========== */
-  .main {
-    flex: 1;
-    padding: 20px 36px 40px;
-    max-width: 700px;
-  }
-
-  .section {
-    display: none;
-    animation: fadeIn 0.25s ease;
-  }
+  /* Main */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
+  .section { display: none; animation: fadeIn 0.25s ease; }
   .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Section title */
-  .sec-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 3px;
-  }
-
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
   .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; }
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 8px; }
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
 
-  .sec-desc {
-    font-size: 0.78rem;
-    color: var(--text2);
-    margin-bottom: 18px;
-    font-weight: 400;
-  }
+  /* Cards */
+  .overview-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
 
-  /* Instructions */
-  .instructions {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-  }
-
-  .inst {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    align-items: center;
-    padding: 10px 13px;
-    background: var(--white);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow 0.15s;
-  }
-
-  .inst:hover { box-shadow: var(--shadow-sm); }
-
-  .inst-num {
-    font-size: 0.56rem;
-    font-weight: 700;
-    color: #fff;
-    background: #5C6C51;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .inst-text {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .inst-text strong { font-weight: 600; }
-
-  .inst-text .field {
-    display: inline-block;
-    background: #F0EBE4;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    font-family: 'SF Mono', 'JetBrains Mono', monospace;
-    border: 1px solid var(--border);
-    color: var(--text);
-  }
-
-  /* Copy block — uniform cream */
-  .copy-block {
-    position: relative;
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: #2A2A2A;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  .copy-block .label {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #5C6C51;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #EDE8E2;
-    border: 1px solid #DDD8D2;
-    color: #5C6C51;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 0.62rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
-  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
-
-  /* Tip box */
-  .tip-box {
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
-
-  .tip-box .tip-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
-
-  .tip-box p {
-    font-size: 0.74rem;
-    color: var(--accent-text);
-    line-height: 1.5;
-  }
-
-  /* Warning box */
-  .warning-box {
-    background: #FEF3E2;
-    border: 1px solid #F5C96A;
-    border-left: 3px solid #D97706;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
-
-  .warning-box .warning-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #92610A;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
-
-  .warning-box p {
-    font-size: 0.74rem;
-    color: #7A520D;
-    line-height: 1.5;
-  }
-
-  /* Nav buttons */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .nav-btn {
-    display: flex; align-items: center; gap: 4px;
-    padding: 6px 12px; border-radius: 6px;
-    font-size: 0.7rem; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--border);
-    background: var(--white); color: var(--text2);
-    transition: all 0.15s; text-decoration: none;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .nav-btn:hover { background: #F0EBE4; border-color: var(--border2); color: #1F3331; }
-
-  .nav-btn.primary { background: #5C6C51; border-color: #5C6C51; color: #fff; }
-  .nav-btn.primary:hover { background: #1F3331; }
-
-  /* ===== HOME: Visao Geral ===== */
-  .overview-card {
-    background: #FFFFFF;
-    border: 1px solid #EDE8E2;
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .overview-card h3 {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-  }
-
-  .overview-card p {
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.55;
-  }
-
-  .class-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.72rem;
-    margin-top: 10px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .class-table th {
-    background: #EDE8E2;
-    color: var(--text2);
-    font-weight: 600;
-    text-align: left;
-    padding: 6px 10px;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .class-table td {
-    padding: 6px 10px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 0.72rem;
-  }
-
-  .class-table tr:last-child td { border-bottom: none; }
-
-  .tag-green { color: var(--green); font-weight: 600; }
-  .tag-yellow { color: var(--yellow); font-weight: 600; }
-  .tag-orange { color: var(--orange); font-weight: 600; }
-  .tag-red { color: var(--red); font-weight: 600; }
-
-  .resource-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
-
-  .res-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
-
-  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
-  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); font-family: 'Montserrat', system-ui, sans-serif; }
-  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+  /* Pillar cards */
+  .pillar-cards { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .pillar-card { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow-xs); }
+  .pillar-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .pillar-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
 
   /* Ref table */
-  .ref-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.78rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 10px 0;
-  }
-
-  .ref-table th {
-    background: #EDE8E2;
-    color: var(--text2);
-    font-weight: 600;
-    text-align: left;
-    padding: 7px 12px;
-    font-size: 0.64rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .ref-table td {
-    padding: 7px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-  }
-
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+  .ref-table th { background: #EDE8E2; color: var(--text2); font-weight: 600; text-align: left; padding: 8px 12px; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .ref-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
   .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
 
-  /* Comparison cards */
-  .comparison-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 14px 0;
-  }
+  /* Instructor note */
+  .instructor-note { background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
 
-  .comparison-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: var(--shadow-xs);
-  }
+  /* Tip box */
+  .tip-box { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
 
-  .comparison-card h4 {
-    font-size: 0.76rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
+  /* Copy block */
+  .copy-block { position: relative; background: #F0EBE4; border: 1px solid #DDD8D2; border-left: 3px solid #5C6C51; border-radius: 8px; padding: 20px 24px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+  .copy-block .label { font-family: 'Montserrat', system-ui, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block; }
+  .copy-btn { position: absolute; top: 8px; right: 8px; background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51; padding: 3px 10px; border-radius: 5px; font-size: 0.62rem; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
 
-  .comparison-card .prompt-text {
-    font-size: 0.74rem;
-    color: var(--text);
-    line-height: 1.55;
-    font-style: italic;
-    margin-bottom: 8px;
-    padding: 8px 10px;
-    background: var(--surface2);
-    border-radius: 6px;
-  }
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 13px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .inst-num { font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
 
-  .comparison-card .explanation {
-    font-size: 0.7rem;
-    color: var(--text2);
-    line-height: 1.5;
-    font-style: italic;
-  }
-
-  /* Capability list */
-  .capability-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-  }
-
-  .capability-tag {
-    display: inline-block;
-    background: var(--accent-lighter);
-    border: 1px solid var(--accent-border);
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--accent-text);
-  }
-
-
-  /* Timeline */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 14px 0;
-  }
-
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 0;
-    position: relative;
-  }
-
-  .timeline-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 11px;
-    top: 32px;
-    bottom: 0;
-    width: 2px;
-    background: var(--border);
-  }
-
-  .timeline-dot {
-    min-width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.62rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .timeline-text {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-    padding-top: 2px;
-  }
+  /* Numbered list */
+  .numbered-list { list-style: none; counter-reset: item; margin: 10px 0 0; }
+  .numbered-list li { counter-increment: item; display: flex; align-items: flex-start; gap: 10px; padding: 4px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+  .numbered-list li::before { content: counter(item); min-width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
   /* Checklist */
-  .checklist {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 10px;
-  }
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
 
-  .checklist-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.5;
-  }
+  /* Example card */
+  .example-card { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .example-card .example-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+  .example-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .example-card p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.55; }
+  .example-card .example-prompt { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #2A2A2A; line-height: 1.6; padding: 10px 12px; background: rgba(255,255,255,0.6); border: 1px solid var(--accent-border); border-radius: 6px; margin: 8px 0; white-space: pre-wrap; }
 
-  .checklist-item .check-icon {
-    min-width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    border: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-    font-size: 0.55rem;
-    color: var(--accent);
-  }
+  /* Use case cards */
+  .usecase-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .usecase-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: var(--shadow-xs); }
+  .usecase-card h4 { font-size: 0.76rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .usecase-card p { font-size: 0.72rem; color: var(--text2); line-height: 1.5; }
 
-  /* Mobile */
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .resource-row { grid-template-columns: 1fr; }
-    .comparison-row { grid-template-columns: 1fr; }
+    .usecase-cards { grid-template-columns: 1fr; }
   }
-
 </style>
 </head>
 <body>
-
 <div class="layout">
 
-  <!-- ========== LEFT SIDEBAR ========== -->
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;" onmouseover="this.style.color='#F5F0EB'" onmouseout="this.style.color='rgba(245,240,235,0.5)'"><span>&#8592;</span> Indice</a>
+      <a class="back-link" href="index.html">&#8592; Indice</a>
       <h2>Projects</h2>
-      <p>Modulo 03 &mdash; Bram Offshore</p>
+      <p>BRAM OFFSHORE &middot; Fase 1</p>
     </div>
-
+    <div class="sidebar-badges"><span class="sidebar-badge">Free</span></div>
     <div id="nav-main">
       <div class="nav-group">
-        <div class="nav-group-title">INICIO</div>
-        <a class="nav-item active" data-section="home" onclick="showSection('home')">
-          <span class="ni-num">~</span> Objetivos
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Introducao<span class="ni-check">&#10003;</span></a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">CONTEUDO</div>
-        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
-          <span class="ni-num">01</span> O que e um Project
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
-          <span class="ni-num">02</span> Demo ao vivo
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Teoria</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> O que e um Project<span class="ni-check">&#10003;</span></a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">PRATICA</div>
-        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
-          <span class="ni-num">03</span> Criar o proprio Project
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Demonstracao</div>
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Criando ao vivo<span class="ni-check">&#10003;</span></a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Atividade Pratica</div>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Criar meu Project<span class="ni-check">&#10003;</span></a>
       </div>
     </div>
-
     <div class="sidebar-progress">
-      <div class="sp-label">Progresso</div>
-      <div class="sp-bar">
-        <div class="sp-fill" id="progress-fill"></div>
-      </div>
-      <div id="progress-text" style="font-size:0.6rem; color:rgba(245,240,235,0.5); margin-top:4px;">0 / 3</div>
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
     </div>
   </nav>
 
-  <!-- ========== MAIN CONTENT ========== -->
   <main class="main">
 
-<!-- ===== HOME ===== -->
-    <div class="section active" id="sec-home">
-      <h1 class="sec-title"><span class="snum">00.</span> Objetivos de Aprendizagem</h1>
-      <p class="sec-desc">Modulo 03 &mdash; Projects &middot; 20 min &middot; Gratuito</p>
+<!-- ===== 00 · INTRODUCAO ===== -->
+<div class="section active" id="sec-home">
+  <div class="sec-title"><span class="snum">00.</span> Introducao</div>
+  <div class="sec-desc">O que sao Projects e por que mudam tudo</div>
 
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Entregavel do Modulo</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); line-height:1.6;">Ao final deste modulo voces vao conseguir fazer isso: Um espaco de trabalho no Claude configurado com o contexto do seu departamento na Bram. A partir de agora, toda conversa dentro desse Project comeca sabendo quem voce e, onde trabalha e qual e o tom certo &mdash; sem precisar repetir nada.</p>
-      </div>
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <p>Todo assistente de IA tem um problema fundamental: ele esquece tudo. Cada vez que voces abrem uma nova conversa, o Claude comeca do zero — nao sabe quem voces sao, onde trabalham, qual e o tom esperado, quais sao os processos do departamento. Voces precisam reexplicar o contexto toda vez.</p>
+    <p style="margin-top:8px;">Os <strong>Projects</strong> resolvem esse problema. Sao espacos de trabalho autocontidos, com historico de conversas proprio e uma base de conhecimento que persiste. Dentro de um Project, voces podem carregar documentos, definir instrucoes e ter conversas focadas — e o Claude usa tudo isso como contexto em todas as interacoes dentro daquele espaco.</p>
+    <p style="margin-top:8px;">O resultado pratico: o Claude passa a funcionar como um colega que foi treinado com as informacoes do seu departamento, leu todos os documentos relevantes e entende exatamente como voce prefere trabalhar — sem precisar ser apresentado de novo a cada conversa.</p>
+  </div>
 
-      <div class="overview-card">
-        <h3>Linha do Tempo</h3>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot">1</div>
-            <div class="timeline-text">Entender o que e um Project e por que usar</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot">2</div>
-            <div class="timeline-text">Demo: instrutor cria um Project ao vivo</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot">3</div>
-            <div class="timeline-text">Demo: instrutor testa o contexto com um pedido real</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot">4</div>
-            <div class="timeline-text">Voces criam o proprio Project e testam</div>
-          </div>
-        </div>
-      </div>
+  <div class="overview-card">
+    <h3>Objetivos de Aprendizagem</h3>
+    <ol class="numbered-list">
+      <li>Entender o que e um Project e por que o contexto persistente muda a forma de usar o Claude</li>
+      <li>Criar um Project com instrucoes e contexto do proprio departamento na Bram Offshore</li>
+      <li>Adicionar arquivos de contexto ao Project para refinar as respostas do Claude</li>
+      <li>Testar o Project enviando um pedido real e verificando que o contexto foi aplicado automaticamente</li>
+    </ol>
+  </div>
 
-      <div class="overview-card">
-        <h3>Navegacao Rapida</h3>
-        <div class="resource-row">
-          <div class="res-card" onclick="showSection('step1')">
-            <div class="rc-icon">&#128218;</div>
-            <div class="rc-title">O que e</div>
-            <div class="rc-desc">Por que usar Projects no Claude.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step2')">
-            <div class="rc-icon">&#127916;</div>
-            <div class="rc-title">Demo</div>
-            <div class="rc-desc">Instrutor cria um Project ao vivo.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step3')">
-            <div class="rc-icon">&#128640;</div>
-            <div class="rc-title">Pratica</div>
-            <div class="rc-desc">Crie o seu proprio Project.</div>
-          </div>
-        </div>
-      </div>
+  <div class="nav-buttons">
+    <div></div>
+    <button class="nav-btn primary" onclick="showSection('sec-step1')">Comecar &#8594;</button>
+  </div>
+</div>
 
-      <div class="nav-buttons">
-        <div></div>
-        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
-      </div>
+<!-- ===== 01 · O QUE E UM PROJECT ===== -->
+<div class="section" id="sec-step1">
+  <div class="section-divider">Teoria</div>
+  <div class="sec-title"><span class="snum">01.</span> O que e um Project</div>
+  <div class="sec-desc">Mais do que uma pasta de conversas</div>
+
+  <p class="lead-text">Um Project e um espaco de trabalho inteligente onde o contexto que voce define uma vez e aplicado automaticamente em todas as conversas futuras dentro daquele Project.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Instrucao permanente</h4>
+      <p>Voces escrevem uma vez para o Claude quem voce e, onde trabalha, qual e o seu papel, o tom esperado e as preferencias de formato. A partir dai, toda conversa dentro do Project comeca com o Claude ja sabendo tudo isso.</p>
     </div>
-
-<!-- ===== STEP 1: O que e um Project ===== -->
-    <div class="section" id="sec-step1">
-      <h1 class="sec-title"><span class="snum">01.</span> O que e um Project e por que usar</h1>
-      <p class="sec-desc">Um Project e o espaco de trabalho fixo no Claude, onde o contexto da sua area fica salvo.</p>
-
-      <table class="ref-table">
-        <thead>
-          <tr><th>Sem Project</th><th>Com Project</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Repete o contexto toda conversa</td>
-            <td>Contexto salvo, disponivel sempre</td>
-          </tr>
-          <tr>
-            <td>Claude nao sabe quem voce e</td>
-            <td>Claude conhece seu papel e empresa</td>
-          </tr>
-          <tr>
-            <td>Cada conversa comeca do zero</td>
-            <td>Continua de onde parou</td>
-          </tr>
-          <tr>
-            <td>Para pedidos pontuais</td>
-            <td>Para qualquer tarefa recorrente</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="tip-box">
-        <div class="tip-label">Regra</div>
-        <p>Se voce vai usar o Claude mais de uma vez para o mesmo tipo de tarefa, crie um Project.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
-        <a class="nav-btn primary" onclick="showSection('step2')">Demo &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Base de conhecimento</h4>
+      <p>Voces podem fazer upload de documentos, textos e arquivos diretamente no Project. O Claude usa esse material como referencia em todas as conversas. Um regulamento, um processo interno, um glossario tecnico — tudo fica disponivel permanentemente.</p>
     </div>
-
-<!-- ===== STEP 2: Demo ===== -->
-    <div class="section" id="sec-step2">
-      <h1 class="sec-title"><span class="snum">02.</span> Demo &mdash; Criando o Project ao vivo</h1>
-      <p class="sec-desc">O instrutor vai criar um Project agora. Observem os 3 campos que precisam ser preenchidos.</p>
-
-      <div class="instructions">
-        <div class="inst">
-          <div class="inst-num">1</div>
-          <div class="inst-text"><strong>claude.ai</strong> &rarr; Projects &rarr; Novo Project</div>
-        </div>
-        <div class="inst">
-          <div class="inst-num">2</div>
-          <div class="inst-text"><strong>Nome:</strong> "Bram Offshore &mdash; Operacoes" (exemplo)</div>
-        </div>
-        <div class="inst">
-          <div class="inst-num">3</div>
-          <div class="inst-text"><strong>Colar</strong> o contexto no campo de instrucoes</div>
-        </div>
-        <div class="inst">
-          <div class="inst-num">4</div>
-          <div class="inst-text"><strong>Salvar</strong></div>
-        </div>
-      </div>
-
-      <div class="copy-block" id="contexto-instrutor">
-        <span class="label">CONTEXTO &mdash; INSTRUTOR COLA NO PROJECT</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('contexto-instrutor-text').textContent)">Copiar</button>
-        <span id="contexto-instrutor-text">Contexto do departamento — Bram Offshore
-
-Sou trainee na Bram Offshore, empresa brasileira de servicos de apoio maritimo offshore atuando no setor de oleo e gas. Meu departamento e Operacoes.
-
-No meu dia a dia trabalho com: acompanhamento de horas de bordo das embarcacoes, comunicacao com os comandantes, geracao de relatorios operacionais para a base em terra, e suporte ao planejamento de missoes.
-
-A Bram opera embarcacoes de apoio (PSV, AHTS, RSV) para atendimento as plataformas da Petrobras e outros operadores no Brasil. Nossas operacoes seguem regulamentacoes da Marinha do Brasil (NORMAM-01) e normas da ISGOTT.
-
-Tom: tecnico e profissional, com enfase em seguranca operacional.</span>
-      </div>
-
-      <div class="copy-block" id="teste-instrutor" style="margin-top:14px;">
-        <span class="label">TESTE &mdash; INSTRUTOR ENVIA DENTRO DO PROJECT</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('teste-instrutor-text').textContent)">Copiar</button>
-        <span id="teste-instrutor-text">Preciso de um e-mail para o comandante solicitando o relatorio de horas de bordo de marco. Tom formal, direto ao ponto.</span>
-      </div>
-
-      <div class="tip-box" style="margin-top:14px;">
-        <div class="tip-label">Observe</div>
-        <p>Nao precisei dizer quem sou, onde trabalho ou qual o tom. O Project ja tem tudo isso.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step3')">Pratica &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Janela de contexto de 200 mil tokens</h4>
+      <p>Cada Project comporta o equivalente a um livro de 500 paginas de contexto. No plano free, voces podem criar ate 5 Projects diferentes.</p>
     </div>
+  </div>
 
-<!-- ===== STEP 3: Pratica ===== -->
-    <div class="section" id="sec-step3">
-      <h1 class="sec-title"><span class="snum">03.</span> Pratica &mdash; Criar o proprio Project</h1>
-      <p class="sec-desc">Agora voces criam o Project de voces. Usem o template abaixo e adaptem para o seu departamento com o que ja sabem &mdash; mesmo que seja pouco.</p>
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>Por que o contexto e o elemento mais importante</h3>
+    <p>Sem contexto, o Claude responde de forma generica. Com contexto, ele responde como um especialista do seu departamento.</p>
+    <table class="ref-table" style="margin-top:10px;">
+      <tr><th>Sem contexto</th><th>Com contexto no Project</th></tr>
+      <tr><td>"Aqui esta um e-mail formal para o comandante da embarcacao."</td><td>"Aqui esta um e-mail no tom tecnico da Bram Offshore, com a terminologia correta de operacoes maritimas, assinado pelo setor de Operacoes."</td></tr>
+      <tr><td>"Aqui esta uma checklist generica de inspecao."</td><td>"Aqui esta a checklist seguindo os padroes da NORMAM-01, com os campos que o seu departamento usa no dia a dia."</td></tr>
+      <tr><td>"Nao sei quem voce e ou o que sua empresa faz."</td><td>"Sei que voce e trainee de HSE na Bram Offshore, que opera embarcacoes PSV e AHTS para a Petrobras, e que o foco e seguranca operacional."</td></tr>
+    </table>
+  </div>
 
-      <div class="copy-block" id="template-aluno">
-        <span class="label">TEMPLATE &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('template-aluno-text').textContent)">Copiar</button>
-        <span id="template-aluno-text">Contexto do departamento — Bram Offshore
+  <div class="tip-box">
+    <div class="tip-label">Regra</div>
+    <p>O Claude e tao especifico quanto o contexto que voce fornece. Um Project bem configurado transforma respostas genericas em respostas que parecem feitas para o seu departamento.</p>
+  </div>
 
-Sou trainee na Bram Offshore, empresa brasileira de servicos de apoio maritimo offshore atuando no setor de oleo e gas. Meu departamento e [seu departamento].
-
-No meu dia a dia trabalho com: [descreva 3 a 5 atividades que voce ja observou ou realizou — mesmo que ainda seja pouco, escreva o que sabe].
-
-A Bram opera embarcacoes de apoio (PSV, AHTS, RSV) para atendimento as plataformas da Petrobras e outros operadores no Brasil. Nossas operacoes seguem regulamentacoes da Marinha do Brasil (NORMAM-01) e normas da ISGOTT.
-
-Tom: tecnico e profissional, com enfase em seguranca operacional.
-
-Quando eu pedir documentos, formate sempre de forma profissional e pronta para uso interno.</span>
-      </div>
-
-      <div class="overview-card" style="border-left:4px solid var(--green); margin-top:16px;">
-        <h3 style="color:var(--green-text);">Checklist &mdash; Entregaveis</h3>
-        <div class="checklist">
-          <div class="checklist-item">
-            <div class="check-icon" style="border-color:var(--green); color:var(--green);">&#10003;</div>
-            <span>Project criado com nome e contexto do proprio departamento</span>
-          </div>
-          <div class="checklist-item">
-            <div class="check-icon" style="border-color:var(--green); color:var(--green);">&#10003;</div>
-            <span>Enviou pelo menos um pedido dentro do Project</span>
-          </div>
-          <div class="checklist-item">
-            <div class="check-icon" style="border-color:var(--green); color:var(--green);">&#10003;</div>
-            <span>Percebeu que o Claude usou o contexto sem precisar repeti-lo</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
-      </div>
+  <div class="usecase-cards">
+    <div class="usecase-card">
+      <h4>Caso 1 — Trainee de HSE</h4>
+      <p>Um Project configurado com: o papel do trainee de HSE, as normas que regem a operacao (NORMAM-01, ISGOTT), o processo de registro de ocorrencias e o modelo de relatorio padrao. Toda vez que precisar redigir um relatorio, o Claude ja sabe o formato e a terminologia.</p>
     </div>
+    <div class="usecase-card">
+      <h4>Caso 2 — Trainee de Supply Chain</h4>
+      <p>Um Project configurado com: o papel do trainee, os fornecedores tipicos, o processo de recebimento de material e os criterios de conformidade. E-mails de follow-up e checklists de recebimento ja saem calibrados para a realidade da Bram.</p>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <h3>Comparativo — Sem Project vs. Com Project</h3>
+    <table class="ref-table" style="margin-top:6px;">
+      <tr><th></th><th>Sem Project</th><th>Com Project</th></tr>
+      <tr><td><strong>Contexto</strong></td><td>Repete em toda conversa</td><td>Configurado uma vez, aplicado sempre</td></tr>
+      <tr><td><strong>Conhecimento</strong></td><td>Claude nao sabe nada</td><td>Claude conhece seu papel e empresa</td></tr>
+      <tr><td><strong>Tom e formato</strong></td><td>Generico</td><td>Calibrado para o departamento</td></tr>
+      <tr><td><strong>Documentos</strong></td><td>Voce cola toda vez</td><td>Carregados uma vez, disponiveis sempre</td></tr>
+      <tr><td><strong>Historico</strong></td><td>Cada conversa do zero</td><td>Conversas organizadas no mesmo espaco</td></tr>
+      <tr><td><strong>Quando usar</strong></td><td>Pedidos pontuais e variados</td><td>Qualquer tarefa recorrente do trabalho</td></tr>
+    </table>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 02 · DEMONSTRACAO ===== -->
+<div class="section" id="sec-step2">
+  <div class="section-divider">Demonstracao</div>
+  <div class="sec-title"><span class="snum">02.</span> Demonstracao — Criando um Project ao vivo</div>
+  <div class="sec-desc">Observem cada campo preenchido e o que ele faz</div>
+
+  <p class="lead-text">O instrutor vai criar um Project agora — ao vivo — usando o contexto de um trainee de Operacoes da Bram Offshore.</p>
+
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>claude.ai</strong> &#8594; Projects &#8594; + New Project</div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text">Nome do Project: <strong>"Bram Offshore — Operacoes"</strong></div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text">Colar as instrucoes no campo <strong>"Project instructions"</strong></div></div>
+    <div class="inst"><div class="inst-num">4</div><div class="inst-text">Salvar</div></div>
+    <div class="inst"><div class="inst-num">5</div><div class="inst-text">Adicionar arquivos de contexto na <strong>base de conhecimento</strong></div></div>
+    <div class="inst"><div class="inst-num">6</div><div class="inst-text">Testar com um pedido real dentro do Project</div></div>
+  </div>
+
+  <div class="copy-block"><span class="label">Instrucoes do Project — instrutor copia e cola no campo de instrucoes</span><button class="copy-btn" onclick="copyText(this, document.getElementById('ctx-instructions').textContent)">Copiar</button><span id="ctx-instructions">Contexto do meu trabalho — Bram Offshore
+
+Sou trainee no departamento de Operacoes da Bram Offshore, empresa
+brasileira de servicos de apoio maritimo offshore atuando no setor
+de oleo e gas.
+
+Minhas principais atividades incluem: acompanhamento de horas de
+bordo das embarcacoes, comunicacao com os comandantes, apoio na
+geracao de relatorios operacionais para a base em terra e suporte
+ao planejamento de missoes.
+
+Sobre a Bram Offshore: a empresa opera embarcacoes de apoio
+(PSV, AHTS, RSV) para atendimento as plataformas da Petrobras e
+outros operadores no Brasil. Todas as operacoes seguem as
+regulamentacoes da Marinha do Brasil (NORMAM-01) e as normas
+da ISGOTT.
+
+Tom e formato esperado:
+- Tom tecnico e profissional, com enfase em seguranca operacional
+- Documentos sempre formatados de forma profissional e pronta
+  para uso interno
+- Terminologia do setor maritimo offshore quando aplicavel
+- Quando gerar documentos, usar a identidade visual da Bram Offshore:
+  header azul marinho (#003087), texto branco, "BRAM OFFSHORE"
+  em caixa alta</span></div>
+
+  <div class="copy-block"><span class="label">Arquivo de contexto — copiar, salvar como glossario-operacional.md e adicionar ao Project</span><button class="copy-btn" onclick="copyText(this, document.getElementById('ctx-glossario').textContent)">Copiar</button><span id="ctx-glossario"># Glossario Operacional — Bram Offshore
+
+## Tipos de embarcacao
+- PSV (Platform Supply Vessel): embarcacao de apoio logistico as plataformas
+- AHTS (Anchor Handling Tug Supply): rebocador de ancoras com capacidade de supply
+- RSV (Rescue and Support Vessel): embarcacao de salvamento e suporte
+
+## Termos de operacao
+- Horas de bordo: horas efetivas de trabalho da embarcacao em missao
+- Escala de bordo: relacao de tripulantes embarcados por funcao
+- ROB (Remaining On Board): tripulantes que permanecem a bordo entre escalas
+- DP (Dynamic Positioning): sistema de posicionamento dinamico da embarcacao
+
+## Regulamentacoes
+- NORMAM-01: Norma da Autoridade Maritima para embarcacoes empregadas
+  na navegacao em mar aberto
+- ISGOTT: International Safety Guide for Oil Tankers and Terminals
+- ANP: Agencia Nacional do Petroleo — orgao regulador brasileiro
+
+## Documentos operacionais comuns
+- Relatorio de operacao diaria (ROD)
+- Plano de viagem
+- Relatorio de horas de bordo
+- Registro de ocorrencias operacionais</span></div>
+
+  <div class="copy-block"><span class="label">Arquivo de contexto — copiar, salvar como processos-operacoes.md e adicionar ao Project</span><button class="copy-btn" onclick="copyText(this, document.getElementById('ctx-processos').textContent)">Copiar</button><span id="ctx-processos"># Processos do Departamento de Operacoes — Bram Offshore
+
+## Rotina semanal
+- Segunda: consolidacao do relatorio de horas de bordo da semana anterior
+- Terca/Quarta: acompanhamento das operacoes em andamento
+- Quinta: preparacao do plano de missoes da semana seguinte
+- Sexta: envio do relatorio semanal para a base em terra
+
+## Comunicacoes recorrentes
+- E-mail de solicitacao de relatorio ao comandante
+- E-mail de confirmacao de escalas de tripulacao
+- Relatorio de status de operacao para a lideranca
+- Registro de ocorrencias operacionais
+
+## Criterios de qualidade dos documentos
+- Toda comunicacao com os comandantes deve ser formal e direta
+- Relatorios para a lideranca devem ter resumo executivo no inicio
+- Registros de ocorrencia devem incluir: data, embarcacao, responsavel,
+  descricao, acao tomada e status de resolucao</span></div>
+
+  <p class="lead-text" style="margin-top:14px;">Com o Project criado e os arquivos adicionados, o instrutor vai rodar este pedido dentro do Project:</p>
+
+  <div class="copy-block"><span class="label">Prompt de teste — instrutor roda dentro do Project</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-teste-demo').textContent)">Copiar</button><span id="prompt-teste-demo">Preciso de um e-mail para o comandante da embarcacao solicitando
+o relatorio de horas de bordo referente a ultima semana.
+Tom formal, direto ao ponto.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Observem que nao precisei dizer quem sou, onde trabalho, qual e o tom ou o que e "horas de bordo". O Project ja tem tudo isso. A resposta chegou calibrada para o contexto da Bram Offshore — como se o Claude ja trabalhasse no departamento.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 03 · ATIVIDADE PRATICA ===== -->
+<div class="section" id="sec-step3">
+  <div class="section-divider">Atividade Pratica</div>
+  <div class="sec-title"><span class="snum">03.</span> Criando o Project do meu departamento</div>
+  <div class="sec-desc">Chegou a hora de voces</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Agora voces vao criar o proprio Project — configurado para o departamento de cada um. Vao ter <strong>8 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>5 colegas</strong> para apresentar o Project funcionando — cada um tera ate <strong>3 minutos</strong>.</p>
+  </div>
+
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Criar o Project:</strong> claude.ai &#8594; Projects &#8594; + New Project. Nome: <em>"Bram Offshore — [seu departamento]"</em></div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Configurar as instrucoes:</strong> copiem o template abaixo, adaptem e colem no campo "Project instructions"</div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Adicionar arquivo de contexto:</strong> copiem o template de contexto, adaptem e adicionem ao Project</div></div>
+    <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Testar:</strong> abram uma conversa dentro do Project e rodem o prompt de teste</div></div>
+  </div>
+
+  <div class="copy-block"><span class="label">Template de instrucoes — copiar, adaptar e colar no campo "Project instructions"</span><button class="copy-btn" onclick="copyText(this, document.getElementById('tpl-instructions').textContent)">Copiar</button><span id="tpl-instructions">Contexto do meu trabalho — Bram Offshore
+
+Sou trainee no departamento de [seu departamento] da Bram Offshore,
+empresa brasileira de servicos de apoio maritimo offshore atuando
+no setor de oleo e gas.
+
+Minhas principais atividades incluem: [descreva de 3 a 5 atividades
+que voce ja observou, participou ou sabe que acontecem no departamento
+— mesmo que seja pouco, escreva o que sabe].
+
+Sobre a Bram Offshore: a empresa opera embarcacoes de apoio
+(PSV, AHTS, RSV) para atendimento as plataformas da Petrobras e
+outros operadores no Brasil. Todas as operacoes seguem as
+regulamentacoes da Marinha do Brasil (NORMAM-01) e as normas
+da ISGOTT.
+
+Tom e formato esperado:
+- Tom tecnico e profissional, com enfase em seguranca operacional
+- Documentos sempre formatados de forma profissional e pronta
+  para uso interno
+- Quando gerar documentos, usar a identidade visual da Bram Offshore:
+  header azul marinho (#003087), texto branco, "BRAM OFFSHORE"
+  em caixa alta e nome do departamento abaixo</span></div>
+
+  <div class="copy-block"><span class="label">Arquivo de contexto — copiar, adaptar e adicionar ao Project</span><button class="copy-btn" onclick="copyText(this, document.getElementById('tpl-contexto').textContent)">Copiar</button><span id="tpl-contexto"># Contexto do Departamento — [seu departamento] · Bram Offshore
+
+## O que meu departamento faz
+[Descreva em 2-3 frases o papel do departamento dentro da Bram Offshore
+— mesmo que seja uma visao inicial, escreva o que ja observou]
+
+## Atividades recorrentes
+[Liste de 3 a 5 tarefas ou processos que acontecem com frequencia no
+departamento — ex: geracao de relatorios, comunicacao com fornecedores,
+analise de contratos, registro de ocorrencias, etc.]
+
+## Documentos que o departamento produz
+[Liste os tipos de documento que o departamento gera — ex: relatorios,
+checklists, e-mails, propostas, registros, atas, etc.]
+
+## Termos e vocabulario do departamento
+[Inclua termos tecnicos, siglas ou vocabulario especifico que o Claude
+deve conhecer para responder de forma adequada — ex: siglas, nomes de
+sistemas, regulamentacoes especificas, etc.]</span></div>
+
+  <div class="copy-block"><span class="label">Prompt de teste — copiar e rodar dentro do Project criado</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-teste').textContent)">Copiar</button><span id="prompt-teste">Crie um documento profissional como Artifact em HTML para uma das
+seguintes tarefas do meu departamento:
+- Uma checklist de um processo recorrente
+- Um e-mail para um interlocutor tipico do departamento
+- Um resumo executivo de uma atividade semanal
+
+Escolha a tarefa que fizer mais sentido para o meu contexto e
+gere o documento ja no padrao visual da Bram Offshore.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>O prompt de teste nao especifica o departamento, o tom nem o formato — o Claude deve inferir tudo isso a partir do contexto do Project. Se o contexto foi bem configurado, o resultado chegara calibrado para o departamento de cada um.</p>
+  </div>
+
+  <!-- Exemplo -->
+  <div class="example-card">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Pedro, trainee de HSE</h4>
+    <div class="example-prompt">Instrucoes preenchidas:
+Minhas principais atividades incluem: acompanhamento de registros
+de ocorrencias de seguranca, apoio na elaboracao de relatorios HSE,
+participacao em inspecoes de seguranca a bordo e suporte a equipe
+de HSE na comunicacao com as embarcacoes.</div>
+    <div class="example-prompt">Arquivo de contexto:
+## O que meu departamento faz
+O departamento de HSE e responsavel por garantir a conformidade com
+as normas de seguranca, saude e meio ambiente em todas as operacoes
+da Bram Offshore.
+
+## Documentos que o departamento produz
+Relatorio de ocorrencias HSE, relatorio de inspecao de seguranca,
+comunicado de boa pratica de seguranca, checklist de EPIs.
+
+## Termos e vocabulario do departamento
+HSE (Health, Safety and Environment), EPI (Equipamento de Protecao
+Individual), quase-acidente, nao conformidade, ISGOTT, NORMAM-01,
+analise de causa raiz, 5 Porques.</div>
+    <p style="margin-top:8px;"><strong>Resultado esperado:</strong> O Claude vai gerar um documento com terminologia HSE, referencias as normas corretas e no padrao visual da Bram Offshore — sem Pedro precisar explicar nada disso no prompt de teste.</p>
+  </div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>O que preparar para apresentar</h3>
+    <p>Se voce for sorteado, prepare para mostrar em ate 3 minutos:</p>
+    <ul style="list-style:none;margin-top:8px;">
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; <strong>Qual e o seu departamento</strong> e o que voce descreveu nas instrucoes do Project</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; <strong>Mostre o Project configurado</strong> — abra as instrucoes e o arquivo de contexto</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; <strong>Mostre o resultado do teste</strong> — compartilhe o Artifact gerado</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; <strong>Compare com uma conversa sem Project</strong> — envie o mesmo prompt fora do Project e mostre a diferenca</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; <strong>Qual informacao de contexto</strong> voce considera mais importante no seu Project — e por que</li>
+    </ul>
+  </div>
+
+  <div class="overview-card">
+    <h3>Entregavel do modulo</h3>
+    <ul class="checklist">
+      <li>Project criado com nome e instrucoes do proprio departamento</li>
+      <li>Arquivo de contexto adicionado ao Project</li>
+      <li>Prompt de teste rodado dentro do Project</li>
+      <li>Claude usou o contexto do departamento sem precisar ser instruido no prompt</li>
+      <li>Consegue mostrar a diferenca entre a resposta dentro e fora do Project</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-home')">&#8617; Inicio</button>
+  </div>
+</div>
 
   </main>
-
-
 </div>
 
 <script>
-// ========== STATE ==========
-const stepToFlow = {
-  home:'home',
-  step1:'oque',
-  step2:'demo',
-  step3:'pratica'
-};
-const flowOrder = ['home','oque','demo','pratica'];
-
-const visited = new Set(['home']);
-const completedFlows = new Set();
+const visited = new Set(['sec-home'])
 
 function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const sec = document.getElementById('sec-' + id);
-  if (sec) sec.classList.add('active');
-
-  visited.add(id);
-
-  const currentFlow = stepToFlow[id];
-  if (currentFlow) {
-    const currentIdx = flowOrder.indexOf(currentFlow);
-    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update sidebar nav
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active');
-    if (visited.has(el.dataset.section)) el.classList.add('completed');
-  });
-  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
-  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
-
-  updateProgress();
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
 }
 
 function updateProgress() {
-  const total = 3;
-  let count = 0;
-  for (let i = 1; i <= 3; i++) {
-    if (visited.has('step' + i)) count++;
-  }
-  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
-  document.getElementById('progress-text').textContent = count + ' / ' + total;
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
 }
 
+function goHome() { showSection('sec-home') }
+
 function copyText(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
   }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-  });
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
 }
+
+updateProgress()
 </script>
 </body>
 </html>
