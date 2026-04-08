@@ -18,986 +18,555 @@
     --accent-lighter: #F0EBE4;
     --accent-border: #DDD8D2;
     --accent-text: #1F3331;
-    --green: #5C6C51;
-    --green-bg: #EDE8E2;
-    --green-border: #DDD8D2;
-    --green-text: #1F3331;
-    --yellow: #D97706;
-    --orange: #EA580C;
-    --red: #DC2626;
-    --red-bg: #FEF2F2;
-    --red-border: #FECACA;
     --text: #1A1A1A;
     --text2: #4A4A4A;
     --text3: #7A7A7A;
     --text4: #B0A89F;
     --border: #EDE8E2;
     --border2: #DDD8D2;
-    --bg2: #FFFFFF;
-    --surface2: #F5F0EB;
     --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
   }
 
-  body {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  h1, h2, h3, h4, h5, h6,
-  .sec-title, .sidebar-header h2, .nav-group-title,
-  .overview-card h3, .meta-card .meta-name, .meta-card .meta-letter {
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
+  .layout { display: flex; min-height: 100vh; }
 
-  /* ========== LAYOUT ========== */
-  .layout {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* ========== LEFT SIDEBAR ========== */
-  .sidebar {
-    width: 256px;
-    min-width: 256px;
-    background: #1F3331;
-    border-right: 1px solid rgba(245,240,235,0.1);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* Sidebar */
+  .sidebar { width: 256px; min-width: 256px; background: #1F3331; border-right: 1px solid rgba(245,240,235,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
-  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-
-  .sidebar-header {
-    padding: 20px 16px 16px;
-    border-bottom: 1px solid rgba(245,240,235,0.1);
-  }
-
-  .sidebar-header h2 {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #F5F0EB;
-    letter-spacing: -0.02em;
-  }
-
-  .sidebar-header p {
-    font-size: 0.65rem;
-    color: #5C6C51;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 500;
-    margin-top: 2px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nav-group {
-    padding: 12px 0 4px;
-  }
-
-  .nav-group-title {
-    padding: 2px 16px 6px;
-    font-size: 0.58rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(245,240,235,0.4);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px 6px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-decoration: none;
-    color: rgba(245,240,235,0.7);
-    font-size: 0.78rem;
-    font-weight: 400;
-    border-left: 2px solid transparent;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nav-item:hover {
-    background: rgba(92,108,81,0.2);
-    color: #F5F0EB;
-  }
-
-  .nav-item.active {
-    background: #5C6C51;
-    color: #F5F0EB;
-    border-left-color: #F5F0EB;
-    font-weight: 600;
-  }
-
-  .nav-item .ni-num {
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: rgba(245,240,235,0.4);
-    min-width: 17px;
-    font-variant-numeric: tabular-nums;
-  }
-
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
+  .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 16px; cursor: pointer; transition: all 0.15s; text-decoration: none; color: rgba(245,240,235,0.7); font-size: 0.78rem; font-weight: 400; border-left: 2px solid transparent; }
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; font-variant-numeric: tabular-nums; }
   .nav-item.active .ni-num { color: #F5F0EB; }
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; color: #5C6C51; opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+  .nav-item.completed .ni-check { opacity: 1; color: rgba(245,240,235,0.5); }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
 
-  .nav-item .ni-check {
-    margin-left: auto;
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
-
-  .nav-item.completed .ni-check { opacity: 1; }
-
-  /* Progress */
-  .sidebar-progress {
-    padding: 14px 16px;
-    border-top: 1px solid rgba(245,240,235,0.1);
-    margin-top: auto;
-  }
-
-  .sp-label {
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    font-weight: 500;
-    margin-bottom: 6px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .sp-bar {
-    height: 3px;
-    background: rgba(245,240,235,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .sp-fill {
-    height: 100%;
-    background: #5C6C51;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* ========== MAIN CONTENT ========== */
-  .main {
-    flex: 1;
-    padding: 20px 36px 40px;
-    max-width: 700px;
-  }
-
-  .section {
-    display: none;
-    animation: fadeIn 0.25s ease;
-  }
+  /* Main */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
+  .section { display: none; animation: fadeIn 0.25s ease; }
   .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Section title */
-  .sec-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 3px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
   .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; font-weight: 400; }
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 8px; }
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
 
-  .sec-desc {
-    font-size: 0.78rem;
-    color: var(--text2);
-    margin-bottom: 18px;
-    font-weight: 400;
-  }
+  /* Cards */
+  .overview-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
 
-  /* Instructions */
-  .instructions {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-  }
-
-  .inst {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    align-items: center;
-    padding: 10px 13px;
-    background: var(--white);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow 0.15s;
-  }
-
-  .inst:hover { box-shadow: var(--shadow-sm); }
-
-  .inst-num {
-    font-size: 0.56rem;
-    font-weight: 700;
-    color: #fff;
-    background: var(--accent);
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .inst-text {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .inst-text strong { font-weight: 600; }
-
-  /* Copy block — uniform cream style */
-  .copy-block {
-    position: relative;
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: #2A2A2A;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  .copy-block .label {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #5C6C51;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #EDE8E2;
-    border: 1px solid #DDD8D2;
-    color: #5C6C51;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 0.62rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
-  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
-
-  /* Tip box */
-  .tip-box {
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
-
-  .tip-box .tip-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #5C6C51;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
-
-  .tip-box p {
-    font-size: 0.74rem;
-    color: #1F3331;
-    line-height: 1.5;
-  }
-
-  /* Warning box */
-  .warning-box {
-    background: #FEF3E2;
-    border: 1px solid var(--red-border);
-    border-left: 3px solid #D97706;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
-
-  .warning-box .warning-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #991B1B;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
-
-  .warning-box p {
-    font-size: 0.74rem;
-    color: #7F1D1D;
-    line-height: 1.5;
-  }
-
-  /* Nav buttons */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .nav-btn {
-    display: flex; align-items: center; gap: 4px;
-    padding: 6px 12px; border-radius: 6px;
-    font-size: 0.7rem; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--border);
-    background: var(--white); color: var(--text2);
-    transition: all 0.15s; text-decoration: none;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .nav-btn:hover { background: #F0EBE4; border-color: var(--accent-border); color: #1F3331; }
-
-  .nav-btn.primary { background: #5C6C51; border-color: #5C6C51; color: #fff; }
-  .nav-btn.primary:hover { background: #1F3331; }
-
-  /* ===== HOME: Visao Geral ===== */
-  .overview-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .overview-card h3 {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .overview-card p {
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.55;
-  }
+  /* Comparison */
+  .comparison-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .comparison-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow-xs); }
+  .comparison-card h4 { font-size: 0.76rem; font-weight: 700; margin-bottom: 8px; }
+  .comparison-card .prompt-text { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #2A2A2A; line-height: 1.6; padding: 10px 12px; background: #F0EBE4; border: 1px solid #DDD8D2; border-radius: 6px; margin-bottom: 8px; white-space: pre-wrap; }
+  .comparison-card .result-text { font-size: 0.7rem; color: var(--text3); line-height: 1.5; font-style: italic; }
+  .bad-label { color: #DC2626; font-weight: 700; }
+  .good-label { color: #5C6C51; font-weight: 700; }
 
   /* Ref table */
-  .ref-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.78rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 10px 0;
-  }
-
-  .ref-table th {
-    background: #EDE8E2;
-    color: var(--text2);
-    font-weight: 600;
-    text-align: left;
-    padding: 7px 12px;
-    font-size: 0.64rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .ref-table td {
-    padding: 7px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-  }
-
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+  .ref-table th { background: #EDE8E2; color: var(--text2); font-weight: 600; text-align: left; padding: 8px 12px; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .ref-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; font-size: 0.74rem; }
   .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
 
-  /* Comparison cards */
-  .comparison-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 14px 0;
-  }
+  /* Instructor note */
+  .instructor-note { background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
 
-  .comparison-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: var(--shadow-xs);
-  }
+  /* Tip box */
+  .tip-box { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
 
-  .comparison-card h4 {
-    font-size: 0.76rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Copy block */
+  .copy-block { position: relative; background: #F0EBE4; border: 1px solid #DDD8D2; border-left: 3px solid #5C6C51; border-radius: 8px; padding: 20px 24px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+  .copy-block .label { font-family: 'Montserrat', system-ui, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block; }
+  .copy-btn { position: absolute; top: 8px; right: 8px; background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51; padding: 3px 10px; border-radius: 5px; font-size: 0.62rem; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
 
-  .comparison-card .prompt-text {
-    font-size: 0.74rem;
-    color: var(--text);
-    line-height: 1.55;
-    font-style: italic;
-    margin-bottom: 8px;
-    padding: 8px 10px;
-    background: var(--surface2);
-    border-radius: 6px;
-  }
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 13px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .inst-num { font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
 
-  .comparison-card .explanation {
-    font-size: 0.7rem;
-    color: var(--text2);
-    line-height: 1.5;
-    font-style: italic;
-  }
-
-  /* Resource cards */
-  .resource-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
-
-  .res-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
-
-  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
-  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); font-family: 'Montserrat', sans-serif; }
-  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+  /* Numbered list */
+  .numbered-list { list-style: none; counter-reset: item; margin: 10px 0 0; }
+  .numbered-list li { counter-increment: item; display: flex; align-items: flex-start; gap: 10px; padding: 4px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+  .numbered-list li::before { content: counter(item); min-width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
   /* Checklist */
-  .checklist {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 10px;
-  }
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
 
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
+  /* Artifact type cards */
+  .artifact-types { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .artifact-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: var(--shadow-xs); }
+  .artifact-card .ac-icon { font-size: 1.1rem; margin-bottom: 4px; }
+  .artifact-card .ac-title { font-size: 0.76rem; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .artifact-card .ac-desc { font-size: 0.68rem; color: var(--text2); line-height: 1.45; margin-bottom: 4px; }
+  .artifact-card .ac-how { font-size: 0.64rem; color: var(--text3); font-style: italic; }
 
-  .check-item .check-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    border: 2px solid var(--border2);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.55rem;
-    color: var(--green);
-  }
+  /* Example card */
+  .example-card { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .example-card .example-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+  .example-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .example-card p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.55; }
+  .example-card .example-prompt { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #2A2A2A; line-height: 1.6; padding: 10px 12px; background: rgba(255,255,255,0.6); border: 1px solid var(--accent-border); border-radius: 6px; margin: 8px 0; white-space: pre-wrap; }
 
-  /* Timeline */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 14px 0;
-    position: relative;
-    padding-left: 24px;
-  }
+  /* Mockup */
+  .mockup-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .mockup-panel { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-xs); }
+  .mockup-header { background: #EDE8E2; padding: 6px 10px; font-size: 0.58rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border); }
+  .mockup-body { padding: 12px; font-size: 0.68rem; color: var(--text2); line-height: 1.55; }
+  .mockup-body.chat-style { font-style: italic; color: var(--text3); }
+  .mockup-artifact-header { background: #003087; padding: 6px 10px; border-radius: 4px 4px 0 0; }
+  .mockup-artifact-header span { font-size: 0.56rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.08em; }
+  .mockup-artifact-body { border: 1px solid #E5E7EB; border-top: none; border-radius: 0 0 4px 4px; padding: 8px 10px; font-size: 0.62rem; color: var(--text2); line-height: 1.5; }
 
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: var(--accent-border);
-    border-radius: 2px;
-  }
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
 
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 0;
-    position: relative;
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 14px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--white);
-    box-shadow: var(--shadow-xs);
-  }
-
-  .timeline-item p {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  /* Mobile */
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .resource-row { grid-template-columns: 1fr; }
-    .comparison-row { grid-template-columns: 1fr; }
+    .comparison-row, .artifact-types, .mockup-container { grid-template-columns: 1fr; }
   }
-
 </style>
 </head>
 <body>
 
 <div class="layout">
 
-  <!-- ========== LEFT SIDEBAR ========== -->
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;" onmouseover="this.style.color='#F5F0EB'" onmouseout="this.style.color='rgba(245,240,235,0.5)'"><span>&#8592;</span> Indice</a>
+      <a class="back-link" href="index.html">&#8592; Indice</a>
       <h2>Chat + Artifacts</h2>
-      <p>Modulo 02 &mdash; BRAM OFFSHORE</p>
+      <p>BRAM OFFSHORE &middot; Fase 1</p>
     </div>
-
+    <div class="sidebar-badges">
+      <span class="sidebar-badge">Free</span>
+    </div>
     <div id="nav-main">
       <div class="nav-group">
-        <div class="nav-group-title">INICIO</div>
-        <a class="nav-item active" data-section="home" onclick="showSection('home')">
-          <span class="ni-num">~</span> Objetivos
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+          <span class="ni-num">00</span> Introducao
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">CONTEUDO</div>
-        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
-          <span class="ni-num">01</span> Fraco vs. Forte
+        <div class="nav-group-title">Teoria</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+          <span class="ni-num">01</span> Prompt ruim vs. bom
           <span class="ni-check">&#10003;</span>
         </a>
-        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
           <span class="ni-num">02</span> O que e um Artifact
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">DEMOS</div>
-        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
-          <span class="ni-num">03</span> Demo 1 — Prompt fraco
+        <div class="nav-group-title">Demonstracao</div>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+          <span class="ni-num">03</span> Prompt ruim ao vivo
           <span class="ni-check">&#10003;</span>
         </a>
-        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
-          <span class="ni-num">04</span> Demo 2 — Prompt forte
+        <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+          <span class="ni-num">04</span> Prompt bom ao vivo
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">PRATICA</div>
-        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
-          <span class="ni-num">05</span> Sua vez
+        <div class="nav-group-title">Atividade Pratica</div>
+        <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+          <span class="ni-num">05</span> Atividade Pratica
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
     </div>
-
     <div class="sidebar-progress">
-      <div class="sp-label">Progresso</div>
-      <div class="sp-bar">
-        <div class="sp-fill" id="progress-fill"></div>
-      </div>
-      <div id="progress-text" style="font-size:0.6rem; color:rgba(245,240,235,0.5); margin-top:4px;">0 / 5</div>
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
     </div>
   </nav>
 
-  <!-- ========== MAIN CONTENT ========== -->
   <main class="main">
 
-<!-- ===== HOME ===== -->
-    <div class="section active" id="sec-home">
-      <h1 class="sec-title">Chat + Artifacts</h1>
-      <p class="sec-desc">Modulo 02 &mdash; 20 min &middot; BRAM OFFSHORE</p>
+<!-- ===== 00 · INTRODUCAO ===== -->
+<div class="section active" id="sec-home">
+  <div class="sec-title"><span class="snum">00.</span> Introducao</div>
+  <div class="sec-desc">O que voces vao aprender neste modulo</div>
 
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Entregavel deste Modulo</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Um documento profissional gerado pelo Claude &mdash; checklist, relatorio, e-mail ou resumo executivo &mdash; estruturado, formatado e pronto para uso real no trabalho.</p>
-        <p style="margin-top:8px;">Voce descreve o que precisa. O Claude entrega. Sem edicao manual.</p>
-      </div>
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <p>A qualidade da resposta do Claude depende diretamente da qualidade do pedido que voce faz. Um prompt ruim entrega uma resposta generica que voce vai precisar editar por minutos. Um prompt bom entrega algo que voce usa de verdade — direto do Claude para o trabalho.</p>
+    <p style="margin-top:8px;">Neste modulo voces aprendem a estruturar pedidos que funcionam e a usar o Artifact — uma janela do Claude que transforma qualquer resposta em um documento, tabela, grafico ou codigo pronto para uso, sem precisar copiar e colar nada.</p>
+  </div>
 
-      <div class="overview-card">
-        <h3>Linha do Tempo</h3>
-        <div class="timeline">
-          <div class="timeline-item">
-            <p>Ver a diferenca entre prompt fraco e prompt forte</p>
-          </div>
-          <div class="timeline-item">
-            <p>Aprender os 4 elementos de um prompt forte</p>
-          </div>
-          <div class="timeline-item">
-            <p>Demo: instrutor gera documento como Artifact ao vivo</p>
-          </div>
-          <div class="timeline-item">
-            <p>Voces geram um documento do proprio departamento</p>
-          </div>
-        </div>
-      </div>
+  <div class="overview-card">
+    <h3>Objetivos de Aprendizagem</h3>
+    <ol class="numbered-list">
+      <li>Identificar a diferenca entre um prompt ruim e um prompt bom</li>
+      <li>Aplicar os 4 elementos de um prompt bom em qualquer pedido</li>
+      <li>Entender o que e um Artifact e como ativa-lo</li>
+      <li>Gerar um documento profissional no padrao Bram Offshore como Artifact</li>
+    </ol>
+  </div>
 
-      <div class="overview-card">
-        <h3>Navegacao Rapida</h3>
-        <div class="resource-row">
-          <div class="res-card" onclick="showSection('step1')">
-            <div class="rc-icon">&#128218;</div>
-            <div class="rc-title">Fraco vs. Forte</div>
-            <div class="rc-desc">Compare dois prompts lado a lado.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step3')">
-            <div class="rc-icon">&#127916;</div>
-            <div class="rc-title">Demos ao Vivo</div>
-            <div class="rc-desc">Instrutor gera documento real.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step5')">
-            <div class="rc-icon">&#128640;</div>
-            <div class="rc-title">Pratica</div>
-            <div class="rc-desc">Gere seu proprio documento.</div>
-          </div>
-        </div>
-      </div>
+  <div class="nav-buttons">
+    <div></div>
+    <button class="nav-btn primary" onclick="showSection('sec-step1')">Comecar &#8594;</button>
+  </div>
+</div>
 
-      <div class="nav-buttons">
-        <div></div>
-        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
-      </div>
+<!-- ===== 01 · PROMPT RUIM VS. BOM ===== -->
+<div class="section" id="sec-step1">
+  <div class="section-divider">Teoria</div>
+  <div class="sec-title"><span class="snum">01.</span> Prompt ruim vs. prompt bom</div>
+  <div class="sec-desc">O mesmo pedido feito de duas formas diferentes</div>
+
+  <p class="lead-text">Veja o mesmo pedido feito de duas formas diferentes. O tema e identico. O resultado e completamente diferente.</p>
+
+  <div class="comparison-row">
+    <div class="comparison-card" style="border-top:3px solid #DC2626;">
+      <h4><span class="bad-label">Prompt ruim</span></h4>
+      <div class="prompt-text">Me ajuda com uma checklist de inspecao de embarcacao.</div>
+      <div class="result-text">Resultado: texto corrido, generico, sem estrutura. Voce vai precisar de 10 minutos de edicao para transformar isso em algo utilizavel.</div>
     </div>
-
-<!-- ===== STEP 1: Prompt fraco vs. forte ===== -->
-    <div class="section" id="sec-step1">
-      <h1 class="sec-title"><span class="snum">01.</span> Prompt fraco vs. prompt forte</h1>
-      <p class="sec-desc">Mesmo pedido, resultados completamente diferentes.</p>
-
-      <div class="comparison-row">
-        <div class="comparison-card" style="border-left:4px solid #DC2626; background:#FFFFFF;">
-          <h4 style="color:#DC2626;">Prompt Fraco</h4>
-          <div class="prompt-text">"Me ajuda com uma checklist de inspecao de embarcacao."</div>
-          <div class="explanation">Generico, sem estrutura, sem papel definido, sem formato de saida. A IA vai chutar.</div>
-        </div>
-        <div class="comparison-card" style="border-left:4px solid #5C6C51; background:#FFFFFF;">
-          <h4 style="color:#5C6C51;">Prompt Forte</h4>
-          <div class="prompt-text">"Voce e tecnico de seguranca offshore. Crie uma checklist de inspecao pre-operacional para embarcacao de apoio maritimo. Cubra: navegacao, salvatagem, HSE, motores e documentacao regulatoria. Formate com checkboxes, campo para numero da embarcacao, data e assinatura do responsavel."</div>
-          <div class="explanation">Papel definido, contexto claro, tarefa especifica, formato de saida detalhado.</div>
-        </div>
-      </div>
-
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Os 4 Elementos de um Prompt Forte</h3>
-        <table class="ref-table" style="margin-top:10px;">
-          <thead>
-            <tr><th>#</th><th>Elemento</th><th>Exemplo</th></tr>
-          </thead>
-          <tbody>
-            <tr><td style="font-weight:700; color:var(--accent);">1</td><td><strong>Papel</strong></td><td>"Voce e tecnico de seguranca offshore..."</td></tr>
-            <tr><td style="font-weight:700; color:var(--accent);">2</td><td><strong>Contexto</strong></td><td>"...embarcacao de apoio maritimo..."</td></tr>
-            <tr><td style="font-weight:700; color:var(--accent);">3</td><td><strong>Tarefa clara</strong></td><td>"...checklist com estas secoes..."</td></tr>
-            <tr><td style="font-weight:700; color:var(--accent);">4</td><td><strong>Formato de saida</strong></td><td>"...com checkboxes, campos e assinatura."</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
-        <a class="nav-btn primary" onclick="showSection('step2')">O que e um Artifact &#8594;</a>
-      </div>
-    </div>
-
-<!-- ===== STEP 2: O que e um Artifact ===== -->
-    <div class="section" id="sec-step2">
-      <h1 class="sec-title"><span class="snum">02.</span> O que e um Artifact</h1>
-      <p class="sec-desc">A diferenca entre uma resposta comum e um documento pronto para uso.</p>
-
-      <table class="ref-table">
-        <thead>
-          <tr><th></th><th>Resposta normal</th><th>Artifact</th></tr>
-        </thead>
-        <tbody>
-          <tr><td style="font-weight:600;">Apresentacao</td><td>Texto corrido no chat</td><td>Janela lateral com conteudo renderizado</td></tr>
-          <tr><td style="font-weight:600;">Uso</td><td>Voce copia e reformata</td><td>Voce clica e usa direto</td></tr>
-          <tr><td style="font-weight:600;">Aplicacao</td><td>Para leitura</td><td>Para documento, tabela, grafico ou codigo</td></tr>
-        </tbody>
-      </table>
-
-      <div class="tip-box">
-        <div class="tip-label">Como ativar</div>
-        <p>Especifique o formato no prompt: "Crie um documento com..." / "Gere uma tabela em HTML..." / "Escreva o codigo Python para..."</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step3')">Demo 1 &#8594;</a>
-      </div>
-    </div>
-
-<!-- ===== STEP 3: Demo 1 — Prompt fraco ===== -->
-    <div class="section" id="sec-step3">
-      <h1 class="sec-title"><span class="snum">03.</span> Demo 1 &mdash; Prompt fraco ao vivo</h1>
-      <p class="sec-desc">O instrutor vai enviar o prompt fraco primeiro. Observem o resultado.</p>
-
-      <div class="copy-block" id="prompt-demo1">
-        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1-text').textContent)">Copiar</button>
-        <span id="prompt-demo1-text">Me ajuda com uma checklist de inspecao de embarcacao.</span>
-      </div>
-
-      <div class="warning-box">
-        <div class="warning-label">Resultado esperado</div>
-        <p>Resultado generico, sem estrutura, inutilizavel diretamente. Agora o mesmo pedido com os 4 elementos.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step4')">Demo 2 — Prompt forte &#8594;</a>
-      </div>
-    </div>
-
-<!-- ===== STEP 4: Demo 2 — Prompt forte + Artifact ===== -->
-    <div class="section" id="sec-step4">
-      <h1 class="sec-title"><span class="snum">04.</span> Demo 2 &mdash; Prompt forte + Artifact ao vivo</h1>
-      <p class="sec-desc">Agora o instrutor envia o prompt completo. Observem a diferenca.</p>
-
-      <div class="copy-block" id="prompt-demo2">
-        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2-text').textContent)">Copiar</button>
-        <span id="prompt-demo2-text">Voce e tecnico de seguranca offshore certificado pela Marinha do Brasil.
+    <div class="comparison-card" style="border-top:3px solid #5C6C51;">
+      <h4><span class="good-label">Prompt bom</span></h4>
+      <div class="prompt-text">Voce e tecnico de seguranca offshore certificado pela Marinha do Brasil.
 
 Crie uma checklist de inspecao pre-operacional para embarcacao de apoio maritimo, no formato de documento profissional como Artifact em HTML.
+
+A checklist deve cobrir: sistemas de navegacao, equipamentos de salvatagem, HSE, motores e documentacao regulatoria (NORMAM-01).
+
+Inclua checkboxes, campo para numero da embarcacao, data e assinatura do responsavel. Pronto para uso operacional.</div>
+      <div class="result-text">Resultado: Artifact com documento completo, formatado e pronto para imprimir ou enviar.</div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <h3>Os 4 elementos de um prompt bom</h3>
+    <p>Todo prompt bom tem quatro elementos. Quando um esta faltando, a resposta fica generica.</p>
+    <table class="ref-table" style="margin-top:10px;">
+      <tr><th>#</th><th>Elemento</th><th>O que define</th><th>Exemplo</th></tr>
+      <tr><td><strong>1</strong></td><td><strong>Papel</strong></td><td>Quem o Claude deve ser para responder bem</td><td style="font-size:0.68rem;font-style:italic;">"Voce e tecnico de seguranca offshore..."</td></tr>
+      <tr><td><strong>2</strong></td><td><strong>Contexto</strong></td><td>Onde, quando e para quem</td><td style="font-size:0.68rem;font-style:italic;">"...embarcacao de apoio maritimo, operacao offshore brasileira..."</td></tr>
+      <tr><td><strong>3</strong></td><td><strong>Tarefa clara</strong></td><td>O que exatamente voce quer</td><td style="font-size:0.68rem;font-style:italic;">"...crie uma checklist de inspecao com estas secoes..."</td></tr>
+      <tr><td><strong>4</strong></td><td><strong>Formato de saida</strong></td><td>Como o resultado deve chegar</td><td style="font-size:0.68rem;font-style:italic;">"...com checkboxes, campos e assinatura do responsavel."</td></tr>
+    </table>
+  </div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Pecam para a turma identificar esses 4 elementos no prompt bom da comparacao acima. E um exercicio de 1 minuto que fixa o conceito antes de seguir.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 02 · O QUE E UM ARTIFACT ===== -->
+<div class="section" id="sec-step2">
+  <div class="section-divider">Teoria</div>
+  <div class="sec-title"><span class="snum">02.</span> O que e um Artifact</div>
+  <div class="sec-desc">A diferenca entre resposta normal e Artifact</div>
+
+  <p class="lead-text">Quando voce pede ao Claude para criar um documento, tabela, grafico ou codigo, ele pode entregar esse conteudo de duas formas diferentes. A diferenca muda tudo.</p>
+
+  <div class="mockup-container">
+    <div class="mockup-panel">
+      <div class="mockup-header">Resposta normal</div>
+      <div class="mockup-body chat-style">
+        O Claude responde com texto corrido dentro do chat. Voce le, seleciona, copia, abre outro programa, cola, formata. Sao varios passos manuais ate ter algo utilizavel.
+      </div>
+    </div>
+    <div class="mockup-panel">
+      <div class="mockup-header">Artifact</div>
+      <div class="mockup-body">
+        <div class="mockup-artifact-header"><span>BRAM OFFSHORE</span></div>
+        <div class="mockup-artifact-body">
+          <div style="font-weight:600;color:#003087;font-size:0.6rem;margin-bottom:4px;">Checklist de Inspecao</div>
+          <div style="display:flex;gap:4px;align-items:center;font-size:0.56rem;margin-bottom:2px;"><span style="display:inline-block;width:8px;height:8px;border:1px solid #999;border-radius:2px;"></span> Sistemas de navegacao</div>
+          <div style="display:flex;gap:4px;align-items:center;font-size:0.56rem;margin-bottom:2px;"><span style="display:inline-block;width:8px;height:8px;border:1px solid #999;border-radius:2px;"></span> Equipamentos de salvatagem</div>
+          <div style="display:flex;gap:4px;align-items:center;font-size:0.56rem;"><span style="display:inline-block;width:8px;height:8px;border:1px solid #999;border-radius:2px;"></span> Sistemas HSE</div>
+          <div style="font-size:0.5rem;color:#999;margin-top:6px;border-top:1px solid #EDE8E2;padding-top:4px;">Janela lateral — pronto para usar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <h3>O que pode virar um Artifact</h3>
+  </div>
+
+  <div class="artifact-types">
+    <div class="artifact-card">
+      <div class="ac-icon">&#128196;</div>
+      <div class="ac-title">Documento</div>
+      <div class="ac-desc">Relatorio, checklist, e-mail, proposta, ata de reuniao.</div>
+      <div class="ac-how">Como pedir: "Crie um documento com..." / "Gere um relatorio em HTML com..."</div>
+    </div>
+    <div class="artifact-card">
+      <div class="ac-icon">&#128202;</div>
+      <div class="ac-title">Tabela</div>
+      <div class="ac-desc">Planilha, comparativo, ranking, matriz de prioridades.</div>
+      <div class="ac-how">Como pedir: "Gere uma tabela em HTML com..." / "Crie um comparativo entre..."</div>
+    </div>
+    <div class="artifact-card">
+      <div class="ac-icon">&#128200;</div>
+      <div class="ac-title">Grafico</div>
+      <div class="ac-desc">Linha, barras, pizza, dispersao — o que voces fizeram no Modulo 01.</div>
+      <div class="ac-how">Como pedir: "Crie um grafico de linhas em HTML com..."</div>
+    </div>
+    <div class="artifact-card">
+      <div class="ac-icon">&#128187;</div>
+      <div class="ac-title">Codigo</div>
+      <div class="ac-desc">Scripts Python, JavaScript, SQL, formulas. Para tarefas tecnicas.</div>
+      <div class="ac-how">Como pedir: "Escreva um script Python que..." / "Gere o codigo HTML para..."</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">Regra</div>
+    <p>Sempre que quiser um Artifact, especifique o formato no final do prompt: <em>"...no formato de documento em HTML"</em> / <em>"...como Artifact"</em> / <em>"...pronto para usar diretamente"</em>.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 03 · DEMO 1 — PROMPT RUIM ===== -->
+<div class="section" id="sec-step3">
+  <div class="section-divider">Demonstracao</div>
+  <div class="sec-title"><span class="snum">03.</span> Demonstracao 1 — Prompt ruim ao vivo</div>
+  <div class="sec-desc">Observem o resultado e quanto trabalho seria necessario</div>
+
+  <p class="lead-text">O instrutor vai enviar o prompt ruim agora. Observem o resultado — e quanto trabalho seria necessario para transformar isso em algo utilizavel.</p>
+
+  <div class="copy-block"><span class="label">Prompt — Instrutor copia</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1').textContent)">Copiar</button><span id="prompt-demo1">Me ajuda com uma checklist de inspecao de embarcacao.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Mostrem o resultado e perguntem: "Voces usariam isso diretamente no trabalho?" A resposta e nao. Agora vamos ver o mesmo pedido com os 4 elementos.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 04 · DEMO 2 — PROMPT BOM ===== -->
+<div class="section" id="sec-step4">
+  <div class="section-divider">Demonstracao</div>
+  <div class="sec-title"><span class="snum">04.</span> Demonstracao 2 — Prompt bom ao vivo</div>
+  <div class="sec-desc">Mesmo tema. Agora com os 4 elementos.</div>
+
+  <p class="lead-text">Mesmo tema. Agora com os 4 elementos. O resultado vai aparecer como Artifact — ja no padrao visual da Bram Offshore.</p>
+
+  <div class="copy-block"><span class="label">Prompt — Instrutor copia</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2').textContent)">Copiar</button><span id="prompt-demo2">Voce e tecnico de seguranca offshore certificado
+pela Marinha do Brasil.
+
+Crie uma checklist de inspecao pre-operacional
+para embarcacao de apoio maritimo, no formato
+de documento profissional como Artifact em HTML.
 
 A checklist deve cobrir:
 - Sistemas de navegacao e comunicacao
 - Equipamentos de salvatagem (balsas, coletes, macacoes)
-- Sistemas HSE (extintores, detectores de gas, EPIs disponiveis)
-- Motores principais e auxiliares (nivel de oleo, temperatura, alarmes)
+- Sistemas HSE (extintores, detectores de gas, EPIs)
+- Motores principais e auxiliares (oleo, temperatura, alarmes)
 - Documentacao regulatoria (certificados validos, NORMAM-01)
 
-Inclua: checkboxes, campo para numero da embarcacao, data e assinatura do responsavel tecnico. Pronto para uso operacional.
+Inclua checkboxes, campo para numero da embarcacao,
+data e assinatura do responsavel tecnico.
+Pronto para uso operacional.
 
 Identidade visual BRAM OFFSHORE:
-- Header com fundo azul marinho (#003087), texto branco, nome "BRAM OFFSHORE" em Montserrat Bold caixa alta
-- Fundo do documento: branco (#FFFFFF)
+- Header com fundo azul marinho (#003087), texto branco,
+  "BRAM OFFSHORE" em caixa alta
 - Titulos das secoes: azul marinho (#003087), Montserrat SemiBold
 - Texto do corpo: cinza escuro (#333333), Open Sans
-- Linha separadora entre secoes: azul claro (#E8F0F8)
-- Campos de assinatura e data com borda sutil em cinza
-- Rodape com fundo azul marinho (#003087) e texto branco</span>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Resultado</div>
-        <p>O Artifact esta pronto para imprimir ou enviar. Mesmo pedido, resultado completamente diferente.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step5')">Pratica &#8594;</a>
-      </div>
-    </div>
-
-<!-- ===== STEP 5: Pratica ===== -->
-    <div class="section" id="sec-step5">
-      <h1 class="sec-title"><span class="snum">05.</span> Pratica</h1>
-      <p class="sec-desc">Agora voces fazem. Adaptem o prompt abaixo para uma tarefa real do seu departamento.</p>
-
-      <div class="copy-block" id="prompt-pratica">
-        <span class="label">PROMPT GUIADO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica-text').textContent)">Copiar</button>
-        <span id="prompt-pratica-text">Voce e um profissional de [escolha: manutencao offshore / recursos humanos / financeiro / supply chain / operacoes / TI / HSE / juridico / comercial].
-
-Gere um Artifact em HTML no formato de documento profissional para a seguinte tarefa do meu departamento na Bram Offshore:
-
-[descreva uma tarefa concreta — ex: "elaborar checklist de onboarding" / "redigir e-mail de follow-up para fornecedor" / "criar relatorio de ocorrencia HSE" / "gerar resumo executivo de contratos"]
-
-O documento deve estar pronto para uso real, com todos os campos necessarios.
-
-Identidade visual BRAM OFFSHORE:
-- Header com fundo azul marinho (#003087), texto branco, nome "BRAM OFFSHORE" em Montserrat Bold caixa alta, departamento abaixo
-- Fundo do documento: branco (#FFFFFF)
-- Titulos das secoes: azul marinho (#003087), Montserrat SemiBold
-- Texto do corpo: cinza escuro (#333333), Open Sans
-- Destaques e dados relevantes: ambar (#F5A800)
 - Rodape com fundo azul marinho (#003087) e texto branco
-- Estilo corporativo, limpo e profissional</span>
-      </div>
+- Estilo corporativo, limpo e profissional</span></div>
 
-      <div class="overview-card" style="border-left:4px solid #5C6C51;">
-        <h3 style="color:#5C6C51;">Checklist de Entrega</h3>
-        <div class="checklist">
-          <div class="check-item">
-            <div class="check-icon">&#9744;</div>
-            <span>Rodou o prompt fraco e o forte para comparar</span>
-          </div>
-          <div class="check-item">
-            <div class="check-icon">&#9744;</div>
-            <span>O Artifact foi gerado em formato utilizavel</span>
-          </div>
-          <div class="check-item">
-            <div class="check-icon">&#9744;</div>
-            <span>Consegue citar os 4 elementos de um bom prompt</span>
-          </div>
-        </div>
-      </div>
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>O Artifact abre na janela lateral. Mostrem o documento renderizado — com header, checkboxes e rodape da Bram. Destaquem: mesmo pedido, resultado completamente diferente. E ja esta pronto para usar.</p>
+  </div>
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 05 · ATIVIDADE PRATICA ===== -->
+<div class="section" id="sec-step5">
+  <div class="section-divider">Atividade Pratica</div>
+  <div class="sec-title"><span class="snum">05.</span> Atividade Pratica</div>
+  <div class="sec-desc">Chegou a hora de voces</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Agora e a vez de voces. Vao ter <strong>3 minutos</strong> para criar um documento real do proprio departamento usando um prompt bom. Depois, o instrutor vai sortear <strong>3 colegas</strong> para apresentar o resultado — cada um tera ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <div class="overview-card">
+    <h3>O que fazer</h3>
+    <div class="instructions">
+      <div class="inst">
+        <div class="inst-num">1</div>
+        <div class="inst-text"><strong>Escolham um processo do departamento</strong> — algo recorrente que voces ja observaram, participaram ou que sabem que acontece no dia a dia. Pode ser simples.</div>
+      </div>
+      <div class="inst">
+        <div class="inst-num">2</div>
+        <div class="inst-text"><strong>Preencham o prompt abaixo</strong> com o contexto de voces — substituam os campos entre colchetes.</div>
+      </div>
+      <div class="inst">
+        <div class="inst-num">3</div>
+        <div class="inst-text"><strong>Rodem o prompt no Claude</strong> e aguardem o Artifact.</div>
       </div>
     </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Ana Beatriz, trainee de RH</h4>
+    <div class="example-prompt">Departamento: Recursos Humanos
+Funcao: Trainee de RH
+Processo escolhido: Onboarding de novo colaborador
+Etapas que conheco: envio de documentos, cadastro no sistema,
+apresentacao a equipe, entrega de equipamentos, assinatura de contrato</div>
+    <p><strong>Resultado esperado:</strong> Um Artifact com uma checklist de onboarding estruturada em secoes (pre-chegada, primeiro dia, primeira semana), com checkboxes, campo para nome do colaborador, data de entrada e assinatura do responsavel de RH — tudo no padrao visual da Bram Offshore.</p>
+    <p style="margin-top:8px; font-style:italic;">O resultado de cada um de voces vai ser completamente diferente — porque cada departamento tem processos diferentes.</p>
+  </div>
+
+  <div class="copy-block"><span class="label">Prompt guiado — Voces fazem agora</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica').textContent)">Copiar</button><span id="prompt-pratica">Voce e um profissional especializado em [seu departamento] na Bram
+Offshore, empresa brasileira de servicos de apoio maritimo offshore.
+
+Crie uma checklist operacional para o seguinte processo do meu
+departamento: [nome do processo — ex: "onboarding de novo
+colaborador" / "inspecao de equipamento" / "fechamento mensal"
+/ "atendimento de chamado de TI" / "revisao de contrato"].
+
+Etapas que ja conheco ou imagino que esse processo tem:
+[descreva de 3 a 5 etapas que voce ja sabe ou imagina]
+
+Gere o documento como Artifact em HTML com identidade visual
+BRAM OFFSHORE:
+- Header com fundo azul marinho (#003087), texto branco,
+  "BRAM OFFSHORE" em caixa alta e nome do departamento abaixo
+- Titulos das secoes: azul marinho (#003087), Montserrat SemiBold
+- Checkboxes para cada item da checklist
+- Campos para: responsavel, data e assinatura
+- Rodape com fundo azul marinho (#003087) e texto branco
+- Estilo corporativo, limpo e profissional — pronto para uso real</span></div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>O que preparar para apresentar</h3>
+    <p>Se voce for sorteado, prepare para contar em ate 2 minutos:</p>
+    <ol class="numbered-list" style="margin-top:8px;">
+      <li><strong>Qual processo escolheu</strong> — e por que ele e relevante para o seu departamento na Bram</li>
+      <li><strong>Mostre o Artifact</strong> gerado na tela — compartilhe o resultado com a turma</li>
+      <li><strong>Compare com o prompt ruim</strong> — o que teria acontecido se voce tivesse pedido apenas "me faz uma checklist de [processo]"?</li>
+      <li><strong>Qual dos 4 elementos</strong> voce considera mais importante no prompt que escreveu — e por que</li>
+    </ol>
+  </div>
+
+  <div class="overview-card">
+    <h3>Entregavel do modulo</h3>
+    <ul class="checklist">
+      <li>Escolheu um processo real do proprio departamento</li>
+      <li>Aplicou os 4 elementos no prompt</li>
+      <li>O Artifact foi gerado no padrao visual da Bram Offshore</li>
+      <li>Consegue explicar a diferenca entre o prompt ruim e o prompt bom que escreveu</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-home')">&#8617; Inicio</button>
+  </div>
+</div>
 
   </main>
-
 </div>
 
 <script>
-// ========== STATE ==========
-const stepToFlow = {
-  home:'home',
-  step1:'fraco-forte',
-  step2:'artifacts',
-  step3:'demo1',
-  step4:'demo2',
-  step5:'pratica'
-};
-const flowOrder = ['home','fraco-forte','artifacts','demo1','demo2','pratica'];
-
-const visited = new Set(['home']);
-const completedFlows = new Set();
+const visited = new Set(['sec-home'])
 
 function showSection(id) {
-  // Hide all sections
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const sec = document.getElementById('sec-' + id);
-  if (sec) sec.classList.add('active');
-
-  visited.add(id);
-
-  // Mark previous flows as completed
-  const currentFlow = stepToFlow[id];
-  if (currentFlow) {
-    const currentIdx = flowOrder.indexOf(currentFlow);
-    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update sidebar nav
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active');
-    if (visited.has(el.dataset.section)) el.classList.add('completed');
-  });
-  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
-  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
-
-  updateProgress();
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
 }
 
 function updateProgress() {
-  const total = 5;
-  let count = 0;
-  for (let i = 1; i <= 5; i++) {
-    if (visited.has('step' + i)) count++;
-  }
-  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
-  document.getElementById('progress-text').textContent = count + ' / ' + total;
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
 }
 
+function goHome() { showSection('sec-home') }
+
 function copyText(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
   }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-  });
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
 }
+
+updateProgress()
 </script>
 </body>
 </html>
