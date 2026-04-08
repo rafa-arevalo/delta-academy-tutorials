@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Data Storytelling · BRAM OFFSHORE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F4F4F4;
+    --white: #ffffff;
+    --accent: #003087;
+    --accent2: #002266;
+    --accent-light: #E8F0F8;
+    --accent-lighter: #F0F5FB;
+    --accent-border: #B3CCE6;
+    --accent-text: #002266;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #F5A800;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s}
+  .back-btn:hover{color:var(--accent)}
+  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 400;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block — Instructor (dark) */
+  .copy-block {
+    position: relative;
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #E2E8F0;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94A3B8;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #334155;
+    border: 1px solid #475569;
+    color: #CBD5E1;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Copy block — Student (amber-tinted) */
+  .copy-block.student {
+    background: #FFFBF0;
+    border: 1px solid var(--yellow);
+    color: var(--text);
+  }
+
+  .copy-block.student .label {
+    color: #92610A;
+  }
+
+  .copy-block.student .copy-btn {
+    background: var(--white);
+    border: 1px solid var(--yellow);
+    color: #92610A;
+  }
+
+  .copy-block.student .copy-btn:hover { background: var(--yellow); color: #fff; border-color: var(--yellow); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Visao Geral ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  /* Reference table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.74rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .ref-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 10px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 0.72rem;
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+
+  .tag-green { color: var(--green); font-weight: 600; }
+  .tag-yellow { color: var(--yellow); font-weight: 600; }
+  .tag-orange { color: var(--orange); font-weight: 600; }
+  .tag-red { color: var(--red); font-weight: 600; }
+
+  /* Resource cards */
+  .resource-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .res-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
+
+  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
+  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); }
+  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
+
+  /* Data card */
+  .data-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 12px 0;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .data-card h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .data-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.74rem;
+  }
+
+  .data-card table th {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--accent-border);
+  }
+
+  .data-card table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .data-card table tr:last-child td { border-bottom: none; }
+
+  /* Scenario cards */
+  .scenario-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .scenario-card h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .scenario-card p {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  /* Checklist */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .checklist-item .check-icon {
+    min-width: 18px;
+    height: 18px;
+    border: 2px solid var(--border2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 0.6rem;
+    color: transparent;
+  }
+
+  /* Timeline steps */
+  .timeline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 14px 0;
+  }
+
+  .timeline-step {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .timeline-arrow {
+    color: var(--text4);
+    font-size: 0.7rem;
+  }
+
+  /* Highlighted question */
+  .highlight-question {
+    background: var(--yellow);
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ========== RIGHT SIDEBAR ========== */
+  .right-sidebar {
+    border-left: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  .right-sidebar::-webkit-scrollbar { width: 3px; }
+  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .rs-section-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .rs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .rs-table th {
+    background: var(--surface2);
+    color: var(--text3);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rs-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .rs-table tr:last-child td { border-bottom: none; }
+
+  .rs-color-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 4px;
+    border: 1px solid var(--border);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .right-sidebar { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .resource-row { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; align-items: flex-start; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <a class="back-btn" href="index.html"><span class="back-arrow">&larr;</span>Indice</a>
+  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Inicio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="porque" onclick="showSection('step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Por que</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="tipos" onclick="showSection('step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Tipos</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="dados" onclick="showSection('step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Dados</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="demo1" onclick="showSection('step4')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Demo 1</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="demo2" onclick="showSection('step5')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Demo 2</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="pratica" onclick="showSection('step6')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Pratica</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Data Storytelling</h2>
+      <p>Modulo 01 &mdash; BRAM OFFSHORE</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">INICIO</div>
+        <a class="nav-item active" data-section="home" onclick="showSection('home')">
+          <span class="ni-num">~</span> Objetivos
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">CONTEUDO</div>
+        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
+          <span class="ni-num">01</span> Por que visualizar?
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+          <span class="ni-num">02</span> Os 5 tipos
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
+          <span class="ni-num">03</span> Dados da Demo
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">DEMOS</div>
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Demo 1 &mdash; Qual grafico?
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
+          <span class="ni-num">05</span> Demo 2 &mdash; Artifact
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">PRATICA</div>
+        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
+          <span class="ni-num">06</span> Pratica
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso</div>
+      <div class="sp-bar">
+        <div class="sp-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 6</div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+<!-- ===== HOME ===== -->
+    <div class="section active" id="sec-home">
+      <h1 class="sec-title">Data Storytelling</h1>
+      <p class="sec-desc">Modulo 01 &mdash; 40 min &middot; BRAM OFFSHORE</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Entregavel do Modulo</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); line-height:1.6;">Ao final deste modulo voces vao conseguir fazer isso: <strong>Um grafico de linha profissional gerado pelo Claude</strong> &mdash; com titulo, eixos, linha de tendencia e cores da identidade da empresa &mdash; pronto para anexar em um relatorio ou apresentar a lideranca. Sem Excel. Sem programacao.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Linha do Tempo</h3>
+        <div class="timeline">
+          <span class="timeline-step">Por que o grafico certo importa</span>
+          <span class="timeline-arrow">&#8594;</span>
+          <span class="timeline-step">Os 5 tipos e quando usar cada um</span>
+          <span class="timeline-arrow">&#8594;</span>
+          <span class="timeline-step">Demo: instrutor pede ao Claude o grafico certo</span>
+          <span class="timeline-arrow">&#8594;</span>
+          <span class="timeline-step">Demo: instrutor gera o grafico como Artifact</span>
+          <span class="timeline-arrow">&#8594;</span>
+          <span class="timeline-step">Voces geram o proprio grafico</span>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Navegacao Rapida</h3>
+        <div class="resource-row">
+          <div class="res-card" onclick="showSection('step1')">
+            <div class="rc-icon">&#128202;</div>
+            <div class="rc-title">Por que visualizar</div>
+            <div class="rc-desc">A importancia do grafico certo.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step4')">
+            <div class="rc-icon">&#127891;</div>
+            <div class="rc-title">Demos ao Vivo</div>
+            <div class="rc-desc">Instrutor gera graficos no Claude.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step6')">
+            <div class="rc-icon">&#128640;</div>
+            <div class="rc-title">Pratica</div>
+            <div class="rc-desc">Voces geram o proprio grafico.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <div></div>
+        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 1: Por que visualizar dados? ===== -->
+    <div class="section" id="sec-step1">
+      <h1 class="sec-title"><span class="snum">01.</span> Por que visualizar dados?</h1>
+      <p class="sec-desc">O grafico certo transforma dado em decisao.</p>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); line-height:1.6;">Um gestor nao tem tempo para ler uma tabela de 20 linhas. Ele precisa entender em segundos. O grafico certo transforma dado em decisao.</p>
+      </div>
+
+      <div class="data-card">
+        <h4>Ocorrencias HSE &mdash; Jan a Jun 2025</h4>
+        <table>
+          <thead>
+            <tr><th>Mes</th><th>Ocorrencias</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Janeiro</td><td><strong>4</strong></td></tr>
+            <tr><td>Fevereiro</td><td><strong>3</strong></td></tr>
+            <tr><td>Marco</td><td><strong>5</strong></td></tr>
+            <tr><td>Abril</td><td><strong>2</strong></td></tr>
+            <tr><td>Maio</td><td><strong>3</strong></td></tr>
+            <tr><td>Junho</td><td><strong>1</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlight-question">Quanto tempo voces levaram para perceber que os numeros estao caindo?</div>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra</div>
+        <p>Antes de escolher o grafico, decida qual e a mensagem.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">Os 5 Tipos &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 2: Os 5 tipos de grafico ===== -->
+    <div class="section" id="sec-step2">
+      <h1 class="sec-title"><span class="snum">02.</span> Os 5 tipos de grafico</h1>
+      <p class="sec-desc">Referencia rapida para escolher a visualizacao adequada.</p>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Tipo</th><th>Quando usar</th><th>Exemplo offshore</th><th>Evite quando...</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Linha</strong></td>
+            <td>Evolucao ao longo do tempo</td>
+            <td>Ocorrencias HSE mes a mes</td>
+            <td>Menos de 3 pontos no tempo</td>
+          </tr>
+          <tr>
+            <td><strong>Barras</strong></td>
+            <td>Comparar categorias entre si</td>
+            <td>Horas de bordo por embarcacao</td>
+            <td>Mais de 8 categorias</td>
+          </tr>
+          <tr>
+            <td><strong>Pizza/Donut</strong></td>
+            <td>Partes de um todo</td>
+            <td>Tipos de ocorrencia (%)</td>
+            <td>Mais de 5 fatias ou evolucao temporal</td>
+          </tr>
+          <tr>
+            <td><strong>Histograma</strong></td>
+            <td>Como os dados estao distribuidos</td>
+            <td>Horas trabalhadas por tripulante</td>
+            <td>Quando precisa comparar categorias</td>
+          </tr>
+          <tr>
+            <td><strong>Dispersao</strong></td>
+            <td>Correlacao entre duas variaveis</td>
+            <td>Manutencao vs. incidentes</td>
+            <td>Quando quer mostrar tendencia simples</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica pratica</div>
+        <p>Para a maioria das situacoes de voces, Linha e Barras resolvem. Pizza e tentadora mas facil de usar errado &mdash; mais de 5 fatias, esqueca.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step3')">Dados da Demo &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 3: Dados da Demo ===== -->
+    <div class="section" id="sec-step3">
+      <h1 class="sec-title"><span class="snum">03.</span> Dados da Demo</h1>
+      <p class="sec-desc">Dados ficticios de contexto offshore para as demos a seguir. O instrutor vai copia-los diretamente no Claude.</p>
+
+      <div class="copy-block" id="dataset1">
+        <span class="label">DATASET 1 &mdash; OCORRENCIAS HSE (JAN&ndash;JUN 2025)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset1-text').textContent)">Copiar</button>
+        <span id="dataset1-text">Janeiro: 4 | Fevereiro: 3 | Marco: 5 | Abril: 2 | Maio: 3 | Junho: 1</span>
+      </div>
+
+      <div class="copy-block" id="dataset2">
+        <span class="label">DATASET 2 &mdash; HORAS DE BORDO POR EMBARCACAO (MAR 2025)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset2-text').textContent)">Copiar</button>
+        <span id="dataset2-text">Embarcacao A: 342h | Embarcacao B: 287h | Embarcacao C: 319h</span>
+      </div>
+
+      <div class="copy-block" id="dataset3">
+        <span class="label">DATASET 3 &mdash; TIPOS DE OCORRENCIA (1o SEM. 2025)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset3-text').textContent)">Copiar</button>
+        <span id="dataset3-text">Quase-acidente: 40% | Incidente sem afastamento: 30% | Nao conformidade: 20% | Incidente ambiental: 10%</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Demo 1 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 4: Demo 1 — Qual grafico usar? ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> Demo 1 &mdash; Qual grafico usar?</h1>
+      <p class="sec-desc">O instrutor vai colar este prompt no Claude ao vivo. Observem a resposta &mdash; especialmente a justificativa.</p>
+
+      <div class="copy-block" id="prompt-demo1">
+        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1-text').textContent)">Copiar</button>
+        <span id="prompt-demo1-text">Tenho dados de ocorrencias HSE de uma operacao offshore referentes ao primeiro semestre de 2025:
+
+Janeiro: 4 | Fevereiro: 3 | Marco: 5
+Abril: 2   | Maio: 3      | Junho: 1
+
+O objetivo e apresentar esses dados para a lideranca mostrando a tendencia ao longo do semestre.
+
+1. Qual tipo de grafico e mais adequado? Justifique em 2-3 frases.
+2. O que esse grafico comunica imediatamente para quem o ve?
+3. Existe algum tipo de grafico que devo evitar aqui? Por que?</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Ponto-chave</div>
+        <p>Destaque a justificativa que o Claude da &mdash; e isso que diferencia usa-lo como ferramenta de usa-lo como consultor.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step5')">Demo 2 &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 5: Demo 2 — Gerar o Artifact ===== -->
+    <div class="section" id="sec-step5">
+      <h1 class="sec-title"><span class="snum">05.</span> Demo 2 &mdash; Gerar o Artifact</h1>
+      <p class="sec-desc">Agora pedimos ao Claude para gerar o grafico de verdade &mdash; em HTML &mdash; pronto para usar em uma apresentacao.</p>
+
+      <div class="copy-block" id="prompt-demo2">
+        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2-text').textContent)">Copiar</button>
+        <span id="prompt-demo2-text">Crie um grafico de linhas em HTML para visualizar os dados de ocorrencias HSE referentes ao primeiro semestre de 2025:
+
+Janeiro: 4 | Fevereiro: 3 | Marco: 5
+Abril: 2   | Maio: 3      | Junho: 1
+
+Requisitos do grafico:
+- Titulo: "Ocorrencias HSE — 1o Semestre 2025 · BRAM OFFSHORE"
+- Eixo Y: numero de ocorrencias (comeca em 0)
+- Linha de tendencia pontilhada mostrando a direcao geral
+- Nota de rodape: "Dados simulados para fins de treinamento"
+
+Identidade visual BRAM OFFSHORE:
+- Fundo do card: branco (#FFFFFF) com borda sutil
+- Cor da linha principal: azul marinho (#003087)
+- Linha de tendencia: ambar (#F5A800), pontilhada
+- Titulo: Montserrat Bold, azul marinho (#003087)
+- Eixos e legendas: Open Sans, cinza escuro (#333333)
+- Header do grafico com fundo azul marinho (#003087) e texto branco
+- Estilo: corporativo, limpo e profissional</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Destaque</div>
+        <p>O Artifact abre na janela lateral. Clique nele para mostrar o grafico renderizado. Destaque: sem Excel, sem programacao &mdash; e ja no padrao visual da Bram.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step6')">Pratica &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 6: Pratica ===== -->
+    <div class="section" id="sec-step6">
+      <h1 class="sec-title"><span class="snum">06.</span> Pratica</h1>
+      <p class="sec-desc">Agora e a vez de voces. Abram o Claude, escolham um cenario e copiem o prompt guiado.</p>
+
+      <div class="scenario-card">
+        <h4>Cenario A &mdash; Linha de Frente</h4>
+        <p>Horas de bordo cresceram nos ultimos 4 meses: Jan 280h, Fev 295h, Mar 342h, Abr 360h. Mostre a tendencia para o supervisor.</p>
+      </div>
+
+      <div class="scenario-card">
+        <h4>Cenario B &mdash; Corporativo</h4>
+        <p>Contratos fechados por trimestre em 2024: Q1 = 8, Q2 = 14, Q3 = 11, Q4 = 19. Mostre o crescimento anual.</p>
+      </div>
+
+      <div class="scenario-card">
+        <h4>Cenario C &mdash; Tech / RH</h4>
+        <p>Distribuicao do orcamento de treinamentos: Seguranca 45%, Tecnico 30%, Lideranca 15%, Compliance 10%.</p>
+      </div>
+
+      <div class="copy-block student" id="prompt-pratica">
+        <span class="label">PROMPT GUIADO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica-text').textContent)">Copiar</button>
+        <span id="prompt-pratica-text">Sou trainee em uma empresa de apoio maritimo offshore e preciso criar uma visualizacao de dados para apresentar a lideranca.
+
+Dados: [cole os dados do cenario escolhido]
+
+Objetivo: [o que voce quer comunicar — tendencia, comparacao ou proporcao?]
+
+Faca dois passos:
+1. Recomende o tipo de grafico mais adequado e justifique em 2 frases.
+2. Gere o grafico como Artifact em HTML com titulo claro, eixos identificados e identidade visual da BRAM OFFSHORE:
+   - Fundo branco com borda sutil, header azul marinho (#003087)
+   - Cor principal da linha/barras: azul marinho (#003087)
+   - Destaques e metricas: ambar (#F5A800)
+   - Titulo em Montserrat Bold, corpo em Open Sans
+   - Texto "BRAM OFFSHORE" no header, em caixa alta e branco
+   - Estilo corporativo, limpo e profissional</span>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3>Checklist do Entregavel</h3>
+        <div class="checklist">
+          <div class="checklist-item">
+            <div class="check-icon">&#10003;</div>
+            <span>Escolheu um cenario e rodou o prompt</span>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">&#10003;</div>
+            <span>Claude recomendou o tipo de grafico com justificativa</span>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">&#10003;</div>
+            <span>Artifact com o grafico apareceu e esta legivel</span>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">&#10003;</div>
+            <span>Consegue explicar por que aquele tipo foi o mais adequado</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== RIGHT SIDEBAR ========== -->
+  <aside class="right-sidebar">
+    <div>
+      <div class="rs-section-title">Referencia Rapida</div>
+      <table class="rs-table">
+        <thead><tr><th>Tipo</th><th>Quando usar</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Linha</strong></td><td>Tendencia no tempo</td></tr>
+          <tr><td><strong>Barras</strong></td><td>Comparar categorias</td></tr>
+          <tr><td><strong>Pizza</strong></td><td>Partes de um todo</td></tr>
+          <tr><td><strong>Histograma</strong></td><td>Distribuicao</td></tr>
+          <tr><td><strong>Dispersao</strong></td><td>Correlacao</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="rs-section-title">Identidade Visual</div>
+      <table class="rs-table">
+        <thead><tr><th>Cor</th><th>Hex</th></tr></thead>
+        <tbody>
+          <tr><td><span class="rs-color-swatch" style="background:#003087;"></span> Azul Marinho</td><td>#003087</td></tr>
+          <tr><td><span class="rs-color-swatch" style="background:#F5A800;"></span> Ambar</td><td>#F5A800</td></tr>
+          <tr><td><span class="rs-color-swatch" style="background:#FFFFFF; border-color:#ccc;"></span> Branco</td><td>#FFFFFF</td></tr>
+          <tr><td><span class="rs-color-swatch" style="background:#333333;"></span> Cinza Escuro</td><td>#333333</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px; font-size:0.65rem; color:var(--text3); line-height:1.5;">
+        <strong>Titulos:</strong> Montserrat Bold<br>
+        <strong>Corpo:</strong> Open Sans Regular
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// ========== STATE ==========
+const stepToFlow = {
+  home:'home',
+  step1:'porque',
+  step2:'tipos',
+  step3:'dados',
+  step4:'demo1',
+  step5:'demo2',
+  step6:'pratica'
+};
+const flowOrder = ['home','porque','tipos','dados','demo1','demo2','pratica'];
+
+const visited = new Set(['home']);
+const completedFlows = new Set();
+
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+
+  visited.add(id);
+
+  // Mark previous flows as completed
+  const currentFlow = stepToFlow[id];
+  if (currentFlow) {
+    const currentIdx = flowOrder.indexOf(currentFlow);
+    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
+  }
+
+  // Update stepper
+  const stepperEl = document.getElementById('stepper');
+  if (stepperEl) {
+    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
+      const flow = node.dataset.flow;
+      node.classList.remove('active','completed','future');
+      if (flow === currentFlow) {
+        node.classList.add('active');
+      } else if (completedFlows.has(flow)) {
+        node.classList.add('completed');
+      } else {
+        node.classList.add('future');
+      }
+    });
+  }
+
+  // Update sidebar nav
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.remove('active');
+    if (visited.has(el.dataset.section)) el.classList.add('completed');
+  });
+  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
+
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress() {
+  const total = 6;
+  let count = 0;
+  for (let i = 1; i <= 6; i++) {
+    if (visited.has('step' + i)) count++;
+  }
+  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
+  document.getElementById('progress-text').textContent = count + ' / ' + total;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

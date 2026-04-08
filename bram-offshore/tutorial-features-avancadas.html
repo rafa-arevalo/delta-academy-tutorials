@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Features Avancadas · BRAM OFFSHORE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F4F4F4;
+    --white: #ffffff;
+    --accent: #003087;
+    --accent2: #002266;
+    --accent-light: #E8F0F8;
+    --accent-lighter: #F0F5FB;
+    --accent-border: #B3CCE6;
+    --accent-text: #002266;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #F5A800;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .sec-title, .sidebar-header h2, .nav-group-title,
+  .overview-card h3, .meta-card .meta-name, .meta-card .meta-letter {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+
+  /* ========== STEPPER HEADER ========== */
+  .stepper-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 24px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .stepper-header::-webkit-scrollbar { height: 0; }
+  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s;font-family:'Open Sans',sans-serif}
+  .back-btn:hover{color:var(--accent)}
+  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
+
+  .stepper-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .stepper-node .sn-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .stepper-node.future .sn-label { color: var(--text4); }
+  .stepper-node.completed .sn-label { color: var(--text); }
+  .stepper-node.active .sn-label { color: var(--accent); }
+
+  .stepper-node.active .sn-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .stepper-node .sn-check {
+    display: none;
+    font-size: 0.6rem;
+    color: var(--green);
+  }
+
+  .stepper-node.completed .sn-check { display: inline; }
+
+  .stepper-arrow {
+    color: var(--text4);
+    font-size: 0.65rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 400;
+    border-left: 2px solid transparent;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block — default (instructor, dark bg) */
+  .copy-block {
+    position: relative;
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #E2E8F0;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94A3B8;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* Copy block — student (amber bg) */
+  .copy-block.student {
+    background: #FFFBF0;
+    border: 1px solid #F5A800;
+    color: var(--text);
+  }
+
+  .copy-block.student .label {
+    color: #B8860B;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: #FEF3E2;
+    border: 1px solid #F5C96A;
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #92610A;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #7A520D;
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* ===== HOME: Overview cards ===== */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Use-case cards */
+  .usecase-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .usecase-card h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .usecase-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px 0;
+  }
+
+  .usecase-tag {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .usecase-text {
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Timeline visual */
+  .timeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .timeline-step {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    color: var(--accent-text);
+    line-height: 1.4;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .timeline-arrow {
+    color: var(--accent);
+    font-size: 1rem;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* Checklist */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 12px 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.74rem;
+    color: var(--text2);
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .checklist-item::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Resource cards */
+  .resource-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .res-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
+
+  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
+  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); font-family: 'Montserrat', sans-serif; }
+  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; font-family: 'Open Sans', sans-serif; }
+
+  /* Capability list */
+  .capability-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .capability-tag {
+    display: inline-block;
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--accent-text);
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* ========== RIGHT SIDEBAR ========== */
+  .right-sidebar {
+    width: 220px;
+    min-width: 200px;
+    background: var(--white);
+    border-left: 1px solid var(--border);
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding: 20px 14px;
+  }
+
+  .right-sidebar::-webkit-scrollbar { width: 3px; }
+  .right-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .rs-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .rs-block {
+    margin-bottom: 18px;
+  }
+
+  .rs-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 5px 0;
+    font-size: 0.7rem;
+    color: var(--text2);
+    line-height: 1.4;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .rs-item .rs-num {
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--accent);
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .rs-cost {
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .rs-cost .rs-cost-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--yellow);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .rs-cost .rs-cost-label {
+    font-size: 0.62rem;
+    color: #B3CCE6;
+    margin-top: 2px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .rs-artefato {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .rs-artefato h4 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .rs-artefato p {
+    font-size: 0.66rem;
+    color: var(--accent-text);
+    line-height: 1.4;
+    margin-bottom: 4px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .right-sidebar { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .stepper-header { padding: 0 12px; justify-content: flex-start; }
+    .resource-row { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; }
+    .timeline-arrow { transform: rotate(90deg); }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== STEPPER HEADER ========== -->
+<header class="stepper-header" id="stepper">
+  <a class="back-btn" href="index.html"><span class="back-arrow">&#8592;</span>Indice</a>
+  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Inicio</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="research" onclick="showSection('step1')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Research</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="connectors" onclick="showSection('step2')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Connectors</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="skills" onclick="showSection('step3')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Skills</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="cowork" onclick="showSection('step4')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Cowork</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="code" onclick="showSection('step5')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Code</span>
+  </div>
+  <span class="stepper-arrow">&#8594;</span>
+  <div class="stepper-node future" data-flow="artefato" onclick="showSection('step6')">
+    <span class="sn-check">&#10003;</span>
+    <span class="sn-label">Artefato</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ========== LEFT SIDEBAR ========== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Features Avancadas</h2>
+      <p>Modulo 04 &mdash; BRAM OFFSHORE</p>
+    </div>
+
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">INICIO</div>
+        <a class="nav-item active" data-section="home" onclick="showSection('home')">
+          <span class="ni-num">~</span> Objetivos
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">FEATURES PRO</div>
+        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
+          <span class="ni-num">01</span> Deep Research
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
+          <span class="ni-num">02</span> Connectors
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
+          <span class="ni-num">03</span> Skills
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
+          <span class="ni-num">04</span> Cowork
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
+          <span class="ni-num">05</span> Claude Code
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ENTREGAVEL</div>
+        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
+          <span class="ni-num">06</span> Artefato Final
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso</div>
+      <div class="sp-bar">
+        <div class="sp-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 7</div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+<!-- ===== HOME ===== -->
+    <div class="section active" id="sec-home">
+      <h1 class="sec-title"><span class="snum">00.</span> Objetivos de Aprendizagem</h1>
+      <p class="sec-desc">Modulo 04 &mdash; Features Avancadas + Mapa de Oportunidades</p>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante</div>
+        <p>As features a seguir sao do plano Pro ($20/mes &middot; $240/ano). O instrutor demonstra ao vivo. Voces mapeiam onde cada uma se aplicaria no trabalho de voces &mdash; e no final geram um documento mostrando o que ganhariam com o plano pago.</p>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--accent);">
+        <h3>Entregavel do Modulo</h3>
+        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Ao final deste modulo voces vao conseguir fazer isso:</p>
+        <p style="margin-top:8px;">Um documento de uma pagina com o mapa de oportunidades do seu departamento &mdash; incluindo uma tabela de impacto com horas economizadas por tarefa, o calculo de ROI versus $240/ano de assinatura, e os 3 casos de uso prioritarios para a Fase 2. Pronto para mostrar a diretora de RH e usar como ponto de partida da proxima fase.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Linha do Tempo</h3>
+        <div class="timeline">
+          <div class="timeline-step">Conhecer o que o plano Pro desbloqueia (5 features)</div>
+          <span class="timeline-arrow">&#8594;</span>
+          <div class="timeline-step">A cada feature: mapear uma oportunidade do proprio departamento</div>
+          <span class="timeline-arrow">&#8594;</span>
+          <div class="timeline-step">Juntar os 5 blocos em um unico prompt</div>
+          <span class="timeline-arrow">&#8594;</span>
+          <div class="timeline-step">Claude gera a proposta para a RH + Top 3 para a Fase 2</div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Navegacao Rapida</h3>
+        <div class="resource-row">
+          <div class="res-card" onclick="showSection('step1')">
+            <div class="rc-icon">&#128269;</div>
+            <div class="rc-title">Deep Research</div>
+            <div class="rc-desc">Pesquisa profunda na internet.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step3')">
+            <div class="rc-icon">&#9889;</div>
+            <div class="rc-title">Skills</div>
+            <div class="rc-desc">Tarefas padronizadas.</div>
+          </div>
+          <div class="res-card" onclick="showSection('step6')">
+            <div class="rc-icon">&#128196;</div>
+            <div class="rc-title">Artefato Final</div>
+            <div class="rc-desc">Proposta + Top 3.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <div></div>
+        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 1: Deep Research ===== -->
+    <div class="section" id="sec-step1">
+      <h1 class="sec-title"><span class="snum">01.</span> Deep Research &mdash; Pesquisa Profunda</h1>
+      <p class="sec-desc">O Claude pesquisa na internet, consolida multiplas fontes e entrega um relatorio estruturado em minutos. Util quando voce precisa de uma visao abrangente, nao apenas uma resposta rapida.</p>
+
+      <div class="copy-block" id="prompt-research">
+        <span class="label">PROMPT DE DEMO &mdash; INSTRUTOR COPIA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-research-text').textContent)">Copiar</button>
+        <span id="prompt-research-text">Pesquise as melhores praticas de gestao de incidentes HSE em operacoes offshore no Brasil. Inclua:
+- Regulamentacoes vigentes (Marinha, ANP, ISGOTT)
+- Benchmarks de empresas do setor
+- Tendencias de uso de tecnologia para prevencao
+- Recomendacoes praticas para equipes de bordo
+
+Formate como relatorio executivo com sumario, secoes e referencias.</span>
+      </div>
+
+      <div class="usecase-card">
+        <h4>Casos de Uso por Area</h4>
+        <div class="usecase-item">
+          <span class="usecase-tag">Linha de Frente</span>
+          <span class="usecase-text">Normas de seguranca antes de uma operacao nova</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Corporativo</span>
+          <span class="usecase-text">Benchmark de mercado para apresentar ao gestor</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Tech</span>
+          <span class="usecase-text">Levantamento de solucoes para um problema tecnico</span>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="mapping-research">
+        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-research-text').textContent)">Copiar</button>
+        <span id="mapping-research-text">Feature que acabei de conhecer: Deep Research
+
+Meu departamento na Bram Offshore: [seu departamento]
+
+Responda as perguntas abaixo de forma objetiva:
+
+1. Qual tarefa especifica do meu departamento essa feature resolveria?
+2. Como essa tarefa e feita hoje? Quanto tempo leva?
+3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
+4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+
+Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
+- Header da tabela: fundo azul marinho (#003087), texto branco, Montserrat Bold
+- Linhas alternadas: branco (#FFFFFF) e azul claro (#E8F0F8)
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Valores de ganho/tempo: ambar (#F5A800) em negrito
+- Borda sutil entre linhas em cinza claro</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
+        <a class="nav-btn primary" onclick="showSection('step2')">Connectors &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 2: Connectors ===== -->
+    <div class="section" id="sec-step2">
+      <h1 class="sec-title"><span class="snum">02.</span> Connectors &mdash; Integracoes</h1>
+      <p class="sec-desc">Conecta o Claude ao Google Drive, Gmail e Slack &mdash; ele le e processa documentos reais sem copiar e colar.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Nota sobre Governanca</div>
+        <p>Hoje nao usamos documentos da Bram por questao de governanca. Quando a empresa definir uma politica de uso, o Connector permite que o Claude acesse a pasta do seu departamento e trabalhe com os arquivos reais.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h4>Casos de Uso por Area</h4>
+        <div class="usecase-item">
+          <span class="usecase-tag">Corporativo</span>
+          <span class="usecase-text">Claude le contratos no Drive e extrai clausulas relevantes</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">RH</span>
+          <span class="usecase-text">Claude processa planilhas e gera relatorio consolidado</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Tech</span>
+          <span class="usecase-text">Claude analisa logs de sistemas conectados</span>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="mapping-connectors">
+        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-connectors-text').textContent)">Copiar</button>
+        <span id="mapping-connectors-text">Feature que acabei de conhecer: Connectors
+
+Meu departamento na Bram Offshore: [seu departamento]
+
+Responda as perguntas abaixo de forma objetiva:
+
+1. Qual tarefa especifica do meu departamento essa feature resolveria?
+2. Como essa tarefa e feita hoje? Quanto tempo leva?
+3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
+4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+
+Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
+- Header da tabela: fundo azul marinho (#003087), texto branco, Montserrat Bold
+- Linhas alternadas: branco (#FFFFFF) e azul claro (#E8F0F8)
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Valores de ganho/tempo: ambar (#F5A800) em negrito
+- Borda sutil entre linhas em cinza claro</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step3')">Skills &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 3: Skills ===== -->
+    <div class="section" id="sec-step3">
+      <h1 class="sec-title"><span class="snum">03.</span> Skills &mdash; Tarefas Padronizadas</h1>
+      <p class="sec-desc">Uma Skill e um conjunto de instrucoes salvas. Voce escreve uma vez &mdash; o Claude reproduz o padrao toda vez, sem variacoes.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra pratica</div>
+        <p>Se voce usou o mesmo prompt mais de duas vezes, ele deveria ser uma Skill.</p>
+      </div>
+
+      <div class="copy-block" id="prompt-skill">
+        <span class="label">DEMO &mdash; INSTRUTOR CRIA SKILL AO VIVO</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-skill-text').textContent)">Copiar</button>
+        <span id="prompt-skill-text">Nome: Relatorio de Ocorrencia HSE
+
+Gatilho: Use quando eu descrever os detalhes de uma ocorrencia de seguranca ou incidente offshore.
+
+Instrucoes: Gere um Artifact de relatorio de ocorrencia com:
+1. Dados do incidente (data, localizacao, tipo)
+2. Descricao cronologica do ocorrido
+3. Analise de causa raiz — metodologia 5 Porques
+4. Acoes corretivas imediatas
+5. Acoes preventivas de longo prazo
+6. Campo para assinatura do responsavel e data
+
+Formate em padrao profissional pronto para registro e auditoria.</span>
+      </div>
+
+      <div class="usecase-card">
+        <h4>Casos de Uso por Area</h4>
+        <div class="usecase-item">
+          <span class="usecase-tag">HSE</span>
+          <span class="usecase-text">Padronizar relatorios de ocorrencia</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Financeiro</span>
+          <span class="usecase-text">Analises mensais com mesma estrutura</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">RH</span>
+          <span class="usecase-text">Comunicacoes de onboarding padronizadas</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Comercial</span>
+          <span class="usecase-text">Propostas com estrutura consistente</span>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="mapping-skills">
+        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-skills-text').textContent)">Copiar</button>
+        <span id="mapping-skills-text">Feature que acabei de conhecer: Skills
+
+Meu departamento na Bram Offshore: [seu departamento]
+
+Responda as perguntas abaixo de forma objetiva:
+
+1. Qual tarefa especifica do meu departamento essa feature resolveria?
+2. Como essa tarefa e feita hoje? Quanto tempo leva?
+3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
+4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+
+Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
+- Header da tabela: fundo azul marinho (#003087), texto branco, Montserrat Bold
+- Linhas alternadas: branco (#FFFFFF) e azul claro (#E8F0F8)
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Valores de ganho/tempo: ambar (#F5A800) em negrito
+- Borda sutil entre linhas em cinza claro</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step4')">Cowork &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 4: Cowork ===== -->
+    <div class="section" id="sec-step4">
+      <h1 class="sec-title"><span class="snum">04.</span> Cowork &mdash; Automacao de Desktop</h1>
+      <p class="sec-desc">O Claude opera no seu computador de forma autonoma &mdash; abre arquivos, processa documentos, preenche formularios &mdash; sem voce precisar estar presente.</p>
+
+      <div class="usecase-card">
+        <h4>Casos de Uso por Area</h4>
+        <div class="usecase-item">
+          <span class="usecase-tag">Linha de Frente</span>
+          <span class="usecase-text">Processar multiplos relatorios de bordo de uma vez</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Financeiro</span>
+          <span class="usecase-text">Consolidar planilhas mensais de diferentes areas</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">RH</span>
+          <span class="usecase-text">Preencher formularios de avaliacao em lote</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">TI</span>
+          <span class="usecase-text">Organizar logs e gerar relatorio de incidentes</span>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="mapping-cowork">
+        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-cowork-text').textContent)">Copiar</button>
+        <span id="mapping-cowork-text">Feature que acabei de conhecer: Cowork
+
+Meu departamento na Bram Offshore: [seu departamento]
+
+Responda as perguntas abaixo de forma objetiva:
+
+1. Qual tarefa especifica do meu departamento essa feature resolveria?
+2. Como essa tarefa e feita hoje? Quanto tempo leva?
+3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
+4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+
+Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
+- Header da tabela: fundo azul marinho (#003087), texto branco, Montserrat Bold
+- Linhas alternadas: branco (#FFFFFF) e azul claro (#E8F0F8)
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Valores de ganho/tempo: ambar (#F5A800) em negrito
+- Borda sutil entre linhas em cinza claro</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step5')">Claude Code &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 5: Claude Code ===== -->
+    <div class="section" id="sec-step5">
+      <h1 class="sec-title"><span class="snum">05.</span> Claude Code &mdash; Desenvolvimento</h1>
+      <p class="sec-desc">Um ambiente onde o Claude escreve, testa e executa codigo no seu computador. Para quando a tarefa vai alem de um Artifact simples.</p>
+
+      <div class="copy-block" id="prompt-code">
+        <span class="label">PROMPT DE DEMO &mdash; INSTRUTOR COPIA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-code-text').textContent)">Copiar</button>
+        <span id="prompt-code-text">Crie um script Python que:
+1. Leia uma lista de embarcacoes com horas de bordo mensais
+2. Calcule a media de horas por mes para cada embarcacao
+3. Identifique quais ficaram abaixo da meta de 300h/mes
+4. Gere um relatorio em texto com o resultado formatado
+
+Use dados ficticios: 3 embarcacoes de apoio offshore, dados de Jan a Mar.</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Perspectiva</div>
+        <p>O que voces construiram no Lovable em horas, com Claude Code + uma boa especificacao, poderia ter saido em minutos.</p>
+      </div>
+
+      <div class="usecase-card">
+        <h4>Casos de Uso por Area</h4>
+        <div class="usecase-item">
+          <span class="usecase-tag">Tech</span>
+          <span class="usecase-text">Ferramentas internas, analise de dados, automacoes</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Financeiro</span>
+          <span class="usecase-text">Modelagem e analise de dados</span>
+        </div>
+        <div class="usecase-item">
+          <span class="usecase-tag">Operacoes</span>
+          <span class="usecase-text">Dashboards de metricas operacionais</span>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="mapping-code">
+        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-code-text').textContent)">Copiar</button>
+        <span id="mapping-code-text">Feature que acabei de conhecer: Claude Code
+
+Meu departamento na Bram Offshore: [seu departamento]
+
+Responda as perguntas abaixo de forma objetiva:
+
+1. Qual tarefa especifica do meu departamento essa feature resolveria?
+2. Como essa tarefa e feita hoje? Quanto tempo leva?
+3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
+4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+
+Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
+- Header da tabela: fundo azul marinho (#003087), texto branco, Montserrat Bold
+- Linhas alternadas: branco (#FFFFFF) e azul claro (#E8F0F8)
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Valores de ganho/tempo: ambar (#F5A800) em negrito
+- Borda sutil entre linhas em cinza claro</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('step6')">Artefato Final &#8594;</a>
+      </div>
+    </div>
+
+<!-- ===== STEP 6: Artefato Final ===== -->
+    <div class="section" id="sec-step6">
+      <h1 class="sec-title"><span class="snum">06.</span> Artefato Final &mdash; Proposta + Top 3</h1>
+      <p class="sec-desc">Voces preencheram 5 blocos de mapeamento. Agora vamos juntar tudo em um unico documento.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text"><strong>Abram o Claude</strong>, dentro do Project criado no Modulo 03.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text"><strong>Colem o prompt abaixo</strong> e substituam o campo indicado pelos 5 blocos de mapeamento preenchidos durante a aula.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text"><strong>Rodem o prompt</strong> e revisem o Artifact gerado.</div>
+        </div>
+      </div>
+
+      <div class="copy-block student" id="prompt-final">
+        <span class="label">PROMPT FINAL &mdash; VOCES FAZEM AGORA (DENTRO DO PROJECT)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-final-text').textContent)">Copiar</button>
+        <span id="prompt-final-text">Ao longo da aula de hoje mapeei 5 oportunidades de uso do Claude Pro no meu departamento — uma para cada feature apresentada. Aqui estao:
+
+[cole os 5 blocos de mapeamento que voce preencheu durante a aula]
+
+Com base nesses dados, gere um Artifact em HTML com dois blocos:
+
+BLOCO 1 — PROPOSTA PARA A LIDERANCA
+Titulo: "Por que o Claude Pro faz sentido para o meu departamento"
+- Tabela com as 5 oportunidades: tarefa atual | tempo hoje | resultado com Claude | ganho estimado
+- Paragrafo de conclusao com o total de horas economizadas por mes
+- Custo: $20/mes por assinatura ($240/ano)
+- Frase final: "O investimento se paga com [X horas economizadas] ainda no primeiro mes."
+
+BLOCO 2 — TOP 3 PARA A FASE 2
+- As 3 oportunidades de maior impacto, ordenadas por potencial
+- Para cada uma: o que seria implementado, qual feature usaria e qual seria o resultado esperado
+
+Identidade visual BRAM OFFSHORE (aplicar em todo o documento):
+- Header principal: fundo azul marinho (#003087), texto branco, "BRAM OFFSHORE" em Montserrat Bold caixa alta, departamento abaixo
+- Fundo do documento: branco (#FFFFFF)
+- Titulos dos blocos: azul marinho (#003087), Montserrat Bold
+- Header das tabelas: azul marinho (#003087), texto branco
+- Linhas alternadas das tabelas: branco e azul claro (#E8F0F8)
+- Numeros de ganho e metricas de impacto: ambar (#F5A800) em negrito
+- Texto do corpo: cinza escuro (#333333), Open Sans
+- Secao de custo/ROI: fundo azul marinho (#003087), texto branco, valor de ROI em ambar (#F5A800) em destaque
+- Rodape: fundo azul marinho (#003087), texto branco
+- Estilo: corporativo, limpo, profissional — pronto para apresentar a gestora de RH</span>
+      </div>
+
+      <div class="overview-card" style="border-left:4px solid var(--green);">
+        <h3 style="color:var(--green);">Checklist de Entrega</h3>
+        <div class="checklist">
+          <div class="checklist-item">Preencheu os 5 blocos de mapeamento ao longo do modulo</div>
+          <div class="checklist-item">Rodou o prompt do artefato final dentro do Project</div>
+          <div class="checklist-item">O Artifact gerou os 2 blocos: proposta para RH + Top 3 para Fase 2</div>
+          <div class="checklist-item">Consegue explicar o ROI do Claude Pro para o proprio departamento</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
+        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== RIGHT SIDEBAR ========== -->
+  <aside class="right-sidebar">
+    <div class="rs-block">
+      <div class="rs-title">5 Features Pro</div>
+      <div class="rs-item">
+        <span class="rs-num">1</span>
+        <span>Deep Research</span>
+      </div>
+      <div class="rs-item">
+        <span class="rs-num">2</span>
+        <span>Connectors</span>
+      </div>
+      <div class="rs-item">
+        <span class="rs-num">3</span>
+        <span>Skills</span>
+      </div>
+      <div class="rs-item">
+        <span class="rs-num">4</span>
+        <span>Cowork</span>
+      </div>
+      <div class="rs-item">
+        <span class="rs-num">5</span>
+        <span>Claude Code</span>
+      </div>
+    </div>
+
+    <div class="rs-cost">
+      <div class="rs-cost-value">$20/mes</div>
+      <div class="rs-cost-label">$240/ano por assinatura</div>
+    </div>
+
+    <div class="rs-block">
+      <div class="rs-title">Artefato Final</div>
+      <div class="rs-artefato">
+        <h4>Bloco 1</h4>
+        <p>Proposta para a Lideranca: tabela de 5 oportunidades com ROI e horas economizadas.</p>
+      </div>
+      <div style="height:8px;"></div>
+      <div class="rs-artefato">
+        <h4>Bloco 2</h4>
+        <p>Top 3 para a Fase 2: oportunidades de maior impacto com feature e resultado esperado.</p>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// ========== STATE ==========
+const stepToFlow = {
+  home:'home',
+  step1:'research',
+  step2:'connectors',
+  step3:'skills',
+  step4:'cowork',
+  step5:'code',
+  step6:'artefato'
+};
+const flowOrder = ['home','research','connectors','skills','cowork','code','artefato'];
+
+const visited = new Set(['home']);
+const completedFlows = new Set();
+
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+
+  visited.add(id);
+
+  // Mark previous flows as completed
+  const currentFlow = stepToFlow[id];
+  if (currentFlow) {
+    const currentIdx = flowOrder.indexOf(currentFlow);
+    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
+  }
+
+  // Update stepper
+  const stepperEl = document.getElementById('stepper');
+  if (stepperEl) {
+    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
+      const flow = node.dataset.flow;
+      node.classList.remove('active','completed','future');
+      if (flow === currentFlow) {
+        node.classList.add('active');
+      } else if (completedFlows.has(flow)) {
+        node.classList.add('completed');
+      } else {
+        node.classList.add('future');
+      }
+    });
+  }
+
+  // Update sidebar nav
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.remove('active');
+    if (visited.has(el.dataset.section)) el.classList.add('completed');
+  });
+  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
+  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
+
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress() {
+  const total = 7;
+  let count = 0;
+  for (let i = 1; i <= 6; i++) {
+    if (visited.has('step' + i)) count++;
+  }
+  // Also count home as visited but not in the step count display
+  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
+  document.getElementById('progress-text').textContent = count + ' / ' + total;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
