@@ -10,1185 +10,1027 @@
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
   :root {
-    --bg: #F5F0EB;
-    --white: #FFFFFF;
-    --accent: #5C6C51;
-    --accent2: #1F3331;
-    --accent-light: #EDE8E2;
-    --accent-lighter: #F0EBE4;
-    --accent-border: #DDD8D2;
-    --accent-text: #1F3331;
-    --green: #5C6C51;
-    --green-bg: #EDE8E2;
-    --green-border: #DDD8D2;
-    --green-text: #1F3331;
-    --yellow: #D97706;
-    --orange: #EA580C;
-    --red: #DC2626;
-    --red-bg: #FEF2F2;
-    --red-border: #FECACA;
-    --text: #1A1A1A;
-    --text2: #4A4A4A;
-    --text3: #7A7A7A;
-    --text4: #B0A89F;
-    --border: #EDE8E2;
-    --border2: #DDD8D2;
-    --bg2: #FFFFFF;
-    --surface2: #F5F0EB;
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --bg: #F5F0EB; --white: #FFFFFF; --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4; --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A; --text4: #B0A89F;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04); --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
   }
 
-  body {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .layout { display: flex; min-height: 100vh; }
 
-  h1, h2, h3, h4, h5, h6,
-  .sec-title, .sidebar-header h2, .nav-group-title,
-  .overview-card h3, .meta-card .meta-name, .meta-card .meta-letter {
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  /* ========== LAYOUT ========== */
-  .layout {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* ========== LEFT SIDEBAR ========== */
-  .sidebar {
-    width: 256px;
-    min-width: 256px;
-    background: #1F3331;
-    border-right: 1px solid rgba(245,240,235,0.1);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* Sidebar */
+  .sidebar { width: 256px; min-width: 256px; background: #1F3331; border-right: 1px solid rgba(245,240,235,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
   .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
-
-  .sidebar-header {
-    padding: 20px 16px 16px;
-    border-bottom: 1px solid rgba(245,240,235,0.1);
-  }
-
-  .sidebar-header h2 {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #F5F0EB;
-    letter-spacing: -0.02em;
-  }
-
-  .sidebar-header p {
-    font-size: 0.65rem;
-    color: #5C6C51;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 500;
-    margin-top: 2px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nav-group {
-    padding: 12px 0 4px;
-  }
-
-  .nav-group-title {
-    padding: 2px 16px 6px;
-    font-size: 0.58rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(245,240,235,0.4);
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px 6px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-decoration: none;
-    color: rgba(245,240,235,0.7);
-    font-size: 0.78rem;
-    font-weight: 400;
-    border-left: 2px solid transparent;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nav-item:hover {
-    background: rgba(92,108,81,0.2);
-    color: #F5F0EB;
-  }
-
-  .nav-item.active {
-    background: #5C6C51;
-    color: #F5F0EB;
-    border-left-color: #F5F0EB;
-    font-weight: 600;
-  }
-
-  .nav-item .ni-num {
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: rgba(245,240,235,0.4);
-    min-width: 17px;
-    font-variant-numeric: tabular-nums;
-    font-family: 'Montserrat', sans-serif;
-  }
-
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
+  .sidebar-badge.pro { background: #FFF3CD; color: #7A5A00; }
+  .sidebar-badge.free { background: #D4EDDA; color: #1A5C2A; }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
+  .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 16px; cursor: pointer; transition: all 0.15s; text-decoration: none; color: rgba(245,240,235,0.7); font-size: 0.78rem; font-weight: 400; border-left: 2px solid transparent; }
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; }
   .nav-item.active .ni-num { color: #F5F0EB; }
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+  .nav-item.completed .ni-check { opacity: 1; color: rgba(245,240,235,0.5); }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
 
-  .nav-item .ni-check {
-    margin-left: auto;
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
+  /* Badges inline */
+  .badge-pro { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 1px 6px; border-radius: 3px; background: #FFF3CD; color: #7A5A00; margin-left: 6px; }
+  .badge-free { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 1px 6px; border-radius: 3px; background: #D4EDDA; color: #1A5C2A; margin-left: 6px; }
 
-  .nav-item.completed .ni-check { opacity: 1; }
-
-  /* Progress */
-  .sidebar-progress {
-    padding: 14px 16px;
-    border-top: 1px solid rgba(245,240,235,0.1);
-    margin-top: auto;
-  }
-
-  .sp-label {
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    font-weight: 500;
-    margin-bottom: 6px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .sp-bar {
-    height: 3px;
-    background: rgba(245,240,235,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .sp-fill {
-    height: 100%;
-    background: #5C6C51;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* ========== MAIN CONTENT ========== */
-  .main {
-    flex: 1;
-    padding: 20px 36px 40px;
-    max-width: 700px;
-  }
-
-  .section {
-    display: none;
-    animation: fadeIn 0.25s ease;
-  }
+  /* Main */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
+  .section { display: none; animation: fadeIn 0.25s ease; }
   .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Section title */
-  .sec-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 3px;
-  }
-
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
   .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; }
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 8px; }
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
 
-  .sec-desc {
-    font-size: 0.78rem;
-    color: var(--text2);
-    margin-bottom: 18px;
-    font-weight: 400;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Cards */
+  .overview-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
 
-  /* Instructions */
-  .instructions {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-  }
+  /* Pillar cards */
+  .pillar-cards { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .pillar-card { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow-xs); }
+  .pillar-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .pillar-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
 
-  .inst {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    align-items: center;
-    padding: 10px 13px;
-    background: var(--white);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow 0.15s;
-  }
+  /* Ref table */
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+  .ref-table th { background: #EDE8E2; color: var(--text2); font-weight: 600; text-align: left; padding: 8px 12px; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .ref-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
 
-  .inst:hover { box-shadow: var(--shadow-sm); }
-
-  .inst-num {
-    font-size: 0.56rem;
-    font-weight: 700;
-    color: #fff;
-    background: var(--accent);
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .inst-text {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-    flex: 1;
-    min-width: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .inst-text strong { font-weight: 600; }
-
-  .inst-text .field {
-    display: inline-block;
-    background: #F0EBE4;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    font-family: 'SF Mono', 'JetBrains Mono', monospace;
-    border: 1px solid var(--border);
-    color: var(--text);
-  }
-
-  /* Copy block — uniform cream */
-  .copy-block {
-    position: relative;
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: #2A2A2A;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  .copy-block .label {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #5C6C51;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #EDE8E2;
-    border: 1px solid #DDD8D2;
-    color: #5C6C51;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 0.62rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
-  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+  /* Instructor note */
+  .instructor-note { background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
 
   /* Tip box */
-  .tip-box {
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
+  .tip-box { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
 
-  .tip-box .tip-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Copy block — instructor (default) */
+  .copy-block { position: relative; background: #F0EBE4; border: 1px solid #DDD8D2; border-left: 3px solid #5C6C51; border-radius: 8px; padding: 20px 24px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+  .copy-block .label { font-family: 'Montserrat', system-ui, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block; }
+  .copy-btn { position: absolute; top: 8px; right: 8px; background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51; padding: 3px 10px; border-radius: 5px; font-size: 0.62rem; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
 
-  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+  /* Copy block — student */
+  .copy-block.student { background: #E8F0E4; border-left: 3px solid #3A5A38; }
+  .copy-block.student .label { color: #3A5A38; }
 
-  .tip-box p {
-    font-size: 0.74rem;
-    color: var(--accent-text);
-    line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Example block */
+  .example-block { background: #F5F0EB; border: 1px solid #EDE8E2; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .example-block .example-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #7A7A7A; margin-bottom: 6px; }
+  .example-block h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .example-block p { font-size: 0.74rem; color: var(--text2); line-height: 1.55; }
 
-  /* Warning box */
-  .warning-box {
-    background: #FEF3E2;
-    border: 1px solid #F5C96A;
-    border-left: 3px solid #D97706;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
+  /* Warning banner */
+  .warning-banner { background: #FFF3CD; border: 1px solid #F5C96A; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; }
+  .warning-banner p { font-size: 0.74rem; color: #7A5A00; line-height: 1.5; }
 
-  .warning-box .warning-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #92610A;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 13px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .inst-num { font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
 
-  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
-
-  .warning-box p {
-    font-size: 0.74rem;
-    color: #7A520D;
-    line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* Nav buttons */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .nav-btn {
-    display: flex; align-items: center; gap: 4px;
-    padding: 6px 12px; border-radius: 6px;
-    font-size: 0.7rem; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--border);
-    background: var(--white); color: var(--text2);
-    transition: all 0.15s; text-decoration: none;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .nav-btn:hover { background: #F0EBE4; border-color: var(--border2); color: #1F3331; }
-
-  .nav-btn.primary { background: #5C6C51; border-color: #5C6C51; color: #fff; }
-  .nav-btn.primary:hover { background: #1F3331; }
-
-  /* ===== HOME: Overview cards ===== */
-  .overview-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .overview-card h3 {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-  }
-
-  .overview-card p {
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.55;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* Use-case cards */
-  .usecase-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin: 12px 0;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .usecase-card h4 {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .usecase-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 5px 0;
-  }
-
-  .usecase-tag {
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: var(--white);
-    background: var(--accent);
-    padding: 2px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .usecase-text {
-    font-size: 0.74rem;
-    color: var(--text2);
-    line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* Timeline visual */
-  .timeline {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin: 16px 0;
-    flex-wrap: wrap;
-  }
-
-  .timeline-step {
-    background: var(--accent-light);
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.7rem;
-    color: var(--accent-text);
-    line-height: 1.4;
-    flex: 1;
-    min-width: 120px;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .timeline-arrow {
-    color: var(--accent);
-    font-size: 1rem;
-    padding: 0 6px;
-    flex-shrink: 0;
-  }
+  /* Numbered list */
+  .numbered-list { list-style: none; counter-reset: item; margin: 10px 0 0; }
+  .numbered-list li { counter-increment: item; display: flex; align-items: flex-start; gap: 10px; padding: 4px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+  .numbered-list li::before { content: counter(item); min-width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
   /* Checklist */
-  .checklist {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 12px 0;
-  }
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
 
-  .checklist-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.74rem;
-    color: var(--text2);
-    line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
-  }
+  /* Example card */
+  .example-card { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .example-card .example-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+  .example-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .example-card p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.55; }
+  .example-card .example-prompt { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #2A2A2A; line-height: 1.6; padding: 10px 12px; background: rgba(255,255,255,0.6); border: 1px solid var(--accent-border); border-radius: 6px; margin: 8px 0; white-space: pre-wrap; }
 
-  .checklist-item::before {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--accent-border);
-    border-radius: 4px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
+  /* Use case cards */
+  .usecase-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .usecase-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: var(--shadow-xs); }
+  .usecase-card h4 { font-size: 0.76rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .usecase-card p { font-size: 0.72rem; color: var(--text2); line-height: 1.5; }
 
-  /* Resource cards */
-  .resource-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
+  /* Meet chat question */
+  .meet-question { background: var(--white); border: 1px solid var(--border); border-left: 4px solid #F59E0B; border-radius: 10px; padding: 14px 16px; margin: 14px 0; box-shadow: var(--shadow-xs); }
+  .meet-question .mq-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #F59E0B; margin-bottom: 4px; }
+  .meet-question p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
 
-  .res-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: var(--shadow-xs);
-  }
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
 
-  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
-
-  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
-  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); font-family: 'Montserrat', sans-serif; }
-  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; font-family: 'Montserrat', sans-serif; }
-
-  /* Capability list */
-  .capability-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-  }
-
-  .capability-tag {
-    display: inline-block;
-    background: var(--accent-lighter);
-    border: 1px solid var(--accent-border);
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--accent-text);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .resource-row { grid-template-columns: 1fr; }
-    .timeline { flex-direction: column; }
-    .timeline-arrow { transform: rotate(90deg); }
+    .usecase-cards { grid-template-columns: 1fr; }
   }
-
 </style>
 </head>
 <body>
-
 <div class="layout">
 
-  <!-- ========== LEFT SIDEBAR ========== -->
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;" onmouseover="this.style.color='#F5F0EB'" onmouseout="this.style.color='rgba(245,240,235,0.5)'"><span>&#8592;</span> Indice</a>
+      <a class="back-link" href="index.html">&#8592; Indice</a>
       <h2>Features Avancadas</h2>
-      <p>Modulo 04 &mdash; BRAM OFFSHORE</p>
+      <p>BRAM OFFSHORE &middot; Fase 1</p>
     </div>
-
+    <div class="sidebar-badges"><span class="sidebar-badge pro">Pro</span><span class="sidebar-badge free">Free</span></div>
     <div id="nav-main">
       <div class="nav-group">
-        <div class="nav-group-title">INICIO</div>
-        <a class="nav-item active" data-section="home" onclick="showSection('home')">
-          <span class="ni-num">~</span> Objetivos
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Introducao<span class="ni-check">&#10003;</span></a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">FEATURES PRO</div>
-        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
-          <span class="ni-num">01</span> Deep Research
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
-          <span class="ni-num">02</span> Connectors
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
-          <span class="ni-num">03</span> Skills
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
-          <span class="ni-num">04</span> Cowork
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
-          <span class="ni-num">05</span> Claude Code
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Deep Research</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Teoria<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Demonstracao<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Atividade<span class="badge-free">Free</span><span class="ni-check">&#10003;</span></a>
       </div>
-
       <div class="nav-group">
-        <div class="nav-group-title">ENTREGAVEL</div>
-        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
-          <span class="ni-num">06</span> Artefato Final
-          <span class="ni-check">&#10003;</span>
-        </a>
+        <div class="nav-group-title">Connectors</div>
+        <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Teoria<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Demonstracao<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Atividade<span class="badge-free">Free</span><span class="ni-check">&#10003;</span></a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Skills</div>
+        <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Teoria<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Demonstracao<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Atividade<span class="badge-free">Free</span><span class="ni-check">&#10003;</span></a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Cowork</div>
+        <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> Teoria<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Demonstracao<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step12" onclick="showSection('sec-step12')"><span class="ni-num">12</span> Atividade<span class="badge-free">Free</span><span class="ni-check">&#10003;</span></a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Claude Code</div>
+        <a class="nav-item" data-section="sec-step13" onclick="showSection('sec-step13')"><span class="ni-num">13</span> Teoria<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step14" onclick="showSection('sec-step14')"><span class="ni-num">14</span> Demonstracao<span class="badge-pro">Pro</span><span class="ni-check">&#10003;</span></a>
+        <a class="nav-item" data-section="sec-step15" onclick="showSection('sec-step15')"><span class="ni-num">15</span> Atividade<span class="badge-free">Free</span><span class="ni-check">&#10003;</span></a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Artefato Final</div>
+        <a class="nav-item" data-section="sec-step16" onclick="showSection('sec-step16')"><span class="ni-num">16</span> Mapa de ROI<span class="ni-check">&#10003;</span></a>
       </div>
     </div>
-
     <div class="sidebar-progress">
-      <div class="sp-label">Progresso</div>
-      <div class="sp-bar">
-        <div class="sp-fill" id="progress-fill"></div>
-      </div>
-      <div id="progress-text" style="font-size:0.6rem; color:rgba(245,240,235,0.5); margin-top:4px;">0 / 7</div>
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
     </div>
   </nav>
 
-  <!-- ========== MAIN CONTENT ========== -->
   <main class="main">
 
-<!-- ===== HOME ===== -->
-    <div class="section active" id="sec-home">
-      <h1 class="sec-title"><span class="snum">00.</span> Objetivos de Aprendizagem</h1>
-      <p class="sec-desc">Modulo 04 &mdash; Features Avancadas + Mapa de Oportunidades</p>
+<!-- ===== 00 · INTRODUCAO ===== -->
+<div class="section active" id="sec-home">
+  <div class="sec-title"><span class="snum">00.</span> Introducao</div>
+  <div class="sec-desc">Das funcionalidades gratuitas ao plano Pro</div>
 
-      <div class="warning-box">
-        <div class="warning-label">Importante</div>
-        <p>As features a seguir sao do plano Pro ($20/mes &middot; $240/ano). O instrutor demonstra ao vivo. Voces mapeiam onde cada uma se aplicaria no trabalho de voces &mdash; e no final geram um documento mostrando o que ganhariam com o plano pago.</p>
-      </div>
+  <p class="lead-text">Nos modulos anteriores, voces aprenderam a usar o Claude com prompts estruturados, Projects e Custom Instructions — tudo disponivel no plano gratuito. Agora vamos explorar as funcionalidades que so existem no plano Pro e que transformam o Claude de um assistente de texto em uma plataforma de produtividade completa.</p>
 
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Entregavel do Modulo</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); font-style:italic;">Ao final deste modulo voces vao conseguir fazer isso:</p>
-        <p style="margin-top:8px;">Um documento de uma pagina com o mapa de oportunidades do seu departamento &mdash; incluindo uma tabela de impacto com horas economizadas por tarefa, o calculo de ROI versus $240/ano de assinatura, e os 3 casos de uso prioritarios para a Fase 2. Pronto para mostrar a diretora de RH e usar como ponto de partida da proxima fase.</p>
-      </div>
+  <p class="lead-text">Cada feature sera apresentada no formato Teoria + Demonstracao + Atividade. O objetivo nao e que voces dominem cada ferramenta hoje — e que entendam o que existe, vejam funcionando e consigam avaliar o retorno para o proprio departamento.</p>
 
-      <div class="overview-card">
-        <h3>Linha do Tempo</h3>
-        <div class="timeline">
-          <div class="timeline-step">Conhecer o que o plano Pro desbloqueia (5 features)</div>
-          <span class="timeline-arrow">&#8594;</span>
-          <div class="timeline-step">A cada feature: mapear uma oportunidade do proprio departamento</div>
-          <span class="timeline-arrow">&#8594;</span>
-          <div class="timeline-step">Juntar os 5 blocos em um unico prompt</div>
-          <span class="timeline-arrow">&#8594;</span>
-          <div class="timeline-step">Claude gera a proposta para a RH + Top 3 para a Fase 2</div>
-        </div>
-      </div>
+  <div class="warning-banner">
+    <p><strong>Importante:</strong> As features a seguir sao do plano Pro ($20/mes ou $240/ano). Voces nao precisam assinar hoje — o objetivo e conhecer o que existe e avaliar se faz sentido para o seu trabalho. As atividades praticas foram desenhadas para funcionar tambem no plano gratuito, simulando o raciocinio de uso.</p>
+  </div>
 
-      <div class="overview-card">
-        <h3>Navegacao Rapida</h3>
-        <div class="resource-row">
-          <div class="res-card" onclick="showSection('step1')">
-            <div class="rc-icon">&#128269;</div>
-            <div class="rc-title">Deep Research</div>
-            <div class="rc-desc">Pesquisa profunda na internet.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step3')">
-            <div class="rc-icon">&#9889;</div>
-            <div class="rc-title">Skills</div>
-            <div class="rc-desc">Tarefas padronizadas.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step6')">
-            <div class="rc-icon">&#128196;</div>
-            <div class="rc-title">Artefato Final</div>
-            <div class="rc-desc">Proposta + Top 3.</div>
-          </div>
-        </div>
-      </div>
+  <div class="overview-card">
+    <h3>Objetivos de Aprendizagem</h3>
+    <ol class="numbered-list">
+      <li>Conhecer as 5 features exclusivas do Claude Pro: Deep Research, Connectors, Skills, Cowork e Claude Code</li>
+      <li>Ver cada feature funcionando ao vivo em um caso de uso real da Bram Offshore</li>
+      <li>Praticar o raciocinio de aplicacao: identificar onde cada feature geraria valor no proprio departamento</li>
+      <li>Construir um Mapa de ROI consolidado com as 5 features para apresentar a lideranca</li>
+    </ol>
+  </div>
 
-      <div class="nav-buttons">
-        <div></div>
-        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
-      </div>
+  <div class="nav-buttons">
+    <div></div>
+    <button class="nav-btn primary" onclick="showSection('sec-step1')">Comecar &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 01 · DEEP RESEARCH — TEORIA ===== -->
+<div class="section" id="sec-step1">
+  <div class="section-divider">Feature 01 — Deep Research</div>
+  <div class="sec-title"><span class="snum">01.</span> Deep Research — Teoria</div>
+  <div class="sec-desc">Pesquisa autonoma com relatorio completo</div>
+
+  <p class="lead-text">Deep Research e a funcionalidade que transforma o Claude em um pesquisador autonomo. Em vez de responder com base apenas no que ele ja sabe, o Claude navega pela internet em tempo real, cruza dezenas de fontes, avalia a qualidade das informacoes e entrega um relatorio estruturado com citacoes.</p>
+
+  <p class="lead-text">A diferenca fundamental: enquanto uma busca no Google retorna uma lista de links que voce precisa ler um por um, o Deep Research le tudo por voce, sintetiza as informacoes relevantes e entrega um documento pronto para uso — com as fontes referenciadas para verificacao.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Investigacao autonoma</h4>
+      <p>O Claude navega pela web sozinho, abrindo e lendo paginas, artigos, documentos e relatorios. Ele nao depende de voce fornecer links — ele encontra as fontes relevantes por conta propria.</p>
     </div>
-
-<!-- ===== STEP 1: Deep Research ===== -->
-    <div class="section" id="sec-step1">
-      <h1 class="sec-title"><span class="snum">01.</span> Deep Research &mdash; Pesquisa Profunda</h1>
-      <p class="sec-desc">O Claude pesquisa na internet, consolida multiplas fontes e entrega um relatorio estruturado em minutos. Util quando voce precisa de uma visao abrangente, nao apenas uma resposta rapida.</p>
-
-      <div class="copy-block" id="prompt-research">
-        <span class="label">PROMPT DE DEMO &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-research-text').textContent)">Copiar</button>
-        <span id="prompt-research-text">Pesquise as melhores praticas de gestao de incidentes HSE em operacoes offshore no Brasil. Inclua:
-- Regulamentacoes vigentes (Marinha, ANP, ISGOTT)
-- Benchmarks de empresas do setor
-- Tendencias de uso de tecnologia para prevencao
-- Recomendacoes praticas para equipes de bordo
-
-Formate como relatorio executivo com sumario, secoes e referencias.</span>
-      </div>
-
-      <div class="usecase-card">
-        <h4>Casos de Uso por Area</h4>
-        <div class="usecase-item">
-          <span class="usecase-tag">Linha de Frente</span>
-          <span class="usecase-text">Normas de seguranca antes de uma operacao nova</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Corporativo</span>
-          <span class="usecase-text">Benchmark de mercado para apresentar ao gestor</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Tech</span>
-          <span class="usecase-text">Levantamento de solucoes para um problema tecnico</span>
-        </div>
-      </div>
-
-      <div class="copy-block" id="mapping-research">
-        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-research-text').textContent)">Copiar</button>
-        <span id="mapping-research-text">Feature que acabei de conhecer: Deep Research
-
-Meu departamento na Bram Offshore: [seu departamento]
-
-Responda as perguntas abaixo de forma objetiva:
-
-1. Qual tarefa especifica do meu departamento essa feature resolveria?
-2. Como essa tarefa e feita hoje? Quanto tempo leva?
-3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
-4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
-
-Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
-- Header da tabela: fundo verde escuro (#1F3331), texto creme (#F5F0EB), Montserrat Bold
-- Linhas alternadas: branco (#FFFFFF) e creme (#F0EBE4)
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Valores de ganho/tempo: verde (#5C6C51) em negrito
-- Borda sutil entre linhas em creme (#DDD8D2)</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
-        <a class="nav-btn primary" onclick="showSection('step2')">Connectors &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Tempo de processamento</h4>
+      <p>Uma pesquisa com Deep Research leva entre 2 e 15 minutos, dependendo da complexidade. O Claude esta de fato navegando, lendo e cruzando informacoes — nao e uma resposta instantanea.</p>
     </div>
-
-<!-- ===== STEP 2: Connectors ===== -->
-    <div class="section" id="sec-step2">
-      <h1 class="sec-title"><span class="snum">02.</span> Connectors &mdash; Integracoes</h1>
-      <p class="sec-desc">Conecta o Claude ao Google Drive, Gmail e Slack &mdash; ele le e processa documentos reais sem copiar e colar.</p>
-
-      <div class="tip-box">
-        <div class="tip-label">Nota sobre Governanca</div>
-        <p>Hoje nao usamos documentos da Bram por questao de governanca. Quando a empresa definir uma politica de uso, o Connector permite que o Claude acesse a pasta do seu departamento e trabalhe com os arquivos reais.</p>
-      </div>
-
-      <div class="usecase-card">
-        <h4>Casos de Uso por Area</h4>
-        <div class="usecase-item">
-          <span class="usecase-tag">Corporativo</span>
-          <span class="usecase-text">Claude le contratos no Drive e extrai clausulas relevantes</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">RH</span>
-          <span class="usecase-text">Claude processa planilhas e gera relatorio consolidado</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Tech</span>
-          <span class="usecase-text">Claude analisa logs de sistemas conectados</span>
-        </div>
-      </div>
-
-      <div class="copy-block" id="mapping-connectors">
-        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-connectors-text').textContent)">Copiar</button>
-        <span id="mapping-connectors-text">Feature que acabei de conhecer: Connectors
-
-Meu departamento na Bram Offshore: [seu departamento]
-
-Responda as perguntas abaixo de forma objetiva:
-
-1. Qual tarefa especifica do meu departamento essa feature resolveria?
-2. Como essa tarefa e feita hoje? Quanto tempo leva?
-3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
-4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
-
-Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
-- Header da tabela: fundo verde escuro (#1F3331), texto creme (#F5F0EB), Montserrat Bold
-- Linhas alternadas: branco (#FFFFFF) e creme (#F0EBE4)
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Valores de ganho/tempo: verde (#5C6C51) em negrito
-- Borda sutil entre linhas em creme (#DDD8D2)</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step3')">Skills &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Relatorio com citacoes</h4>
+      <p>O resultado e um relatorio estruturado com todas as fontes citadas. Voce pode verificar cada informacao clicando na referencia — nada e inventado.</p>
     </div>
-
-<!-- ===== STEP 3: Skills ===== -->
-    <div class="section" id="sec-step3">
-      <h1 class="sec-title"><span class="snum">03.</span> Skills &mdash; Tarefas Padronizadas</h1>
-      <p class="sec-desc">Uma Skill e um conjunto de instrucoes salvas. Voce escreve uma vez &mdash; o Claude reproduz o padrao toda vez, sem variacoes.</p>
-
-      <div class="tip-box">
-        <div class="tip-label">Regra pratica</div>
-        <p>Se voce usou o mesmo prompt mais de duas vezes, ele deveria ser uma Skill.</p>
-      </div>
-
-      <div class="copy-block" id="prompt-skill">
-        <span class="label">DEMO &mdash; INSTRUTOR CRIA SKILL AO VIVO</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-skill-text').textContent)">Copiar</button>
-        <span id="prompt-skill-text">Nome: Relatorio de Ocorrencia HSE
-
-Gatilho: Use quando eu descrever os detalhes de uma ocorrencia de seguranca ou incidente offshore.
-
-Instrucoes: Gere um Artifact de relatorio de ocorrencia com:
-1. Dados do incidente (data, localizacao, tipo)
-2. Descricao cronologica do ocorrido
-3. Analise de causa raiz — metodologia 5 Porques
-4. Acoes corretivas imediatas
-5. Acoes preventivas de longo prazo
-6. Campo para assinatura do responsavel e data
-
-Formate em padrao profissional pronto para registro e auditoria.</span>
-      </div>
-
-      <div class="usecase-card">
-        <h4>Casos de Uso por Area</h4>
-        <div class="usecase-item">
-          <span class="usecase-tag">HSE</span>
-          <span class="usecase-text">Padronizar relatorios de ocorrencia</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Financeiro</span>
-          <span class="usecase-text">Analises mensais com mesma estrutura</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">RH</span>
-          <span class="usecase-text">Comunicacoes de onboarding padronizadas</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Comercial</span>
-          <span class="usecase-text">Propostas com estrutura consistente</span>
-        </div>
-      </div>
-
-      <div class="copy-block" id="mapping-skills">
-        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-skills-text').textContent)">Copiar</button>
-        <span id="mapping-skills-text">Feature que acabei de conhecer: Skills
-
-Meu departamento na Bram Offshore: [seu departamento]
-
-Responda as perguntas abaixo de forma objetiva:
-
-1. Qual tarefa especifica do meu departamento essa feature resolveria?
-2. Como essa tarefa e feita hoje? Quanto tempo leva?
-3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
-4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
-
-Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
-- Header da tabela: fundo verde escuro (#1F3331), texto creme (#F5F0EB), Montserrat Bold
-- Linhas alternadas: branco (#FFFFFF) e creme (#F0EBE4)
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Valores de ganho/tempo: verde (#5C6C51) em negrito
-- Borda sutil entre linhas em creme (#DDD8D2)</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step4')">Cowork &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Integracao Google Workspace</h4>
+      <p>O relatorio pode ser exportado diretamente para o Google Docs, facilitando o compartilhamento e a edicao colaborativa com a equipe.</p>
     </div>
+  </div>
 
-<!-- ===== STEP 4: Cowork ===== -->
-    <div class="section" id="sec-step4">
-      <h1 class="sec-title"><span class="snum">04.</span> Cowork &mdash; Automacao de Desktop</h1>
-      <p class="sec-desc">O Claude opera no seu computador de forma autonoma &mdash; abre arquivos, processa documentos, preenche formularios &mdash; sem voce precisar estar presente.</p>
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>Comparativo — Busca simples vs. Deep Research</h3>
+    <table class="ref-table" style="margin-top:6px;">
+      <tr><th></th><th>Busca simples no Claude</th><th>Deep Research</th></tr>
+      <tr><td><strong>Fontes</strong></td><td>Conhecimento interno do modelo</td><td>Navegacao ativa pela web em tempo real</td></tr>
+      <tr><td><strong>Profundidade</strong></td><td>Resposta rapida e superficial</td><td>Analise detalhada com cruzamento de fontes</td></tr>
+      <tr><td><strong>Citacoes</strong></td><td>Sem referencias verificaveis</td><td>Todas as fontes citadas e clicaveis</td></tr>
+      <tr><td><strong>Formato</strong></td><td>Texto corrido</td><td>Relatorio estruturado com secoes e sumario</td></tr>
+    </table>
+  </div>
 
-      <div class="usecase-card">
-        <h4>Casos de Uso por Area</h4>
-        <div class="usecase-item">
-          <span class="usecase-tag">Linha de Frente</span>
-          <span class="usecase-text">Processar multiplos relatorios de bordo de uma vez</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Financeiro</span>
-          <span class="usecase-text">Consolidar planilhas mensais de diferentes areas</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">RH</span>
-          <span class="usecase-text">Preencher formularios de avaliacao em lote</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">TI</span>
-          <span class="usecase-text">Organizar logs e gerar relatorio de incidentes</span>
-        </div>
-      </div>
+  <div class="example-card">
+    <div class="example-label">Caso de uso — Bram Offshore</div>
+    <h4>Fernanda, trainee de HSE</h4>
+    <p>Fernanda precisa preparar um briefing sobre as novas exigencias da ANP para seguranca operacional em embarcacoes de apoio. Em vez de passar 3 horas lendo documentos da ANP, ela pede ao Deep Research: "Pesquise as mudancas regulatorias da ANP nos ultimos 12 meses que afetam embarcacoes PSV e AHTS". Em 8 minutos, recebe um relatorio com as principais alteracoes, implicacoes praticas e links para os documentos oficiais.</p>
+  </div>
 
-      <div class="copy-block" id="mapping-cowork">
-        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-cowork-text').textContent)">Copiar</button>
-        <span id="mapping-cowork-text">Feature que acabei de conhecer: Cowork
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+  </div>
+</div>
 
-Meu departamento na Bram Offshore: [seu departamento]
+<!-- ===== 02 · DEEP RESEARCH — DEMONSTRACAO ===== -->
+<div class="section" id="sec-step2">
+  <div class="section-divider">Feature 01 — Deep Research</div>
+  <div class="sec-title"><span class="snum">02.</span> Deep Research — Demonstracao</div>
+  <div class="sec-desc">Vendo a pesquisa autonoma ao vivo</div>
 
-Responda as perguntas abaixo de forma objetiva:
+  <p class="lead-text">O instrutor vai ativar o Deep Research ao vivo. Observem o processo: o Claude vai navegar pela web, ler fontes e construir um relatorio em tempo real.</p>
 
-1. Qual tarefa especifica do meu departamento essa feature resolveria?
-2. Como essa tarefa e feita hoje? Quanto tempo leva?
-3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
-4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text">Abrir <strong>claude.ai</strong> &#8594; Nova conversa</div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text">Clicar no icone de <strong>Deep Research</strong> (lupa com seta) antes de enviar o prompt</div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text">Colar o prompt abaixo e enviar</div></div>
+  </div>
 
-Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
-- Header da tabela: fundo verde escuro (#1F3331), texto creme (#F5F0EB), Montserrat Bold
-- Linhas alternadas: branco (#FFFFFF) e creme (#F0EBE4)
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Valores de ganho/tempo: verde (#5C6C51) em negrito
-- Borda sutil entre linhas em creme (#DDD8D2)</span>
-      </div>
+  <div class="copy-block"><span class="label">Prompt — instrutor demonstra</span><button class="copy-btn" onclick="copyText(this, document.getElementById('dr-demo-prompt').textContent)">Copiar</button><span id="dr-demo-prompt">Pesquise as principais regulamentacoes e boas praticas de seguranca
+operacional para embarcacoes de apoio maritimo (PSV e AHTS) no Brasil,
+publicadas ou atualizadas nos ultimos 12 meses.
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step5')">Claude Code &#8594;</a>
-      </div>
+Inclua:
+- Mudancas na NORMAM-01 e regulamentacoes da Marinha do Brasil
+- Novas exigencias da ANP para operacoes offshore
+- Boas praticas internacionais (ISGOTT, IMCA) adotadas no mercado brasileiro
+- Implicacoes praticas para equipes de HSE em empresas de apoio maritimo
+
+Entregue como relatorio estruturado com secoes, resumo executivo e
+todas as fontes citadas.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>O processamento leva entre 5 e 10 minutos. Enquanto o Claude pesquisa, observem a barra de progresso e as fontes sendo consultadas em tempo real. O resultado sera um relatorio com secoes, resumo executivo e citacoes verificaveis — algo que levaria horas para produzir manualmente.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 03 · DEEP RESEARCH — ATIVIDADE ===== -->
+<div class="section" id="sec-step3">
+  <div class="section-divider">Feature 01 — Deep Research</div>
+  <div class="sec-title"><span class="snum">03.</span> Deep Research — Atividade Pratica</div>
+  <div class="sec-desc">Mapeando onde Deep Research geraria valor</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces terao <strong>4 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>1 colega</strong> para apresentar — ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <p class="lead-text">Mesmo sem o plano Pro, voces podem mapear onde o Deep Research geraria valor no departamento. Use o prompt abaixo no Claude gratuito para estruturar o raciocinio:</p>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem</span><button class="copy-btn" onclick="copyText(this, document.getElementById('dr-student-prompt').textContent)">Copiar</button><span id="dr-student-prompt">Sou trainee de [seu departamento] na Bram Offshore, empresa de apoio
+maritimo offshore. Quero mapear onde a funcionalidade Deep Research
+do Claude Pro geraria valor no meu departamento.
+
+Deep Research = o Claude navega pela internet em tempo real, cruza
+dezenas de fontes e entrega um relatorio estruturado com citacoes.
+Tempo de processamento: 2-15 minutos.
+
+Me ajude a identificar:
+1. Tres situacoes recorrentes no meu departamento onde uma pesquisa
+   aprofundada com fontes verificadas economizaria tempo
+2. Para cada situacao, estime quanto tempo o trainee gasta hoje
+   fazendo essa pesquisa manualmente
+3. Qual seria o prompt ideal para cada situacao
+
+Formate como tabela com: Situacao | Tempo manual estimado | Prompt sugerido</span></div>
+
+  <div class="example-block">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Pedro, trainee de HSE</h4>
+    <p>Pedro adapta o prompt trocando "[seu departamento]" por "HSE" e envia. O Claude retorna uma tabela com 3 situacoes: pesquisa de atualizacoes regulatorias (4h/mes), levantamento de benchmarks de seguranca (3h/mes) e pesquisa de fornecedores de EPIs especializados (2h/mes). Cada situacao inclui o prompt ideal para usar com Deep Research.</p>
+  </div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>O que preparar para apresentar</h3>
+    <p>Se voce for sorteado, mostre:</p>
+    <ul style="list-style:none;margin-top:8px;">
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; A tabela com as 3 situacoes mapeadas</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; Qual situacao teria maior impacto no departamento e por que</li>
+      <li style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:0.76rem;color:var(--text2);line-height:1.5;">&#8226; O prompt sugerido que voce usaria primeiro</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 04 · CONNECTORS — TEORIA ===== -->
+<div class="section" id="sec-step4">
+  <div class="section-divider">Feature 02 — Connectors</div>
+  <div class="sec-title"><span class="snum">04.</span> Connectors — Teoria</div>
+  <div class="sec-desc">O Claude conectado as suas ferramentas de trabalho</div>
+
+  <p class="lead-text">Connectors sao integracoes que permitem ao Claude acessar diretamente as ferramentas que voce ja usa no trabalho — Google Drive, Gmail, Google Calendar, Slack e mais de 50 outros servicos. Em vez de copiar e colar informacoes entre sistemas, o Claude busca, le e age sobre os dados diretamente na fonte.</p>
+
+  <p class="lead-text">A tecnologia por tras e o MCP (Model Context Protocol) — um padrao aberto criado pela Anthropic que permite ao Claude se conectar a qualquer ferramenta externa de forma segura. Cada Connector funciona como uma ponte bidirecional: o Claude pode ler informacoes do servico e, em alguns casos, executar acoes nele.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Google Drive</h4>
+      <p>O Claude busca e le documentos diretamente no seu Drive. Voce pode pedir "resuma o relatorio de operacoes da semana passada" e ele encontra o arquivo, le e resume — sem voce precisar abrir o documento.</p>
     </div>
-
-<!-- ===== STEP 5: Claude Code ===== -->
-    <div class="section" id="sec-step5">
-      <h1 class="sec-title"><span class="snum">05.</span> Claude Code &mdash; Desenvolvimento</h1>
-      <p class="sec-desc">Um ambiente onde o Claude escreve, testa e executa codigo no seu computador. Para quando a tarefa vai alem de um Artifact simples.</p>
-
-      <div class="copy-block" id="prompt-code">
-        <span class="label">PROMPT DE DEMO &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-code-text').textContent)">Copiar</button>
-        <span id="prompt-code-text">Crie um script Python que:
-1. Leia uma lista de embarcacoes com horas de bordo mensais
-2. Calcule a media de horas por mes para cada embarcacao
-3. Identifique quais ficaram abaixo da meta de 300h/mes
-4. Gere um relatorio em texto com o resultado formatado
-
-Use dados ficticios: 3 embarcacoes de apoio offshore, dados de Jan a Mar.</span>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Perspectiva</div>
-        <p>O que voces construiram no Lovable em horas, com Claude Code + uma boa especificacao, poderia ter saido em minutos.</p>
-      </div>
-
-      <div class="usecase-card">
-        <h4>Casos de Uso por Area</h4>
-        <div class="usecase-item">
-          <span class="usecase-tag">Tech</span>
-          <span class="usecase-text">Ferramentas internas, analise de dados, automacoes</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Financeiro</span>
-          <span class="usecase-text">Modelagem e analise de dados</span>
-        </div>
-        <div class="usecase-item">
-          <span class="usecase-tag">Operacoes</span>
-          <span class="usecase-text">Dashboards de metricas operacionais</span>
-        </div>
-      </div>
-
-      <div class="copy-block" id="mapping-code">
-        <span class="label">BLOCO DE MAPEAMENTO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('mapping-code-text').textContent)">Copiar</button>
-        <span id="mapping-code-text">Feature que acabei de conhecer: Claude Code
-
-Meu departamento na Bram Offshore: [seu departamento]
-
-Responda as perguntas abaixo de forma objetiva:
-
-1. Qual tarefa especifica do meu departamento essa feature resolveria?
-2. Como essa tarefa e feita hoje? Quanto tempo leva?
-3. O que o Claude Pro entregaria no lugar disso? Em quanto tempo?
-4. Qual seria o ganho concreto: tempo economizado, qualidade melhorada ou erro evitado?
-
-Apresente como uma tabela de 4 linhas em HTML com identidade visual BRAM OFFSHORE:
-- Header da tabela: fundo verde escuro (#1F3331), texto creme (#F5F0EB), Montserrat Bold
-- Linhas alternadas: branco (#FFFFFF) e creme (#F0EBE4)
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Valores de ganho/tempo: verde (#5C6C51) em negrito
-- Borda sutil entre linhas em creme (#DDD8D2)</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step6')">Artefato Final &#8594;</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Gmail</h4>
+      <p>O Claude acessa seus e-mails para buscar informacoes, encontrar conversas anteriores e redigir respostas. Voce pode pedir "encontre o ultimo e-mail do fornecedor sobre a entrega de EPIs" e ele localiza.</p>
     </div>
-
-<!-- ===== STEP 6: Artefato Final ===== -->
-    <div class="section" id="sec-step6">
-      <h1 class="sec-title"><span class="snum">06.</span> Artefato Final &mdash; Proposta + Top 3</h1>
-      <p class="sec-desc">Voces preencheram 5 blocos de mapeamento. Agora vamos juntar tudo em um unico documento.</p>
-
-      <div class="instructions">
-        <div class="inst">
-          <div class="inst-num">1</div>
-          <div class="inst-text"><strong>Abram o Claude</strong>, dentro do Project criado no Modulo 03.</div>
-        </div>
-        <div class="inst">
-          <div class="inst-num">2</div>
-          <div class="inst-text"><strong>Colem o prompt abaixo</strong> e substituam o campo indicado pelos 5 blocos de mapeamento preenchidos durante a aula.</div>
-        </div>
-        <div class="inst">
-          <div class="inst-num">3</div>
-          <div class="inst-text"><strong>Rodem o prompt</strong> e revisem o Artifact gerado.</div>
-        </div>
-      </div>
-
-      <div class="copy-block" id="prompt-final">
-        <span class="label">PROMPT FINAL &mdash; VOCES FAZEM AGORA (DENTRO DO PROJECT)</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-final-text').textContent)">Copiar</button>
-        <span id="prompt-final-text">Ao longo da aula de hoje mapeei 5 oportunidades de uso do Claude Pro no meu departamento — uma para cada feature apresentada. Aqui estao:
-
-[cole os 5 blocos de mapeamento que voce preencheu durante a aula]
-
-Com base nesses dados, gere um Artifact em HTML com dois blocos:
-
-BLOCO 1 — PROPOSTA PARA A LIDERANCA
-Titulo: "Por que o Claude Pro faz sentido para o meu departamento"
-- Tabela com as 5 oportunidades: tarefa atual | tempo hoje | resultado com Claude | ganho estimado
-- Paragrafo de conclusao com o total de horas economizadas por mes
-- Custo: $20/mes por assinatura ($240/ano)
-- Frase final: "O investimento se paga com [X horas economizadas] ainda no primeiro mes."
-
-BLOCO 2 — TOP 3 PARA A FASE 2
-- As 3 oportunidades de maior impacto, ordenadas por potencial
-- Para cada uma: o que seria implementado, qual feature usaria e qual seria o resultado esperado
-
-Identidade visual BRAM OFFSHORE (aplicar em todo o documento):
-- Header principal: fundo verde escuro (#1F3331), texto creme (#F5F0EB), "BRAM OFFSHORE" em Montserrat Bold caixa alta, departamento abaixo
-- Fundo do documento: branco (#FFFFFF)
-- Titulos dos blocos: verde escuro (#1F3331), Montserrat Bold
-- Header das tabelas: verde escuro (#1F3331), texto creme (#F5F0EB)
-- Linhas alternadas das tabelas: branco e creme (#F0EBE4)
-- Numeros de ganho e metricas de impacto: verde (#5C6C51) em negrito
-- Texto do corpo: cinza escuro (#1A1A1A), Montserrat
-- Secao de custo/ROI: fundo verde escuro (#1F3331), texto creme (#F5F0EB), valor de ROI em verde (#5C6C51) em destaque
-- Rodape: fundo verde escuro (#1F3331), texto creme (#F5F0EB)
-- Estilo: corporativo, limpo, profissional — pronto para apresentar a gestora de RH</span>
-      </div>
-
-      <div class="overview-card" style="border-left:4px solid var(--green);">
-        <h3 style="color:var(--green);">Checklist de Entrega</h3>
-        <div class="checklist">
-          <div class="checklist-item">Preencheu os 5 blocos de mapeamento ao longo do modulo</div>
-          <div class="checklist-item">Rodou o prompt do artefato final dentro do Project</div>
-          <div class="checklist-item">O Artifact gerou os 2 blocos: proposta para RH + Top 3 para Fase 2</div>
-          <div class="checklist-item">Consegue explicar o ROI do Claude Pro para o proprio departamento</div>
-        </div>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
-      </div>
+    <div class="pillar-card">
+      <h4>Google Calendar</h4>
+      <p>O Claude ve sua agenda e pode ajudar a organizar compromissos. Voce pode pedir "quais reunioes tenho amanha" ou "sugira um horario para a reuniao de seguranca da semana que vem".</p>
     </div>
+    <div class="pillar-card">
+      <h4>Slack</h4>
+      <p>O Claude acessa canais e mensagens do Slack para buscar informacoes discutidas pela equipe. Voce pode pedir "o que foi discutido no canal de operacoes sobre a embarcacao X".</p>
+    </div>
+    <div class="pillar-card">
+      <h4>50+ ferramentas</h4>
+      <p>Alem das integracoes nativas, o ecossistema MCP permite conectar Notion, Jira, GitHub, Asana, Trello, Salesforce e dezenas de outros servicos — com novas integracoes sendo lancadas toda semana.</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">Seguranca e Governanca</div>
+    <p>Cada Connector exige autorizacao explicita do usuario. O Claude so acessa o que voce permite e so ve os dados que voce autoriza. As conexoes podem ser revogadas a qualquer momento nas configuracoes do Claude.</p>
+  </div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota sobre governanca na Bram</div>
+    <p>Antes de ativar Connectors em escala, a equipe de TI deve avaliar quais integracoes sao compativeis com as politicas de seguranca da informacao da Bram Offshore. O uso com dados sensiveis requer alinhamento previo com a gestao.</p>
+  </div>
+
+  <div class="example-card">
+    <div class="example-label">Caso de uso — Bram Offshore</div>
+    <h4>Joao Paulo, Comercial</h4>
+    <p>Joao Paulo precisa preparar uma apresentacao para um cliente. Em vez de abrir o Drive, procurar a proposta anterior, abrir o Gmail para buscar a ultima comunicacao e verificar a agenda para a reuniao, ele pede ao Claude: "Encontre a ultima proposta que enviamos para o cliente X no Drive, resuma o historico de e-mails dos ultimos 30 dias e me diga quando e a proxima reuniao." O Claude faz tudo em uma unica interacao.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 05 · CONNECTORS — DEMONSTRACAO ===== -->
+<div class="section" id="sec-step5">
+  <div class="section-divider">Feature 02 — Connectors</div>
+  <div class="sec-title"><span class="snum">05.</span> Connectors — Demonstracao</div>
+  <div class="sec-desc">Conectando o Claude ao Google Workspace ao vivo</div>
+
+  <p class="lead-text">O instrutor vai demonstrar como ativar e usar um Connector ao vivo. Observem o fluxo de autorizacao e como o Claude acessa os dados diretamente.</p>
+
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>claude.ai</strong> &#8594; Nova conversa &#8594; Clicar no icone <strong>+</strong> (integracoes) abaixo da caixa de texto</div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text">Selecionar <strong>Google Drive</strong> &#8594; Autorizar acesso</div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text">Enviar o prompt abaixo para testar a conexao</div></div>
+  </div>
+
+  <div class="copy-block"><span class="label">Prompt — instrutor demonstra</span><button class="copy-btn" onclick="copyText(this, document.getElementById('conn-demo-prompt').textContent)">Copiar</button><span id="conn-demo-prompt">Busque no meu Google Drive os documentos mais recentes relacionados
+a operacoes ou embarcacoes. Liste os 5 documentos mais relevantes
+com nome, data de modificacao e um resumo de uma linha do conteudo
+de cada um.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Observem que o Claude acessa o Drive diretamente — nao foi necessario fazer upload de nenhum arquivo. A autorizacao foi feita uma unica vez e permanece ativa para todas as conversas futuras. Voces podem revogar o acesso a qualquer momento em Configuracoes > Connectors.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 06 · CONNECTORS — ATIVIDADE ===== -->
+<div class="section" id="sec-step6">
+  <div class="section-divider">Feature 02 — Connectors</div>
+  <div class="sec-title"><span class="snum">06.</span> Connectors — Atividade Pratica</div>
+  <div class="sec-desc">Mapeando onde Connectors geraria valor</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces terao <strong>4 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>1 colega</strong> para apresentar — ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem</span><button class="copy-btn" onclick="copyText(this, document.getElementById('conn-student-prompt').textContent)">Copiar</button><span id="conn-student-prompt">Sou trainee de [seu departamento] na Bram Offshore, empresa de apoio
+maritimo offshore. Quero mapear onde os Connectors do Claude Pro
+geraria valor no meu departamento.
+
+Connectors disponiveis: Google Drive, Gmail, Google Calendar, Slack,
+Notion, Jira + 50 outros via MCP.
+
+Funcionalidade: o Claude acessa diretamente essas ferramentas para
+buscar informacoes, ler documentos, encontrar e-mails, verificar
+agenda — sem precisar copiar/colar nada.
+
+Me ajude a identificar:
+1. Tres fluxos de trabalho no meu departamento que envolvem consultar
+   informacoes em multiplas ferramentas (Drive, e-mail, agenda, etc.)
+2. Quais Connectors seriam usados em cada fluxo
+3. Quanto tempo o trainee gasta hoje alternando entre ferramentas
+   para completar cada fluxo
+
+Formate como tabela com: Fluxo | Connectors usados | Tempo manual estimado</span></div>
+
+  <div class="example-block">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Fabricio, Supply Chain</h4>
+    <p>Fabricio identifica 3 fluxos: verificar status de pedidos (Drive + Gmail, 45min/dia), preparar relatorio semanal de recebimento (Drive + Calendar, 2h/semana) e responder consultas de fornecedores (Gmail + Drive, 30min/dia). Com Connectors, o Claude faria a busca cruzada em segundos.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 07 · SKILLS — TEORIA ===== -->
+<div class="section" id="sec-step7">
+  <div class="section-divider">Feature 03 — Skills</div>
+  <div class="sec-title"><span class="snum">07.</span> Skills — Teoria</div>
+  <div class="sec-desc">Automatizando tarefas com instrucoes reutilizaveis</div>
+
+  <p class="lead-text">Skills sao instrucoes reutilizaveis que ensinam ao Claude como executar uma tarefa especifica de forma padronizada. Em vez de reescrever o mesmo prompt toda vez que voce precisa de um tipo de documento, voce cria uma Skill uma unica vez e o Claude aplica automaticamente sempre que detectar uma situacao relevante.</p>
+
+  <p class="lead-text">Pense em Skills como "receitas" que o Claude memoriza. Uma Skill pode definir como gerar um relatorio de inspecao, como redigir um e-mail de follow-up para fornecedores ou como analisar dados de manutencao. Existem Skills pre-construidas pela Anthropic e voce pode criar as suas proprias.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Ativacao automatica</h4>
+      <p>O Claude detecta quando uma Skill e relevante para o que voce esta pedindo e a ativa automaticamente. Voce nao precisa lembrar de chamar a Skill — ela funciona no fundo.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Sem codigo</h4>
+      <p>Criar uma Skill e tao simples quanto escrever instrucoes em linguagem natural. Nao e necessario programar — basta descrever o que o Claude deve fazer, em que formato e com quais regras.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Resultado consistente</h4>
+      <p>Uma vez definida, a Skill garante que o resultado sempre siga o mesmo padrao. Todos os relatorios saem no mesmo formato, todos os e-mails seguem o mesmo tom — sem variacao.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Todos os contextos</h4>
+      <p>Skills funcionam em qualquer conversa, dentro ou fora de Projects. Uma vez criada, ela esta disponivel em toda a sua conta Claude.</p>
+    </div>
+  </div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>Comparativo — Skills pre-construidas vs. personalizadas</h3>
+    <table class="ref-table" style="margin-top:6px;">
+      <tr><th></th><th>Pre-construidas</th><th>Personalizadas</th></tr>
+      <tr><td><strong>Criador</strong></td><td>Anthropic</td><td>Voce</td></tr>
+      <tr><td><strong>Exemplos</strong></td><td>Criar apresentacao, analisar PDF, gerar planilha</td><td>Relatorio HSE Bram, e-mail para fornecedor, checklist de inspecao</td></tr>
+      <tr><td><strong>Personalizacao</strong></td><td>Generica</td><td>Calibrada para o seu departamento e empresa</td></tr>
+      <tr><td><strong>Quando usar</strong></td><td>Tarefas comuns e universais</td><td>Tarefas recorrentes especificas do seu trabalho</td></tr>
+    </table>
+  </div>
+
+  <div class="example-card">
+    <div class="example-label">Caso de uso — Bram Offshore</div>
+    <h4>Heloisa, HSE</h4>
+    <p>Heloisa cria uma Skill chamada "Relatorio de Ocorrencia HSE" que define: formato do relatorio (data, embarcacao, tipo de ocorrencia, descricao, acao corretiva, prazo), tom tecnico, referencias a NORMAM-01 e ISGOTT, e identidade visual da Bram. Toda vez que ela pede ao Claude para registrar uma ocorrencia, o resultado ja sai no padrao — sem precisar especificar o formato novamente.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 08 · SKILLS — DEMONSTRACAO ===== -->
+<div class="section" id="sec-step8">
+  <div class="section-divider">Feature 03 — Skills</div>
+  <div class="sec-title"><span class="snum">08.</span> Skills — Demonstracao</div>
+  <div class="sec-desc">Criando e testando uma Skill ao vivo</div>
+
+  <p class="lead-text">O instrutor vai criar uma Skill personalizada ao vivo e testar em seguida. Observem como a definicao e simples e o resultado ja sai padronizado.</p>
+
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>claude.ai</strong> &#8594; Configuracoes &#8594; Skills &#8594; <strong>Create Skill</strong></div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text">Colar a definicao da Skill abaixo</div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text">Salvar e abrir uma nova conversa para testar</div></div>
+  </div>
+
+  <div class="copy-block"><span class="label">Definicao da Skill — instrutor cria</span><button class="copy-btn" onclick="copyText(this, document.getElementById('skill-demo-def').textContent)">Copiar</button><span id="skill-demo-def">Nome: Comunicado Operacional Bram
+
+Descricao: Gera comunicados operacionais padronizados para circulacao
+interna na Bram Offshore.
+
+Instrucoes:
+Quando o usuario pedir para criar um comunicado operacional, siga
+este formato:
+
+HEADER: "BRAM OFFSHORE — COMUNICADO OPERACIONAL"
+DATA: Data do comunicado
+DE: Departamento emissor
+PARA: Destinatarios
+ASSUNTO: Titulo objetivo
+
+CORPO:
+1. Contexto (2-3 frases sobre o que motivou o comunicado)
+2. Informacao principal (detalhes objetivos)
+3. Acao requerida (o que os destinatarios devem fazer)
+4. Prazo (se aplicavel)
+5. Contato para duvidas
+
+Tom: tecnico, direto, profissional.
+Terminologia: maritima offshore quando aplicavel.
+Formato: pronto para uso interno, sem necessidade de edicao.</span></div>
+
+  <div class="copy-block"><span class="label">Prompt de teste — instrutor roda na conversa</span><button class="copy-btn" onclick="copyText(this, document.getElementById('skill-demo-test').textContent)">Copiar</button><span id="skill-demo-test">Crie um comunicado operacional informando que a embarcacao PSV
+Bram Poseidon entrara em docagem programada a partir de segunda-feira
+(14/04) com previsao de retorno em 10 dias. Todos os departamentos
+que utilizam a embarcacao devem reprogramar suas operacoes.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Observem que o prompt de teste nao menciona formato, tom, terminologia ou estrutura — a Skill cuida de tudo isso automaticamente. O resultado sai padronizado e pronto para uso. Agora imaginem uma Skill para cada tipo de documento recorrente do departamento de voces.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step9')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 09 · SKILLS — ATIVIDADE ===== -->
+<div class="section" id="sec-step9">
+  <div class="section-divider">Feature 03 — Skills</div>
+  <div class="sec-title"><span class="snum">09.</span> Skills — Atividade Pratica</div>
+  <div class="sec-desc">Desenhando uma Skill para o seu departamento</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces terao <strong>4 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>1 colega</strong> para apresentar — ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <p class="lead-text">Use o Claude para simular a criacao de uma Skill personalizada para o seu departamento:</p>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem</span><button class="copy-btn" onclick="copyText(this, document.getElementById('skill-student-prompt').textContent)">Copiar</button><span id="skill-student-prompt">Sou trainee de [seu departamento] na Bram Offshore, empresa de apoio
+maritimo offshore. Quero criar uma Skill personalizada no Claude Pro
+para automatizar a geracao de um documento recorrente do meu
+departamento.
+
+Skill = instrucao reutilizavel que ensina ao Claude como executar uma
+tarefa especifica de forma padronizada. Uma vez criada, o Claude
+aplica automaticamente sempre que relevante.
+
+Me ajude a definir:
+1. Qual e o documento ou tarefa mais recorrente do meu departamento
+   que se beneficiaria de padronizacao
+2. A definicao completa da Skill (nome, descricao, instrucoes com
+   formato, tom, campos obrigatorios e regras)
+3. Um prompt de teste para validar se a Skill funciona corretamente
+
+Entregue a definicao da Skill pronta para copiar e colar no Claude.</span></div>
+
+  <div class="example-block">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Ana Beatriz, RH</h4>
+    <p>Ana Beatriz pede ajuda para criar uma Skill de "Comunicado de Embarque" — documento que RH envia toda vez que um tripulante e designado para uma embarcacao. O Claude define a Skill com campos obrigatorios (nome, funcao, embarcacao, data de embarque, documentos necessarios), tom formal e formato padrao da Bram. O prompt de teste: "Crie um comunicado de embarque para o marinheiro Marcos Silva no PSV Bram Poseidon, embarque em 16/04."</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step10')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 10 · COWORK — TEORIA ===== -->
+<div class="section" id="sec-step10">
+  <div class="section-divider">Feature 04 — Cowork</div>
+  <div class="sec-title"><span class="snum">10.</span> Cowork — Teoria</div>
+  <div class="sec-desc">O Claude trabalhando no seu computador</div>
+
+  <p class="lead-text">Cowork e a funcionalidade que permite ao Claude acessar e trabalhar com arquivos diretamente no seu computador. Em vez de fazer upload de um arquivo por vez no chat, voce aponta o Claude para uma pasta e ele le, analisa e processa todos os arquivos de uma vez — planilhas, documentos, PDFs, imagens.</p>
+
+  <p class="lead-text">A diferenca fundamental: enquanto o Claude no chat trabalha com um arquivo por vez e perde o contexto entre conversas, o Cowork opera no nivel do sistema operacional. Ele pode abrir, ler e cruzar informacoes de multiplos arquivos simultaneamente, gerar novos documentos e salvar diretamente no seu computador.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Acesso a arquivos locais</h4>
+      <p>O Claude le arquivos diretamente do seu computador — planilhas Excel, PDFs, documentos Word, CSVs. Nao e necessario fazer upload: ele acessa a pasta que voce indicar.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Execucao multi-step</h4>
+      <p>O Claude pode executar tarefas complexas com multiplas etapas: ler 5 planilhas, consolidar os dados, gerar um relatorio e salvar o resultado — tudo em uma unica instrucao.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Integracao desktop</h4>
+      <p>Funciona como um aplicativo nativo no Mac e Windows. O Claude ve o que voce ve na tela e pode interagir com as ferramentas que voce usa no dia a dia.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Segundo plano</h4>
+      <p>Tarefas longas podem rodar em segundo plano enquanto voce continua trabalhando. O Claude avisa quando terminar.</p>
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-label">Caso de uso — Bram Offshore</div>
+    <h4>Daniel, Manutencao</h4>
+    <p>Daniel recebe 4 planilhas de manutencao de diferentes embarcacoes toda semana. Hoje, ele abre cada planilha, copia os dados relevantes, cola em uma planilha consolidada e formata manualmente. Com Cowork, ele aponta o Claude para a pasta com as 4 planilhas e pede: "Consolide os dados de manutencao pendente de todas as embarcacoes, organize por prioridade e gere um relatorio resumido." O Claude faz em 2 minutos o que Daniel leva 90 minutos para fazer.</p>
+  </div>
+
+  <div class="meet-question">
+    <div class="mq-label">Pergunta para o grupo</div>
+    <p>Qual tarefa do dia a dia de voces envolve abrir multiplos arquivos, copiar dados entre eles e consolidar manualmente? Esse e o caso de uso perfeito para o Cowork.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step11')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 11 · COWORK — DEMONSTRACAO ===== -->
+<div class="section" id="sec-step11">
+  <div class="section-divider">Feature 04 — Cowork</div>
+  <div class="sec-title"><span class="snum">11.</span> Cowork — Demonstracao</div>
+  <div class="sec-desc">Consolidando arquivos ao vivo</div>
+
+  <p class="lead-text">O instrutor vai demonstrar o Cowork consolidando dados de multiplos arquivos. Observem como o Claude acessa os arquivos locais e processa tudo sem upload.</p>
+
+  <div class="instructions">
+    <div class="inst"><div class="inst-num">1</div><div class="inst-text">Abrir o <strong>app Claude Desktop</strong> (Mac ou Windows)</div></div>
+    <div class="inst"><div class="inst-num">2</div><div class="inst-text">Iniciar uma sessao de <strong>Cowork</strong></div></div>
+    <div class="inst"><div class="inst-num">3</div><div class="inst-text">Apontar para a pasta com os arquivos de demonstracao</div></div>
+    <div class="inst"><div class="inst-num">4</div><div class="inst-text">Enviar o prompt abaixo</div></div>
+  </div>
+
+  <div class="copy-block"><span class="label">Prompt — instrutor demonstra</span><button class="copy-btn" onclick="copyText(this, document.getElementById('cowork-demo-prompt').textContent)">Copiar</button><span id="cowork-demo-prompt">Leia todos os arquivos nesta pasta. Sao planilhas de manutencao
+de diferentes embarcacoes da Bram Offshore.
+
+Para cada embarcacao, extraia:
+- Nome da embarcacao
+- Itens de manutencao pendente
+- Prioridade de cada item (alta, media, baixa)
+- Data limite
+
+Consolide tudo em uma unica tabela ordenada por prioridade (alta
+primeiro) e gere um resumo executivo com:
+- Total de itens pendentes por embarcacao
+- Itens criticos (prioridade alta) que vencem nos proximos 7 dias
+- Recomendacao de acao imediata
+
+Salve o resultado como relatorio-consolidado-manutencao.md</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>O Cowork esta lendo os arquivos diretamente do computador — observem que nao foi feito upload de nada. O processamento pode levar 1-2 minutos dependendo do volume de dados. O resultado sera salvo automaticamente na pasta indicada.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step12')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 12 · COWORK — ATIVIDADE ===== -->
+<div class="section" id="sec-step12">
+  <div class="section-divider">Feature 04 — Cowork</div>
+  <div class="sec-title"><span class="snum">12.</span> Cowork — Atividade Pratica</div>
+  <div class="sec-desc">Simulando uma consolidacao de dados</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces terao <strong>5 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>1 colega</strong> para apresentar — ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <p class="lead-text">Mesmo sem o Cowork ativo, voces podem simular o cenario usando dados ficticios. Primeiro, pedem ao Claude para gerar dados de exemplo. Depois, pedem a consolidacao:</p>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem (Passo 1: gerar dados ficticios)</span><button class="copy-btn" onclick="copyText(this, document.getElementById('cowork-student-data').textContent)">Copiar</button><span id="cowork-student-data">Sou trainee de [seu departamento] na Bram Offshore. Gere dados
+ficticios realistas que simulem os arquivos que eu teria que
+consolidar no meu trabalho.
+
+Crie 3 tabelas de dados (simulando 3 arquivos diferentes) com
+informacoes tipicas do meu departamento. Use nomes de embarcacoes
+da Bram (PSV Bram Poseidon, AHTS Bram Atlas, RSV Bram Hercules),
+nomes ficticios de pessoas e dados operacionais realistas.
+
+Cada tabela deve ter pelo menos 5 linhas de dados.</span></div>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem (Passo 2: pedir consolidacao)</span><button class="copy-btn" onclick="copyText(this, document.getElementById('cowork-student-consol').textContent)">Copiar</button><span id="cowork-student-consol">Agora consolide os dados das 3 tabelas em:
+1. Uma tabela unica consolidada, ordenada por prioridade ou relevancia
+2. Um resumo executivo com os pontos criticos
+3. Uma lista de acoes recomendadas
+
+Formate como documento pronto para enviar a lideranca do departamento.</span></div>
+
+  <div class="example-block">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Cezar, Manutencao</h4>
+    <p>Cezar pede dados ficticios de manutencao de 3 embarcacoes. O Claude gera tabelas com itens pendentes, prioridades e prazos. Na consolidacao, o resultado e um relatorio com 15 itens de manutencao, 4 criticos que vencem em 7 dias, e 3 recomendacoes de acao — pronto para apresentar ao supervisor.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step11')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step13')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 13 · CLAUDE CODE — TEORIA ===== -->
+<div class="section" id="sec-step13">
+  <div class="section-divider">Feature 05 — Claude Code</div>
+  <div class="sec-title"><span class="snum">13.</span> Claude Code — Teoria</div>
+  <div class="sec-desc">Programacao e automacao sem ser programador</div>
+
+  <p class="lead-text">Claude Code e a funcionalidade que permite ao Claude escrever, executar e depurar codigo diretamente. Isso nao significa que voces precisam virar programadores — significa que voces podem pedir ao Claude para criar ferramentas, scripts e automacoes que resolvem problemas reais do trabalho, sem escrever uma linha de codigo.</p>
+
+  <p class="lead-text">O potencial para trainees: tarefas repetitivas que envolvem processamento de dados, geracao de relatorios, analise de planilhas e criacao de ferramentas internas simples podem ser automatizadas com um unico prompt. O Claude escreve o codigo, executa e entrega o resultado.</p>
+
+  <div class="pillar-cards">
+    <div class="pillar-card">
+      <h4>Analise de dados</h4>
+      <p>O Claude pode escrever scripts para analisar grandes volumes de dados, gerar graficos, identificar padroes e criar dashboards — tudo a partir de uma descricao em linguagem natural do que voce precisa.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Automacao</h4>
+      <p>Scripts que automatizam tarefas repetitivas: renomear centenas de arquivos, converter formatos, extrair dados de PDFs, consolidar planilhas, gerar relatorios periodicos.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Ferramentas simples</h4>
+      <p>Calculadoras internas, formularios de registro, checklists interativas, dashboards de acompanhamento — ferramentas que o departamento precisa mas que ninguem teve tempo de criar.</p>
+    </div>
+    <div class="pillar-card">
+      <h4>Trainees Tech</h4>
+      <p>Para trainees de TI, Claude Code e uma ferramenta de produtividade direta: debugging, code review, documentacao tecnica e prototipagem rapida de solucoes.</p>
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-label">Caso de uso — Bram Offshore</div>
+    <h4>Felipe, TI</h4>
+    <p>Felipe precisa criar um script que leia uma planilha de controle de horas de bordo, identifique tripulantes que excederam o limite de horas semanais e gere um alerta automatico. Em vez de programar do zero, ele descreve a necessidade ao Claude Code: "Crie um script Python que leia a planilha horas-bordo.xlsx, identifique tripulantes com mais de 44 horas semanais e gere um relatorio de alertas." O Claude escreve, testa e entrega o script funcionando.</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step12')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step14')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 14 · CLAUDE CODE — DEMONSTRACAO ===== -->
+<div class="section" id="sec-step14">
+  <div class="section-divider">Feature 05 — Claude Code</div>
+  <div class="sec-title"><span class="snum">14.</span> Claude Code — Demonstracao</div>
+  <div class="sec-desc">Criando um script de analise ao vivo</div>
+
+  <p class="lead-text">O instrutor vai pedir ao Claude para criar e executar um script de analise de dados. Observem que nao e necessario saber programar — basta descrever o que voce precisa.</p>
+
+  <div class="copy-block"><span class="label">Prompt — instrutor demonstra</span><button class="copy-btn" onclick="copyText(this, document.getElementById('code-demo-prompt').textContent)">Copiar</button><span id="code-demo-prompt">Crie um script Python que faca o seguinte:
+
+1. Gere dados ficticios de horas de bordo para 20 tripulantes
+   da Bram Offshore, distribuidos em 3 embarcacoes (PSV Bram Poseidon,
+   AHTS Bram Atlas, RSV Bram Hercules)
+2. Cada tripulante tem: nome, funcao, embarcacao, horas trabalhadas
+   na semana
+3. O limite legal e 44 horas semanais
+4. Identifique todos os tripulantes que excederam o limite
+5. Gere um relatorio com:
+   - Total de tripulantes por embarcacao
+   - Lista de tripulantes em excesso de horas (nome, embarcacao,
+     horas, excesso)
+   - Percentual de conformidade por embarcacao
+   - Recomendacao de acao
+
+Execute o script e mostre o resultado.</span></div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Observem que o Claude escreveu o codigo, executou e entregou o resultado — tudo em uma unica interacao. Ninguem precisou abrir um editor de codigo ou saber Python. Agora imaginem esse mesmo poder aplicado a qualquer tarefa que envolva processar dados no departamento de voces.</p>
+  </div>
+
+  <p class="lead-text" style="margin-top:14px;">Conexao com o modulo de Projects: os scripts criados com Claude Code podem ser salvos e reutilizados. Combinando com Lovable (ferramenta de criacao de aplicacoes que voces verao em outro modulo), voces podem transformar scripts em ferramentas internas com interface visual.</p>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step13')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step15')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 15 · CLAUDE CODE — ATIVIDADE ===== -->
+<div class="section" id="sec-step15">
+  <div class="section-divider">Feature 05 — Claude Code</div>
+  <div class="sec-title"><span class="snum">15.</span> Claude Code — Atividade Pratica</div>
+  <div class="sec-desc">Simulando uma automacao para o departamento</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces terao <strong>5 minutos</strong> para fazer a atividade. Depois, o instrutor vai sortear <strong>1 colega</strong> para apresentar — ate <strong>2 minutos</strong>.</p>
+  </div>
+
+  <p class="lead-text">Use o Claude para simular a criacao de uma automacao ou ferramenta para o seu departamento:</p>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem</span><button class="copy-btn" onclick="copyText(this, document.getElementById('code-student-prompt').textContent)">Copiar</button><span id="code-student-prompt">Sou trainee de [seu departamento] na Bram Offshore, empresa de apoio
+maritimo offshore. Quero explorar como o Claude Code poderia
+automatizar uma tarefa repetitiva do meu departamento.
+
+Claude Code = o Claude escreve, executa e depura codigo. Nao preciso
+saber programar — descrevo o que preciso e o Claude cria a solucao.
+
+Me ajude a:
+1. Identificar a tarefa mais repetitiva do meu departamento que
+   envolve processamento de dados, planilhas ou geracao de relatorios
+2. Descrever o que um script deveria fazer (entrada, processamento,
+   saida)
+3. Escrever o prompt ideal que eu usaria no Claude Code para criar
+   essa automacao
+4. Estimar quanto tempo essa automacao economizaria por semana
+
+Entregue como proposta de automacao com: Tarefa | Descricao do script |
+Prompt sugerido | Economia estimada</span></div>
+
+  <div class="example-block">
+    <div class="example-label">Exemplo — como um colega faria</div>
+    <h4>Lucas, TI</h4>
+    <p>Lucas identifica a tarefa de gerar relatorios semanais de chamados de TI. O script deveria ler a planilha de chamados, calcular metricas (tempo medio de resolucao, chamados por categoria, SLA cumprido) e gerar um relatorio formatado. Economia estimada: 3 horas por semana. O prompt sugerido: "Crie um script que leia chamados-ti.xlsx, calcule metricas de desempenho e gere um relatorio semanal em HTML."</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step14')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step16')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 16 · MAPA DE ROI ===== -->
+<div class="section" id="sec-step16">
+  <div class="section-divider">Artefato Final</div>
+  <div class="sec-title"><span class="snum">16.</span> Mapa de ROI — Proposta para a RH</div>
+  <div class="sec-desc">Consolidando o valor das 5 features em um unico documento</div>
+
+  <p class="lead-text">Ao longo deste modulo, voces mapearam onde cada feature do Claude Pro geraria valor no departamento. Agora vamos consolidar tudo em um unico documento: o Mapa de ROI — uma proposta concreta que voces podem apresentar a lideranca para justificar a adocao do plano Pro.</p>
+
+  <p class="lead-text">O Mapa de ROI combina as analises das 5 features (Deep Research, Connectors, Skills, Cowork, Claude Code) em um unico panorama de retorno sobre investimento para o departamento.</p>
+
+  <div class="copy-block student"><span class="label">Prompt — Voces fazem</span><button class="copy-btn" onclick="copyText(this, document.getElementById('roi-final-prompt').textContent)">Copiar</button><span id="roi-final-prompt">Sou trainee de [seu departamento] na Bram Offshore, empresa de apoio
+maritimo offshore. Ao longo de um treinamento, eu mapeei onde 5
+features do Claude Pro geraria valor no meu departamento.
+
+Agora preciso consolidar tudo em um Mapa de ROI — um documento
+profissional que eu possa apresentar a lideranca para justificar
+a adocao do plano Pro ($20/mes por usuario).
+
+As 5 features e seus impactos no meu departamento:
+
+1. DEEP RESEARCH — Pesquisa autonoma com relatorio e citacoes
+   Uso: [descreva onde voce usaria com base na atividade 03]
+
+2. CONNECTORS — Integracao com Google Drive, Gmail, Calendar, Slack
+   Uso: [descreva onde voce usaria com base na atividade 06]
+
+3. SKILLS — Instrucoes reutilizaveis para tarefas padronizadas
+   Uso: [descreva onde voce usaria com base na atividade 09]
+
+4. COWORK — Claude trabalhando com arquivos locais do computador
+   Uso: [descreva onde voce usaria com base na atividade 12]
+
+5. CLAUDE CODE — Automacao e criacao de ferramentas sem programar
+   Uso: [descreva onde voce usaria com base na atividade 15]
+
+Gere o Mapa de ROI como Artifact em HTML com:
+- Header com identidade visual Bram Offshore (azul marinho #003087)
+- Titulo: "Mapa de ROI — Claude Pro · [Departamento]"
+- Resumo executivo (3 frases)
+- Tabela consolidada: Feature | Aplicacao | Economia estimada (h/mes) | Impacto qualitativo
+- Total de horas economizadas por mes
+- Calculo de ROI: custo do plano ($20/mes) vs. valor das horas economizadas
+- Recomendacao final
+- Rodape: "Elaborado por [seu nome] — Programa de Letramento AI · Bram Offshore"
+
+Tom: profissional, orientado a dados, pronto para apresentar a gestao.</span></div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>Checklist do entregavel</h3>
+    <ul class="checklist">
+      <li>Mapa de ROI gerado como Artifact em HTML</li>
+      <li>As 5 features mapeadas com aplicacoes reais do departamento</li>
+      <li>Economia de horas estimada para cada feature</li>
+      <li>Calculo de ROI comparando custo do plano vs. valor gerado</li>
+      <li>Documento com identidade visual da Bram Offshore, pronto para apresentar</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step15')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-home')">&#8617; Inicio</button>
+  </div>
+</div>
 
   </main>
-
 </div>
 
 <script>
-// ========== STATE ==========
-const stepToFlow = {
-  home:'home',
-  step1:'research',
-  step2:'connectors',
-  step3:'skills',
-  step4:'cowork',
-  step5:'code',
-  step6:'artefato'
-};
-const flowOrder = ['home','research','connectors','skills','cowork','code','artefato'];
-
-const visited = new Set(['home']);
-const completedFlows = new Set();
+const visited = new Set(['sec-home'])
 
 function showSection(id) {
-  // Hide all sections
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const sec = document.getElementById('sec-' + id);
-  if (sec) sec.classList.add('active');
-
-  visited.add(id);
-
-  // Mark previous flows as completed
-  const currentFlow = stepToFlow[id];
-  if (currentFlow) {
-    const currentIdx = flowOrder.indexOf(currentFlow);
-    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update sidebar nav
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active');
-    if (visited.has(el.dataset.section)) el.classList.add('completed');
-  });
-  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
-  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
-
-  updateProgress();
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
 }
 
 function updateProgress() {
-  const total = 7;
-  let count = 0;
-  for (let i = 1; i <= 6; i++) {
-    if (visited.has('step' + i)) count++;
-  }
-  // Also count home as visited but not in the step count display
-  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
-  document.getElementById('progress-text').textContent = count + ' / ' + total;
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
 }
 
+function goHome() { showSection('sec-home') }
+
 function copyText(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
   }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-  });
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
 }
+
+updateProgress()
 </script>
 </body>
 </html>
