@@ -18,23 +18,12 @@
     --accent-lighter: #F0EBE4;
     --accent-border: #DDD8D2;
     --accent-text: #1F3331;
-    --green: #5C6C51;
-    --green-bg: #EDE8E2;
-    --green-border: #DDD8D2;
-    --green-text: #1F3331;
-    --yellow: #D97706;
-    --orange: #EA580C;
-    --red: #DC2626;
-    --red-bg: #FEF2F2;
-    --red-border: #FECACA;
     --text: #1A1A1A;
     --text2: #4A4A4A;
     --text3: #7A7A7A;
     --text4: #B0A89F;
     --border: #EDE8E2;
     --border2: #DDD8D2;
-    --bg2: #FFFFFF;
-    --surface2: #F5F0EB;
     --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
@@ -46,910 +35,590 @@
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   /* ========== LAYOUT ========== */
-  .layout {
-    display: flex;
-    min-height: 100vh;
-  }
+  .layout { display: flex; min-height: 100vh; }
 
-  /* ========== LEFT SIDEBAR ========== */
+  /* ========== SIDEBAR ========== */
   .sidebar {
-    width: 256px;
-    min-width: 256px;
+    width: 256px; min-width: 256px;
     background: #1F3331;
     border-right: 1px solid rgba(245,240,235,0.1);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+    position: sticky; top: 0; height: 100vh;
+    overflow-y: auto; display: flex; flex-direction: column;
   }
-
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
   .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
 
-  .sidebar-header {
-    padding: 20px 16px 16px;
-    border-bottom: 1px solid rgba(245,240,235,0.1);
-  }
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
 
-  .sidebar-header h2 {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #F5F0EB;
-    letter-spacing: -0.02em;
-  }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
 
-  .sidebar-header p {
-    font-size: 0.65rem;
-    color: #5C6C51;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 500;
-    margin-top: 2px;
-  }
-
-  .nav-group {
-    padding: 12px 0 4px;
-  }
-
-  .nav-group-title {
-    padding: 2px 16px 6px;
-    font-size: 0.58rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(245,240,235,0.4);
-  }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
 
   .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px 6px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-decoration: none;
-    color: rgba(245,240,235,0.7);
-    font-size: 0.78rem;
-    font-weight: 400;
-    border-left: 2px solid transparent;
-    margin: 0;
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 16px; cursor: pointer;
+    transition: all 0.15s; text-decoration: none;
+    color: rgba(245,240,235,0.7); font-size: 0.78rem;
+    font-weight: 400; border-left: 2px solid transparent;
   }
-
-  .nav-item:hover {
-    background: rgba(92,108,81,0.2);
-    color: #F5F0EB;
-  }
-
-  .nav-item.active {
-    background: #5C6C51;
-    color: #F5F0EB;
-    border-left-color: #F5F0EB;
-    font-weight: 600;
-  }
-
-  .nav-item .ni-num {
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: rgba(245,240,235,0.4);
-    min-width: 17px;
-    font-variant-numeric: tabular-nums;
-  }
-
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; font-variant-numeric: tabular-nums; }
   .nav-item.active .ni-num { color: #F5F0EB; }
-
-  .nav-item .ni-check {
-    margin-left: auto;
-    font-size: 0.62rem;
-    color: #5C6C51;
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
-
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; color: #5C6C51; opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
   .nav-item.completed .ni-check { opacity: 1; color: rgba(245,240,235,0.5); }
 
-  /* Progress */
-  .sidebar-progress {
-    padding: 14px 16px;
-    border-top: 1px solid rgba(245,240,235,0.1);
-    margin-top: auto;
-  }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
 
-  .sp-label {
-    font-size: 0.62rem;
-    color: rgba(245,240,235,0.5);
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
+  /* ========== MAIN ========== */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
 
-  .sp-bar {
-    height: 3px;
-    background: rgba(245,240,235,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .sp-fill {
-    height: 100%;
-    background: #5C6C51;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* ========== MAIN CONTENT ========== */
-  .main {
-    flex: 1;
-    padding: 20px 36px 40px;
-    max-width: 700px;
-  }
-
-  .section {
-    display: none;
-    animation: fadeIn 0.25s ease;
-  }
+  .section { display: none; animation: fadeIn 0.25s ease; }
   .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Section title */
-  .sec-title {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 3px;
-  }
-
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
   .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; font-weight: 400; }
 
-  .sec-desc {
-    font-size: 0.78rem;
-    color: var(--text2);
-    margin-bottom: 18px;
-    font-weight: 400;
-  }
-
-  /* Instructions */
-  .instructions {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-  }
-
-  .inst {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    align-items: center;
-    padding: 10px 13px;
-    background: var(--white);
-    border-radius: 8px;
-    border: 1px solid var(--border);
+  /* Cards */
+  .overview-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px; margin-bottom: 14px;
     box-shadow: var(--shadow-xs);
-    transition: box-shadow 0.15s;
+  }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+
+  /* Entregavel card */
+  .entregavel-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent); border-radius: 10px;
+    padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs);
+  }
+  .entregavel-card .entregavel-label { font-size: 0.68rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .entregavel-card p { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+
+  /* Instructor note */
+  .instructor-note {
+    background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0;
+  }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
+
+  /* Highlight question */
+  .highlight-question {
+    background: var(--accent2); border-radius: 8px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.82rem; font-weight: 600; color: #F5F0EB; line-height: 1.5;
+    font-style: italic;
   }
 
-  .inst:hover { box-shadow: var(--shadow-sm); }
-
-  .inst-num {
-    font-size: 0.56rem;
-    font-weight: 700;
-    color: #fff;
-    background: #5C6C51;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  /* Data table */
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 0.74rem;
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0;
   }
-
-  .inst-text {
-    font-size: 0.76rem;
-    color: var(--text);
-    line-height: 1.5;
-    flex: 1;
-    min-width: 0;
+  .data-table th {
+    background: #EDE8E2; color: var(--text2); font-weight: 600;
+    text-align: left; padding: 8px 12px; font-size: 0.64rem;
+    text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border);
   }
+  .data-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); }
+  .data-table tr:last-child td { border-bottom: none; }
 
-  .inst-text strong { font-weight: 600; }
-
-  .inst-text .field {
-    display: inline-block;
-    background: #F0EBE4;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    font-family: 'SF Mono', 'JetBrains Mono', monospace;
-    border: 1px solid var(--border);
-    color: var(--text);
+  /* Ref table (tipos de grafico) */
+  .ref-table {
+    width: 100%; border-collapse: collapse; font-size: 0.74rem;
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0;
   }
-
-  /* Copy block — Cream style */
-  .copy-block {
-    position: relative;
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 0.8125rem;
-    color: #2A2A2A;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    word-break: break-all;
+  .ref-table th {
+    background: #EDE8E2; color: var(--text2); font-weight: 600;
+    text-align: left; padding: 8px 12px; font-size: 0.64rem;
+    text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border);
   }
+  .ref-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
 
-  .copy-block .label {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #5C6C51;
-    margin-bottom: 6px;
-    display: block;
+  /* Chart type card */
+  .chart-type-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow-xs);
+    display: flex; gap: 16px; align-items: flex-start;
   }
-
-  .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #EDE8E2;
-    border: 1px solid #DDD8D2;
-    color: #5C6C51;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 0.62rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
-  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
-
-  /* Copy block — Student (same cream, kept for semantic class) */
-  .copy-block.student {
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    color: #2A2A2A;
-  }
-
-  .copy-block.student .label {
-    color: #5C6C51;
-  }
-
-  .copy-block.student .copy-btn {
-    background: #EDE8E2;
-    border: 1px solid #DDD8D2;
-    color: #5C6C51;
-  }
-
-  .copy-block.student .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
+  .chart-type-card .chart-svg { flex-shrink: 0; }
+  .chart-type-card .chart-info { flex: 1; }
+  .chart-type-card .chart-name { font-size: 0.82rem; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .chart-type-card .chart-when { font-size: 0.72rem; color: var(--text2); line-height: 1.5; margin-bottom: 4px; }
+  .chart-type-card .chart-example { font-size: 0.68rem; color: var(--text3); font-style: italic; }
 
   /* Tip box */
   .tip-box {
-    background: #F0EBE4;
-    border: 1px solid #DDD8D2;
-    border-left: 3px solid #5C6C51;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
+    background: var(--accent-lighter); border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+    padding: 12px 16px; margin: 14px 0;
   }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
 
-  .tip-box .tip-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #5C6C51;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  /* Copy block */
+  .copy-block {
+    position: relative; background: #F0EBE4; border: 1px solid #DDD8D2;
+    border-left: 3px solid #5C6C51; border-radius: 8px;
+    padding: 20px 24px; margin: 10px 0;
+    font-family: 'Courier New', monospace; font-size: 0.8125rem;
+    color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all;
   }
-
-  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
-
-  .tip-box p {
-    font-size: 0.74rem;
-    color: #1F3331;
-    line-height: 1.5;
+  .copy-block .label {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block;
   }
-
-  /* Warning box */
-  .warning-box {
-    background: #FEF3E2;
-    border: 1px solid #F5C96A;
-    border-left: 3px solid #D97706;
-    border-radius: 0 7px 7px 0;
-    padding: 9px 13px;
-    margin: 12px 0;
-  }
-
-  .warning-box .warning-label {
-    font-size: 0.56rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #92610A;
-    margin-bottom: 2px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .warning-box .warning-label::before { content: '\26A0\FE0F'; font-size: 0.65rem; }
-
-  .warning-box p {
-    font-size: 0.74rem;
-    color: #7A520D;
-    line-height: 1.5;
-  }
-
-  /* Nav buttons */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .nav-btn {
-    display: flex; align-items: center; gap: 4px;
-    padding: 6px 12px; border-radius: 6px;
-    font-size: 0.7rem; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--border);
-    background: var(--white); color: var(--text2);
-    transition: all 0.15s; text-decoration: none;
+  .copy-btn {
+    position: absolute; top: 8px; right: 8px;
+    background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51;
+    padding: 3px 10px; border-radius: 5px; font-size: 0.62rem;
+    font-weight: 600; cursor: pointer; transition: all 0.15s;
     font-family: 'Montserrat', system-ui, sans-serif;
   }
-
-  .nav-btn:hover { background: #F0EBE4; border-color: #DDD8D2; color: #1F3331; }
-
-  .nav-btn.primary { background: #5C6C51; border-color: #5C6C51; color: #fff; }
-  .nav-btn.primary:hover { background: #1F3331; }
-
-  /* ===== HOME: Visao Geral ===== */
-  .overview-card {
-    background: #FFFFFF;
-    border: 1px solid #EDE8E2;
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .overview-card h3 {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-  }
-
-  .overview-card p {
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.55;
-  }
-
-  /* Reference table */
-  .ref-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.74rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 10px 0;
-  }
-
-  .ref-table th {
-    background: #EDE8E2;
-    color: var(--text2);
-    font-weight: 600;
-    text-align: left;
-    padding: 7px 10px;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ref-table td {
-    padding: 7px 10px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 0.72rem;
-  }
-
-  .ref-table tr:last-child td { border-bottom: none; }
-
-  .tag-green { color: var(--green); font-weight: 600; }
-  .tag-yellow { color: var(--yellow); font-weight: 600; }
-  .tag-orange { color: var(--orange); font-weight: 600; }
-  .tag-red { color: var(--red); font-weight: 600; }
-
-  /* Resource cards */
-  .resource-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
-
-  .res-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .res-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-sm); }
-
-  .res-card .rc-icon { font-size: 0.95rem; margin-bottom: 4px; }
-  .res-card .rc-title { font-size: 0.72rem; font-weight: 600; color: var(--text); }
-  .res-card .rc-desc { font-size: 0.62rem; color: var(--text3); line-height: 1.4; margin-top: 2px; }
-
-  /* Data card */
-  .data-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 18px;
-    margin: 12px 0;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .data-card h4 {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .data-card table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.74rem;
-  }
-
-  .data-card table th {
-    background: var(--accent-lighter);
-    color: var(--accent);
-    font-weight: 600;
-    text-align: left;
-    padding: 6px 10px;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--accent-border);
-  }
-
-  .data-card table td {
-    padding: 6px 10px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-  }
-
-  .data-card table tr:last-child td { border-bottom: none; }
-
-  /* Scenario cards */
-  .scenario-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-left: 4px solid #5C6C51;
-    border-radius: 0 10px 10px 0;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .scenario-card h4 {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .scenario-card p {
-    font-size: 0.74rem;
-    color: var(--text2);
-    line-height: 1.5;
-  }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
 
   /* Checklist */
-  .checklist {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 12px;
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5;
+  }
+  .checklist li::before {
+    content: ''; width: 16px; height: 16px; border: 2px solid var(--border2);
+    border-radius: 4px; flex-shrink: 0; margin-top: 2px;
   }
 
-  .checklist-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.76rem;
-    color: var(--text2);
-    line-height: 1.5;
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst {
+    display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center;
+    padding: 10px 13px; background: var(--white); border-radius: 8px;
+    border: 1px solid var(--border); box-shadow: var(--shadow-xs);
+  }
+  .inst-num {
+    font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51;
+    min-width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
+
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border); background: var(--white);
+    color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* Numbered list in card */
+  .numbered-list { list-style: none; counter-reset: item; margin: 10px 0 0; }
+  .numbered-list li {
+    counter-increment: item; display: flex; align-items: flex-start; gap: 10px;
+    padding: 4px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.55;
+  }
+  .numbered-list li::before {
+    content: counter(item); min-width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: #fff; display: flex; align-items: center;
+    justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
   }
 
-  .checklist-item .check-icon {
-    min-width: 18px;
-    height: 18px;
-    border: 2px solid var(--border2);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-    font-size: 0.6rem;
-    color: transparent;
+  /* SVG chart container */
+  .svg-chart-container {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin: 14px 0;
+    box-shadow: var(--shadow-xs); text-align: center;
   }
 
-  /* Timeline steps */
-  .timeline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    margin: 14px 0;
-  }
+  /* Blockquote */
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.6; margin-bottom: 14px; font-weight: 400; }
 
-  .timeline-step {
-    background: var(--accent-lighter);
-    border: 1px solid var(--accent-border);
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--accent);
-    white-space: nowrap;
-  }
+  /* Section divider label */
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 8px; }
 
-  .timeline-arrow {
-    color: var(--text4);
-    font-size: 0.7rem;
-  }
-
-  /* Highlighted question */
-  .highlight-question {
-    background: #5C6C51;
-    color: #fff;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin: 14px 0;
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  /* ========== RESPONSIVE ========== */
+  /* Mobile */
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .resource-row { grid-template-columns: 1fr; }
-    .timeline { flex-direction: column; align-items: flex-start; }
+    .chart-type-card { flex-direction: column; }
   }
-
 </style>
 </head>
 <body>
 
 <div class="layout">
 
-  <!-- ========== LEFT SIDEBAR ========== -->
-  <nav class="sidebar" id="sidebar">
+  <!-- ========== SIDEBAR ========== -->
+  <nav class="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;" onmouseover="this.style.color='#F5F0EB'" onmouseout="this.style.color='rgba(245,240,235,0.5)'"><span>&#8592;</span> Indice</a>
+      <a class="back-link" href="index.html">&#8592; Indice</a>
       <h2>Data Storytelling</h2>
-      <p>Modulo 01 &mdash; BRAM OFFSHORE</p>
+      <p>BRAM OFFSHORE &middot; Fase 1</p>
+    </div>
+
+    <div class="sidebar-badges">
+      <span class="sidebar-badge">Free</span>
+      <span class="sidebar-badge">40 min</span>
     </div>
 
     <div id="nav-main">
       <div class="nav-group">
-        <div class="nav-group-title">INICIO</div>
-        <a class="nav-item active" data-section="home" onclick="showSection('home')">
-          <span class="ni-num">~</span> Objetivos
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+          <span class="ni-num">00</span> Inicio
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
 
       <div class="nav-group">
-        <div class="nav-group-title">CONTEUDO</div>
-        <a class="nav-item" data-section="step1" onclick="showSection('step1')">
-          <span class="ni-num">01</span> Por que visualizar?
+        <div class="nav-group-title">Teoria</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+          <span class="ni-num">01</span> Por que visualizar dados?
           <span class="ni-check">&#10003;</span>
         </a>
-        <a class="nav-item" data-section="step2" onclick="showSection('step2')">
-          <span class="ni-num">02</span> Os 5 tipos
-          <span class="ni-check">&#10003;</span>
-        </a>
-        <a class="nav-item" data-section="step3" onclick="showSection('step3')">
-          <span class="ni-num">03</span> Dados da Demo
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
+          <span class="ni-num">02</span> Tipos de grafico
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
 
       <div class="nav-group">
-        <div class="nav-group-title">DEMOS</div>
-        <a class="nav-item" data-section="step4" onclick="showSection('step4')">
-          <span class="ni-num">04</span> Demo 1 &mdash; Qual grafico?
+        <div class="nav-group-title">Demonstracao</div>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+          <span class="ni-num">03</span> Qual grafico usar?
           <span class="ni-check">&#10003;</span>
         </a>
-        <a class="nav-item" data-section="step5" onclick="showSection('step5')">
-          <span class="ni-num">05</span> Demo 2 &mdash; Artifact
+        <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+          <span class="ni-num">04</span> Gerar o Artifact
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
 
       <div class="nav-group">
-        <div class="nav-group-title">PRATICA</div>
-        <a class="nav-item" data-section="step6" onclick="showSection('step6')">
-          <span class="ni-num">06</span> Pratica
+        <div class="nav-group-title">Atividade Pratica</div>
+        <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+          <span class="ni-num">05</span> Atividade Pratica
           <span class="ni-check">&#10003;</span>
         </a>
       </div>
     </div>
 
     <div class="sidebar-progress">
-      <div class="sp-label">Progresso</div>
-      <div class="sp-bar">
-        <div class="sp-fill" id="progress-fill"></div>
-      </div>
-      <div id="progress-text" style="font-size:0.6rem; color:rgba(245,240,235,0.5); margin-top:4px;">0 / 6</div>
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
     </div>
   </nav>
 
-  <!-- ========== MAIN CONTENT ========== -->
+  <!-- ========== MAIN ========== -->
   <main class="main">
 
-<!-- ===== HOME ===== -->
-    <div class="section active" id="sec-home">
-      <h1 class="sec-title">Data Storytelling</h1>
-      <p class="sec-desc">Modulo 01 &mdash; 40 min &middot; BRAM OFFSHORE</p>
+<!-- ===== 00 · INICIO ===== -->
+<div class="section active" id="sec-home">
+  <div class="sec-title"><span class="snum">00.</span> Inicio</div>
+  <div class="sec-desc">O que e Data Storytelling e o que voces vao aprender</div>
 
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <h3>Entregavel do Modulo</h3>
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); line-height:1.6;">Ao final deste modulo voces vao conseguir fazer isso: <strong>Um grafico de linha profissional gerado pelo Claude</strong> &mdash; com titulo, eixos, linha de tendencia e cores da identidade da empresa &mdash; pronto para anexar em um relatorio ou apresentar a lideranca. Sem Excel. Sem programacao.</p>
-      </div>
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>O que e Data Storytelling</h3>
+    <p>Data Storytelling e a arte de comunicar dados de forma visual e narrativa — escolhendo o grafico certo para que a mensagem chegue em segundos, nao em minutos. Em uma empresa como a Bram, onde decisoes operacionais dependem de dados de seguranca, horas de bordo e conformidade regulatoria, saber apresentar um numero da forma certa pode ser a diferenca entre uma decisao rapida e uma reuniao perdida.</p>
+  </div>
 
-      <div class="overview-card">
-        <h3>Linha do Tempo</h3>
-        <div class="timeline">
-          <span class="timeline-step">Por que o grafico certo importa</span>
-          <span class="timeline-arrow">&#8594;</span>
-          <span class="timeline-step">Os 5 tipos e quando usar cada um</span>
-          <span class="timeline-arrow">&#8594;</span>
-          <span class="timeline-step">Demo: instrutor pede ao Claude o grafico certo</span>
-          <span class="timeline-arrow">&#8594;</span>
-          <span class="timeline-step">Demo: instrutor gera o grafico como Artifact</span>
-          <span class="timeline-arrow">&#8594;</span>
-          <span class="timeline-step">Voces geram o proprio grafico</span>
-        </div>
-      </div>
+  <div class="entregavel-card">
+    <div class="entregavel-label">&#127919; Ao final deste modulo voces vao conseguir fazer isso:</div>
+    <p>Um grafico profissional gerado pelo Claude — com titulo, eixos, linha de tendencia e identidade visual da Bram Offshore — pronto para anexar em um relatorio ou apresentar a lideranca. Sem Excel. Sem programacao.</p>
+  </div>
 
-      <div class="overview-card">
-        <h3>Navegacao Rapida</h3>
-        <div class="resource-row">
-          <div class="res-card" onclick="showSection('step1')">
-            <div class="rc-icon">&#128202;</div>
-            <div class="rc-title">Por que visualizar</div>
-            <div class="rc-desc">A importancia do grafico certo.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step4')">
-            <div class="rc-icon">&#127891;</div>
-            <div class="rc-title">Demos ao Vivo</div>
-            <div class="rc-desc">Instrutor gera graficos no Claude.</div>
-          </div>
-          <div class="res-card" onclick="showSection('step6')">
-            <div class="rc-icon">&#128640;</div>
-            <div class="rc-title">Pratica</div>
-            <div class="rc-desc">Voces geram o proprio grafico.</div>
-          </div>
-        </div>
-      </div>
+  <!-- Mini preview SVG -->
+  <div class="svg-chart-container">
+    <svg width="280" height="120" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="120" rx="6" fill="#FFFFFF"/>
+      <rect x="0" y="0" width="280" height="24" rx="6" fill="#003087"/>
+      <text x="140" y="16" text-anchor="middle" fill="#FFFFFF" font-family="Montserrat" font-size="8" font-weight="700">BRAM OFFSHORE — Ocorrencias HSE</text>
+      <line x1="40" y1="36" x1="40" y2="100" stroke="#EDE8E2" stroke-width="1"/>
+      <line x1="40" y1="100" x2="260" y2="100" stroke="#EDE8E2" stroke-width="1"/>
+      <polyline points="60,64 100,72 140,56 180,80 220,72 260,96" fill="none" stroke="#003087" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="60" y1="68" x2="260" y2="92" stroke="#F5A800" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle cx="260" cy="96" r="4" fill="#F5A800"/>
+      <text x="140" y="114" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="6">Dados simulados para fins de treinamento</text>
+    </svg>
+    <p style="font-size:0.62rem; color:var(--text3); margin-top:6px;">Preview do tipo de grafico que voces vao gerar</p>
+  </div>
 
-      <div class="nav-buttons">
-        <div></div>
-        <a class="nav-btn primary" onclick="showSection('step1')">Comecar &#8594;</a>
-      </div>
+  <div class="overview-card">
+    <h3>Objetivos de Aprendizagem</h3>
+    <ol class="numbered-list">
+      <li>Identificar qual tipo de grafico e mais adequado para cada mensagem</li>
+      <li>Pedir ao Claude para sugerir e justificar a visualizacao certa</li>
+      <li>Gerar um grafico como Artifact em HTML no padrao visual da Bram Offshore</li>
+      <li>Apresentar dados com clareza e justificar a escolha do grafico para a lideranca</li>
+    </ol>
+  </div>
+
+  <div class="nav-buttons">
+    <div></div>
+    <button class="nav-btn primary" onclick="showSection('sec-step1')">Comecar &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 01 · POR QUE VISUALIZAR DADOS ===== -->
+<div class="section" id="sec-step1">
+  <div class="section-divider">Teoria</div>
+  <div class="sec-title"><span class="snum">01.</span> Por que visualizar dados?</div>
+  <div class="sec-desc">O grafico certo transforma dado em decisao</div>
+
+  <p class="lead-text">Um gestor nao tem tempo para ler uma tabela de 20 linhas. Ele precisa entender em segundos. O grafico certo transforma dado em decisao.</p>
+
+  <div class="overview-card">
+    <h3>Ocorrencias HSE — Jan a Jun 2025</h3>
+    <table class="data-table">
+      <tr><th>Mes</th><th>Ocorrencias</th></tr>
+      <tr><td>Janeiro</td><td>4 ocorrencias</td></tr>
+      <tr><td>Fevereiro</td><td>3 ocorrencias</td></tr>
+      <tr><td>Marco</td><td>5 ocorrencias</td></tr>
+      <tr><td>Abril</td><td>2 ocorrencias</td></tr>
+      <tr><td>Maio</td><td>3 ocorrencias</td></tr>
+      <tr><td>Junho</td><td>1 ocorrencia</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight-question">"Quanto tempo voces levaram para perceber que os numeros estao caindo?"</div>
+
+  <!-- SVG line chart -->
+  <div class="svg-chart-container">
+    <svg width="360" height="200" viewBox="0 0 360 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="360" height="200" rx="8" fill="#FFFFFF"/>
+      <rect x="0" y="0" width="360" height="30" rx="8" fill="#003087"/>
+      <rect x="0" y="20" width="360" height="10" fill="#003087"/>
+      <text x="180" y="20" text-anchor="middle" fill="#FFFFFF" font-family="Montserrat" font-size="10" font-weight="700">Ocorrencias HSE — 1o Sem. 2025</text>
+      <!-- Grid lines -->
+      <line x1="50" y1="50" x2="50" y2="165" stroke="#EDE8E2" stroke-width="1"/>
+      <line x1="50" y1="165" x2="340" y2="165" stroke="#EDE8E2" stroke-width="1"/>
+      <!-- Y-axis labels -->
+      <text x="40" y="55" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">6</text>
+      <text x="40" y="78" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">5</text>
+      <text x="40" y="101" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">4</text>
+      <text x="40" y="124" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">3</text>
+      <text x="40" y="147" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">2</text>
+      <text x="40" y="169" text-anchor="end" fill="#7A7A7A" font-family="Montserrat" font-size="8">1</text>
+      <!-- Grid horizontal -->
+      <line x1="50" y1="55" x2="340" y2="55" stroke="#F5F0EB" stroke-width="0.5"/>
+      <line x1="50" y1="78" x2="340" y2="78" stroke="#F5F0EB" stroke-width="0.5"/>
+      <line x1="50" y1="101" x2="340" y2="101" stroke="#F5F0EB" stroke-width="0.5"/>
+      <line x1="50" y1="124" x2="340" y2="124" stroke="#F5F0EB" stroke-width="0.5"/>
+      <line x1="50" y1="147" x2="340" y2="147" stroke="#F5F0EB" stroke-width="0.5"/>
+      <!-- Data: Jan=4, Feb=3, Mar=5, Apr=2, May=3, Jun=1 -->
+      <!-- Y scale: 1=165, 2=147, 3=124, 4=101, 5=78, 6=55 -->
+      <!-- X positions: 80, 132, 184, 236, 288, 340 -->
+      <polyline points="80,101 132,124 184,78 236,147 288,124 340,165" fill="none" stroke="#003087" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Trend line -->
+      <line x1="80" y1="98" x2="340" y2="160" stroke="#F5A800" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <!-- Data points -->
+      <circle cx="80" cy="101" r="4" fill="#003087"/>
+      <circle cx="132" cy="124" r="4" fill="#003087"/>
+      <circle cx="184" cy="78" r="4" fill="#003087"/>
+      <circle cx="236" cy="147" r="4" fill="#003087"/>
+      <circle cx="288" cy="124" r="4" fill="#003087"/>
+      <circle cx="340" cy="165" r="5" fill="#F5A800" stroke="#003087" stroke-width="1.5"/>
+      <!-- X-axis labels -->
+      <text x="80" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Jan</text>
+      <text x="132" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Fev</text>
+      <text x="184" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Mar</text>
+      <text x="236" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Abr</text>
+      <text x="288" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Mai</text>
+      <text x="340" y="180" text-anchor="middle" fill="#7A7A7A" font-family="Montserrat" font-size="8">Jun</text>
+      <!-- Footer -->
+      <text x="180" y="195" text-anchor="middle" fill="#B0A89F" font-family="Montserrat" font-size="6">BRAM OFFSHORE &middot; Dados simulados para fins de treinamento</text>
+    </svg>
+  </div>
+
+  <p class="lead-text">O mesmo dado. Em segundos, a tendencia de queda e obvia. <strong>Isso e Data Storytelling.</strong></p>
+
+  <div class="tip-box">
+    <div class="tip-label">Regra</div>
+    <p><strong>Antes de escolher o grafico, decida qual e a mensagem.</strong></p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 02 · TIPOS DE GRAFICO ===== -->
+<div class="section" id="sec-step2">
+  <div class="section-divider">Teoria</div>
+  <div class="sec-title"><span class="snum">02.</span> Principais tipos de grafico</div>
+  <div class="sec-desc">Cinco tipos resolvem a maioria das situacoes</div>
+
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Para a maioria das situacoes de voces na Bram, <strong>Linha</strong> e <strong>Barras</strong> resolvem. Pizza e tentadora mas facil de usar errado — mais de 5 fatias, esqueca.</p>
+  </div>
+
+  <!-- Linha -->
+  <div class="chart-type-card">
+    <div class="chart-svg">
+      <svg width="90" height="60" viewBox="0 0 90 60" fill="none">
+        <rect width="90" height="60" rx="6" fill="#FFFFFF" stroke="#EDE8E2"/>
+        <polyline points="10,45 25,35 40,40 55,25 70,30 85,15" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="85" cy="15" r="3" fill="#F5A800"/>
+      </svg>
     </div>
-
-<!-- ===== STEP 1: Por que visualizar dados? ===== -->
-    <div class="section" id="sec-step1">
-      <h1 class="sec-title"><span class="snum">01.</span> Por que visualizar dados?</h1>
-      <p class="sec-desc">O grafico certo transforma dado em decisao.</p>
-
-      <div class="overview-card" style="border-left:4px solid var(--accent);">
-        <p style="font-size:0.82rem; font-weight:600; color:var(--text); line-height:1.6;">Um gestor nao tem tempo para ler uma tabela de 20 linhas. Ele precisa entender em segundos. O grafico certo transforma dado em decisao.</p>
-      </div>
-
-      <div class="data-card">
-        <h4>Ocorrencias HSE &mdash; Jan a Jun 2025</h4>
-        <table>
-          <thead>
-            <tr><th>Mes</th><th>Ocorrencias</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Janeiro</td><td><strong>4</strong></td></tr>
-            <tr><td>Fevereiro</td><td><strong>3</strong></td></tr>
-            <tr><td>Marco</td><td><strong>5</strong></td></tr>
-            <tr><td>Abril</td><td><strong>2</strong></td></tr>
-            <tr><td>Maio</td><td><strong>3</strong></td></tr>
-            <tr><td>Junho</td><td><strong>1</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="highlight-question">Quanto tempo voces levaram para perceber que os numeros estao caindo?</div>
-
-      <div class="tip-box">
-        <div class="tip-label">Regra</div>
-        <p>Antes de escolher o grafico, decida qual e a mensagem.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('home')">&#8592; Inicio</a>
-        <a class="nav-btn primary" onclick="showSection('step2')">Os 5 Tipos &#8594;</a>
-      </div>
+    <div class="chart-info">
+      <div class="chart-name">Grafico de Linha</div>
+      <div class="chart-when"><strong>Quando usar:</strong> mostrar evolucao ao longo do tempo</div>
+      <div class="chart-example">Exemplo offshore: ocorrencias HSE ao longo dos meses</div>
     </div>
+  </div>
 
-<!-- ===== STEP 2: Os 5 tipos de grafico ===== -->
-    <div class="section" id="sec-step2">
-      <h1 class="sec-title"><span class="snum">02.</span> Os 5 tipos de grafico</h1>
-      <p class="sec-desc">Referencia rapida para escolher a visualizacao adequada.</p>
-
-      <table class="ref-table">
-        <thead>
-          <tr><th>Tipo</th><th>Quando usar</th><th>Exemplo offshore</th><th>Evite quando...</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Linha</strong></td>
-            <td>Evolucao ao longo do tempo</td>
-            <td>Ocorrencias HSE mes a mes</td>
-            <td>Menos de 3 pontos no tempo</td>
-          </tr>
-          <tr>
-            <td><strong>Barras</strong></td>
-            <td>Comparar categorias entre si</td>
-            <td>Horas de bordo por embarcacao</td>
-            <td>Mais de 8 categorias</td>
-          </tr>
-          <tr>
-            <td><strong>Pizza/Donut</strong></td>
-            <td>Partes de um todo</td>
-            <td>Tipos de ocorrencia (%)</td>
-            <td>Mais de 5 fatias ou evolucao temporal</td>
-          </tr>
-          <tr>
-            <td><strong>Histograma</strong></td>
-            <td>Como os dados estao distribuidos</td>
-            <td>Horas trabalhadas por tripulante</td>
-            <td>Quando precisa comparar categorias</td>
-          </tr>
-          <tr>
-            <td><strong>Dispersao</strong></td>
-            <td>Correlacao entre duas variaveis</td>
-            <td>Manutencao vs. incidentes</td>
-            <td>Quando quer mostrar tendencia simples</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="tip-box">
-        <div class="tip-label">Dica pratica</div>
-        <p>Para a maioria das situacoes de voces, Linha e Barras resolvem. Pizza e tentadora mas facil de usar errado &mdash; mais de 5 fatias, esqueca.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step1')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step3')">Dados da Demo &#8594;</a>
-      </div>
+  <!-- Barras -->
+  <div class="chart-type-card">
+    <div class="chart-svg">
+      <svg width="90" height="60" viewBox="0 0 90 60" fill="none">
+        <rect width="90" height="60" rx="6" fill="#FFFFFF" stroke="#EDE8E2"/>
+        <rect x="12" y="25" width="16" height="28" rx="2" fill="#003087"/>
+        <rect x="37" y="12" width="16" height="41" rx="2" fill="#003087"/>
+        <rect x="37" y="12" width="16" height="4" rx="1" fill="#F5A800"/>
+        <rect x="62" y="32" width="16" height="21" rx="2" fill="#003087"/>
+      </svg>
     </div>
-
-<!-- ===== STEP 3: Dados da Demo ===== -->
-    <div class="section" id="sec-step3">
-      <h1 class="sec-title"><span class="snum">03.</span> Dados da Demo</h1>
-      <p class="sec-desc">Dados ficticios de contexto offshore para as demos a seguir. O instrutor vai copia-los diretamente no Claude.</p>
-
-      <div class="copy-block" id="dataset1">
-        <span class="label">DATASET 1 &mdash; OCORRENCIAS HSE (JAN&ndash;JUN 2025)</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset1-text').textContent)">Copiar</button>
-        <span id="dataset1-text">Janeiro: 4 | Fevereiro: 3 | Marco: 5 | Abril: 2 | Maio: 3 | Junho: 1</span>
-      </div>
-
-      <div class="copy-block" id="dataset2">
-        <span class="label">DATASET 2 &mdash; HORAS DE BORDO POR EMBARCACAO (MAR 2025)</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset2-text').textContent)">Copiar</button>
-        <span id="dataset2-text">Embarcacao A: 342h | Embarcacao B: 287h | Embarcacao C: 319h</span>
-      </div>
-
-      <div class="copy-block" id="dataset3">
-        <span class="label">DATASET 3 &mdash; TIPOS DE OCORRENCIA (1o SEM. 2025)</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('dataset3-text').textContent)">Copiar</button>
-        <span id="dataset3-text">Quase-acidente: 40% | Incidente sem afastamento: 30% | Nao conformidade: 20% | Incidente ambiental: 10%</span>
-      </div>
-
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step2')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step4')">Demo 1 &#8594;</a>
-      </div>
+    <div class="chart-info">
+      <div class="chart-name">Grafico de Barras</div>
+      <div class="chart-when"><strong>Quando usar:</strong> comparar categorias entre si</div>
+      <div class="chart-example">Exemplo offshore: horas de bordo por embarcacao no mes</div>
     </div>
+  </div>
 
-<!-- ===== STEP 4: Demo 1 — Qual grafico usar? ===== -->
-    <div class="section" id="sec-step4">
-      <h1 class="sec-title"><span class="snum">04.</span> Demo 1 &mdash; Qual grafico usar?</h1>
-      <p class="sec-desc">O instrutor vai colar este prompt no Claude ao vivo. Observem a resposta &mdash; especialmente a justificativa.</p>
+  <!-- Pizza/Donut -->
+  <div class="chart-type-card">
+    <div class="chart-svg">
+      <svg width="90" height="60" viewBox="0 0 90 60" fill="none">
+        <rect width="90" height="60" rx="6" fill="#FFFFFF" stroke="#EDE8E2"/>
+        <circle cx="45" cy="30" r="22" fill="#E8F0F8" stroke="#EDE8E2"/>
+        <path d="M45,30 L45,8 A22,22 0 0,1 67,30 Z" fill="#003087"/>
+        <path d="M45,30 L67,30 A22,22 0 0,1 55,50 Z" fill="#0055B3"/>
+        <path d="M45,30 L55,50 A22,22 0 0,1 35,50 Z" fill="#F5A800"/>
+        <circle cx="45" cy="30" r="10" fill="#FFFFFF"/>
+      </svg>
+    </div>
+    <div class="chart-info">
+      <div class="chart-name">Pizza / Donut</div>
+      <div class="chart-when"><strong>Quando usar:</strong> mostrar partes de um todo (ate 5 fatias)</div>
+      <div class="chart-example">Exemplo offshore: distribuicao dos tipos de ocorrencia HSE (%)</div>
+    </div>
+  </div>
 
-      <div class="copy-block" id="prompt-demo1">
-        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1-text').textContent)">Copiar</button>
-        <span id="prompt-demo1-text">Tenho dados de ocorrencias HSE de uma operacao offshore referentes ao primeiro semestre de 2025:
+  <!-- Histograma -->
+  <div class="chart-type-card">
+    <div class="chart-svg">
+      <svg width="90" height="60" viewBox="0 0 90 60" fill="none">
+        <rect width="90" height="60" rx="6" fill="#FFFFFF" stroke="#EDE8E2"/>
+        <rect x="8" y="40" width="13" height="13" rx="1" fill="#003087"/>
+        <rect x="23" y="28" width="13" height="25" rx="1" fill="#003087"/>
+        <rect x="38" y="14" width="13" height="39" rx="1" fill="#003087"/>
+        <rect x="53" y="24" width="13" height="29" rx="1" fill="#003087"/>
+        <rect x="68" y="36" width="13" height="17" rx="1" fill="#003087"/>
+      </svg>
+    </div>
+    <div class="chart-info">
+      <div class="chart-name">Histograma</div>
+      <div class="chart-when"><strong>Quando usar:</strong> ver como os dados estao distribuidos</div>
+      <div class="chart-example">Exemplo offshore: distribuicao de horas trabalhadas por tripulante</div>
+    </div>
+  </div>
+
+  <!-- Dispersao -->
+  <div class="chart-type-card">
+    <div class="chart-svg">
+      <svg width="90" height="60" viewBox="0 0 90 60" fill="none">
+        <rect width="90" height="60" rx="6" fill="#FFFFFF" stroke="#EDE8E2"/>
+        <circle cx="15" cy="18" r="3" fill="#003087"/>
+        <circle cx="25" cy="22" r="3" fill="#003087"/>
+        <circle cx="35" cy="28" r="3" fill="#003087"/>
+        <circle cx="42" cy="32" r="3" fill="#003087"/>
+        <circle cx="55" cy="35" r="3" fill="#003087"/>
+        <circle cx="62" cy="40" r="3" fill="#003087"/>
+        <circle cx="75" cy="45" r="3" fill="#003087"/>
+        <line x1="10" y1="16" x2="82" y2="48" stroke="#F5A800" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </svg>
+    </div>
+    <div class="chart-info">
+      <div class="chart-name">Dispersao</div>
+      <div class="chart-when"><strong>Quando usar:</strong> identificar correlacao entre duas variaveis</div>
+      <div class="chart-example">Exemplo offshore: relacao entre horas de treinamento e numero de incidentes</div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 03 · DEMO 1 — QUAL GRAFICO USAR ===== -->
+<div class="section" id="sec-step3">
+  <div class="section-divider">Demonstracao</div>
+  <div class="sec-title"><span class="snum">03.</span> Demonstracao 1 — Qual grafico usar?</div>
+  <div class="sec-desc">O instrutor vai colar este prompt no Claude ao vivo</div>
+
+  <p class="lead-text">Observem a resposta — especialmente a justificativa que o Claude da para a escolha do grafico.</p>
+
+  <div class="copy-block"><span class="label">Prompt — Instrutor copia</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo1').textContent)">Copiar</button><span id="prompt-demo1">Tenho dados de ocorrencias HSE de uma operacao offshore
+referentes ao primeiro semestre de 2025:
 
 Janeiro: 4 | Fevereiro: 3 | Marco: 5
 Abril: 2   | Maio: 3      | Junho: 1
 
-O objetivo e apresentar esses dados para a lideranca mostrando a tendencia ao longo do semestre.
+O objetivo e apresentar esses dados para a lideranca
+mostrando a tendencia ao longo do semestre.
 
 1. Qual tipo de grafico e mais adequado? Justifique em 2-3 frases.
 2. O que esse grafico comunica imediatamente para quem o ve?
-3. Existe algum tipo de grafico que devo evitar aqui? Por que?</span>
-      </div>
+3. Existe algum tipo de grafico que devo evitar aqui? Por que?</span></div>
 
-      <div class="tip-box">
-        <div class="tip-label">Ponto-chave</div>
-        <p>Destaque a justificativa que o Claude da &mdash; e isso que diferencia usa-lo como ferramenta de usa-lo como consultor.</p>
-      </div>
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>Destaquem a justificativa que o Claude da — e isso que diferencia usa-lo como ferramenta de usa-lo como consultor. Ele nao so recomenda, ele explica o raciocinio.</p>
+  </div>
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step3')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step5')">Demo 2 &#8594;</a>
-      </div>
-    </div>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+  </div>
+</div>
 
-<!-- ===== STEP 5: Demo 2 — Gerar o Artifact ===== -->
-    <div class="section" id="sec-step5">
-      <h1 class="sec-title"><span class="snum">05.</span> Demo 2 &mdash; Gerar o Artifact</h1>
-      <p class="sec-desc">Agora pedimos ao Claude para gerar o grafico de verdade &mdash; em HTML &mdash; pronto para usar em uma apresentacao.</p>
+<!-- ===== 04 · DEMO 2 — GERAR O ARTIFACT ===== -->
+<div class="section" id="sec-step4">
+  <div class="section-divider">Demonstracao</div>
+  <div class="sec-title"><span class="snum">04.</span> Demonstracao 2 — Gerar o Artifact</div>
+  <div class="sec-desc">Agora pedimos ao Claude para gerar o grafico de verdade</div>
 
-      <div class="copy-block" id="prompt-demo2">
-        <span class="label">PROMPT &mdash; INSTRUTOR COPIA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2-text').textContent)">Copiar</button>
-        <span id="prompt-demo2-text">Crie um grafico de linhas em HTML para visualizar os dados de ocorrencias HSE referentes ao primeiro semestre de 2025:
+  <p class="lead-text">Agora pedimos ao Claude para gerar o grafico de verdade — em HTML — pronto para usar em uma apresentacao. Observem que o resultado ja sai no padrao visual da Bram Offshore.</p>
+
+  <div class="copy-block"><span class="label">Prompt — Instrutor copia</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo2').textContent)">Copiar</button><span id="prompt-demo2">Crie um grafico de linhas em HTML para visualizar os dados de
+ocorrencias HSE referentes ao primeiro semestre de 2025:
 
 Janeiro: 4 | Fevereiro: 3 | Marco: 5
 Abril: 2   | Maio: 3      | Junho: 1
@@ -961,168 +630,166 @@ Requisitos do grafico:
 - Nota de rodape: "Dados simulados para fins de treinamento"
 
 Identidade visual BRAM OFFSHORE:
-- Fundo do card: branco (#FFFFFF) com borda sutil
+- Header com fundo azul marinho (#003087) e texto branco
+- Nome "BRAM OFFSHORE" no header em caixa alta
 - Cor da linha principal: azul marinho (#003087)
 - Linha de tendencia: ambar (#F5A800), pontilhada
-- Titulo: Montserrat Bold, azul marinho (#003087)
-- Eixos e legendas: Open Sans, cinza escuro (#333333)
-- Header do grafico com fundo azul marinho (#003087) e texto branco
-- Estilo: corporativo, limpo e profissional</span>
-      </div>
+- Titulo em Montserrat Bold, corpo em Open Sans
+- Fundo branco, estilo corporativo e profissional</span></div>
 
-      <div class="tip-box">
-        <div class="tip-label">Destaque</div>
-        <p>O Artifact abre na janela lateral. Clique nele para mostrar o grafico renderizado. Destaque: sem Excel, sem programacao &mdash; e ja no padrao visual da Bram.</p>
-      </div>
+  <div class="instructor-note">
+    <div class="note-label">Nota do instrutor</div>
+    <p>O Artifact abre na janela lateral. Cliquem nele para mostrar o grafico renderizado. Destaquem: sem Excel, sem programacao — e ja no padrao visual da Bram.</p>
+  </div>
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step4')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('step6')">Pratica &#8594;</a>
-      </div>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== 05 · ATIVIDADE PRATICA ===== -->
+<div class="section" id="sec-step5">
+  <div class="section-divider">Atividade Pratica</div>
+  <div class="sec-title"><span class="snum">05.</span> Atividade Pratica</div>
+  <div class="sec-desc">Chegou a hora de voces</div>
+
+  <div class="overview-card" style="border-left:4px solid var(--accent);">
+    <h3>Dinamica da atividade</h3>
+    <p>Voces vao ter <strong>3 minutos</strong> para fazer a atividade abaixo. Depois, o instrutor vai sortear <strong>3 colegas</strong> — um de cada frente — para apresentar o grafico gerado e justificar a escolha usando as tecnicas de Data Storytelling que acabaram de aprender.</p>
+  </div>
+
+  <div class="instructions">
+    <div class="inst">
+      <div class="inst-num">1</div>
+      <div class="inst-text">Leiam o dataset abaixo com atencao</div>
     </div>
+    <div class="inst">
+      <div class="inst-num">2</div>
+      <div class="inst-text">Decidam <strong>qual mensagem querem comunicar</strong> com esses dados</div>
+    </div>
+    <div class="inst">
+      <div class="inst-num">3</div>
+      <div class="inst-text">Copiem o prompt guiado, substituam os campos indicados e rodem no Claude</div>
+    </div>
+    <div class="inst">
+      <div class="inst-num">4</div>
+      <div class="inst-text">Quando sorteados, apresentem: qual mensagem escolheram, qual grafico o Claude gerou e por que ele e o mais adequado</div>
+    </div>
+  </div>
 
-<!-- ===== STEP 6: Pratica ===== -->
-    <div class="section" id="sec-step6">
-      <h1 class="sec-title"><span class="snum">06.</span> Pratica</h1>
-      <p class="sec-desc">Agora e a vez de voces. Abram o Claude, escolham um cenario e copiem o prompt guiado.</p>
+  <div class="overview-card">
+    <h3>Dataset — BRAM OFFSHORE · 1o Semestre 2025</h3>
+    <p style="font-size:0.68rem; color:var(--text3); margin-bottom:8px;">Todos usam o mesmo dataset. A diferenca esta na mensagem que cada um decide comunicar.</p>
+    <table class="data-table">
+      <tr><th>Mes</th><th>Ocorrencias HSE</th><th>Horas de Treinamento</th><th>Conformidade</th></tr>
+      <tr><td>Janeiro</td><td>4</td><td>120h</td><td>82%</td></tr>
+      <tr><td>Fevereiro</td><td>3</td><td>135h</td><td>85%</td></tr>
+      <tr><td>Marco</td><td>5</td><td>110h</td><td>79%</td></tr>
+      <tr><td>Abril</td><td>2</td><td>150h</td><td>91%</td></tr>
+      <tr><td>Maio</td><td>3</td><td>145h</td><td>89%</td></tr>
+      <tr><td>Junho</td><td>1</td><td>160h</td><td>96%</td></tr>
+    </table>
+    <p style="font-size:0.6rem; color:var(--text4); margin-top:6px;">Fonte: dados simulados para fins de treinamento</p>
+  </div>
 
-      <div class="scenario-card">
-        <h4>Cenario A &mdash; Linha de Frente</h4>
-        <p>Horas de bordo cresceram nos ultimos 4 meses: Jan 280h, Fev 295h, Mar 342h, Abr 360h. Mostre a tendencia para o supervisor.</p>
-      </div>
+  <div class="copy-block"><span class="label">Prompt guiado — Voces fazem agora</span><button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica').textContent)">Copiar</button><span id="prompt-pratica">Sou trainee na Bram Offshore e quero criar uma visualizacao de dados
+para apresentar a lideranca.
 
-      <div class="scenario-card">
-        <h4>Cenario B &mdash; Corporativo</h4>
-        <p>Contratos fechados por trimestre em 2024: Q1 = 8, Q2 = 14, Q3 = 11, Q4 = 19. Mostre o crescimento anual.</p>
-      </div>
+Dataset disponivel:
+Mes        | Ocorrencias HSE | Horas de Treinamento | Conformidade
+Janeiro    | 4               | 120h                 | 82%
+Fevereiro  | 3               | 135h                 | 85%
+Marco      | 5               | 110h                 | 79%
+Abril      | 2               | 150h                 | 91%
+Maio       | 3               | 145h                 | 89%
+Junho      | 1               | 160h                 | 96%
 
-      <div class="scenario-card">
-        <h4>Cenario C &mdash; Tech / RH</h4>
-        <p>Distribuicao do orcamento de treinamentos: Seguranca 45%, Tecnico 30%, Lideranca 15%, Compliance 10%.</p>
-      </div>
-
-      <div class="copy-block student" id="prompt-pratica">
-        <span class="label">PROMPT GUIADO &mdash; VOCES FAZEM AGORA</span>
-        <button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-pratica-text').textContent)">Copiar</button>
-        <span id="prompt-pratica-text">Sou trainee em uma empresa de apoio maritimo offshore e preciso criar uma visualizacao de dados para apresentar a lideranca.
-
-Dados: [cole os dados do cenario escolhido]
-
-Objetivo: [o que voce quer comunicar — tendencia, comparacao ou proporcao?]
+A mensagem que quero comunicar: [descreva em uma frase o que quer mostrar
+— ex: "a conformidade cresceu ao longo do semestre" / "ha uma correlacao
+entre mais treinamento e menos ocorrencias" / "as ocorrencias HSE estao
+em queda"]
 
 Faca dois passos:
-1. Recomende o tipo de grafico mais adequado e justifique em 2 frases.
-2. Gere o grafico como Artifact em HTML com titulo claro, eixos identificados e identidade visual da BRAM OFFSHORE:
-   - Fundo branco com borda sutil, header azul marinho (#003087)
-   - Cor principal da linha/barras: azul marinho (#003087)
-   - Destaques e metricas: ambar (#F5A800)
-   - Titulo em Montserrat Bold, corpo em Open Sans
-   - Texto "BRAM OFFSHORE" no header, em caixa alta e branco
-   - Estilo corporativo, limpo e profissional</span>
-      </div>
+1. Recomende o tipo de grafico mais adequado para essa mensagem.
+   Justifique em 2-3 frases usando criterios de Data Storytelling.
+2. Gere o grafico como Artifact em HTML com identidade visual
+   BRAM OFFSHORE:
+   - Header com fundo azul marinho (#003087), texto branco,
+     "BRAM OFFSHORE" em caixa alta
+   - Cor principal: azul marinho (#003087)
+   - Destaques e metricas relevantes: ambar (#F5A800)
+   - Titulo claro, eixos identificados, rodape com
+     "Dados simulados para fins de treinamento"
+   - Estilo corporativo, limpo e profissional</span></div>
 
-      <div class="overview-card" style="border-left:4px solid var(--green);">
-        <h3>Checklist do Entregavel</h3>
-        <div class="checklist">
-          <div class="checklist-item">
-            <div class="check-icon">&#10003;</div>
-            <span>Escolheu um cenario e rodou o prompt</span>
-          </div>
-          <div class="checklist-item">
-            <div class="check-icon">&#10003;</div>
-            <span>Claude recomendou o tipo de grafico com justificativa</span>
-          </div>
-          <div class="checklist-item">
-            <div class="check-icon">&#10003;</div>
-            <span>Artifact com o grafico apareceu e esta legivel</span>
-          </div>
-          <div class="checklist-item">
-            <div class="check-icon">&#10003;</div>
-            <span>Consegue explicar por que aquele tipo foi o mais adequado</span>
-          </div>
-        </div>
-      </div>
+  <div class="overview-card" style="border-left:4px solid var(--accent2);">
+    <h3>O que preparar para apresentar</h3>
+    <p>Se voce for sorteado, prepare para contar em 1 minuto:</p>
+    <ol class="numbered-list" style="margin-top:8px;">
+      <li><strong>Qual mensagem</strong> voce quis comunicar com os dados</li>
+      <li><strong>Qual grafico</strong> o Claude recomendou e gerou</li>
+      <li><strong>Por que esse grafico</strong> e o mais adequado para essa mensagem</li>
+    </ol>
+  </div>
 
-      <div class="nav-buttons">
-        <a class="nav-btn" onclick="showSection('step5')">&#8592; Anterior</a>
-        <a class="nav-btn primary" onclick="showSection('home')">&#127937; Voltar ao Inicio</a>
-      </div>
-    </div>
+  <div class="overview-card">
+    <h3>Entregavel do modulo</h3>
+    <ul class="checklist">
+      <li>Escolheu uma mensagem para comunicar com os dados</li>
+      <li>Rodou o prompt e recebeu a recomendacao do grafico com justificativa</li>
+      <li>O Artifact com o grafico apareceu e esta legivel</li>
+      <li>Consegue explicar em 1 minuto: mensagem + grafico escolhido + por que</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+    <button class="nav-btn primary" onclick="showSection('sec-home')">&#8617; Inicio</button>
+  </div>
+</div>
 
   </main>
-
 </div>
 
 <script>
-// ========== STATE ==========
-const stepToFlow = {
-  home:'home',
-  step1:'porque',
-  step2:'tipos',
-  step3:'dados',
-  step4:'demo1',
-  step5:'demo2',
-  step6:'pratica'
-};
-const flowOrder = ['home','porque','tipos','dados','demo1','demo2','pratica'];
-
-const visited = new Set(['home']);
-const completedFlows = new Set();
+const visited = new Set(['sec-home'])
 
 function showSection(id) {
-  // Hide all sections
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const sec = document.getElementById('sec-' + id);
-  if (sec) sec.classList.add('active');
-
-  visited.add(id);
-
-  // Mark previous flows as completed
-  const currentFlow = stepToFlow[id];
-  if (currentFlow) {
-    const currentIdx = flowOrder.indexOf(currentFlow);
-    for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update sidebar nav
-  document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.remove('active');
-    if (visited.has(el.dataset.section)) el.classList.add('completed');
-  });
-  const navEl = document.querySelector(`.nav-item[data-section="${id}"]`);
-  if (navEl) { navEl.classList.add('active'); navEl.classList.add('completed'); }
-
-  updateProgress();
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
 }
 
 function updateProgress() {
-  const total = 6;
-  let count = 0;
-  for (let i = 1; i <= 6; i++) {
-    if (visited.has('step' + i)) count++;
-  }
-  document.getElementById('progress-fill').style.width = ((count / total) * 100) + '%';
-  document.getElementById('progress-text').textContent = count + ' / ' + total;
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
 }
 
+function goHome() { showSection('sec-home') }
+
 function copyText(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
   }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-  });
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
 }
+
+updateProgress()
 </script>
 </body>
 </html>
