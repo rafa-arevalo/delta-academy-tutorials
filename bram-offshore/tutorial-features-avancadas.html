@@ -55,82 +55,10 @@
     font-family: 'Montserrat', system-ui, sans-serif;
   }
 
-  /* ========== STEPPER HEADER ========== */
-  .stepper-header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 52px;
-    padding: 0 24px;
-    gap: 0;
-    overflow-x: auto;
-  }
-
-  .stepper-header::-webkit-scrollbar { height: 0; }
-  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s;font-family:'Open Sans',sans-serif}
-  .back-btn:hover{color:var(--accent)}
-  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
-
-  .stepper-node {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 4px;
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-
-  .stepper-node .sn-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    padding: 6px 0;
-    position: relative;
-    transition: color 0.2s;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .stepper-node.future .sn-label { color: var(--text4); }
-  .stepper-node.completed .sn-label { color: var(--text); }
-  .stepper-node.active .sn-label { color: var(--accent); }
-
-  .stepper-node.active .sn-label::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px 2px 0 0;
-  }
-
-  .stepper-node .sn-check {
-    display: none;
-    font-size: 0.6rem;
-    color: var(--green);
-  }
-
-  .stepper-node.completed .sn-check { display: inline; }
-
-  .stepper-arrow {
-    color: var(--text4);
-    font-size: 0.65rem;
-    padding: 0 6px;
-    flex-shrink: 0;
-  }
-
   /* ========== LAYOUT ========== */
   .layout {
     display: flex;
-    min-height: calc(100vh - 52px);
+    min-height: 100vh;
   }
 
   /* ========== LEFT SIDEBAR ========== */
@@ -140,8 +68,8 @@
     background: var(--white);
     border-right: 1px solid var(--border);
     position: sticky;
-    top: 52px;
-    height: calc(100vh - 52px);
+    top: 0;
+    height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -684,119 +612,10 @@
     font-family: 'Open Sans', sans-serif;
   }
 
-  /* ========== RIGHT SIDEBAR ========== */
-  .right-sidebar {
-    width: 220px;
-    min-width: 200px;
-    background: var(--white);
-    border-left: 1px solid var(--border);
-    position: sticky;
-    top: 52px;
-    height: calc(100vh - 52px);
-    overflow-y: auto;
-    padding: 20px 14px;
-  }
-
-  .right-sidebar::-webkit-scrollbar { width: 3px; }
-  .right-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-
-  .rs-title {
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text3);
-    margin-bottom: 10px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .rs-block {
-    margin-bottom: 18px;
-  }
-
-  .rs-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 5px 0;
-    font-size: 0.7rem;
-    color: var(--text2);
-    line-height: 1.4;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  .rs-item .rs-num {
-    font-size: 0.58rem;
-    font-weight: 700;
-    color: var(--white);
-    background: var(--accent);
-    min-width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .rs-cost {
-    background: var(--accent);
-    color: var(--white);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    text-align: center;
-  }
-
-  .rs-cost .rs-cost-value {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--yellow);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .rs-cost .rs-cost-label {
-    font-size: 0.62rem;
-    color: #B3CCE6;
-    margin-top: 2px;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  .rs-artefato {
-    background: var(--accent-lighter);
-    border: 1px solid var(--accent-border);
-    border-radius: 8px;
-    padding: 10px 12px;
-  }
-
-  .rs-artefato h4 {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 6px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .rs-artefato p {
-    font-size: 0.66rem;
-    color: var(--accent-text);
-    line-height: 1.4;
-    margin-bottom: 4px;
-    font-family: 'Open Sans', sans-serif;
-  }
-
   /* ========== RESPONSIVE ========== */
-  @media (max-width: 1024px) {
-    .right-sidebar { display: none; }
-  }
-
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .stepper-header { padding: 0 12px; justify-content: flex-start; }
     .resource-row { grid-template-columns: 1fr; }
     .timeline { flex-direction: column; }
     .timeline-arrow { transform: rotate(90deg); }
@@ -806,50 +625,12 @@
 </head>
 <body>
 
-<!-- ========== STEPPER HEADER ========== -->
-<header class="stepper-header" id="stepper">
-  <a class="back-btn" href="index.html"><span class="back-arrow">&#8592;</span>Indice</a>
-  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Inicio</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="research" onclick="showSection('step1')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Research</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="connectors" onclick="showSection('step2')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Connectors</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="skills" onclick="showSection('step3')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Skills</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="cowork" onclick="showSection('step4')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Cowork</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="code" onclick="showSection('step5')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Code</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="artefato" onclick="showSection('step6')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Artefato</span>
-  </div>
-</header>
-
 <div class="layout">
 
   <!-- ========== LEFT SIDEBAR ========== -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
+      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;"><span>&#8592;</span> Indice</a>
       <h2>Features Avancadas</h2>
       <p>Modulo 04 &mdash; BRAM OFFSHORE</p>
     </div>
@@ -1345,51 +1126,6 @@ Identidade visual BRAM OFFSHORE (aplicar em todo o documento):
 
   </main>
 
-  <!-- ========== RIGHT SIDEBAR ========== -->
-  <aside class="right-sidebar">
-    <div class="rs-block">
-      <div class="rs-title">5 Features Pro</div>
-      <div class="rs-item">
-        <span class="rs-num">1</span>
-        <span>Deep Research</span>
-      </div>
-      <div class="rs-item">
-        <span class="rs-num">2</span>
-        <span>Connectors</span>
-      </div>
-      <div class="rs-item">
-        <span class="rs-num">3</span>
-        <span>Skills</span>
-      </div>
-      <div class="rs-item">
-        <span class="rs-num">4</span>
-        <span>Cowork</span>
-      </div>
-      <div class="rs-item">
-        <span class="rs-num">5</span>
-        <span>Claude Code</span>
-      </div>
-    </div>
-
-    <div class="rs-cost">
-      <div class="rs-cost-value">$20/mes</div>
-      <div class="rs-cost-label">$240/ano por assinatura</div>
-    </div>
-
-    <div class="rs-block">
-      <div class="rs-title">Artefato Final</div>
-      <div class="rs-artefato">
-        <h4>Bloco 1</h4>
-        <p>Proposta para a Lideranca: tabela de 5 oportunidades com ROI e horas economizadas.</p>
-      </div>
-      <div style="height:8px;"></div>
-      <div class="rs-artefato">
-        <h4>Bloco 2</h4>
-        <p>Top 3 para a Fase 2: oportunidades de maior impacto com feature e resultado esperado.</p>
-      </div>
-    </div>
-  </aside>
-
 </div>
 
 <script>
@@ -1421,22 +1157,6 @@ function showSection(id) {
   if (currentFlow) {
     const currentIdx = flowOrder.indexOf(currentFlow);
     for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update stepper
-  const stepperEl = document.getElementById('stepper');
-  if (stepperEl) {
-    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
-      const flow = node.dataset.flow;
-      node.classList.remove('active','completed','future');
-      if (flow === currentFlow) {
-        node.classList.add('active');
-      } else if (completedFlows.has(flow)) {
-        node.classList.add('completed');
-      } else {
-        node.classList.add('future');
-      }
-    });
   }
 
   // Update sidebar nav

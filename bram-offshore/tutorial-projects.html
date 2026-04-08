@@ -51,85 +51,14 @@
 
   h1, h2, h3, h4, h5, h6,
   .sec-title, .sidebar-header h2, .overview-card h3,
-  .nav-group-title, .stepper-node .sn-label {
+  .nav-group-title {
     font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  /* ========== STEPPER HEADER ========== */
-  .stepper-header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 52px;
-    padding: 0 24px;
-    gap: 0;
-    overflow-x: auto;
-  }
-
-  .stepper-header::-webkit-scrollbar { height: 0; }
-  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s;font-family:'Open Sans',system-ui,sans-serif}
-  .back-btn:hover{color:var(--accent)}
-  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
-
-  .stepper-node {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 4px;
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-
-  .stepper-node .sn-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    padding: 6px 0;
-    position: relative;
-    transition: color 0.2s;
-  }
-
-  .stepper-node.future .sn-label { color: var(--text4); }
-  .stepper-node.completed .sn-label { color: var(--text); }
-  .stepper-node.active .sn-label { color: var(--accent); }
-
-  .stepper-node.active .sn-label::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px 2px 0 0;
-  }
-
-  .stepper-node .sn-check {
-    display: none;
-    font-size: 0.6rem;
-    color: var(--green);
-  }
-
-  .stepper-node.completed .sn-check { display: inline; }
-
-  .stepper-arrow {
-    color: var(--text4);
-    font-size: 0.65rem;
-    padding: 0 6px;
-    flex-shrink: 0;
   }
 
   /* ========== LAYOUT ========== */
   .layout {
     display: flex;
-    min-height: calc(100vh - 52px);
+    min-height: 100vh;
   }
 
   /* ========== LEFT SIDEBAR ========== */
@@ -139,8 +68,8 @@
     background: var(--white);
     border-right: 1px solid var(--border);
     position: sticky;
-    top: 52px;
-    height: calc(100vh - 52px);
+    top: 0;
+    height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -699,75 +628,6 @@
     color: var(--accent-text);
   }
 
-  /* ========== RIGHT SIDEBAR ========== */
-  .right-sidebar {
-    width: 220px;
-    min-width: 200px;
-    padding: 20px 16px;
-    border-left: 1px solid var(--border);
-    background: var(--white);
-    position: sticky;
-    top: 52px;
-    height: calc(100vh - 52px);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .right-sidebar::-webkit-scrollbar { width: 3px; }
-  .right-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .right-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-
-  .rs-block h4 {
-    font-size: 0.62rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text3);
-    margin-bottom: 8px;
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-
-  .rs-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .rs-table td {
-    padding: 5px 8px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 0.68rem;
-  }
-
-  .rs-table td:first-child {
-    font-weight: 600;
-    color: var(--text);
-    white-space: nowrap;
-  }
-
-  .rs-table tr:last-child td { border-bottom: none; }
-
-  .rs-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .rs-list li {
-    font-size: 0.68rem;
-    color: var(--text2);
-    padding: 4px 8px;
-    background: var(--surface2);
-    border-radius: 5px;
-    border: 1px solid var(--border);
-  }
 
   /* Timeline */
   .timeline {
@@ -849,14 +709,9 @@
   }
 
   /* Mobile */
-  @media (max-width: 1024px) {
-    .right-sidebar { display: none; }
-  }
-
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { padding: 20px 16px 40px; max-width: 100%; }
-    .stepper-header { padding: 0 12px; justify-content: flex-start; }
     .resource-row { grid-template-columns: 1fr; }
     .comparison-row { grid-template-columns: 1fr; }
   }
@@ -865,35 +720,12 @@
 </head>
 <body>
 
-<!-- ========== STEPPER HEADER ========== -->
-<header class="stepper-header" id="stepper">
-  <a class="back-btn" href="index.html"><span class="back-arrow">&#8592;</span>Indice</a>
-  <div class="stepper-node active" data-flow="home" onclick="showSection('home')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Inicio</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="oque" onclick="showSection('step1')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">O que e</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="demo" onclick="showSection('step2')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Demo</span>
-  </div>
-  <span class="stepper-arrow">&#8594;</span>
-  <div class="stepper-node future" data-flow="pratica" onclick="showSection('step3')">
-    <span class="sn-check">&#10003;</span>
-    <span class="sn-label">Pratica</span>
-  </div>
-</header>
-
 <div class="layout">
 
   <!-- ========== LEFT SIDEBAR ========== -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
+      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;"><span>&#8592;</span> Indice</a>
       <h2>Projects</h2>
       <p>Modulo 03 &mdash; Bram Offshore</p>
     </div>
@@ -1141,31 +973,6 @@ Quando eu pedir documentos, formate sempre de forma profissional e pronta para u
 
   </main>
 
-  <!-- ========== RIGHT SIDEBAR ========== -->
-  <aside class="right-sidebar">
-    <div class="rs-block">
-      <h4>3 Campos do Project</h4>
-      <table class="rs-table">
-        <tr><td>Nome</td><td>Identifica o espaco de trabalho</td></tr>
-        <tr><td>Instrucoes</td><td>Contexto fixo que o Claude segue</td></tr>
-        <tr><td>Conversa</td><td>Onde voce interage com a IA</td></tr>
-      </table>
-    </div>
-
-    <div class="rs-block">
-      <h4>Departamentos Bram</h4>
-      <ul class="rs-list">
-        <li>Operacoes</li>
-        <li>Comercial</li>
-        <li>Financeiro</li>
-        <li>RH / Gente</li>
-        <li>QSMS</li>
-        <li>Supply Chain</li>
-        <li>Juridico</li>
-        <li>TI</li>
-      </ul>
-    </div>
-  </aside>
 
 </div>
 
@@ -1193,22 +1000,6 @@ function showSection(id) {
   if (currentFlow) {
     const currentIdx = flowOrder.indexOf(currentFlow);
     for (let i = 0; i < currentIdx; i++) completedFlows.add(flowOrder[i]);
-  }
-
-  // Update stepper
-  const stepperEl = document.getElementById('stepper');
-  if (stepperEl) {
-    stepperEl.querySelectorAll('.stepper-node').forEach(node => {
-      const flow = node.dataset.flow;
-      node.classList.remove('active','completed','future');
-      if (flow === currentFlow) {
-        node.classList.add('active');
-      } else if (completedFlows.has(flow)) {
-        node.classList.add('completed');
-      } else {
-        node.classList.add('future');
-      }
-    });
   }
 
   // Update sidebar nav

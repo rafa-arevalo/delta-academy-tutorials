@@ -54,30 +54,20 @@ Siga esta estrutura **exatamente** — não invente componentes novos:
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Cole aqui o CSS completo — copie de tutorial-eng-prompt.html e adapte apenas as variáveis --accent se necessário */
-
-  /* Botão voltar para o índice — OBRIGATÓRIO em toda aula */
-  .back-btn{display:flex;align-items:center;gap:5px;padding:0 12px 0 0;text-decoration:none;color:var(--text3);font-size:0.72rem;font-weight:600;white-space:nowrap;border-right:1px solid var(--border);margin-right:12px;flex-shrink:0;transition:color 0.15s}
-  .back-btn:hover{color:var(--accent)}
-  .back-btn .back-arrow{font-size:0.8rem;line-height:1}
+  /* NÃO incluir CSS de .stepper-header, .stepper-node, .sn-label, .sn-check, .stepper-arrow, .back-btn (stepper), .right-sidebar, .rs-section-title, .rs-table */
+  /* Layout usa apenas sidebar esquerda (256px) + main content — sem stepper no topo e sem right sidebar */
+  /* .layout min-height deve ser 100vh (não calc(100vh - 52px)) */
+  /* .sidebar top deve ser 0 e height 100vh (não 52px e calc(100vh - 52px)) */
 </style>
 </head>
 <body>
-
-<!-- STEPPER HEADER: botão voltar + bolinhas de progresso -->
-<div class="stepper-header">
-  <a class="back-btn" href="index.html"><span class="back-arrow">←</span>Índice</a>
-  <div class="stepper-node active" onclick="showSection('sec-home')" id="sn-home">
-    <span class="sn-check">✓</span>
-    <span class="sn-label">Início</span>
-  </div>
-  <!-- Repita para cada flow/step: arrow + stepper-node -->
-</div>
 
 <div class="layout">
 
   <!-- SIDEBAR ESQUERDA (256px) -->
   <div class="sidebar">
     <div class="sidebar-header">
+      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;">← Índice</a>
       <h2>{TÍTULO DA AULA}</h2>
       <p>{TAG} · Delta Skills</p>
     </div>
@@ -116,23 +106,12 @@ Siga esta estrutura **exatamente** — não invente componentes novos:
 
   </div>
 
-  <!-- RIGHT SIDEBAR (200px, referências contextuais) -->
-  <div class="right-sidebar">
-    <div class="rs-section-title">Referência Rápida</div>
-    <!-- rs-table, links, etc. -->
-  </div>
+  <!-- NÃO usar right-sidebar — o conteúdo de referência vai dentro das seções do main -->
 
 </div>
 
 <script>
-const stepToFlow = {
-  'sec-home': 'home',
-  'sec-step1': 'step1',
-  // ...
-}
-const flowOrder = ['home','step1',/* ... */]
 const visited = new Set(['sec-home'])
-const completedFlows = new Set()
 
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
@@ -142,26 +121,8 @@ function showSection(id) {
     if (visited.has(n.dataset.section)) n.classList.add('completed')
   })
   visited.add(id)
-  const flow = stepToFlow[id]
-  if (flow) {
-    const idx = flowOrder.indexOf(flow)
-    if (idx > 0) completedFlows.add(flowOrder[idx-1])
-  }
-  updateStepper(flow)
   updateProgress()
   window.scrollTo({top:0,behavior:'smooth'})
-}
-
-function updateStepper(activeFlow) {
-  document.querySelectorAll('.stepper-node').forEach(n => {
-    const f = n.id.replace('sn-','')
-    const idx = flowOrder.indexOf(f)
-    const activeIdx = flowOrder.indexOf(activeFlow)
-    n.classList.remove('active','completed','future')
-    if (f === activeFlow) n.classList.add('active')
-    else if (completedFlows.has(f) || idx < activeIdx) n.classList.add('completed')
-    else n.classList.add('future')
-  })
 }
 
 function updateProgress() {
@@ -186,7 +147,6 @@ function copyText(btn, text) {
   })
 }
 
-updateStepper('home')
 updateProgress()
 </script>
 </body>
