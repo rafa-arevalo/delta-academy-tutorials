@@ -4,31 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRAM OFFSHORE — Letramento de AI · Fase 1</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Open Sans',system-ui,sans-serif;background:#F4F4F4;color:#333333;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:#F5F0EB;color:#1A1A1A;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
   .container{max-width:520px;width:100%}
   .header{text-align:center;margin-bottom:32px}
-  .header-bar{background:#003087;border-radius:14px 14px 0 0;padding:24px 20px 18px;margin-bottom:0}
-  .header-bar h1{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:#FFFFFF;letter-spacing:0.04em;text-transform:uppercase}
-  .header-bar .subtitle{font-family:'Montserrat',sans-serif;font-size:0.72rem;color:#F5A800;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:4px}
-  .header-info{background:#FFFFFF;border:1px solid #E5E7EB;border-top:none;border-radius:0 0 14px 14px;padding:16px 20px;text-align:left}
-  .header-info p{font-size:0.74rem;color:#666;line-height:1.6;margin-bottom:6px}
+  .header-bar{background:#1F3331;border-radius:14px 14px 0 0;padding:24px 20px 18px;margin-bottom:0}
+  .header-bar h1{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:#F5F0EB;letter-spacing:0.04em;text-transform:uppercase}
+  .header-bar .subtitle{font-family:'Montserrat',sans-serif;font-size:0.72rem;color:#5C6C51;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:4px}
+  .header-info{background:#FFFFFF;border:1px solid #EDE8E2;border-top:none;border-radius:0 0 14px 14px;padding:16px 20px;text-align:left}
+  .header-info p{font-size:0.74rem;color:#4A4A4A;line-height:1.6;margin-bottom:6px}
   .header-info p:last-child{margin-bottom:0}
-  .header-info strong{color:#003087;font-weight:600}
-  .section-label{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#003087;margin:24px 0 12px;padding-left:4px}
-  .card{display:block;background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:20px;margin-bottom:12px;text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(0,0,0,0.04);transition:all 0.15s}
-  .card:hover{border-color:#003087;box-shadow:0 4px 6px -1px rgba(0,48,135,0.12)}
-  .card-title{font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:700;color:#003087;margin-bottom:4px}
-  .card-desc{font-size:0.74rem;color:#666;line-height:1.5}
+  .header-info strong{color:#1F3331;font-weight:600}
+  .section-label{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5C6C51;margin:24px 0 12px;padding-left:4px}
+  .card{display:block;background:#fff;border:1px solid #EDE8E2;border-radius:10px;padding:20px;margin-bottom:12px;text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(0,0,0,0.04);transition:all 0.15s}
+  .card:hover{border-color:#5C6C51;box-shadow:0 4px 6px -1px rgba(31,51,49,0.1)}
+  .card-title{font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:700;color:#1F3331;margin-bottom:4px}
+  .card-desc{font-size:0.74rem;color:#4A4A4A;line-height:1.5}
   .card-tag{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:2px 8px;border-radius:4px;margin-bottom:8px}
-  .tag-free{background:#E8F0F8;color:#003087}
-  .tag-pro{background:#FFF8E6;color:#9A6700}
-  .card-meta{display:flex;gap:12px;margin-top:8px;font-size:0.62rem;color:#999}
+  .tag-free{background:#5C6C51;color:#F5F0EB}
+  .tag-pro{background:#1F3331;color:#F5F0EB}
+  .card-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-size:0.62rem;color:#7A7A7A}
   .card-meta span{display:flex;align-items:center;gap:3px}
-  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:#999;text-decoration:none;margin-bottom:16px;transition:color 0.15s}
-  .back-link:hover{color:#003087}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:#7A7A7A;text-decoration:none;margin-bottom:16px;transition:color 0.15s}
+  .back-link:hover{color:#1F3331}
 </style>
 </head>
 <body>

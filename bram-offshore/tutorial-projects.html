@@ -5,43 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tutorial — Projects · BRAM OFFSHORE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
   :root {
-    --bg: #F4F4F4;
-    --white: #ffffff;
-    --accent: #003087;
-    --accent2: #002266;
-    --accent-light: #E8F0F8;
-    --accent-lighter: #F0F5FB;
-    --accent-border: #B3CCE6;
-    --accent-text: #002266;
-    --green: #059669;
-    --green-bg: #ECFDF5;
-    --green-border: #A7F3D0;
-    --green-text: #065F46;
-    --yellow: #F5A800;
+    --bg: #F5F0EB;
+    --white: #FFFFFF;
+    --accent: #5C6C51;
+    --accent2: #1F3331;
+    --accent-light: #EDE8E2;
+    --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2;
+    --accent-text: #1F3331;
+    --green: #5C6C51;
+    --green-bg: #EDE8E2;
+    --green-border: #DDD8D2;
+    --green-text: #1F3331;
+    --yellow: #D97706;
     --orange: #EA580C;
     --red: #DC2626;
     --red-bg: #FEF2F2;
     --red-border: #FECACA;
-    --text: #111827;
-    --text2: #6B7280;
-    --text3: #9CA3AF;
-    --text4: #D1D5DB;
-    --border: #E5E7EB;
-    --border2: #D1D5DB;
-    --bg2: #ffffff;
-    --surface2: #F9FAFB;
+    --text: #1A1A1A;
+    --text2: #4A4A4A;
+    --text3: #7A7A7A;
+    --text4: #B0A89F;
+    --border: #EDE8E2;
+    --border2: #DDD8D2;
+    --bg2: #FFFFFF;
+    --surface2: #F5F0EB;
     --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
   }
 
   body {
-    font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
@@ -65,8 +65,8 @@
   .sidebar {
     width: 256px;
     min-width: 256px;
-    background: var(--white);
-    border-right: 1px solid var(--border);
+    background: #1F3331;
+    border-right: 1px solid rgba(245,240,235,0.1);
     position: sticky;
     top: 0;
     height: 100vh;
@@ -77,23 +77,23 @@
 
   .sidebar::-webkit-scrollbar { width: 3px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
-  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
 
   .sidebar-header {
     padding: 20px 16px 16px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(245,240,235,0.1);
   }
 
   .sidebar-header h2 {
     font-size: 0.88rem;
     font-weight: 700;
-    color: var(--text);
+    color: #F5F0EB;
     letter-spacing: -0.02em;
   }
 
   .sidebar-header p {
     font-size: 0.65rem;
-    color: var(--text3);
+    color: #5C6C51;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 500;
@@ -110,7 +110,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text3);
+    color: rgba(245,240,235,0.4);
   }
 
   .nav-item {
@@ -121,40 +121,40 @@
     cursor: pointer;
     transition: all 0.15s;
     text-decoration: none;
-    color: var(--text2);
+    color: rgba(245,240,235,0.7);
     font-size: 0.78rem;
     font-weight: 400;
     border-left: 2px solid transparent;
     margin: 0;
-    font-family: 'Open Sans', system-ui, sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
   }
 
   .nav-item:hover {
-    background: var(--bg);
-    color: var(--text);
+    background: rgba(92,108,81,0.2);
+    color: #F5F0EB;
   }
 
   .nav-item.active {
-    background: var(--accent-lighter);
-    color: var(--accent);
-    border-left-color: var(--accent);
+    background: #5C6C51;
+    color: #F5F0EB;
+    border-left-color: #F5F0EB;
     font-weight: 600;
   }
 
   .nav-item .ni-num {
     font-size: 0.62rem;
     font-weight: 600;
-    color: var(--text3);
+    color: rgba(245,240,235,0.4);
     min-width: 17px;
     font-variant-numeric: tabular-nums;
   }
 
-  .nav-item.active .ni-num { color: var(--accent); }
+  .nav-item.active .ni-num { color: #F5F0EB; }
 
   .nav-item .ni-check {
     margin-left: auto;
     font-size: 0.62rem;
-    color: var(--green);
+    color: rgba(245,240,235,0.5);
     opacity: 0;
     transition: opacity 0.2s;
     flex-shrink: 0;
@@ -165,27 +165,27 @@
   /* Progress */
   .sidebar-progress {
     padding: 14px 16px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(245,240,235,0.1);
     margin-top: auto;
   }
 
   .sp-label {
     font-size: 0.62rem;
-    color: var(--text3);
+    color: rgba(245,240,235,0.5);
     font-weight: 500;
     margin-bottom: 6px;
   }
 
   .sp-bar {
     height: 3px;
-    background: var(--border);
+    background: rgba(245,240,235,0.1);
     border-radius: 2px;
     overflow: hidden;
   }
 
   .sp-fill {
     height: 100%;
-    background: var(--accent);
+    background: #5C6C51;
     border-radius: 2px;
     transition: width 0.4s ease;
     width: 0%;
@@ -255,7 +255,7 @@
     font-size: 0.56rem;
     font-weight: 700;
     color: #fff;
-    background: var(--accent);
+    background: #5C6C51;
     min-width: 18px;
     height: 18px;
     border-radius: 50%;
@@ -278,7 +278,7 @@
 
   .inst-text .field {
     display: inline-block;
-    background: #F3F4F6;
+    background: #F0EBE4;
     padding: 1px 6px;
     border-radius: 4px;
     font-size: 0.68rem;
@@ -288,61 +288,30 @@
     color: var(--text);
   }
 
-  /* Copy block — instructor (dark) */
+  /* Copy block — uniform cream */
   .copy-block {
     position: relative;
-    background: #F3F4F6;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 10px 13px;
+    background: #F0EBE4;
+    border: 1px solid #DDD8D2;
+    border-left: 3px solid #5C6C51;
+    border-radius: 8px;
+    padding: 20px 24px;
     margin: 8px 0;
-    font-family: 'SF Mono', 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text);
-    line-height: 1.55;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #2A2A2A;
+    line-height: 1.75;
     white-space: pre-wrap;
     word-break: break-all;
   }
 
-  .copy-block.dark {
-    background: #1E293B;
-    border-color: #334155;
-    color: #E2E8F0;
-  }
-
-  .copy-block.dark .label {
-    color: #94A3B8;
-  }
-
-  .copy-block.dark .copy-btn {
-    background: #334155;
-    border-color: #475569;
-    color: #CBD5E1;
-  }
-
-  .copy-block.dark .copy-btn:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  /* Copy block — student (amber) */
-  .copy-block.amber {
-    background: #FFFBF0;
-    border-color: var(--yellow);
-  }
-
-  .copy-block.amber .label {
-    color: #92610A;
-  }
-
   .copy-block .label {
     font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 0.58rem;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text3);
+    letter-spacing: 1.5px;
+    color: #5C6C51;
     margin-bottom: 6px;
     display: block;
   }
@@ -351,26 +320,26 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    color: var(--text2);
+    background: #EDE8E2;
+    border: 1px solid #DDD8D2;
+    color: #5C6C51;
     padding: 3px 10px;
     border-radius: 5px;
     font-size: 0.62rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s;
-    font-family: 'Open Sans', system-ui, sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
   }
 
-  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
   .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
 
   /* Tip box */
   .tip-box {
-    background: var(--accent-lighter);
-    border: 1px solid var(--accent-border);
-    border-left: 3px solid var(--accent);
+    background: #F0EBE4;
+    border: 1px solid #DDD8D2;
+    border-left: 3px solid #5C6C51;
     border-radius: 0 7px 7px 0;
     padding: 9px 13px;
     margin: 12px 0;
@@ -401,7 +370,7 @@
   .warning-box {
     background: #FEF3E2;
     border: 1px solid #F5C96A;
-    border-left: 3px solid var(--yellow);
+    border-left: 3px solid #D97706;
     border-radius: 0 7px 7px 0;
     padding: 9px 13px;
     margin: 12px 0;
@@ -444,18 +413,18 @@
     cursor: pointer; border: 1px solid var(--border);
     background: var(--white); color: var(--text2);
     transition: all 0.15s; text-decoration: none;
-    font-family: 'Open Sans', system-ui, sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
   }
 
-  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+  .nav-btn:hover { background: #F0EBE4; border-color: var(--border2); color: #1F3331; }
 
-  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .nav-btn.primary:hover { background: var(--accent2); }
+  .nav-btn.primary { background: #5C6C51; border-color: #5C6C51; color: #fff; }
+  .nav-btn.primary:hover { background: #1F3331; }
 
   /* ===== HOME: Visao Geral ===== */
   .overview-card {
-    background: var(--white);
-    border: 1px solid var(--border);
+    background: #FFFFFF;
+    border: 1px solid #EDE8E2;
     border-radius: 10px;
     padding: 18px;
     margin-bottom: 14px;
@@ -487,7 +456,7 @@
   }
 
   .class-table th {
-    background: #F3F4F6;
+    background: #EDE8E2;
     color: var(--text2);
     font-weight: 600;
     text-align: left;
@@ -548,7 +517,7 @@
   }
 
   .ref-table th {
-    background: #F3F4F6;
+    background: #EDE8E2;
     color: var(--text2);
     font-weight: 600;
     text-align: left;
@@ -725,7 +694,7 @@
   <!-- ========== LEFT SIDEBAR ========== -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;"><span>&#8592;</span> Indice</a>
+      <a href="index.html" style="font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;" onmouseover="this.style.color='#F5F0EB'" onmouseout="this.style.color='rgba(245,240,235,0.5)'"><span>&#8592;</span> Indice</a>
       <h2>Projects</h2>
       <p>Modulo 03 &mdash; Bram Offshore</p>
     </div>
@@ -765,7 +734,7 @@
       <div class="sp-bar">
         <div class="sp-fill" id="progress-fill"></div>
       </div>
-      <div id="progress-text" style="font-size:0.6rem; color:var(--text3); margin-top:4px;">0 / 3</div>
+      <div id="progress-text" style="font-size:0.6rem; color:rgba(245,240,235,0.5); margin-top:4px;">0 / 3</div>
     </div>
   </nav>
 
@@ -895,7 +864,7 @@
         </div>
       </div>
 
-      <div class="copy-block dark" id="contexto-instrutor">
+      <div class="copy-block" id="contexto-instrutor">
         <span class="label">CONTEXTO &mdash; INSTRUTOR COLA NO PROJECT</span>
         <button class="copy-btn" onclick="copyText(this, document.getElementById('contexto-instrutor-text').textContent)">Copiar</button>
         <span id="contexto-instrutor-text">Contexto do departamento — Bram Offshore
@@ -909,7 +878,7 @@ A Bram opera embarcacoes de apoio (PSV, AHTS, RSV) para atendimento as plataform
 Tom: tecnico e profissional, com enfase em seguranca operacional.</span>
       </div>
 
-      <div class="copy-block dark" id="teste-instrutor" style="margin-top:14px;">
+      <div class="copy-block" id="teste-instrutor" style="margin-top:14px;">
         <span class="label">TESTE &mdash; INSTRUTOR ENVIA DENTRO DO PROJECT</span>
         <button class="copy-btn" onclick="copyText(this, document.getElementById('teste-instrutor-text').textContent)">Copiar</button>
         <span id="teste-instrutor-text">Preciso de um e-mail para o comandante solicitando o relatorio de horas de bordo de marco. Tom formal, direto ao ponto.</span>
@@ -931,7 +900,7 @@ Tom: tecnico e profissional, com enfase em seguranca operacional.</span>
       <h1 class="sec-title"><span class="snum">03.</span> Pratica &mdash; Criar o proprio Project</h1>
       <p class="sec-desc">Agora voces criam o Project de voces. Usem o template abaixo e adaptem para o seu departamento com o que ja sabem &mdash; mesmo que seja pouco.</p>
 
-      <div class="copy-block amber" id="template-aluno">
+      <div class="copy-block" id="template-aluno">
         <span class="label">TEMPLATE &mdash; VOCES FAZEM AGORA</span>
         <button class="copy-btn" onclick="copyText(this, document.getElementById('template-aluno-text').textContent)">Copiar</button>
         <span id="template-aluno-text">Contexto do departamento — Bram Offshore
