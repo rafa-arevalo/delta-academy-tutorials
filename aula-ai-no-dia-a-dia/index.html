@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI no Dia a Dia — Delta Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:#F5F0EB;color:#1A1A1A;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased}
+  .container{max-width:520px;width:100%}
+  .header{text-align:center;margin-bottom:32px}
+  .header-bar{background:#1F3331;border-radius:14px 14px 0 0;padding:24px 20px 18px;margin-bottom:0}
+  .header-bar h1{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:#F5F0EB;letter-spacing:0.04em;text-transform:uppercase}
+  .header-bar .subtitle{font-family:'Montserrat',sans-serif;font-size:0.72rem;color:#5C6C51;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:4px}
+  .header-info{background:#FFFFFF;border:1px solid #EDE8E2;border-top:none;border-radius:0 0 14px 14px;padding:16px 20px;text-align:left}
+  .header-info p{font-size:0.74rem;color:#4A4A4A;line-height:1.6;margin-bottom:6px}
+  .header-info p:last-child{margin-bottom:0}
+  .header-info strong{color:#1F3331;font-weight:600}
+  .section-label{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#5C6C51;margin:24px 0 12px;padding-left:4px}
+  .card{display:block;background:#fff;border:1px solid #EDE8E2;border-radius:10px;padding:20px;margin-bottom:12px;text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(0,0,0,0.04);transition:all 0.15s}
+  .card:hover{border-color:#5C6C51;box-shadow:0 4px 6px -1px rgba(31,51,49,0.1)}
+  .card.disabled{opacity:0.5;pointer-events:none}
+  .card-title{font-family:'Montserrat',sans-serif;font-size:0.88rem;font-weight:700;color:#1F3331;margin-bottom:4px}
+  .card-desc{font-size:0.74rem;color:#4A4A4A;line-height:1.5}
+  .card-tag{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:2px 8px;border-radius:4px;margin-bottom:8px}
+  .tag-modulo{background:#5C6C51;color:#F5F0EB}
+  .tag-soon{background:#EDE8E2;color:#7A7A7A}
+  .card-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-size:0.62rem;color:#7A7A7A}
+  .card-meta span{display:flex;align-items:center;gap:3px}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:#7A7A7A;text-decoration:none;margin-bottom:16px;transition:color 0.15s}
+  .back-link:hover{color:#1F3331}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back-link" href="../index.html"><span>&#8592;</span> Delta Academy</a>
+
+  <div class="header">
+    <div class="header-bar">
+      <h1>AI no Dia a Dia</h1>
+      <div class="subtitle">Delta Skills &middot; Tatico e Operacional</div>
+    </div>
+    <div class="header-info">
+      <p><strong>Formato:</strong> Online &middot; 4 modulos praticos</p>
+      <p><strong>Ferramentas:</strong> Perplexity (Free) + Claude (Free)</p>
+      <p><strong>Objetivo:</strong> Dominar prompts profissionais, criar Projects com contexto e gerar documentos no padrao da empresa</p>
+    </div>
+  </div>
+
+  <div class="section-label">Modulos da Aula</div>
+
+  <a class="card" href="modulo-01-prompt-bom-vs-ruim.html">
+    <span class="card-tag tag-modulo">Modulo 01</span>
+    <div class="card-title">01. Prompt bom vs. Prompt ruim</div>
+    <div class="card-desc">Aprenda o metodo PACE e transforme qualquer pedido em um prompt profissional. Gere um cartao de identidade visual da sua empresa.</div>
+    <div class="card-meta">
+      <span>&#127919; Metodo PACE</span>
+      <span>&#128196; Identidade Visual</span>
+      <span>&#9997;&#65039; Pratica</span>
+    </div>
+  </a>
+
+  <a class="card disabled" href="#">
+    <span class="card-tag tag-soon">Em breve</span>
+    <div class="card-title">02. Projects — Contexto Inteligente</div>
+    <div class="card-desc">Crie um Project no Claude com o contexto da sua empresa. Toda conversa comeca sabendo quem voce e e como trabalha.</div>
+    <div class="card-meta">
+      <span>&#128193; Projects</span>
+      <span>&#128218; Contexto</span>
+      <span>&#9997;&#65039; Pratica</span>
+    </div>
+  </a>
+
+  <a class="card disabled" href="#">
+    <span class="card-tag tag-soon">Em breve</span>
+    <div class="card-title">03. Documentos Profissionais</div>
+    <div class="card-desc">Gere relatorios, propostas e apresentacoes no padrao visual da empresa usando o Claude com contexto configurado.</div>
+    <div class="card-meta">
+      <span>&#128196; Relatorios</span>
+      <span>&#127912; Marca</span>
+      <span>&#9997;&#65039; Pratica</span>
+    </div>
+  </a>
+
+  <a class="card disabled" href="#">
+    <span class="card-tag tag-soon">Em breve</span>
+    <div class="card-title">04. Workflow Completo com AI</div>
+    <div class="card-desc">Conecte tudo: pesquisa no Perplexity, contexto no Project e geracao de entregaveis profissionais no Claude.</div>
+    <div class="card-meta">
+      <span>&#128279; Workflow</span>
+      <span>&#128640; Produtividade</span>
+      <span>&#9997;&#65039; Pratica</span>
+    </div>
+  </a>
+</div>
+</body>
+</html>

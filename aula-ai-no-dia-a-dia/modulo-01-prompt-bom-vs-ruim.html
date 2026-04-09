@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modulo 01 — Prompt bom vs. Prompt ruim · AI no Dia a Dia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F5F0EB;
+    --white: #FFFFFF;
+    --accent: #5C6C51;
+    --accent2: #1F3331;
+    --accent-light: #EDE8E2;
+    --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2;
+    --accent-text: #1F3331;
+    --text: #1A1A1A;
+    --text2: #4A4A4A;
+    --text3: #7A7A7A;
+    --text4: #B0A89F;
+    --border: #EDE8E2;
+    --border2: #DDD8D2;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar { width: 256px; min-width: 256px; background: #1F3331; border-right: 1px solid rgba(245,240,235,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
+  .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 16px; cursor: pointer; transition: all 0.15s; text-decoration: none; color: rgba(245,240,235,0.7); font-size: 0.78rem; font-weight: 400; border-left: 2px solid transparent; }
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; font-variant-numeric: tabular-nums; }
+  .nav-item.active .ni-num { color: #F5F0EB; }
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; color: rgba(245,240,235,0.5); opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+  .nav-item.completed .ni-check { opacity: 1; }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+
+  /* Main */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
+  .section { display: none; animation: fadeIn 0.25s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
+  .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; font-weight: 400; }
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin: 20px 0 8px; }
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+
+  /* Cards */
+  .overview-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+  .overview-card ul { list-style: none; margin-top: 8px; }
+  .overview-card ul li { padding: 3px 0; padding-left: 16px; position: relative; }
+  .overview-card ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* Comparison */
+  .comparison-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .comparison-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow-xs); }
+  .comparison-card h4 { font-size: 0.76rem; font-weight: 700; margin-bottom: 8px; }
+  .comparison-card .prompt-text { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #2A2A2A; line-height: 1.6; padding: 10px 12px; background: #F0EBE4; border: 1px solid #DDD8D2; border-radius: 6px; margin-bottom: 8px; white-space: pre-wrap; }
+  .comparison-card .result-text { font-size: 0.7rem; color: var(--text3); line-height: 1.5; font-style: italic; }
+  .bad-label { color: #DC2626; font-weight: 700; }
+  .good-label { color: #5C6C51; font-weight: 700; }
+
+  /* PACE cards */
+  .pace-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; box-shadow: var(--shadow-xs); border-left: 4px solid var(--accent); }
+  .pace-card .pace-letter { font-size: 1.1rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; display: inline; }
+  .pace-card .pace-name { font-size: 0.82rem; font-weight: 700; color: var(--text); display: inline; margin-left: 4px; }
+  .pace-card .pace-desc { font-size: 0.74rem; color: var(--text2); line-height: 1.5; margin-top: 6px; }
+  .pace-card .pace-example { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-radius: 6px; padding: 8px 12px; margin-top: 8px; font-size: 0.72rem; color: var(--accent-text); line-height: 1.5; font-style: italic; }
+
+  /* Ref table */
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+  .ref-table th { background: #EDE8E2; color: var(--text2); font-weight: 600; text-align: left; padding: 8px 12px; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .ref-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; font-size: 0.74rem; }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
+
+  /* Instructor note */
+  .instructor-note { background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
+
+  /* Tip box */
+  .tip-box { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
+
+  /* Warning box */
+  .warning-box { background: #FEF3E2; border: 1px solid #F5C96A; border-left: 3px solid #D97706; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .warning-box .warning-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #92610A; margin-bottom: 2px; }
+  .warning-box p { font-size: 0.74rem; color: #7A520D; line-height: 1.5; }
+
+  /* Copy block — Claude */
+  .copy-block { position: relative; background: #F0EBE4; border: 1px solid #DDD8D2; border-left: 3px solid #5C6C51; border-radius: 8px; padding: 20px 24px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+  .copy-block .label { font-family: 'Montserrat', system-ui, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block; }
+
+  /* Copy block — Perplexity */
+  .copy-block.perplexity { background: #EAF0E8; border-left-color: #3A5A38; }
+  .copy-block.perplexity .label { color: #3A5A38; }
+
+  .copy-btn { position: absolute; top: 8px; right: 8px; background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51; padding: 3px 10px; border-radius: 5px; font-size: 0.62rem; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
+
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 13px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .inst-num { font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+  /* Highlight block */
+  .highlight-block { background: var(--accent2); border-radius: 8px; padding: 16px 20px; margin: 14px 0; text-align: center; }
+  .highlight-block p { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; line-height: 1.5; }
+
+  /* Tool links */
+  .tool-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .tool-link { display: flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-decoration: none; transition: all 0.15s; box-shadow: var(--shadow-xs); }
+  .tool-link:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+  .tool-link .tl-name { font-size: 0.76rem; font-weight: 700; color: var(--accent2); }
+  .tool-link .tl-url { font-size: 0.62rem; color: var(--text3); }
+
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .comparison-row, .tool-links { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice</a>
+      <h2>Prompt bom vs. Prompt ruim</h2>
+      <p>Modulo 01 &middot; AI no Dia a Dia</p>
+    </div>
+    <div class="sidebar-badges">
+      <span class="sidebar-badge">Modulo 01</span>
+    </div>
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+          <span class="ni-num">00</span> Introducao
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Teoria</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+          <span class="ni-num">01</span> Prompt ruim vs. bom
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
+          <span class="ni-num">02</span> O metodo PACE
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Demonstracao</div>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+          <span class="ni-num">03</span> Demo ao vivo
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Atividade Pratica</div>
+        <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+          <span class="ni-num">04</span> Passo 1 — Perplexity
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+          <span class="ni-num">05</span> Passo 2 — Claude
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')">
+          <span class="ni-num">06</span> Apresentacao
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso — <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- ==================== 00. INTRODUCAO ==================== -->
+    <div class="section active" id="sec-home">
+      <div class="sec-title"><span class="snum">00.</span> Introducao</div>
+      <div class="sec-desc">Prompt bom vs. Prompt ruim &middot; Metodo PACE</div>
+
+      <p class="lead-text">Voces ja usaram ChatGPT, Claude, Perplexity e Manus AI. Conhecem as ferramentas. Mas o resultado que cada uma entrega depende diretamente de como voce faz o pedido. Um prompt ruim entrega uma resposta generica. Um prompt bom entrega algo que voce usa de verdade — direto para o trabalho.</p>
+
+      <p class="lead-text">Neste modulo voces aprendem o metodo PACE — uma estrutura simples de 4 elementos que transforma qualquer pedido em um prompt profissional. E ja vao aplicar na pratica: ao final, cada um tera um cartao visual da identidade da propria empresa gerado pelo Claude.</p>
+
+      <div class="overview-card">
+        <h3>Objetivos de aprendizagem</h3>
+        <ul>
+          <li>Identificar a diferenca entre um prompt ruim e um prompt bom</li>
+          <li>Aplicar os 4 elementos do metodo PACE em qualquer pedido</li>
+          <li>Gerar um mini guia de identidade visual da propria empresa via Perplexity</li>
+          <li>Criar um cartao visual da identidade da empresa como Artifact no Claude</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Estrutura do modulo</h3>
+        <table class="ref-table" style="margin-top:8px">
+          <thead><tr><th>Secao</th><th>Conteudo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>01–02</strong></td><td>Teoria — Prompt ruim vs. bom + Metodo PACE</td></tr>
+            <tr><td><strong>03</strong></td><td>Demonstracao ao vivo pelo instrutor</td></tr>
+            <tr><td><strong>04–05</strong></td><td>Atividade pratica em 2 passos (Perplexity + Claude)</td></tr>
+            <tr><td><strong>06</strong></td><td>Apresentacao e entregaveis</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <h3>Ferramentas necessarias</h3>
+        <p><strong>Perplexity</strong> — perplexity.ai (conta gratuita)<br><strong>Claude</strong> — claude.ai (conta gratuita)</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goHome()">&#8617; Inicio</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 01. PROMPT RUIM vs. PROMPT BOM ==================== -->
+    <div class="section" id="sec-step1">
+      <div class="sec-title"><span class="snum">01.</span> Prompt ruim vs. Prompt bom</div>
+      <div class="sec-desc">O mesmo pedido, duas formas. O resultado e completamente diferente.</div>
+
+      <p class="lead-text">Veja o mesmo pedido feito de duas formas. O tema e identico. O resultado e completamente diferente.</p>
+
+      <div class="comparison-row">
+        <div class="comparison-card">
+          <h4 class="bad-label">Prompt ruim</h4>
+          <div class="prompt-text">Me faz um relatorio de vendas.</div>
+          <p class="result-text">Resultado: texto generico, sem estrutura, sem dados relevantes, sem formato utilizavel. Voce vai gastar mais tempo editando do que teria gasto escrevendo do zero.</p>
+        </div>
+        <div class="comparison-card">
+          <h4 class="good-label">Prompt bom</h4>
+          <div class="prompt-text">Voce e um analista de vendas B2B com experiencia em empresas de servicos. Elabore um relatorio executivo de desempenho de vendas do mes de abril para apresentar a diretoria. O relatorio deve incluir: resumo de resultados, comparativo com a meta, principais clientes e proximos passos. Formate em documento profissional com secoes claras, pronto para apresentacao.</div>
+          <p class="result-text">Resultado: documento estruturado, com as secoes certas, no tom certo, pronto para usar.</p>
+        </div>
+      </div>
+
+      <div class="highlight-block">
+        <p>Quanto mais contexto e clareza voce da, menos trabalho voce faz depois.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 02. O METODO PACE ==================== -->
+    <div class="section" id="sec-step2">
+      <div class="sec-title"><span class="snum">02.</span> O metodo PACE</div>
+      <div class="sec-desc">4 elementos que garantem um resultado profissional</div>
+
+      <p class="lead-text">O PACE e uma estrutura de 4 elementos que garante que seu prompt tenha tudo o que a IA precisa para entregar um resultado profissional. Funciona para Claude, ChatGPT, Perplexity — qualquer ferramenta.</p>
+
+      <div class="pace-card">
+        <span class="pace-letter">P</span>
+        <span class="pace-name">— Persona</span>
+        <p class="pace-desc">Qual papel profissional a IA assume</p>
+        <div class="pace-example">"Voce e um especialista em branding..."</div>
+      </div>
+
+      <div class="pace-card">
+        <span class="pace-letter">A</span>
+        <span class="pace-name">— Acao</span>
+        <p class="pace-desc">O que exatamente ela deve fazer</p>
+        <div class="pace-example">"...acesse o site, extraia a identidade visual e crie um mini guia"</div>
+      </div>
+
+      <div class="pace-card">
+        <span class="pace-letter">C</span>
+        <span class="pace-name">— Contexto</span>
+        <p class="pace-desc">Para quem, onde e por que</p>
+        <div class="pace-example">"...sera usado como arquivo de contexto no Claude para gerar documentos no padrao da empresa"</div>
+      </div>
+
+      <div class="pace-card">
+        <span class="pace-letter">E</span>
+        <span class="pace-name">— Expectativa</span>
+        <p class="pace-desc">Como o resultado deve chegar</p>
+        <div class="pace-example">"...em texto simples com exatamente esta estrutura: secoes 1 a 5"</div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra</div>
+        <p>Se o seu prompt nao tem os 4 elementos, a IA vai inventar o que esta faltando — e o resultado vai ser generico.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 03. DEMONSTRACAO AO VIVO ==================== -->
+    <div class="section" id="sec-step3">
+      <div class="sec-title"><span class="snum">03.</span> Demonstracao ao vivo</div>
+      <div class="sec-desc">O instrutor mostra o PACE em acao</div>
+
+      <p class="lead-text">O instrutor vai mostrar o metodo PACE em acao. Primeiro o prompt ruim, depois o prompt PACE — com o mesmo tema. Observem a diferenca no resultado.</p>
+
+      <div class="section-divider">Prompt ruim</div>
+
+      <div class="copy-block" id="demo-bad">
+<span class="label">Prompt — Claude</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-bad-text').textContent)">Copiar</button>
+<span id="demo-bad-text">Me faz um e-mail para um cliente que atrasou o pagamento.</span></div>
+
+      <div class="section-divider" style="margin-top:20px">Prompt PACE</div>
+
+      <div class="copy-block" id="demo-good">
+<span class="label">Prompt — Claude</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-good-text').textContent)">Copiar</button>
+<span id="demo-good-text">P: Voce e um profissional de cobranca corporativa com experiencia em manter bom relacionamento com clientes.
+
+A: Escreva um e-mail de cobranca para um cliente que esta com um pagamento em atraso ha 15 dias.
+
+C: O tom deve ser profissional e preservar o relacionamento comercial. A empresa e prestadora de servicos B2B e este cliente e recorrente e estrategico.
+
+E: E-mail com assunto, saudacao, corpo em ate 3 paragrafos e despedida formal. Pronto para enviar.</span></div>
+
+      <div class="instructor-note">
+        <div class="note-label">Nota do instrutor</div>
+        <p>Mostrem os dois resultados lado a lado. Perguntem: qual voces enviariam sem editar? O PACE nao e sobre escrever mais — e sobre escrever o certo.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 04. PASSO 1 — PERPLEXITY ==================== -->
+    <div class="section" id="sec-step4">
+      <div class="sec-title"><span class="snum">04.</span> Passo 1 — Perplexity</div>
+      <div class="sec-desc">Gere um mini guia de identidade visual da sua empresa</div>
+
+      <p class="lead-text">Agora e a vez de voces. A atividade tem dois passos. No primeiro, voces usam o Perplexity para gerar um mini guia de identidade visual da propria empresa. No segundo, usam o resultado para criar um cartao visual no Claude.</p>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://www.perplexity.ai" target="_blank">
+          <div>
+            <div class="tl-name">Perplexity</div>
+            <div class="tl-url">perplexity.ai</div>
+          </div>
+        </a>
+        <a class="tool-link" href="https://claude.ai" target="_blank">
+          <div>
+            <div class="tl-name">Claude</div>
+            <div class="tl-url">claude.ai</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Abram o <strong>Perplexity</strong> no navegador</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Copiem o prompt abaixo</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Substituam <strong>[URL da empresa]</strong> pela URL do site da empresa de voces</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Rodem o prompt e aguardem o resultado</div>
+        </div>
+      </div>
+
+      <div class="copy-block perplexity" id="prompt-perplexity">
+<span class="label">Prompt — Perplexity</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-perplexity-text').textContent)">Copiar</button>
+<span id="prompt-perplexity-text">P: Voce e um especialista em branding e identidade visual com experiencia em analisar sites institucionais e criar guias de marca praticos e objetivos.
+
+A: Acesse o site [URL da empresa], analise todos os elementos visuais e de comunicacao disponiveis, extraia a identidade visual completa e crie um mini guia de identidade visual.
+
+C: Este guia sera usado como arquivo de contexto dentro de um Project do Claude para que a IA gere documentos, relatorios e apresentacoes automaticamente no padrao visual e de comunicacao da empresa. Por isso precisa ser especifico, pratico e conter instrucoes diretas de aplicacao.
+
+E: Gere o mini guia em texto simples com exatamente esta estrutura:
+
+# Guia de Identidade Visual — [Nome da Empresa]
+
+## 1. Sobre a Empresa
+- Nome oficial
+- Setor de atuacao
+- Posicionamento percebido (1-2 frases)
+
+## 2. Paleta de Cores
+Para cada cor identificada:
+- Nome da cor
+- Codigo hex
+- Quando usar (ex: titulos, fundos, destaques, CTAs)
+
+## 3. Tipografia
+- Fonte dos titulos: nome, peso, tamanho recomendado
+- Fonte do corpo de texto: nome, peso, tamanho recomendado
+- Hierarquia visual: como aplicar titulo, subtitulo e corpo
+
+## 4. Tom de Comunicacao
+- Adjetivos que definem o tom (ex: direto, tecnico, confiante)
+- O que usar: exemplos de linguagem adequada
+- O que evitar: exemplos de linguagem fora do tom
+
+## 5. Aplicacao em Documentos pelo Claude
+Instrucoes diretas para o Claude aplicar esta identidade ao gerar documentos, relatorios e apresentacoes:
+- Como formatar titulos e cabecalhos
+- Como usar as cores nos elementos visuais
+- Qual tom adotar nas comunicacoes escritas
+- Exemplo de abertura de documento no padrao da empresa
+
+---
+*Mini guia gerado automaticamente com base no site institucional. Validar com o time de marketing antes de uso oficial.*
+
+Preencha todas as secoes com as informacoes encontradas no site. Onde nao houver informacao suficiente, escreva "A definir — consultar time de marketing" em vez de inventar.</span></div>
+
+      <div class="warning-box">
+        <div class="warning-label">Plano B — Se o Perplexity nao acessar o site</div>
+        <p>Se o Perplexity nao conseguir acessar o site da sua empresa (intranets, sites com bloqueio ou paginas muito simples), preencham o template abaixo com o que ja sabem da empresa.</p>
+      </div>
+
+      <div class="copy-block" id="template-manual">
+<span class="label">Template — Preenchimento Manual</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('template-manual-text').textContent)">Copiar</button>
+<span id="template-manual-text"># Guia de Identidade Visual — [Nome da Empresa]
+
+## 1. Sobre a Empresa
+- Nome oficial: [preencher]
+- Setor de atuacao: [preencher]
+- Posicionamento: [preencher]
+
+## 2. Paleta de Cores
+- Cor principal: [nome] — [hex se souber] — uso: [preencher]
+- Cor secundaria: [nome] — [hex se souber] — uso: [preencher]
+- Cor de destaque: [nome] — [hex se souber] — uso: [preencher]
+
+## 3. Tipografia
+- Fonte dos titulos: [preencher ou "A definir"]
+- Fonte do corpo: [preencher ou "A definir"]
+
+## 4. Tom de Comunicacao
+- Adjetivos: [preencher — ex: formal, tecnico, proximo]
+- O que usar: [preencher]
+- O que evitar: [preencher]
+
+## 5. Aplicacao em Documentos pelo Claude
+- Usar as cores identificadas em headers e destaques
+- Manter tom [preencher] em todos os textos gerados
+- Nome da empresa sempre como: [preencher]</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 05. PASSO 2 — CLAUDE ==================== -->
+    <div class="section" id="sec-step5">
+      <div class="sec-title"><span class="snum">05.</span> Passo 2 — Claude</div>
+      <div class="sec-desc">Crie um cartao visual da identidade da empresa</div>
+
+      <p class="lead-text">Com o mini guia gerado pelo Perplexity, agora voces vao pedir ao Claude para criar um cartao visual da identidade da empresa como Artifact. Copiem o prompt abaixo, colem o resultado do Passo 1 onde indicado e rodem no Claude.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Abram o <strong>Claude</strong> no navegador</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Copiem o prompt abaixo</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Colem o <strong>resultado do Passo 1</strong> onde indicado no final do prompt</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Rodem e aguardem o Artifact ser gerado</div>
+        </div>
+      </div>
+
+      <div class="copy-block" id="prompt-claude">
+<span class="label">Prompt — Claude</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-claude-text').textContent)">Copiar</button>
+<span id="prompt-claude-text">P: Voce e um designer especializado em criar materiais de referencia visual limpos e profissionais.
+
+A: Com base no guia de identidade visual abaixo, crie um Artifact em HTML com um cartao visual resumido da identidade visual da minha empresa.
+
+C: Este cartao sera usado como referencia rapida da identidade visual da empresa e como demonstracao de que o Claude consegue aplicar a identidade corretamente em materiais visuais.
+
+E: O cartao deve conter:
+- Nome da empresa em destaque com a fonte e cor corretas
+- Paleta de cores: blocos coloridos com nome e codigo hex de cada cor
+- Tipografia: exemplo visual dos titulos e corpo de texto nas fontes corretas
+- Tom de comunicacao: 3 adjetivos em destaque
+
+O resultado deve parecer um cartao de referencia visual — limpo, organizado, fiel a identidade da empresa e pronto para apresentar.
+
+[cole aqui o resultado do Passo 1]</span></div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se o resultado nao ficar fiel a identidade da empresa, ajustem o prompt adicionando mais detalhes no contexto — como cores especificas ou o tom exato que a empresa usa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 06. APRESENTACAO ==================== -->
+    <div class="section" id="sec-step6">
+      <div class="sec-title"><span class="snum">06.</span> Apresentacao</div>
+      <div class="sec-desc">Compartilhe o resultado com a turma</div>
+
+      <p class="lead-text">O instrutor vai sortear alguns colegas para apresentar o cartao gerado. Cada apresentacao deve seguir o roteiro abaixo e durar no maximo <strong>1 minuto</strong>.</p>
+
+      <div class="overview-card">
+        <h3>Roteiro de apresentacao</h3>
+        <ul>
+          <li><strong>Mostre o cartao</strong> — compartilhe a tela com o Artifact gerado pelo Claude</li>
+          <li><strong>Diga o nome da empresa</strong> e o setor em que atua</li>
+          <li><strong>Avalie o resultado</strong> — o Claude acertou as cores e o tom da empresa? O que ficou bem? O que ficou diferente?</li>
+          <li><strong>Mostre o prompt</strong> que voce usou — explique qual elemento do PACE voce acha que fez mais diferenca no resultado</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Entregavel do modulo</h3>
+        <ul class="checklist">
+          <li>Mini guia de identidade visual gerado no Perplexity (texto simples)</li>
+          <li>Cartao visual da identidade da empresa gerado no Claude (Artifact)</li>
+          <li>Consegue explicar os 4 elementos do PACE com as proprias palavras</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Conexao com o proximo modulo</div>
+        <p>O mini guia que voces geraram agora vai virar o primeiro arquivo de contexto do Project que voces vao criar no proximo modulo. Guardem o texto — vao precisar dele.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="goHome()">&#8617; Voltar ao inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+
+function goHome() { showSection('sec-home') }
+
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
+}
+
+updateProgress()
+</script>
+</body>
+</html>
