@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modulo 04 — Mapa de Oportunidades · AI no Dia a Dia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F5F0EB;
+    --white: #FFFFFF;
+    --accent: #5C6C51;
+    --accent2: #1F3331;
+    --accent-light: #EDE8E2;
+    --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2;
+    --accent-text: #1F3331;
+    --text: #1A1A1A;
+    --text2: #4A4A4A;
+    --text3: #7A7A7A;
+    --text4: #B0A89F;
+    --border: #EDE8E2;
+    --border2: #DDD8D2;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar { width: 256px; min-width: 256px; background: #1F3331; border-right: 1px solid rgba(245,240,235,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(245,240,235,0.2); border-radius: 3px; }
+  .sidebar-header { padding: 20px 16px 16px; border-bottom: 1px solid rgba(245,240,235,0.1); }
+  .sidebar-header h2 { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; }
+  .sidebar-header p { font-size: 0.65rem; color: #5C6C51; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-top: 2px; }
+  .sidebar-header .back-link { font-size: 0.68rem; color: rgba(245,240,235,0.5); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 8px; font-weight: 600; transition: color 0.15s; }
+  .sidebar-header .back-link:hover { color: #F5F0EB; }
+  .sidebar-badges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .sidebar-badge { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 4px; background: #5C6C51; color: #F5F0EB; }
+  .nav-group { padding: 12px 0 4px; }
+  .nav-group-title { padding: 2px 16px 6px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,235,0.4); }
+  .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 16px; cursor: pointer; transition: all 0.15s; text-decoration: none; color: rgba(245,240,235,0.7); font-size: 0.78rem; font-weight: 400; border-left: 2px solid transparent; }
+  .nav-item:hover { background: rgba(92,108,81,0.2); color: #F5F0EB; }
+  .nav-item.active { background: #5C6C51; color: #F5F0EB; border-left-color: #F5F0EB; font-weight: 600; }
+  .nav-item .ni-num { font-size: 0.62rem; font-weight: 600; color: rgba(245,240,235,0.4); min-width: 17px; font-variant-numeric: tabular-nums; }
+  .nav-item.active .ni-num { color: #F5F0EB; }
+  .nav-item .ni-check { margin-left: auto; font-size: 0.62rem; color: rgba(245,240,235,0.5); opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
+  .nav-item.completed .ni-check { opacity: 1; }
+  .sidebar-progress { padding: 14px 16px; border-top: 1px solid rgba(245,240,235,0.1); margin-top: auto; }
+  .sp-label { font-size: 0.62rem; color: rgba(245,240,235,0.5); font-weight: 500; margin-bottom: 6px; }
+  .sp-bar { height: 3px; background: rgba(245,240,235,0.1); border-radius: 2px; overflow: hidden; }
+  .sp-fill { height: 100%; background: #5C6C51; border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+
+  /* Main */
+  .main { flex: 1; padding: 20px 36px 40px; max-width: 740px; }
+  .section { display: none; animation: fadeIn 0.25s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+  .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 3px; }
+  .sec-title .snum { color: var(--accent); }
+  .sec-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 18px; font-weight: 400; }
+  .section-divider { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin: 20px 0 8px; }
+  .lead-text { font-size: 0.82rem; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+
+  /* Cards */
+  .overview-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .overview-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .overview-card p, .overview-card li { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+  .overview-card ul { list-style: none; margin-top: 8px; }
+  .overview-card ul li { padding: 3px 0; padding-left: 16px; position: relative; }
+  .overview-card ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* Comparison */
+  .comparison-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .comparison-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow-xs); }
+  .comparison-card h4 { font-size: 0.76rem; font-weight: 700; margin-bottom: 8px; }
+  .comparison-card.bad { background: #FEF2F2; border-color: #FECACA; }
+  .comparison-card.good { background: #F0FDF4; border-color: #BBF7D0; }
+  .bad-label { color: #DC2626; font-weight: 700; }
+  .good-label { color: #059669; font-weight: 700; }
+
+  /* Criteria cards */
+  .criteria-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .criteria-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; box-shadow: var(--shadow-xs); }
+  .criteria-card.freq { border-top: 3px solid #5C6C51; }
+  .criteria-card.tempo { border-top: 3px solid #1F3331; }
+  .criteria-card.impacto { border-top: 3px solid #C47A00; }
+  .criteria-card .cc-title { font-size: 0.875rem; font-weight: 700; color: var(--accent2); margin-bottom: 8px; }
+  .criteria-card .cc-question { font-size: 0.74rem; color: var(--text2); font-weight: 600; margin-bottom: 8px; }
+  .criteria-card .cc-levels { list-style: none; font-size: 0.72rem; color: var(--text2); line-height: 1.6; }
+  .criteria-card .cc-levels li { padding: 2px 0; }
+  .criteria-card .cc-rule { font-size: 0.68rem; color: var(--accent); font-weight: 600; font-style: italic; margin-top: 8px; }
+
+  /* Ref table */
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+  .ref-table th { background: #EDE8E2; color: var(--text2); font-weight: 600; text-align: left; padding: 8px 12px; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  .ref-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; font-size: 0.74rem; }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td strong { color: var(--text); font-weight: 600; }
+
+  /* Instructor note */
+  .instructor-note { background: #1F3331; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .instructor-note .note-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5C6C51; margin-bottom: 4px; }
+  .instructor-note p { font-size: 0.74rem; color: #F5F0EB; line-height: 1.55; }
+
+  /* Tip box */
+  .tip-box { background: var(--accent-lighter); border: 1px solid var(--accent-border); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .tip-box .tip-label { font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2px; }
+  .tip-box p { font-size: 0.74rem; color: var(--accent-text); line-height: 1.5; }
+
+  /* Copy block — Claude / Prompt 1 */
+  .copy-block { position: relative; background: #F0EBE4; border: 1px solid #DDD8D2; border-left: 3px solid #5C6C51; border-radius: 8px; padding: 20px 24px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #2A2A2A; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+  .copy-block .label { font-family: 'Montserrat', system-ui, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5C6C51; margin-bottom: 6px; display: block; }
+
+  /* Copy block — Prompt 2 (Execucao) */
+  .copy-block.exec { background: #EAF0E8; border-left-color: #1F3331; }
+  .copy-block.exec .label { color: #1F3331; }
+
+  .copy-btn { position: absolute; top: 8px; right: 8px; background: #EDE8E2; border: 1px solid #DDD8D2; color: #5C6C51; padding: 3px 10px; border-radius: 5px; font-size: 0.62rem; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .copy-btn:hover { background: #1F3331; color: #F5F0EB; border-color: #1F3331; }
+
+  /* Instructions */
+  .instructions { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .inst { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 13px; background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .inst-num { font-size: 0.56rem; font-weight: 700; color: #fff; background: #5C6C51; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .inst-text { font-size: 0.76rem; color: var(--text); line-height: 1.5; flex: 1; min-width: 0; }
+  .inst-text strong { font-weight: 600; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 14px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+  /* Highlight block */
+  .highlight-block { background: var(--accent2); border-radius: 8px; padding: 16px 20px; margin: 14px 0; text-align: center; }
+  .highlight-block p { font-size: 0.88rem; font-weight: 700; color: #F5F0EB; line-height: 1.5; }
+
+  /* Tool links */
+  .tool-links { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 14px 0; }
+  .tool-link { display: flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-decoration: none; transition: all 0.15s; box-shadow: var(--shadow-xs); }
+  .tool-link:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+  .tool-link .tl-name { font-size: 0.76rem; font-weight: 700; color: var(--accent2); }
+  .tool-link .tl-url { font-size: 0.62rem; color: var(--text3); }
+
+  /* Recap cards — 2x2 grid */
+  .recap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+  .recap-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 10px; padding: 20px; box-shadow: var(--shadow-xs); }
+  .recap-card .rc-num { font-size: 2rem; font-weight: 800; color: var(--border); line-height: 1; margin-bottom: 4px; }
+  .recap-card .rc-title { font-size: 0.875rem; font-weight: 700; color: var(--accent2); margin-bottom: 6px; }
+  .recap-card .rc-desc { font-size: 0.74rem; color: var(--text2); line-height: 1.55; }
+
+  /* Nav buttons */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--white); color: var(--text2); transition: all 0.15s; font-family: 'Montserrat', system-ui, sans-serif; }
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent2); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+    .comparison-row, .criteria-grid, .recap-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice</a>
+      <h2>Mapa de Oportunidades</h2>
+      <p>Modulo 04 &middot; AI no Dia a Dia</p>
+    </div>
+    <div class="sidebar-badges">
+      <span class="sidebar-badge">Modulo 04</span>
+    </div>
+    <div id="nav-main">
+      <div class="nav-group">
+        <div class="nav-group-title">Inicio</div>
+        <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+          <span class="ni-num">00</span> Introducao
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Teoria</div>
+        <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+          <span class="ni-num">01</span> O que e um Mapa
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
+          <span class="ni-num">02</span> 3 criterios
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Demonstracao</div>
+        <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+          <span class="ni-num">03</span> Demo ao vivo
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Atividade Pratica</div>
+        <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+          <span class="ni-num">04</span> Prompt 1 — Mapa
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+          <span class="ni-num">05</span> Prompt 2 — Execucao
+          <span class="ni-check">&#10003;</span>
+        </a>
+        <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')">
+          <span class="ni-num">06</span> Apresentacao
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Fechamento</div>
+        <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')">
+          <span class="ni-num">07</span> O que voce construiu
+          <span class="ni-check">&#10003;</span>
+        </a>
+      </div>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso — <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- ==================== 00. INTRODUCAO ==================== -->
+    <div class="section active" id="sec-home">
+      <div class="sec-title"><span class="snum">00.</span> Introducao</div>
+      <div class="sec-desc">Mapa de Oportunidades — De onde o Claude gera mais valor</div>
+
+      <p class="lead-text">Nos tres modulos anteriores voces aprenderam a escrever prompts com o PACE, criaram um Project com o contexto da propria empresa e geraram um Artifact util para o departamento. Agora vamos dar o passo final.</p>
+
+      <p class="lead-text">O Mapa de Oportunidades nao e uma lista de ideias genericas de uso de IA. E um mapeamento do seu trabalho real — as tarefas que voce faz toda semana — para identificar onde o Claude pode gerar mais valor. E ao final deste modulo, voces nao vao so mapear: vao gerar o Artifact da oportunidade mais importante e sair com algo concreto para usar ainda esta semana.</p>
+
+      <div class="overview-card">
+        <h3>Objetivos de aprendizagem</h3>
+        <ul>
+          <li>Entender o que e um Mapa de Oportunidades e por que ele parte do trabalho real</li>
+          <li>Aplicar os 3 criterios de priorizacao para escolher onde o Claude gera mais valor</li>
+          <li>Gerar o mapa e a tabela priorizada em um unico prompt dentro do Project</li>
+          <li>Criar o Artifact da oportunidade numero 1 e apresentar para a turma</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Estrutura do modulo</h3>
+        <table class="ref-table" style="margin-top:8px">
+          <thead><tr><th>Secao</th><th>Conteudo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>01–02</strong></td><td>Teoria — O que e um Mapa + 3 criterios de priorizacao</td></tr>
+            <tr><td><strong>03</strong></td><td>Demonstracao ao vivo pelo instrutor</td></tr>
+            <tr><td><strong>04–05</strong></td><td>Atividade pratica: Prompt 1 (mapa) + Prompt 2 (execucao)</td></tr>
+            <tr><td><strong>06</strong></td><td>Apresentacao e entregaveis</td></tr>
+            <tr><td><strong>07</strong></td><td>Fechamento — O que voce construiu hoje</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <h3>Ferramenta necessaria</h3>
+        <p><strong>Claude</strong> — claude.ai (conta gratuita) — dentro do Project criado no Modulo 02</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goHome()">&#8617; Inicio</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 01. O QUE E UM MAPA ==================== -->
+    <div class="section" id="sec-step1">
+      <div class="sec-title"><span class="snum">01.</span> O que e um Mapa de Oportunidades</div>
+      <div class="sec-desc">Parta do trabalho real, nao da ferramenta</div>
+
+      <p class="lead-text">A maioria das pessoas comeca a usar IA pensando em casos de uso abstratos — "posso usar para escrever textos", "pode ajudar com analises". O problema e que esse raciocinio nao chega no trabalho de verdade.</p>
+
+      <p class="lead-text">O Mapa de Oportunidades inverte essa logica. Em vez de partir da ferramenta, voce parte do seu trabalho — as tarefas que voce faz toda semana — e identifica onde um Artifact resolveria um problema concreto que voce ja tem.</p>
+
+      <div class="comparison-row">
+        <div class="comparison-card bad">
+          <h4 class="bad-label">Pensamento abstrato</h4>
+          <ul style="list-style:none;font-size:0.74rem;color:var(--text2);line-height:1.8">
+            <li style="padding:3px 0">"Posso usar IA para relatorios"</li>
+            <li style="padding:3px 0">"IA ajuda com comunicacao"</li>
+            <li style="padding:3px 0">"Da para automatizar processos"</li>
+          </ul>
+        </div>
+        <div class="comparison-card good">
+          <h4 class="good-label">Mapa de Oportunidades</h4>
+          <ul style="list-style:none;font-size:0.74rem;color:var(--text2);line-height:1.8">
+            <li style="padding:3px 0">"Gero o relatorio semanal toda segunda — leva 1h — posso gerar em 5 min"</li>
+            <li style="padding:3px 0">"Escrevo 3 e-mails de follow-up por semana — posso padronizar"</li>
+            <li style="padding:3px 0">"Faco o mesmo checklist todo mes — posso ter um template pronto"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-block">
+        <p>A diferenca e a especificidade. Quanto mais concreto for o problema, mais util vai ser o Artifact que resolve.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 02. 3 CRITERIOS ==================== -->
+    <div class="section" id="sec-step2">
+      <div class="sec-title"><span class="snum">02.</span> Os 3 criterios de priorizacao</div>
+      <div class="sec-desc">Frequencia, Tempo e Impacto</div>
+
+      <p class="lead-text">Com o mapa gerado, voce vai ter varias oportunidades. Para escolher por onde comecar, use estes tres criterios — o Claude vai aplica-los automaticamente no prompt da atividade.</p>
+
+      <div class="criteria-grid">
+        <div class="criteria-card freq">
+          <div class="cc-title">Frequencia</div>
+          <div class="cc-question">Com que regularidade essa tarefa acontece?</div>
+          <ul class="cc-levels">
+            <li><strong>Diaria:</strong> alto potencial — o ganho se acumula rapido</li>
+            <li><strong>Semanal:</strong> bom potencial — impacto visivel em semanas</li>
+            <li><strong>Mensal:</strong> potencial menor — mas ainda vale se for trabalhosa</li>
+          </ul>
+          <div class="cc-rule">Quanto mais frequente, maior a prioridade.</div>
+        </div>
+        <div class="criteria-card tempo">
+          <div class="cc-title">Tempo</div>
+          <div class="cc-question">Quanto tempo essa tarefa leva hoje sem o Claude?</div>
+          <ul class="cc-levels">
+            <li><strong>Mais de 1 hora:</strong> alto impacto — Artifact resolve em minutos</li>
+            <li><strong>30 a 60 min:</strong> bom impacto — reducao significativa</li>
+            <li><strong>Menos de 30 min:</strong> impacto menor — mas ganha consistencia</li>
+          </ul>
+          <div class="cc-rule">Quanto mais tempo leva hoje, maior o ganho.</div>
+        </div>
+        <div class="criteria-card impacto">
+          <div class="cc-title">Impacto</div>
+          <div class="cc-question">Para quem vai o resultado dessa tarefa?</div>
+          <ul class="cc-levels">
+            <li><strong>Diretoria ou cliente:</strong> alto impacto — qualidade importa muito</li>
+            <li><strong>Gestor ou equipe:</strong> bom impacto — agilidade e valorizada</li>
+            <li><strong>Uso proprio:</strong> impacto menor — mas ganha tempo</li>
+          </ul>
+          <div class="cc-rule">Quanto maior o publico, maior a prioridade.</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 03. DEMO AO VIVO ==================== -->
+    <div class="section" id="sec-step3">
+      <div class="sec-title"><span class="snum">03.</span> Demonstracao ao vivo</div>
+      <div class="sec-desc">O instrutor gera o mapa dentro do Project</div>
+
+      <p class="lead-text">O instrutor vai rodar o prompt de mapeamento dentro do proprio Project — com um contexto ficticio de um analista de operacoes. Observem como o Claude usa o contexto do Project para sugerir oportunidades especificas para aquele cargo.</p>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://claude.ai" target="_blank">
+          <div>
+            <div class="tl-name">Claude</div>
+            <div class="tl-url">claude.ai</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="copy-block" id="demo-prompt">
+<span class="label">Prompt — Claude (dentro do Project)</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
+<span id="demo-prompt-text">Sou analista de operacoes e estas sao as principais tarefas que realizo toda semana:
+
+1. Relatorio semanal de producao — compilo dados de 3 planilhas e monto um resumo para o gestor. Leva cerca de 2 horas toda segunda-feira.
+
+2. Ata de reuniao de alinhamento — registro o que foi discutido na reuniao semanal da equipe e distribuo por e-mail. Leva 45 minutos.
+
+3. Checklist de abertura de turno — verifico manualmente uma lista de 20 itens antes de cada turno e anoto em papel. Acontece 5 vezes por semana.
+
+4. E-mails de follow-up com fornecedores — escrevo de 3 a 5 e-mails por semana cobrando prazos ou confirmando entregas. Leva 30 minutos no total.
+
+5. Apresentacao mensal de indicadores — monto slides com os KPIs do mes para apresentar a diretoria. Leva meio dia de trabalho.
+
+Com base nessas tarefas, faca duas coisas em um unico Artifact em HTML:
+
+PARTE 1 — MAPA DE OPORTUNIDADES
+Para cada tarefa, identifique:
+- Tipo de Artifact que resolveria (documento, checklist, dashboard ou tabela)
+- Como o Artifact substituiria ou aceleraria a tarefa atual
+- Estimativa de tempo economizado por execucao
+
+PARTE 2 — TOP 3 PRIORIDADES
+Aplique os criterios de frequencia, tempo e impacto e selecione as 3 oportunidades de maior potencial.
+Apresente em tabela ordenada com:
+- Posicao (1o, 2o, 3o)
+- Tarefa
+- Tipo de Artifact
+- Frequencia
+- Tempo economizado por execucao
+- Para quem vai o resultado
+- Por que e a prioridade mais alta
+
+Use a identidade visual da minha empresa descrita no arquivo de contexto deste Project.</span></div>
+
+      <div class="instructor-note">
+        <div class="note-label">Nota do instrutor</div>
+        <p>Observem como o Claude usou o contexto do Project para aplicar o tom e a identidade visual da empresa — sem eu pedir explicitamente. E como as sugestoes sao especificas para o cargo de analista de operacoes, nao genericas. Isso e o que o Project faz pela qualidade do resultado.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 04. PROMPT 1 — MAPA ==================== -->
+    <div class="section" id="sec-step4">
+      <div class="sec-title"><span class="snum">04.</span> Prompt 1 — Mapa + Priorizacao</div>
+      <div class="sec-desc">Gerem o mapa completo em um unico prompt</div>
+
+      <p class="lead-text">Abram o Claude <strong>dentro do Project criado no Modulo 02</strong>. Copiem o prompt abaixo, substituam os campos entre colchetes com as tarefas reais de voces e rodem. Uma unica mensagem vai gerar o mapa completo e a tabela priorizada.</p>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://claude.ai" target="_blank">
+          <div>
+            <div class="tl-name">Claude &#8594; Projects &#8594; [seu Project]</div>
+            <div class="tl-url">claude.ai</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="copy-block" id="prompt1">
+<span class="label">Prompt 1 — Mapa + Priorizacao (dentro do Project)</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt1-text').textContent)">Copiar</button>
+<span id="prompt1-text">Estas sao as principais tarefas que realizo no meu trabalho:
+
+[Liste de 4 a 6 tarefas reais do seu dia a dia. Para cada uma, informe:
+- O que e a tarefa
+- Com que frequencia acontece (diaria, semanal, mensal)
+- Quanto tempo leva hoje]
+
+Exemplo de como preencher:
+"1. Relatorio semanal de atividades — toda segunda-feira — leva cerca de 1h30 para compilar e formatar"
+
+Com base nessas tarefas, faca duas coisas em um unico Artifact em HTML:
+
+PARTE 1 — MAPA DE OPORTUNIDADES
+Para cada tarefa, identifique:
+- Tipo de Artifact que resolveria (documento, checklist, dashboard ou tabela)
+- Como o Artifact substituiria ou aceleraria a tarefa atual
+- Estimativa de tempo economizado por execucao
+
+PARTE 2 — TOP 3 PRIORIDADES
+Aplique os criterios de frequencia, tempo e impacto e selecione as 3 oportunidades de maior potencial.
+Apresente em tabela ordenada com:
+- Posicao (1o, 2o, 3o)
+- Tarefa
+- Tipo de Artifact
+- Frequencia
+- Tempo economizado por execucao
+- Para quem vai o resultado
+- Por que e a prioridade mais alta
+
+Use a identidade visual da minha empresa descrita no arquivo de contexto deste Project.</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 05. PROMPT 2 — EXECUCAO ==================== -->
+    <div class="section" id="sec-step5">
+      <div class="sec-title"><span class="snum">05.</span> Prompt 2 — Execucao do Artifact</div>
+      <div class="sec-desc">Gerem o Artifact da oportunidade numero 1</div>
+
+      <p class="lead-text">Com o mapa e a tabela em maos, escolham a oportunidade numero 1 — a de maior prioridade — e gerem o Artifact agora, ainda dentro do Project.</p>
+
+      <p class="lead-text">Copiem o prompt abaixo, substituam os campos com os dados da oportunidade numero 1 da tabela de voces e rodem na mesma conversa dentro do Project.</p>
+
+      <div class="copy-block exec" id="prompt2">
+<span class="label">Prompt 2 — Execucao do Artifact (dentro do Project)</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt2-text').textContent)">Copiar</button>
+<span id="prompt2-text">Com base no mapa de oportunidades que acabamos de gerar, vou implementar a oportunidade numero 1:
+
+Tarefa: [nome da tarefa priorizada]
+Tipo de Artifact: [documento / checklist / dashboard / tabela]
+
+Gere este Artifact agora como HTML completo, pronto para uso real.
+
+O conteudo deve ser especifico para o meu departamento e cargo — nao generico. Use o contexto das minhas atividades e da minha empresa para preencher as secoes, campos e informacoes relevantes.
+
+Aplique a identidade visual da minha empresa descrita no arquivo de contexto deste Project.</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 06. APRESENTACAO ==================== -->
+    <div class="section" id="sec-step6">
+      <div class="sec-title"><span class="snum">06.</span> Apresentacao</div>
+      <div class="sec-desc">Compartilhem o mapa e o Artifact com a turma</div>
+
+      <p class="lead-text">O instrutor vai sortear alguns colegas para apresentar. Cada apresentacao deve seguir o roteiro abaixo e durar no maximo <strong>2 minutos</strong>.</p>
+
+      <div class="overview-card">
+        <h3>Roteiro de apresentacao</h3>
+        <ul>
+          <li><strong>Mostre a tabela de priorizacao</strong> — compartilhe a tela com o Artifact do Prompt 1 e explique quais foram as Top 3 oportunidades identificadas</li>
+          <li><strong>Explique a escolha da numero 1</strong> — por que essa oportunidade tem mais frequencia, tempo ou impacto do que as outras?</li>
+          <li><strong>Mostre o Artifact gerado</strong> — compartilhe o resultado do Prompt 2 com a turma</li>
+          <li><strong>Diga quando vai usar</strong> — em qual situacao real do trabalho voce vai usar esse Artifact ainda esta semana?</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Entregavel do modulo</h3>
+        <ul class="checklist">
+          <li>Listou as tarefas reais do proprio trabalho no prompt</li>
+          <li>O Artifact do Prompt 1 gerou o mapa e a tabela Top 3 no padrao da empresa</li>
+          <li>Escolheu a oportunidade numero 1 e gerou o Artifact do Prompt 2</li>
+          <li>Consegue explicar por que aquela oportunidade foi priorizada</li>
+          <li>Tem um plano concreto de quando vai usar o Artifact na semana seguinte</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 07. FECHAMENTO ==================== -->
+    <div class="section" id="sec-step7">
+      <div class="sec-title"><span class="snum">07.</span> O que voces construiram hoje</div>
+      <div class="sec-desc">Fechamento da aula — AI no Dia a Dia</div>
+
+      <div class="recap-grid">
+        <div class="recap-card">
+          <div class="rc-num">01</div>
+          <div class="rc-title">PACE</div>
+          <div class="rc-desc">Um metodo para escrever prompts que entregam resultados profissionais. Funciona no Claude, no ChatGPT, no Perplexity — em qualquer ferramenta.</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-num">02</div>
+          <div class="rc-title">Project</div>
+          <div class="rc-desc">Um espaco de trabalho personalizado com o contexto da sua empresa, do seu cargo e da identidade visual da marca. O Claude agora trabalha para voce.</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-num">03</div>
+          <div class="rc-title">Artifact</div>
+          <div class="rc-desc">A habilidade de transformar qualquer pedido em um documento, checklist, dashboard ou tabela — no padrao visual da sua empresa — sem edicao manual.</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-num">04</div>
+          <div class="rc-title">Mapa</div>
+          <div class="rc-desc">Um metodo para identificar sistematicamente onde o Claude pode entrar no seu trabalho real — e sair com uma lista priorizada de oportunidades.</div>
+        </div>
+      </div>
+
+      <div class="section-divider">A proxima semana</div>
+
+      <div class="overview-card">
+        <h3>Voces saem desta aula com tres coisas concretas</h3>
+        <ul>
+          <li><strong>O Project configurado</strong> — pronto para usar em qualquer conversa com o Claude</li>
+          <li><strong>O Artifact da oportunidade numero 1</strong> — para usar ainda esta semana</li>
+          <li><strong>A tabela Top 3</strong> — um plano de onde aplicar o Claude nas proximas semanas</li>
+        </ul>
+      </div>
+
+      <div class="highlight-block">
+        <p>A IA nao substitui o seu trabalho. Ela libera o seu tempo para o que realmente importa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="goHome()">&#8617; Voltar ao inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+
+function goHome() { showSection('sec-home') }
+
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
+}
+
+updateProgress()
+</script>
+</body>
+</html>
