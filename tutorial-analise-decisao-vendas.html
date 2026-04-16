@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — IA para Analise e Tomada de Decisao em Vendas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root {
+    --bg: #F9FAFB;
+    --white: #ffffff;
+    --accent: #57674E;
+    --accent2: #475840;
+    --accent-light: #EEF1EB;
+    --accent-lighter: #F5F7F3;
+    --accent-border: #C8D1C0;
+    --accent-text: #3D4A36;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --green-border: #A7F3D0;
+    --green-text: #065F46;
+    --yellow: #D97706;
+    --orange: #EA580C;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+    --text: #111827;
+    --text2: #6B7280;
+    --text3: #9CA3AF;
+    --text4: #D1D5DB;
+    --border: #E5E7EB;
+    --border2: #D1D5DB;
+    --bg2: #ffffff;
+    --surface2: #F9FAFB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    width: 256px;
+    min-width: 256px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .sidebar-header p {
+    font-size: 0.65rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .nav-group {
+    padding: 12px 0 4px;
+  }
+
+  .nav-group-title {
+    padding: 2px 16px 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.78rem;
+    font-weight: 450;
+    border-left: 2px solid transparent;
+    margin: 0;
+  }
+
+  .nav-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    background: var(--accent-lighter);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-item .ni-num {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text3);
+    min-width: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .ni-num { color: var(--accent); }
+
+  .nav-item .ni-check {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-item.completed .ni-check { opacity: 1; }
+
+  /* Progress */
+  .sidebar-progress {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .sp-label {
+    font-size: 0.62rem;
+    color: var(--text3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .sp-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sp-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    padding: 20px 36px 40px;
+    max-width: 700px;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section title */
+  .sec-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .sec-title .snum { color: var(--accent); }
+
+  .sec-desc {
+    font-size: 0.78rem;
+    color: var(--text2);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  /* Instructions */
+  .instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .inst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.15s;
+  }
+
+  .inst:hover { box-shadow: var(--shadow-sm); }
+
+  .inst-num {
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inst-text {
+    font-size: 0.76rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inst-text strong { font-weight: 600; }
+
+  .inst-text .field {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* Copy block */
+  .copy-block {
+    position: relative;
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .copy-block .label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* Tip box */
+  .tip-box {
+    background: var(--accent-lighter);
+    border: 1px solid var(--accent-border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .tip-box .tip-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tip-box .tip-label::before { content: '\1F4A1'; font-size: 0.65rem; }
+
+  .tip-box p {
+    font-size: 0.74rem;
+    color: var(--accent-text);
+    line-height: 1.5;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    border-left: 3px solid var(--red);
+    border-radius: 0 7px 7px 0;
+    padding: 9px 13px;
+    margin: 12px 0;
+  }
+
+  .warning-box .warning-label {
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    margin-bottom: 2px;
+  }
+
+  .warning-box p {
+    font-size: 0.74rem;
+    color: #991B1B;
+    line-height: 1.5;
+  }
+
+  /* Overview card */
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .overview-card h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .overview-card p, .overview-card li {
+    font-size: 0.76rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .overview-card ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+
+  .overview-card ul li {
+    margin-bottom: 4px;
+  }
+
+  /* Ref table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .ref-table th {
+    background: #F3F4F6;
+    color: var(--text2);
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 12px;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--white); color: var(--text2);
+    transition: all 0.15s; text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .nav-btn:hover { background: var(--accent-lighter); border-color: var(--accent-border); color: var(--accent); }
+
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-btn.primary:hover { background: var(--accent2); }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.76rem;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border2);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Inline link style */
+  a.inline-link {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  a.inline-link:hover { color: var(--accent2); }
+
+  /* Section text paragraph */
+  .sec-text {
+    font-size: 0.78rem;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .sec-text strong { color: var(--text); font-weight: 600; }
+
+  /* Sub-heading inside sections */
+  .sec-sub {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 18px 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 20px 16px 40px; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR ESQUERDA -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;">&larr; Indice</a>
+      <h2>IA para Analise e Tomada de Decisao em Vendas</h2>
+      <p>VENDAS &middot; Delta Skills</p>
+    </div>
+    <nav>
+      <div class="nav-group">
+        <div class="nav-group-title">Conteudo</div>
+        <div class="nav-item active" onclick="showSection('sec-home')" data-section="sec-home">
+          <span class="ni-num">00</span>Visao Geral<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step1')" data-section="sec-step1">
+          <span class="ni-num">01</span>Por que 3 ferramentas<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step2')" data-section="sec-step2">
+          <span class="ni-num">02</span>O que e ICP<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step3')" data-section="sec-step3">
+          <span class="ni-num">03</span>O que voce recebe<span class="ni-check">&check;</span>
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Demonstracao</div>
+        <div class="nav-item" onclick="showSection('sec-step4')" data-section="sec-step4">
+          <span class="ni-num">04</span>Etapa 1 — Perplexity<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step5')" data-section="sec-step5">
+          <span class="ni-num">05</span>Etapa 2 — Claude<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step6')" data-section="sec-step6">
+          <span class="ni-num">06</span>Etapa 3 — Manus AI<span class="ni-check">&check;</span>
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Pratica</div>
+        <div class="nav-item" onclick="showSection('sec-step7')" data-section="sec-step7">
+          <span class="ni-num">07</span>Atividade Pratica<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step8')" data-section="sec-step8">
+          <span class="ni-num">08</span>Revisao<span class="ni-check">&check;</span>
+        </div>
+        <div class="nav-item" onclick="showSection('sec-step9')" data-section="sec-step9">
+          <span class="ni-num">09</span>Entregavel<span class="ni-check">&check;</span>
+        </div>
+      </div>
+    </nav>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- ==================== SEÇÃO 00 — VISÃO GERAL ==================== -->
+    <div class="section active" id="sec-home">
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Introducao, objetivos de aprendizagem e budget de prompts</div>
+
+      <div class="overview-card">
+        <h3>O problema</h3>
+        <p>A maioria dos vendedores perde tempo prospectando empresas que nunca vao comprar &mdash; porque nao tem inteligencia suficiente sobre o mercado antes de sair abordando. O resultado e esforco disperso, pipeline cheio de oportunidades ruins e mensagens genericas que ninguem responde.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai aprender</h3>
+        <p>Um fluxo de tres etapas com tres ferramentas diferentes, cada uma com um papel especifico: o Perplexity pesquisa as melhores praticas de prospeccao para o seu contexto, o Claude transforma essa pesquisa em um prompt estrategico, e o Manus AI executa o trabalho pesado.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Objetivos de aprendizagem</h3>
+        <ul>
+          <li>Usar o Perplexity para levantar benchmarks e melhores praticas de prospeccao B2B para o seu produto e setor</li>
+          <li>Usar o Claude para transformar essa pesquisa em um prompt otimizado para execucao no Manus AI</li>
+          <li>Usar o Manus AI para gerar um workflow completo de prospeccao com prospects reais identificados</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Budget de prompts desta aula</h3>
+        <ul>
+          <li><strong>Perplexity Pro Search:</strong> 1 uso (Etapa 1)</li>
+          <li><strong>Claude Free:</strong> 1 mensagem (Etapa 2)</li>
+          <li><strong>Manus AI:</strong> 1 execucao (Etapa 3)</li>
+        </ul>
+        <p style="margin-top:8px;">Cada ferramenta e usada uma vez &mdash; o fluxo foi desenhado para ser economico e direto.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goHome()">&larr; Inicio</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 01 — POR QUE 3 FERRAMENTAS ==================== -->
+    <div class="section" id="sec-step1">
+      <div class="sec-title"><span class="snum">01.</span> Por que tres ferramentas e nao uma?</div>
+      <div class="sec-desc">Teoria &mdash; o papel de cada ferramenta no fluxo</div>
+
+      <p class="sec-text">Cada ferramenta deste fluxo faz uma coisa que as outras nao fazem bem:</p>
+
+      <div class="overview-card">
+        <h3>Perplexity</h3>
+        <p>Motor de pesquisa com IA. Acessa a web em tempo real, cruza multiplas fontes e sintetiza benchmarks de mercado. Melhor ferramenta para responder &ldquo;como as melhores empresas fazem isso?&rdquo; &mdash; mas nao executa tarefas complexas nem encontra prospects especificos.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Claude</h3>
+        <p>Modelo de linguagem com capacidade de raciocinio e geracao de texto. Recebe a pesquisa do Perplexity e a transforma em um prompt estruturado e detalhado &mdash; o tipo de instrucao que o Manus AI precisa para entregar um resultado de qualidade. Claude nao executa tarefas na web.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Manus AI</h3>
+        <p>Agente autonomo. Recebe o prompt estruturado, navega na internet, pesquisa prospects reais, cruza dados e entrega um workflow completo. E a ferramenta de execucao &mdash; mas so entrega resultado de qualidade quando recebe instrucoes bem estruturadas.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Logica do fluxo</div>
+        <p><strong>Perplexity informa &rarr; Claude estrutura &rarr; Manus AI executa.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-home')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 02 — O QUE É ICP ==================== -->
+    <div class="section" id="sec-step2">
+      <div class="sec-title"><span class="snum">02.</span> O que e ICP</div>
+      <div class="sec-desc">Teoria &mdash; Ideal Customer Profile</div>
+
+      <p class="sec-text"><strong>ICP</strong> significa Ideal Customer Profile &mdash; o perfil da empresa que mais se beneficia do que voce vende, tem capacidade de pagar e tende a fechar mais rapido.</p>
+
+      <p class="sec-text">Todo o fluxo desta aula gira em torno do ICP: a pesquisa no Perplexity e feita com base no seu produto e setor, e o Manus AI vai usar esse contexto para encontrar prospects que encaixam no perfil.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Voce nao precisa definir o ICP antes</div>
+        <p>O proprio Perplexity vai ajudar a construi-lo como parte da pesquisa, com base em dados reais do mercado.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step1')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 03 — O QUE VOCÊ VAI RECEBER ==================== -->
+    <div class="section" id="sec-step3">
+      <div class="sec-title"><span class="snum">03.</span> O que voce vai receber ao final</div>
+      <div class="sec-desc">Teoria &mdash; as entregas do workflow completo</div>
+
+      <p class="sec-text">Ao completar as tres etapas, o Manus AI vai entregar:</p>
+
+      <div class="overview-card">
+        <h3>Entregas do workflow</h3>
+        <ul>
+          <li>ICP detalhado com criterios firmograficos, tecnograficos e comportamentais</li>
+          <li>Buyer personas dos decisores envolvidos na compra</li>
+          <li>Cadencia de prospeccao multicanal com timing e criterios de avanco</li>
+          <li>6 templates de mensagens personalizadas (3 e-mail + 3 LinkedIn) em frameworks diferentes</li>
+          <li>Scorecard de qualificacao com sistema de pontuacao e criterios de go/no-go</li>
+          <li>Roteiro de discovery call para praticar como roleplay</li>
+          <li>Lista de 5 prospects reais com nome, cargo, empresa e link do LinkedIn</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step2')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 04 — DEMO ETAPA 1: PERPLEXITY ==================== -->
+    <div class="section" id="sec-step4">
+      <div class="sec-title"><span class="snum">04.</span> Demo: Etapa 1 &mdash; Perplexity</div>
+      <div class="sec-desc">Pesquisa de benchmarks e melhores praticas</div>
+
+      <p class="sec-text">Acompanhe o fluxo completo sendo executado ao vivo. O instrutor vai usar os dados da Delta Academy como empresa vendedora &mdash; observe como o output de uma etapa se torna o input da proxima.</p>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse <a class="inline-link" href="https://www.perplexity.ai" target="_blank">perplexity.ai</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o prompt abaixo substituindo as variaveis pelos dados da demonstracao</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Apos receber o resultado: <strong>selecione tudo e copie</strong>. Voce vai precisar desse texto na proxima etapa.</div>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <span class="label">Prompt para o Perplexity (demo)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('perplexity-demo').textContent)">Copiar</button>
+        <div id="perplexity-demo">Faca uma pesquisa aprofundada com base nas melhores praticas e benchmarks globais sobre prospeccao e qualificacao de leads B2B para o produto/servico educacao corporativa em IA da empresa Delta Academy, que atua no setor de educacao executiva e treinamentos B2B. Estruture a resposta abordando: (1) ICP — Ideal Customer Profile: caracteristicas firmograficas (porte, setor, faturamento, localizacao, estrutura de time), tecnograficas (ferramentas que ja usam) e comportamentais (sinais de compra) das empresas com maior probabilidade de se tornarem clientes do seu produto/servico; (2) Buyer Persona por papel decisor: perfis dos decisores e influenciadores envolvidos na compra — cargo, dores do dia a dia, objetivos, objecoes tipicas e canais preferidos de comunicacao; (3) Estrategias modernas de prospeccao outbound: sequencias multicanal (e-mail, LinkedIn, telefone, video), frameworks de copywriting para cold outreach (AIDA, PAS, BAB), cadencias recomendadas com numero de touchpoints e intervalos; (4) Frameworks de qualificacao de leads: comparativo entre BANT, MEDDIC, GPCTBA/C&amp;I e CHAMP — qual se aplica melhor ao contexto do setor informado e por que; (5) Benchmarks de metricas de prospeccao: taxas de resposta, taxas de conversao por canal, volume ideal de atividades diarias (e-mails, ligacoes, conexoes LinkedIn), tempo medio de ciclo de venda para o setor; (6) Personalizacao em escala com IA: como empresas de referencia usam IA para pesquisar prospects, gerar mensagens personalizadas, enriquecer dados de leads e priorizar pipeline; (7) Red Flags na qualificacao: sinais de que um lead nao e qualificado e deve ser descartado ou nutrido, evitando desperdicio de tempo do time comercial. Contextualize tudo para que a aplicacao seja compativel com empresas do setor de educacao executiva e treinamentos B2B no Brasil e America Latina.</div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step3')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 05 — DEMO ETAPA 2: CLAUDE ==================== -->
+    <div class="section" id="sec-step5">
+      <div class="sec-title"><span class="snum">05.</span> Demo: Etapa 2 &mdash; Gerar o prompt para o Manus AI</div>
+      <div class="sec-desc">Use o Claude ou o Manus Legendario para transformar a pesquisa em prompt</div>
+
+      <p class="sec-text">Voce tem duas opcoes para esta etapa &mdash; escolha uma:</p>
+
+      <div class="overview-card">
+        <h3>Opcao A &mdash; Claude</h3>
+        <p>Acesse <a class="inline-link" href="https://claude.ai" target="_blank">claude.ai</a></p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Opcao B &mdash; Manus Legendario (GPT customizado)</h3>
+        <p>Acesse <a class="inline-link" href="https://chatgpt.com/g/g-6809103e9b2c81918e5ce4408210e655-manus-lendario" target="_blank">Manus Legendario</a></p>
+        <p style="margin-top:4px;">Este GPT foi criado especificamente para transformar rascunhos em prompts otimizados para o Manus AI. Cole apenas o resultado do Perplexity e ele gera o prompt automaticamente, sem precisar de instrucoes adicionais.</p>
+      </div>
+
+      <p class="sec-text">Em ambos os casos, cole o prompt abaixo, substituindo as variaveis pelos dados da demonstracao e colando o resultado do Perplexity no campo indicado:</p>
+
+      <div class="copy-block">
+        <span class="label">Prompt para o Claude (demo)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('claude-demo').textContent)">Copiar</button>
+        <div id="claude-demo">Crie um prompt em markdown para eu usar no Manus AI e realizar a tarefa a seguir: Com base nas melhores praticas de mercado em prospeccao e qualificacao de leads B2B de alta conversao para o produto/servico educacao corporativa em IA, crie um workflow completo de prospeccao para a empresa Delta Academy, que atua no setor de educacao executiva e treinamentos B2B. A estrutura do workflow deve conter: 1. ICP Detalhado (Ideal Customer Profile): perfil firmografico, tecnografico e comportamental da empresa-alvo ideal, com criterios de inclusao e exclusao. 2. Buyer Personas dos Decisores: para cada persona envolvida na decisao de compra — cargo, dores, objetivos, objecoes tipicas, gatilhos de compra e canais preferidos. 3. Cadencia de Prospeccao Multicanal: sequencia completa de touchpoints (e-mail, LinkedIn, telefone) com timing, objetivo de cada etapa e criterios de avanco ou descarte. 4. Templates de Mensagens Personalizadas: 3 variacoes de primeiro contato para e-mail e 3 para LinkedIn — cada uma usando um framework diferente (AIDA, PAS, BAB), com campos de personalizacao marcados como variaveis. 5. Scorecard de Qualificacao de Leads: matriz com criterios ponderados baseados no framework mais adequado para o setor, com sistema de pontuacao e thresholds de go/no-go. 6. Roteiro de Discovery Call (Roleplay): simulacao de primeira reuniao com prospect, incluindo perguntas de diagnostico, mapeamento de dor, tratamento de objecoes e proximos passos. 7. Lista de 5 Prospects-Alvo (LinkedIn Sourcing): 5 empresas e contatos potenciais que se encaixam no ICP definido — nome do decisor, cargo, empresa, setor, localizacao e link do perfil LinkedIn. Adapte todas as entregas a realidade da empresa e aos detalhes do produto/servico e ICP informados.
+
+[Cole aqui o resultado completo copiado do Perplexity na Etapa 1]</div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>O Claude vai gerar um prompt em markdown estruturado e otimizado. Copie o resultado completo.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step4')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 06 — DEMO ETAPA 3: MANUS AI ==================== -->
+    <div class="section" id="sec-step6">
+      <div class="sec-title"><span class="snum">06.</span> Demo: Etapa 3 &mdash; Manus AI</div>
+      <div class="sec-desc">Executar o workflow completo</div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse <a class="inline-link" href="https://manus.im" target="_blank">manus.im</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o prompt gerado pelo Claude na Etapa 2 e execute</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Aguarde o Manus concluir &mdash; ele vai navegar na internet e entregar o workflow completo</div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai receber</h3>
+        <ul>
+          <li>ICP detalhado da sua empresa</li>
+          <li>Buyer personas dos decisores</li>
+          <li>Cadencia de prospeccao multicanal</li>
+          <li>6 templates de mensagens personalizadas</li>
+          <li>Scorecard de qualificacao com pontuacao e go/no-go</li>
+          <li>Roteiro de discovery call para roleplay</li>
+          <li>Lista de 5 prospects reais com nome, cargo, empresa e link do LinkedIn</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step5')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 07 — ATIVIDADE PRÁTICA ==================== -->
+    <div class="section" id="sec-step7">
+      <div class="sec-title"><span class="snum">07.</span> Atividade Pratica</div>
+      <div class="sec-desc">Execute o fluxo com os dados da sua propria empresa</div>
+
+      <div class="overview-card">
+        <h3>Exercicio individual</h3>
+        <p>Agora e a sua vez. Execute o mesmo fluxo das tres etapas usando os dados da sua propria empresa &mdash; o produto ou servico que voce vende e o setor em que atua.</p>
+        <p style="margin-top:8px;"><strong>Entregavel:</strong> workflow completo gerado pelo Manus AI com ICP, personas, cadencia, templates, scorecard e lista de 5 prospects reais.</p>
+        <p style="margin-top:8px;"><strong>Budget do exercicio:</strong></p>
+        <ul>
+          <li>Perplexity Pro Search: 1 uso</li>
+          <li>Claude Free: 1 mensagem</li>
+          <li>Manus AI: 1 execucao</li>
+        </ul>
+      </div>
+
+      <!-- Etapa 1 do exercício -->
+      <div class="sec-sub">Etapa 1 &mdash; Pesquisa de benchmarks no Perplexity</div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse <a class="inline-link" href="https://www.perplexity.ai" target="_blank">perplexity.ai</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o prompt abaixo <strong>substituindo as variaveis</strong> pelos dados da sua empresa</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Apos receber o resultado: selecione tudo e copie</div>
+        </div>
+      </div>
+
+      <div class="copy-block">
+        <span class="label">Prompt para o Perplexity (seu exercicio)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('perplexity-ex').textContent)">Copiar</button>
+        <div id="perplexity-ex">Faca uma pesquisa aprofundada com base nas melhores praticas e benchmarks globais sobre prospeccao e qualificacao de leads B2B para o produto/servico [produto/servico que a sua empresa vende] da empresa [nome da sua empresa], que atua no setor [setor da sua empresa]. Estruture a resposta abordando: (1) ICP — Ideal Customer Profile: caracteristicas firmograficas (porte, setor, faturamento, localizacao, estrutura de time), tecnograficas (ferramentas que ja usam) e comportamentais (sinais de compra) das empresas com maior probabilidade de se tornarem clientes do seu produto/servico; (2) Buyer Persona por papel decisor: perfis dos decisores e influenciadores envolvidos na compra — cargo, dores do dia a dia, objetivos, objecoes tipicas e canais preferidos de comunicacao; (3) Estrategias modernas de prospeccao outbound: sequencias multicanal (e-mail, LinkedIn, telefone, video), frameworks de copywriting para cold outreach (AIDA, PAS, BAB), cadencias recomendadas com numero de touchpoints e intervalos; (4) Frameworks de qualificacao de leads: comparativo entre BANT, MEDDIC, GPCTBA/C&amp;I e CHAMP — qual se aplica melhor ao contexto do setor informado e por que; (5) Benchmarks de metricas de prospeccao: taxas de resposta, taxas de conversao por canal, volume ideal de atividades diarias (e-mails, ligacoes, conexoes LinkedIn), tempo medio de ciclo de venda para o setor; (6) Personalizacao em escala com IA: como empresas de referencia usam IA para pesquisar prospects, gerar mensagens personalizadas, enriquecer dados de leads e priorizar pipeline; (7) Red Flags na qualificacao: sinais de que um lead nao e qualificado e deve ser descartado ou nutrido, evitando desperdicio de tempo do time comercial. Contextualize tudo para que a aplicacao seja compativel com empresas do setor [setor da sua empresa] no Brasil e America Latina.</div>
+      </div>
+
+      <!-- Etapa 2 do exercício -->
+      <div class="sec-sub">Etapa 2 &mdash; Gerar o prompt para o Manus AI</div>
+
+      <p class="sec-text">Voce tem duas opcoes: <strong>Opcao A</strong> &mdash; <a class="inline-link" href="https://claude.ai" target="_blank">claude.ai</a> | <strong>Opcao B</strong> &mdash; <a class="inline-link" href="https://chatgpt.com/g/g-6809103e9b2c81918e5ce4408210e655-manus-lendario" target="_blank">Manus Legendario</a></p>
+
+      <div class="copy-block">
+        <span class="label">Prompt para o Claude (seu exercicio)</span>
+        <button class="copy-btn" onclick="copyText(this, document.getElementById('claude-ex').textContent)">Copiar</button>
+        <div id="claude-ex">Crie um prompt em markdown para eu usar no Manus AI e realizar a tarefa a seguir: Com base nas melhores praticas de mercado em prospeccao e qualificacao de leads B2B de alta conversao para o produto/servico [produto/servico que a sua empresa vende], crie um workflow completo de prospeccao para a empresa [nome da sua empresa], que atua no setor [setor da sua empresa]. A estrutura do workflow deve conter: 1. ICP Detalhado (Ideal Customer Profile): perfil firmografico, tecnografico e comportamental da empresa-alvo ideal, com criterios de inclusao e exclusao. 2. Buyer Personas dos Decisores: para cada persona envolvida na decisao de compra — cargo, dores, objetivos, objecoes tipicas, gatilhos de compra e canais preferidos. 3. Cadencia de Prospeccao Multicanal: sequencia completa de touchpoints (e-mail, LinkedIn, telefone) com timing, objetivo de cada etapa e criterios de avanco ou descarte. 4. Templates de Mensagens Personalizadas: 3 variacoes de primeiro contato para e-mail e 3 para LinkedIn — cada uma usando um framework diferente (AIDA, PAS, BAB), com campos de personalizacao marcados como variaveis. 5. Scorecard de Qualificacao de Leads: matriz com criterios ponderados baseados no framework mais adequado para o setor, com sistema de pontuacao e thresholds de go/no-go. 6. Roteiro de Discovery Call (Roleplay): simulacao de primeira reuniao com prospect, incluindo perguntas de diagnostico, mapeamento de dor, tratamento de objecoes e proximos passos. 7. Lista de 5 Prospects-Alvo (LinkedIn Sourcing): 5 empresas e contatos potenciais que se encaixam no ICP definido — nome do decisor, cargo, empresa, setor, localizacao e link do perfil LinkedIn. Adapte todas as entregas a realidade da empresa e aos detalhes do produto/servico e ICP informados.
+
+[Cole aqui o resultado completo copiado do Perplexity na Etapa 1]</div>
+      </div>
+
+      <!-- Etapa 3 do exercício -->
+      <div class="sec-sub">Etapa 3 &mdash; Executar no Manus AI</div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Acesse <a class="inline-link" href="https://manus.im" target="_blank">manus.im</a></div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Cole o prompt gerado pelo Claude na Etapa 2 e execute</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Aguarde o Manus concluir &mdash; ele vai navegar na internet e entregar o workflow completo</div>
+        </div>
+      </div>
+
+      <!-- Plano B -->
+      <div class="sec-sub">Plano B &mdash; se a ferramenta travar</div>
+
+      <table class="ref-table">
+        <thead>
+          <tr><th>Situacao</th><th>O que fazer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Perplexity Pro Search esgotada</td><td>Use a busca padrao com o mesmo prompt &mdash; resultado menos aprofundado mas funcional</td></tr>
+          <tr><td>Claude atingiu o limite</td><td>Abra <a class="inline-link" href="https://chatgpt.com" target="_blank">chatgpt.com</a> e use o mesmo prompt da Etapa 2</td></tr>
+          <tr><td>Manus AI indisponivel</td><td>Salve o prompt gerado pelo Claude e execute apos a aula</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step6')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 08 — REVISÃO ==================== -->
+    <div class="section" id="sec-step8">
+      <div class="sec-title"><span class="snum">08.</span> Revisao</div>
+      <div class="sec-desc">O que voce viu nesta aula</div>
+
+      <div class="overview-card">
+        <h3>Introducao</h3>
+        <p>Prospectar sem inteligencia de mercado gera mensagens genericas e pipeline desqualificado. O fluxo desta aula resolve isso em tres etapas: pesquisar, estruturar e executar.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Teoria &mdash; Por que tres ferramentas</h3>
+        <p>Cada ferramenta tem um papel que as outras nao conseguem cumprir: Perplexity acessa a web e sintetiza benchmarks, Claude raciocina e estrutura instrucoes complexas, Manus AI age de forma autonoma e entrega resultados concretos. Trocar uma pela outra compromete o resultado.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Teoria &mdash; O que e ICP</h3>
+        <p>O perfil do cliente ideal nao precisa ser definido antes de comecar &mdash; o Perplexity ajuda a construi-lo como parte da pesquisa, com base em dados reais do mercado.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Teoria &mdash; O que voce recebe ao final</h3>
+        <p>Um workflow completo e pronto para usar: ICP, personas, cadencia, templates, scorecard, roteiro de call e lista de 5 prospects reais com LinkedIn.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Demonstracao &mdash; As 3 etapas</h3>
+        <ul>
+          <li>Perplexity (Pro Search) para levantar benchmarks e melhores praticas do seu setor</li>
+          <li>Claude para transformar essa pesquisa em um prompt otimizado para o Manus AI</li>
+          <li>Manus AI para executar o workflow e entregar prospects reais</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Atividade pratica</h3>
+        <p>Voce executou o fluxo completo com os dados da sua propria empresa &mdash; saindo com um workflow de prospeccao personalizado e uma lista de prospects reais prontos para abordar.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A regra que fica</div>
+        <p>A qualidade do que voce coloca no inicio determina a qualidade do que voce recebe no final. Um prompt vago no Perplexity gera benchmarks rasos. Benchmarks rasos geram um prompt fraco para o Manus. Um prompt fraco gera prospects genericos. <strong>Cada etapa alimenta a proxima &mdash; invista tempo na Etapa 1.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step7')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Proximo &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ==================== SEÇÃO 09 — ENTREGÁVEL ==================== -->
+    <div class="section" id="sec-step9">
+      <div class="sec-title"><span class="snum">09.</span> Entregavel</div>
+      <div class="sec-desc">Checklist e tarefa pos-aula</div>
+
+      <div class="overview-card">
+        <h3>Checklist</h3>
+        <ul class="checklist">
+          <li>Resultado da pesquisa do Perplexity salvo</li>
+          <li>Prompt gerado pelo Claude salvo</li>
+          <li>Workflow completo gerado pelo Manus AI</li>
+          <li>ICP e personas revisados e salvos para uso futuro</li>
+          <li>Lista de 5 prospects reais com LinkedIn para abordar esta semana</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Tarefa pos-aula</h3>
+        <p>Use a lista de 5 prospects gerada pelo Manus AI para iniciar a prospeccao real nos proximos 7 dias. Para cada prospect, escolha um dos templates gerados e personalize com um detalhe especifico da empresa antes de enviar.</p>
+        <p style="margin-top:8px;"><strong>Criterio de conclusao:</strong> 5 prospects abordados com mensagens personalizadas + respostas registradas para analise na proxima aula.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="showSection('sec-step8')">&larr; Anterior</button>
+        <button class="nav-btn primary" onclick="goHome()">&larr; Inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+
+function goHome() { showSection('sec-home') }
+
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
+}
+
+updateProgress()
+</script>
+</body>
+</html>
