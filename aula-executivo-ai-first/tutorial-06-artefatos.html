@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06. Artefatos &middot; Delta Board &mdash; Aula do Rafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F5F0EB;--white:#FFFFFF;--accent:#5C6C51;--accent2:#1F3331;--accent-light:#EDE8E2;--accent-lighter:#F0EBE4;--accent-border:#DDD8D2;--accent-text:#1F3331;--blue:#2B5B8E;--blue-light:#EAF1F7;--blue-text:#1A3D5F;--green:#4F6B3E;--green-light:#ECF2E5;--green-text:#33491F;--gold:#C8A968;--text:#1A1A1A;--text2:#4A4A4A;--text3:#7A7A7A;--border:#EDE8E2;--shadow-xs:0 1px 2px rgba(0,0,0,0.04);--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:#1F3331;border-right:1px solid rgba(245,240,235,0.1);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:rgba(245,240,235,0.2);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid rgba(245,240,235,0.1)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:#F5F0EB;letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:#C8A968;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:#F5F0EB}
+  .nav-group{padding:12px 0 4px}.nav-group-title{padding:2px 16px 6px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,235,0.4)}
+  .nav-group-title.intro{color:rgba(200,169,104,0.7)}.nav-group-title.demo{color:rgba(112,160,210,0.7)}.nav-group-title.pratica{color:rgba(168,198,140,0.9)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:rgba(245,240,235,0.7);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:rgba(92,108,81,0.2);color:#F5F0EB}.nav-item.active{background:#5C6C51;color:#F5F0EB;border-left-color:#F5F0EB;font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:rgba(245,240,235,0.4);min-width:17px}.nav-item.active .ni-num{color:#F5F0EB}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:rgba(245,240,235,0.5);opacity:0;transition:opacity 0.2s}.nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid rgba(245,240,235,0.1);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:rgba(245,240,235,0.5);margin-bottom:6px}
+  .sp-bar{height:3px;background:rgba(245,240,235,0.1);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:#C8A968;border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}.section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}.breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+  .badge-intro{background:var(--accent-light);color:var(--accent-text)}.badge-demo{background:var(--blue-light);color:var(--blue-text)}.badge-pratica{background:var(--green-light);color:var(--green-text)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}.sec-title.demo .snum{color:var(--blue)}.sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .section-divider{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin:20px 0 8px}
+  .overview-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:#EDE8E2;color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:#FAF8F4}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--white);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}.inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-block{position:relative;background:#F0EBE4;border:1px solid #DDD8D2;border-left:3px solid #5C6C51;border-radius:8px;padding:20px 24px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.78rem;color:#2A2A2A;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+  .copy-block .label{font-family:'Montserrat',system-ui,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#5C6C51;margin-bottom:10px;display:block}
+  .copy-block.demo-block{border-left-color:#2B5B8E}.copy-block.demo-block .label{color:#2B5B8E}
+  .copy-block.user-block{border-left-color:#4F6B3E}.copy-block.user-block .label{color:#4F6B3E}
+  .copy-btn{position:absolute;top:8px;right:8px;background:#EDE8E2;border:1px solid #DDD8D2;color:#5C6C51;padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:#1F3331;color:#F5F0EB;border-color:#1F3331}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:#FEF3E2;border:1px solid #F5C96A;border-left:3px solid #D97706;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#92610A;margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:#7A520D;line-height:1.55}
+  .insight-box{background:var(--accent2);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C8A968;margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:#F5F0EB;line-height:1.55}
+  .insight-box p strong{color:#C8A968;font-weight:800}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.nav-btn.primary:hover{background:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .option-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-xs);border-left:4px solid var(--gold)}
+  .option-card .opt-letter{font-size:0.68rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em}
+  .option-card .opt-name{font-size:0.84rem;font-weight:700;color:var(--text);margin-top:2px}
+  .option-card .opt-desc{font-size:0.74rem;color:var(--text2);line-height:1.55;margin-top:6px}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice da Aula</a>
+      <h2>Artefatos</h2>
+      <p>Atividade 06 &middot; Aula do Rafa</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Inicio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visao Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introducao</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Contexto e objetivo<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstracao</div>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> O que o professor mostra<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Prompt da demo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Pratica</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Instrucao para voce<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Prompts para voce<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> &#9888; Salve a ferramenta<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; Aula do Rafa &rsaquo; <a href="index.html">Indice</a> &rsaquo; 06. Artefatos</div>
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Atividade 06 &mdash; Artefatos (texto &rarr; ferramenta)</div>
+
+      <p class="lead-text">Terceira atividade do Bloco 6 &mdash; o <strong>"momento uau"</strong> da aula. Voce vai ver o salto de <strong>"AI entrega texto"</strong> para <strong>"AI entrega ferramenta funcional"</strong> &mdash; e adaptar o prompt para sua empresa.</p>
+
+      <div class="overview-card">
+        <h3>Ficha tecnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Demonstracao + Atividade Pratica</td></tr>
+          <tr><td>Duracao</td><td>15 minutos (5 min demo + 10 min atividade)</td></tr>
+          <tr><td>Tecnica de AI</td><td>Geracao de aplicacao via prompt (vibe coding introdutorio)</td></tr>
+          <tr><td>Ferramenta</td><td>Claude (Artifacts)</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao indice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introducao</span>
+      <div class="sec-title"><span class="snum">01.</span> Contexto e objetivo</div>
+      <div class="sec-desc">O salto: texto &rarr; ferramenta</div>
+
+      <div class="overview-card">
+        <h3>O salto</h3>
+        <p>Ate aqui, nas Atividades 4 e 5, a AI entregou <strong>texto</strong>: relatorios, briefings, analises. Com Artifacts, a AI entrega <strong>aplicacao funcional</strong>: calculadoras interativas, simuladores, dashboards. Nao e texto que descreve uma ferramenta &mdash; e a ferramenta em si, funcionando.</p>
+      </div>
+
+      <p class="lead-text"><strong>Objetivo:</strong> gerar seu proprio <strong>diagnostico de ROI de AI</strong> adaptado ao contexto da sua empresa, pronto para usar em reuniao real.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">02.</span> O que o professor vai mostrar</div>
+      <div class="sec-desc">Uma aplicacao HTML funcional gerada ao vivo</div>
+
+      <p class="lead-text">O professor cola um prompt longo no Claude com Artifacts ativado. O Claude gera ao vivo uma <strong>aplicacao HTML funcional</strong> com:</p>
+
+      <div class="overview-card">
+        <h3>Componentes da ferramenta</h3>
+        <ul>
+          <li>Formulario em 3 etapas</li>
+          <li>Checkbox de 8 atividades tipicas de conhecimento</li>
+          <li>Benchmarks McKinsey/BCG embutidos (percentuais de economia por tipo de atividade)</li>
+          <li>Calculos automaticos de ROI, payback e economia anual</li>
+          <li>Graficos de barras e pizza</li>
+          <li>Ranking das 3 atividades que mais economizam</li>
+        </ul>
+      </div>
+
+      <p class="lead-text">Em seguida, o professor <strong>preenche a ferramenta ao vivo</strong> com dados de exemplo (ex.: time de marketing com 5 pessoas, custo hora de R$ 150) e mostra o resultado.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompt usado na demo</div>
+      <div class="sec-desc">O prompt completo que gera a aplicacao</div>
+
+      <div class="copy-block demo-block" id="demo-prompt">
+<span class="label">Prompt &mdash; Claude com Artifacts</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
+<span id="demo-prompt-text">Crie um artifact interativo em HTML: um DIAGNOSTICO de ROI para iniciativas de AI em empresas. O usuario e um executivo nao-tecnico avaliando se deve adotar AI no time dele.
+
+ESTRUTURA DA FERRAMENTA &mdash; 3 ETAPAS:
+
+ETAPA 1 &mdash; Perfil do time
+- Nome da area ou funcao (ex.: Marketing, Financeiro, Vendas)
+- Numero de funcionarios na area
+- Custo medio da hora do funcionario (R$)
+- Custo mensal da ferramenta de AI (R$)
+
+ETAPA 2 &mdash; Mapeamento de atividades
+Apresente ao usuario uma lista de 8 tipos de atividades tipicas de conhecimento, com checkbox para marcar as que o time realiza e um campo para indicar quantas horas por semana por funcionario sao gastas em cada uma:
+
+1. Pesquisa e coleta de informacoes (web, relatorios, mercado)
+2. Leitura e analise de documentos longos
+3. Redacao de textos (e-mails, relatorios, propostas)
+4. Preparacao de apresentacoes e slides
+5. Analise de dados em planilhas
+6. Reunioes e follow-ups (ata, sumario, proximos passos)
+7. Atendimento a solicitacoes recorrentes (clientes internos/externos)
+8. Tarefas administrativas repetitivas
+
+ETAPA 3 &mdash; Calculo e visualizacao
+Para cada atividade marcada, aplique os seguintes percentuais de economia com AI (baseados em benchmarks McKinsey/BCG 2024-2026):
+
+- Pesquisa e coleta: 60% de economia
+- Leitura e analise de documentos: 50% de economia
+- Redacao de textos: 45% de economia
+- Preparacao de apresentacoes: 40% de economia
+- Analise de dados em planilhas: 35% de economia
+- Reunioes e follow-ups: 30% de economia
+- Atendimento a solicitacoes: 55% de economia
+- Tarefas administrativas repetitivas: 65% de economia
+
+OUTPUTS calculados automaticamente:
+- Horas totais economizadas por semana no time
+- Economia mensal estimada em R$ (horas x custo hora x 4,3 semanas)
+- ROI em % ao ano
+- Payback em meses
+- Economia acumulada em 12 meses (R$)
+- Ranking das 3 atividades que mais geram economia no time do usuario (para ajudar a priorizar onde comecar)
+
+DESIGN:
+- Layout limpo e executivo (nao academico)
+- Navegacao clara entre as 3 etapas
+- Na etapa 3, grafico de barras comparando investimento vs retorno ao longo de 12 meses
+- Grafico de pizza mostrando a distribuicao de economia por tipo de atividade
+- Usar cores institucionais: preto, dourado e branco
+- Interface totalmente em portugues do Brasil
+- Responsivo para funcionar em celular
+
+Inclua uma observacao discreta no rodape: "Benchmarks de economia baseados em estudos McKinsey (2024) e BCG (2025). Resultados reais variam conforme maturidade de adocao."</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar na demo</div>
+      <div class="sec-desc">4 caracteristicas que diferenciam Artifact de texto</div>
+
+      <ul class="observation-list">
+        <li><strong>Ferramenta funcional, nao texto</strong> &mdash; o Claude nao explica como fazer o calculo, entrega a aplicacao que <strong>faz</strong> o calculo.</li>
+        <li><strong>Benchmarks embutidos</strong> &mdash; os percentuais vem de pesquisas reais, nao sao chute.</li>
+        <li><strong>Priorizacao automatica</strong> &mdash; o ranking ajuda a decidir por onde comecar.</li>
+        <li><strong>Pronta para uso na empresa</strong> &mdash; voce leva para reuniao real do board.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> Instrucao para voce</div>
+      <div class="sec-desc">Duas opcoes: replicar ou customizar</div>
+
+      <p class="lead-text">Abra o Claude e gere o seu proprio diagnostico de ROI. Voce tem <strong>duas opcoes</strong>:</p>
+
+      <div class="option-card">
+        <div class="opt-letter">Opcao A</div>
+        <div class="opt-name">Replicar o prompt do professor</div>
+        <div class="opt-desc">Usar o mesmo prompt da demo, sem alteracoes. Mais rapido, saida generica.</div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-letter">Opcao B</div>
+        <div class="opt-name">Customizar para sua empresa (recomendado)</div>
+        <div class="opt-desc">Adaptar o prompt inserindo contexto especifico (setor, porte, nome da sua empresa) e benchmarks adicionais se conhecer. Saida mais util.</div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>A atividade esta estruturada na Opcao B, mas se estiver apertado no tempo, pule para o prompt da Opcao A.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
+      <div class="sec-desc">5 passos em 10 minutos</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Abra o Claude com Artifacts ativo.</strong> <span class="time">(30 seg)</span><br>claude.ai &rarr; verifique que Artifacts esta ativado nas configuracoes.</div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Escolha Opcao A ou B.</strong> <span class="time">(30 seg)</span></div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Cole o prompt.</strong> <span class="time">(1 min)</span><br>Use o prompt correspondente da secao 07.</div></div>
+        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Acompanhe a geracao.</strong> <span class="time">(2-3 min)</span><br>O Claude vai gerar a aplicacao em tempo real na tela, ao lado da conversa.</div></div>
+        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Teste a ferramenta.</strong> <span class="time">(5 min)</span><br>Preencha as 3 etapas com dados <strong>reais</strong> do seu time mais proximo (marketing, financeiro, vendas, operacoes). Veja o resultado.</div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Prompts para voce usar</div>
+      <div class="sec-desc">Opcao A (generico) ou Opcao B (customizado)</div>
+
+      <div class="section-divider">Opcao A &mdash; Prompt generico (mesmo do professor)</div>
+      <div class="tip-box">
+        <div class="tip-label">Instrucao</div>
+        <p>Use o prompt da secao 03 sem alteracoes. Basta copiar de la.</p>
+      </div>
+
+      <div class="section-divider" style="margin-top:24px">Opcao B &mdash; Prompt customizado (recomendado)</div>
+      <div class="copy-block user-block" id="user-b">
+<span class="label">Prompt B &mdash; customizado</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-b-text').textContent)">Copiar</button>
+<span id="user-b-text">Crie um artifact interativo em HTML: um DIAGNOSTICO de ROI para iniciativas de AI no meu time de [NOME DO TIME &mdash; ex: Marketing, Financeiro, Vendas, Operacoes] na [NOME DA MINHA EMPRESA], que atua no setor de [SETOR].
+
+[USE O RESTANTE DO PROMPT DA DEMO &mdash; ESTRUTURA DAS 3 ETAPAS, BENCHMARKS, OUTPUTS E DESIGN. SUBSTITUA APENAS A PRIMEIRA FRASE COMO ACIMA.]
+
+ADICIONAL: na ETAPA 1, ja pre-preencha os campos com valores tipicos de empresas do meu setor:
+- Custo medio da hora do funcionario: R$ [SEU VALOR TIPICO]
+- Custo mensal da ferramenta de AI: R$ 500
+- Numero de funcionarios: [TAMANHO APROXIMADO DO TIME]
+
+ADICIONAL: no rodape, alem dos benchmarks, inclua um link discreto com texto "Adaptado para [NOME DA SUA EMPRESA]".</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> &#9888; Salve a ferramenta</div>
+      <div class="sec-desc">Leve para reuniao real do board</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante</div>
+        <p>O Artifact gerado pode ser <strong>baixado em HTML</strong> ou compartilhado via link. Baixe ou compartilhe o link consigo mesmo &mdash; voce vai querer levar isso para reuniao real do board.</p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>Artifacts sao a prova de que AI <strong>nao e mais chat</strong>. E ferramenta funcional sob demanda.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao indice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.section===id);if(visited.has(n.dataset.section))n.classList.add('completed')});visited.add(id);updateProgress();window.scrollTo({top:0,behavior:'smooth'})}
+function updateProgress(){const p=Math.round((visited.size/document.querySelectorAll('.section').length)*100);document.getElementById('pct').textContent=p;document.getElementById('sp-fill').style.width=p+'%'}
+function copyText(btn,text){navigator.clipboard?.writeText(text).then(()=>{btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)})}
+updateProgress()
+</script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>08. Compromisso de Acao &middot; Delta Board &mdash; Aula do Rafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F5F0EB;--white:#FFFFFF;--accent:#5C6C51;--accent2:#1F3331;--accent-light:#EDE8E2;--accent-lighter:#F0EBE4;--accent-border:#DDD8D2;--accent-text:#1F3331;--blue:#2B5B8E;--blue-light:#EAF1F7;--blue-text:#1A3D5F;--green:#4F6B3E;--green-light:#ECF2E5;--green-text:#33491F;--gold:#C8A968;--text:#1A1A1A;--text2:#4A4A4A;--text3:#7A7A7A;--border:#EDE8E2;--shadow-xs:0 1px 2px rgba(0,0,0,0.04);--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:#1F3331;border-right:1px solid rgba(245,240,235,0.1);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:rgba(245,240,235,0.2);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid rgba(245,240,235,0.1)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:#F5F0EB;letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:#C8A968;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:#F5F0EB}
+  .nav-group{padding:12px 0 4px}.nav-group-title{padding:2px 16px 6px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,235,0.4)}
+  .nav-group-title.intro{color:rgba(200,169,104,0.7)}.nav-group-title.demo{color:rgba(112,160,210,0.7)}.nav-group-title.pratica{color:rgba(168,198,140,0.9)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:rgba(245,240,235,0.7);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:rgba(92,108,81,0.2);color:#F5F0EB}.nav-item.active{background:#5C6C51;color:#F5F0EB;border-left-color:#F5F0EB;font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:rgba(245,240,235,0.4);min-width:17px}.nav-item.active .ni-num{color:#F5F0EB}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:rgba(245,240,235,0.5);opacity:0;transition:opacity 0.2s}.nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid rgba(245,240,235,0.1);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:rgba(245,240,235,0.5);margin-bottom:6px}
+  .sp-bar{height:3px;background:rgba(245,240,235,0.1);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:#C8A968;border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}.section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}.breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+  .badge-intro{background:var(--accent-light);color:var(--accent-text)}.badge-demo{background:var(--blue-light);color:var(--blue-text)}.badge-pratica{background:var(--green-light);color:var(--green-text)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}.sec-title.demo .snum{color:var(--blue)}.sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .section-divider{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin:20px 0 8px}
+  .overview-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:#EDE8E2;color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:#FAF8F4}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--white);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}.inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-block{position:relative;background:#F0EBE4;border:1px solid #DDD8D2;border-left:3px solid #4F6B3E;border-radius:8px;padding:20px 24px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.76rem;color:#2A2A2A;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  .copy-block .label{font-family:'Montserrat',system-ui,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#4F6B3E;margin-bottom:10px;display:block}
+  .copy-btn{position:absolute;top:8px;right:8px;background:#EDE8E2;border:1px solid #DDD8D2;color:#5C6C51;padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:#1F3331;color:#F5F0EB;border-color:#1F3331}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:#FEF3E2;border:1px solid #F5C96A;border-left:3px solid #D97706;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#92610A;margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:#7A520D;line-height:1.55}
+  .insight-box{background:var(--accent2);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C8A968;margin-bottom:6px}
+  .insight-box p{font-size:0.9rem;font-weight:700;color:#F5F0EB;line-height:1.55}
+  .insight-box p strong{color:#C8A968;font-weight:800}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.nav-btn.primary:hover{background:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .matrix-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-xs);border-left:4px solid var(--gold)}
+  .matrix-card .m-title{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:6px}
+  .matrix-card .m-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .matrix-card .m-opt{font-size:0.7rem;font-weight:600;color:var(--accent-text);background:var(--accent-lighter);padding:3px 10px;border-radius:4px;border:1px solid var(--accent-border)}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice da Aula</a>
+      <h2>Compromisso de Acao</h2>
+      <p>Atividade 08 &middot; Aula do Rafa</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Inicio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visao Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introducao</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Contexto e objetivo<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstracao</div>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> O que o professor faz<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Prompt (nao usa AI)<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Pratica</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Instrucao para voce<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Template<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> &#9888; Guarde o documento<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; Aula do Rafa &rsaquo; <a href="index.html">Indice</a> &rsaquo; 08. Compromisso de Acao</div>
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Atividade 08 &mdash; Compromisso de Acao (fechamento da aula)</div>
+
+      <p class="lead-text">Esta e a <strong>ultima atividade do fio condutor</strong>. Consolida tudo que voce viu nas 4 atividades do Bloco 6 em um documento tangivel com 3 casos de uso de AI pre-classificados nas dimensoes do Workshop de Roadmap de amanha.</p>
+
+      <div class="overview-card">
+        <h3>Ficha tecnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Consolidacao individual (ultima do fio condutor)</td></tr>
+          <tr><td>Duracao</td><td>5 minutos</td></tr>
+          <tr><td>Tecnica</td><td>Reflexao estruturada (nao usa AI)</td></tr>
+          <tr><td>Ferramenta</td><td>Papel ou celular</td></tr>
+          <tr><td>Entregavel</td><td>Input direto do Workshop de Roadmap de 90 dias (sexta-feira)</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao indice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introducao</span>
+      <div class="sec-title"><span class="snum">01.</span> Contexto e objetivo</div>
+      <div class="sec-desc">Por que este e o momento mais importante da aula</div>
+
+      <p class="lead-text"><strong>Sem um documento de consolidacao</strong>, voce sai da aula com <em>sensacoes</em> &mdash; e esquece metade do que viu em 48 horas. Com o documento preenchido, voce sai com <strong>materia-prima estruturada</strong> para o Workshop de Roadmap de sexta.</p>
+
+      <div class="section-divider">As dimensoes que voce vai usar</div>
+
+      <div class="matrix-card">
+        <div class="m-title">Matriz 1 &mdash; Impacto financeiro</div>
+        <div class="m-options">
+          <span class="m-opt">Reducao de Custo</span>
+          <span class="m-opt">Aumento de Receita</span>
+        </div>
+      </div>
+
+      <div class="matrix-card">
+        <div class="m-title">Matriz 2 &mdash; Dimensao de atuacao</div>
+        <div class="m-options">
+          <span class="m-opt">Pessoas (capacitacao, produtividade)</span>
+          <span class="m-opt">Processos (workflows, automacao)</span>
+          <span class="m-opt">Dados (acesso, qualidade, analise)</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que essas dimensoes</div>
+        <p>Sao exatamente as dimensoes que o <strong>Workshop de Roadmap de sexta</strong> vai trabalhar. Classificar agora = chegar amanha com materia-prima pronta.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">02.</span> O que o professor vai fazer</div>
+      <div class="sec-desc">5 minutos de silencio + 2 voluntarios no final</div>
+
+      <p class="lead-text">O professor <strong>nao executa uma demo</strong> nesta atividade. Ele explica o template, mostra as duas matrizes no slide e da <strong>5 minutos silenciosos</strong> para cada aluno preencher individualmente.</p>
+
+      <p class="lead-text">No final dos 5 minutos, o professor pede que <strong>2 voluntarios compartilhem</strong> apenas o Caso de Uso 01 e a Primeira Acao de segunda-feira &mdash; para dar exemplos concretos ao resto da turma.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompt usado</div>
+      <div class="sec-desc">Esta atividade nao usa AI</div>
+
+      <div class="tip-box">
+        <div class="tip-label">Nao tem prompt</div>
+        <p>Esta atividade <strong>nao usa AI</strong>. O "prompt" aqui e o template estruturado que voce preenche no papel ou no celular. Esta na secao 07.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar</div>
+      <div class="sec-desc">3 padroes que aparecem ao escolher os casos de uso</div>
+
+      <ul class="observation-list">
+        <li><strong>Alunos que escolhem apenas Agentes (Nivel 4)</strong> nos 3 casos tendem a ter planos pouco realistas.</li>
+        <li><strong>Alunos que escolhem apenas Pesquisa Profunda (Nivel 1)</strong> nos 3 casos tendem a subestimar o que e possivel.</li>
+        <li><strong>O melhor balanco:</strong> um caso de cada extremo (1 simples + 1 ambicioso) + 1 no meio.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> Instrucao para voce</div>
+      <div class="sec-desc">Voce vai precisar de 3 materiais ja feitos</div>
+
+      <p class="lead-text">Pegue papel, celular ou abra um documento. Voce vai precisar:</p>
+
+      <div class="overview-card">
+        <h3>Materiais que voce ja tem</h3>
+        <ul>
+          <li>Do <strong>prompt P/A/C/E salvo na Atividade 2</strong> (seu problema real)</li>
+          <li>Da <strong>foto das 5 Perguntas salva na Atividade 3</strong> (infraestrutura da empresa)</li>
+          <li>Das <strong>experiencias das Atividades 4 a 7</strong> (Pesquisa Profunda, Projects, Artefatos, Agentes)</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Antes de comecar</div>
+        <p>Acesse os 3 materiais antes de comecar. Se nao salvou em alguma atividade anterior, tudo bem &mdash; use o que estiver fresco na memoria.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
+      <div class="sec-desc">3 passos em 5 minutos</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Pegue papel ou celular.</strong> <span class="time">(10 seg)</span></div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Preencha o template da secao 07.</strong> <span class="time">(4 min)</span><br>Nao pense muito em cada escolha; registre as <strong>primeiras respostas</strong> que vierem.</div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Guarde o documento.</strong> <span class="time">(30 seg)</span><br>Fotografe, salve no celular, coloque na mesma pasta das atividades anteriores.</div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Template para voce preencher</div>
+      <div class="sec-desc">3 casos de uso + primeira acao de segunda</div>
+
+      <div class="copy-block" id="tpl">
+<span class="label">Template &mdash; Compromisso de Acao</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('tpl-text').textContent)">Copiar</button>
+<span id="tpl-text">===========================================================
+COMPROMISSO DE ACAO &mdash; DELTA BOARD
+(input para o Workshop de Roadmap de 90 dias &mdash; sexta-feira)
+===========================================================
+
+Nome: _____________________________________________
+Data: _____________________________________________
+Empresa: __________________________________________
+Cargo: ____________________________________________
+
+-----------------------------------------------------------
+1. QUAL E O MEU PROBLEMA REAL?
+   (o mesmo que trabalhei hoje no P/A/C/E)
+-----------------------------------------------------------
+
+__________________________________________________________
+__________________________________________________________
+__________________________________________________________
+
+-----------------------------------------------------------
+2. TRES CASOS DE USO QUE QUERO IMPLEMENTAR
+   (escolher entre os 4 niveis das atividades 4 a 7:
+    Pesquisa Profunda . Projects . Artifacts . Agentes)
+-----------------------------------------------------------
+
+&gt; CASO DE USO 01
+  Descricao breve: __________________________________
+
+  - Nivel / ferramenta que vou usar: ________________
+    ( ) Pesquisa Profunda   ( ) Projects
+    ( ) Artifacts           ( ) Agentes
+
+  - Em qual processo/decisao da minha empresa: ______
+    __________________________________________________
+
+  - Impacto financeiro:
+    ( ) REDUCAO DE CUSTO    ( ) AUMENTO DE RECEITA
+
+  - Dimensao de atuacao:
+    ( ) PESSOAS   ( ) PROCESSOS   ( ) DADOS
+
+
+&gt; CASO DE USO 02
+  Descricao breve: __________________________________
+
+  - Nivel / ferramenta que vou usar: ________________
+    ( ) Pesquisa Profunda   ( ) Projects
+    ( ) Artifacts           ( ) Agentes
+
+  - Em qual processo/decisao da minha empresa: ______
+    __________________________________________________
+
+  - Impacto financeiro:
+    ( ) REDUCAO DE CUSTO    ( ) AUMENTO DE RECEITA
+
+  - Dimensao de atuacao:
+    ( ) PESSOAS   ( ) PROCESSOS   ( ) DADOS
+
+
+&gt; CASO DE USO 03
+  Descricao breve: __________________________________
+
+  - Nivel / ferramenta que vou usar: ________________
+    ( ) Pesquisa Profunda   ( ) Projects
+    ( ) Artifacts           ( ) Agentes
+
+  - Em qual processo/decisao da minha empresa: ______
+    __________________________________________________
+
+  - Impacto financeiro:
+    ( ) REDUCAO DE CUSTO    ( ) AUMENTO DE RECEITA
+
+  - Dimensao de atuacao:
+    ( ) PESSOAS   ( ) PROCESSOS   ( ) DADOS
+
+
+-----------------------------------------------------------
+3. A PRIMEIRA ACAO NA SEGUNDA-FEIRA
+   (apos o Delta Board, qual e o primeiro passo concreto?)
+-----------------------------------------------------------
+
+__________________________________________________________
+__________________________________________________________
+
+===========================================================</span></div>
+
+      <div class="overview-card">
+        <h3>Dica para escolher bem os 3 casos de uso</h3>
+        <table class="ficha-table">
+          <thead><tr><th>Nivel</th><th>Caso de uso tipico</th><th>Exemplo concreto</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. Pesquisa Profunda</strong></td><td>Research setorial, due diligence</td><td>Relatorio mensal dos concorrentes</td></tr>
+            <tr><td><strong>2. Projects</strong></td><td>Preparacao de reuniao, cruzamento</td><td>Decks de board mensais</td></tr>
+            <tr><td><strong>3. Artifacts</strong></td><td>Ferramentas rapidas, simuladores</td><td>Calculadora de ROI por proposta</td></tr>
+            <tr><td><strong>4. Agentes</strong></td><td>Tarefas multi-passo recorrentes</td><td>Analise semanal automatizada</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra de balanco</div>
+        <p>Escolha <strong>pelo menos um caso em cada extremo</strong> &mdash; algo simples (Pesquisa Profunda ou Projects) + algo ambicioso (Agentes).</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> &#9888; Guarde este documento</div>
+      <div class="sec-desc">Materia-prima do Workshop de amanha</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Sem este documento = comecar do zero amanha</div>
+        <p>Este e o <strong>material que voce vai usar amanha de manha no Workshop de Roadmap</strong>. Sem ele, voce comeca do zero; com ele, voce chega com materia-prima pre-estruturada.</p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Chamada para acao</div>
+        <p><strong>Bring your homework.</strong></p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Recap da aula completa</h3>
+        <ul>
+          <li><strong>01.</strong> Pontos Cegos &mdash; memoria e contexto</li>
+          <li><strong>02.</strong> Metodo P/A/C/E &mdash; saber perguntar</li>
+          <li><strong>03.</strong> 5 Perguntas da Stack &mdash; infraestrutura</li>
+          <li><strong>04.</strong> Pesquisa Profunda &mdash; research executivo</li>
+          <li><strong>05.</strong> Projects &mdash; cruzar documentos</li>
+          <li><strong>06.</strong> Artefatos &mdash; ferramenta funcional</li>
+          <li><strong>07.</strong> Prompts Agenticos &mdash; delegar para o agente</li>
+          <li><strong>08.</strong> Compromisso de Acao &mdash; voce aqui</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao indice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.section===id);if(visited.has(n.dataset.section))n.classList.add('completed')});visited.add(id);updateProgress();window.scrollTo({top:0,behavior:'smooth'})}
+function updateProgress(){const p=Math.round((visited.size/document.querySelectorAll('.section').length)*100);document.getElementById('pct').textContent=p;document.getElementById('sp-fill').style.width=p+'%'}
+function copyText(btn,text){navigator.clipboard?.writeText(text).then(()=>{btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)})}
+updateProgress()
+</script>
+</body>
+</html>

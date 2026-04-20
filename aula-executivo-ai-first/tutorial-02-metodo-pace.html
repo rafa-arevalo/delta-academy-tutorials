@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02. Metodo P/A/C/E &middot; Delta Board &mdash; Aula do Rafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F5F0EB;--white:#FFFFFF;--accent:#5C6C51;--accent2:#1F3331;--accent-light:#EDE8E2;--accent-lighter:#F0EBE4;--accent-border:#DDD8D2;--accent-text:#1F3331;--blue:#2B5B8E;--blue-light:#EAF1F7;--blue-border:#C8D8E5;--blue-text:#1A3D5F;--green:#4F6B3E;--green-light:#ECF2E5;--green-border:#C6D4B3;--green-text:#33491F;--gold:#C8A968;--text:#1A1A1A;--text2:#4A4A4A;--text3:#7A7A7A;--text4:#B0A89F;--border:#EDE8E2;--border2:#DDD8D2;--shadow-xs:0 1px 2px rgba(0,0,0,0.04);--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.05)}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:#1F3331;border-right:1px solid rgba(245,240,235,0.1);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}
+  .sidebar::-webkit-scrollbar-track{background:transparent}
+  .sidebar::-webkit-scrollbar-thumb{background:rgba(245,240,235,0.2);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid rgba(245,240,235,0.1)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:#F5F0EB;letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:#C8A968;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;transition:color 0.15s}
+  .sidebar-header .back-link:hover{color:#F5F0EB}
+  .nav-group{padding:12px 0 4px}
+  .nav-group-title{padding:2px 16px 6px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,235,0.4)}
+  .nav-group-title.intro{color:rgba(200,169,104,0.7)}
+  .nav-group-title.demo{color:rgba(112,160,210,0.7)}
+  .nav-group-title.pratica{color:rgba(168,198,140,0.9)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:rgba(245,240,235,0.7);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:rgba(92,108,81,0.2);color:#F5F0EB}
+  .nav-item.active{background:#5C6C51;color:#F5F0EB;border-left-color:#F5F0EB;font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:rgba(245,240,235,0.4);min-width:17px;font-variant-numeric:tabular-nums}
+  .nav-item.active .ni-num{color:#F5F0EB}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:rgba(245,240,235,0.5);opacity:0;transition:opacity 0.2s;flex-shrink:0}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid rgba(245,240,235,0.1);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:rgba(245,240,235,0.5);font-weight:500;margin-bottom:6px}
+  .sp-bar{height:3px;background:rgba(245,240,235,0.1);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:#C8A968;border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px;letter-spacing:0.02em}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+  .badge-intro{background:var(--accent-light);color:var(--accent-text)}
+  .badge-demo{background:var(--blue-light);color:var(--blue-text)}
+  .badge-pratica{background:var(--green-light);color:var(--green-text)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px;font-weight:400}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .section-divider{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin:20px 0 8px}
+  .overview-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-0.01em}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:#EDE8E2;color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:#FAF8F4}
+  .ficha-table td strong{color:var(--text);font-weight:600}
+  .pace-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-xs);border-left:4px solid var(--accent)}
+  .pace-card .pace-letter{font-size:1.4rem;font-weight:800;color:var(--accent);letter-spacing:-0.02em;display:inline}
+  .pace-card .pace-name{font-size:0.88rem;font-weight:700;color:var(--text);display:inline;margin-left:6px}
+  .pace-card .pace-func{font-size:0.74rem;color:var(--text2);line-height:1.5;margin-top:6px}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--white);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}
+  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-block{position:relative;background:#F0EBE4;border:1px solid #DDD8D2;border-left:3px solid #5C6C51;border-radius:8px;padding:20px 24px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.8rem;color:#2A2A2A;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+  .copy-block .label{font-family:'Montserrat',system-ui,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#5C6C51;margin-bottom:10px;display:block}
+  .copy-block.demo-block{border-left-color:#2B5B8E}
+  .copy-block.demo-block .label{color:#2B5B8E}
+  .copy-block.user-block{border-left-color:#4F6B3E}
+  .copy-block.user-block .label{color:#4F6B3E}
+  .copy-btn{position:absolute;top:8px;right:8px;background:#EDE8E2;border:1px solid #DDD8D2;color:#5C6C51;padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:#1F3331;color:#F5F0EB;border-color:#1F3331}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:#FEF3E2;border:1px solid #F5C96A;border-left:3px solid #D97706;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#92610A;margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:#7A520D;line-height:1.55}
+  .insight-box{background:var(--accent2);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C8A968;margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:#F5F0EB;line-height:1.55}
+  .insight-box p strong{color:#C8A968;font-weight:800}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .nav-btn.primary:hover{background:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice da Aula</a>
+      <h2>Metodo P/A/C/E</h2>
+      <p>Atividade 02 &middot; Aula do Rafa</p>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Inicio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+        <span class="ni-num">00</span> Visao Geral
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title intro">Introducao</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+        <span class="ni-num">01</span> Contexto e objetivo
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title demo">Demonstracao</div>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
+        <span class="ni-num">02</span> O que o professor mostra
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+        <span class="ni-num">03</span> Prompts da demo
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+        <span class="ni-num">04</span> O que observar
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title pratica">Atividade Pratica</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+        <span class="ni-num">05</span> Instrucao para voce
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')">
+        <span class="ni-num">06</span> Passo a passo
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')">
+        <span class="ni-num">07</span> Prompt para voce
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')">
+        <span class="ni-num">08</span> &#9888; Salve o output
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- ==================== 00. VISAO GERAL ==================== -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; Aula do Rafa &rsaquo; <a href="index.html">Indice</a> &rsaquo; 02. Metodo P/A/C/E</div>
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Atividade 02 &mdash; Metodo P/A/C/E, saber perguntar</div>
+
+      <p class="lead-text">Esta e a primeira atividade do <strong>fio condutor</strong> da aula. O output (seu prompt P/A/C/E e a resposta do LLM) sera reutilizado pelo professor nas demos do Bloco 6 e por voce na Atividade Final (Compromisso de Acao). <strong>Salve tudo.</strong></p>
+
+      <div class="overview-card">
+        <h3>Ficha tecnica</h3>
+        <table class="ficha-table">
+          <tbody>
+            <tr><td>Tipo</td><td>Atividade pratica (primeira do fio condutor)</td></tr>
+            <tr><td>Duracao</td><td>15 minutos</td></tr>
+            <tr><td>Tecnica de AI</td><td>Engenharia de prompt estruturada</td></tr>
+            <tr><td>Ferramenta</td><td>O LLM que voce mais usa (Claude, ChatGPT ou Gemini)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai levar</h3>
+        <ul>
+          <li>Um prompt P/A/C/E escrito sobre um problema REAL da sua empresa</li>
+          <li>A resposta que o LLM gerou &mdash; imediatamente utilizavel no seu trabalho</li>
+          <li>Material que sera insumo das atividades seguintes</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao indice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 01. CONTEXTO E OBJETIVO ==================== -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introducao</span>
+      <div class="sec-title"><span class="snum">01.</span> Contexto e objetivo</div>
+      <div class="sec-desc">Os 4 elementos que transformam um prompt comum em entregavel executivo</div>
+
+      <div class="overview-card">
+        <h3>O framework P/A/C/E</h3>
+        <table class="ficha-table">
+          <thead><tr><th>Letra</th><th>Elemento</th><th>Funcao</th></tr></thead>
+          <tbody>
+            <tr><td><strong>P</strong></td><td>Papel</td><td>Da a AI a identidade/expertise de quem ela esta simulando</td></tr>
+            <tr><td><strong>A</strong></td><td>Acao</td><td>Define o que voce quer que a AI faca</td></tr>
+            <tr><td><strong>C</strong></td><td>Contexto</td><td>Situa empresa, cargo, situacao atual e restricoes</td></tr>
+            <tr><td><strong>E</strong></td><td>Expectativa</td><td>Define formato, tamanho, profundidade e tom do entregavel</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pace-card"><span class="pace-letter">P</span><span class="pace-name">&mdash; Papel</span><p class="pace-func">"Voce e um consultor estrategico senior com 15 anos de experiencia em..."</p></div>
+      <div class="pace-card"><span class="pace-letter">A</span><span class="pace-name">&mdash; Acao</span><p class="pace-func">"Analise cenarios e me recomende se devo..."</p></div>
+      <div class="pace-card"><span class="pace-letter">C</span><span class="pace-name">&mdash; Contexto</span><p class="pace-func">"Minha empresa e edtech B2B, R$ 15M/ano. Situacao atual: 1 diretor comercial sobrecarregado. Restricoes: orcamento limitado, prazo de 30 dias."</p></div>
+      <div class="pace-card"><span class="pace-letter">E</span><span class="pace-name">&mdash; Expectativa</span><p class="pace-func">"Entregue em formato de analise comparativa de 3 cenarios, tom consultivo e provocativo, no maximo 1 pagina."</p></div>
+
+      <p class="lead-text"><strong>Objetivo de aprendizagem:</strong> Dominar a capacidade #1 do executivo AI-First &mdash; saber perguntar. Comparar lado a lado um prompt "na correria" vs um prompt estruturado em P/A/C/E, aplicado a um problema real da sua empresa.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Principio</div>
+        <p>P/A/C/E nao e sobre escrever bonito. E sobre <strong>dar a AI o que ela precisa para ser util</strong> &mdash; exatamente como voce faria com um novo funcionario no primeiro dia de trabalho.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 02. O QUE O PROFESSOR VAI MOSTRAR ==================== -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">02.</span> O que o professor vai mostrar</div>
+      <div class="sec-desc">Dois prompts lado a lado &mdash; a diferenca que muda tudo</div>
+
+      <p class="lead-text">O professor escolhe um problema executivo comum (ex.: <em>"preciso decidir se contrato mais um diretor comercial ou se expando o time atual"</em>) e escreve <strong>dois prompts ao vivo</strong> no Claude:</p>
+
+      <div class="overview-card">
+        <h3>A dinamica da demo</h3>
+        <ul>
+          <li><strong>Prompt 1 &mdash; na correria:</strong> solto, sem estrutura, como um executivo ocupado escreveria em 20 segundos</li>
+          <li><strong>Prompt 2 &mdash; estruturado em P/A/C/E:</strong> com os 4 elementos explicitos</li>
+          <li>Rodar os dois consecutivamente e comparar as respostas lado a lado</li>
+          <li>O ponto: mostrar visualmente a <strong>diferenca de especificidade, profundidade e acionabilidade</strong></li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 03. PROMPTS DA DEMO ==================== -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompts usados na demo</div>
+      <div class="sec-desc">Os dois prompts que o professor vai rodar</div>
+
+      <div class="section-divider">Prompt 1 &mdash; na correria</div>
+
+      <div class="copy-block demo-block" id="demo-prompt-1">
+<span class="label">Prompt 1 &mdash; sem estrutura</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-1-text').textContent)">Copiar</button>
+<span id="demo-prompt-1-text">Me ajuda a decidir se contrato mais um diretor comercial ou se expando o time atual.</span></div>
+
+      <div class="section-divider" style="margin-top:24px">Prompt 2 &mdash; estruturado em P/A/C/E</div>
+
+      <div class="copy-block demo-block" id="demo-prompt-2">
+<span class="label">Prompt 2 &mdash; P/A/C/E</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-2-text').textContent)">Copiar</button>
+<span id="demo-prompt-2-text">[PAPEL]
+Voce e consultor estrategico senior com 15 anos de experiencia em estruturacao de times comerciais B2B, especializado em empresas de servicos educacionais.
+
+[ACAO]
+Analise cenarios e me recomende se devo contratar um novo diretor comercial ou expandir o time operacional atual.
+
+[CONTEXTO]
+- Minha empresa: edtech B2B, porte medio, R$ 15M/ano
+- Meu cargo: CEO
+- Situacao atual: temos 1 diretor comercial e 6 executivos de vendas. O diretor esta sobrecarregado mas os resultados estao dentro da meta. Queremos dobrar a receita em 18 meses.
+- Restricoes: orcamento de contratacao limitado, prazo de decisao de 30 dias, preferencia por promover internamente.
+
+[EXPECTATIVA]
+Entregue em formato de analise comparativa: 3 cenarios (contratar, expandir, hibrido), com pros, contras, custos estimados e recomendacao final. Tom: consultivo e provocativo. Tamanho: medio, no maximo 1 pagina.</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 04. O QUE OBSERVAR ==================== -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar na demo</div>
+      <div class="sec-desc">3 diferencas visiveis entre o prompt 1 e o prompt 2</div>
+
+      <ul class="observation-list">
+        <li><strong>Prompt 1 gera resposta generica</strong> &mdash; lista de pros e contras que serve para qualquer empresa. Voce ainda precisa adaptar tudo ao seu contexto.</li>
+        <li><strong>Prompt 2 gera analise especifica</strong> &mdash; recomendacoes ancoradas no contexto real (edtech, R$ 15M, 18 meses, orcamento limitado). Imediatamente utilizavel.</li>
+        <li><strong>Ganho de tempo real</strong> &mdash; o prompt P/A/C/E leva 2-3 minutos extras para escrever mas o output e imediatamente utilizavel. Na media, voce economiza 30+ minutos de edicao.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 05. INSTRUCAO PARA VOCE ==================== -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> Instrucao para voce</div>
+      <div class="sec-desc">Faca exatamente o que o professor fez &mdash; mas sobre a sua empresa</div>
+
+      <p class="lead-text">Abra o LLM que voce mais usa. Voce vai fazer exatamente o que o professor fez, mas <strong>sobre um problema real da sua empresa hoje</strong>.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra</div>
+        <p>Escolha um problema que voce vai <strong>precisar resolver essa semana</strong>. O output ja vira util e o exercicio deixa de ser academico.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 06. PASSO A PASSO ==================== -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
+      <div class="sec-desc">5 passos em 15 minutos</div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text"><strong>Escolha um problema REAL.</strong> <span class="time">(2 min)</span><br>Uma decisao a tomar, uma analise devendo, uma comunicacao delicada, um posicionamento estrategico a formular.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text"><strong>Escreva o Prompt 1 na correria.</strong> <span class="time">(2 min)</span><br>Como voce escreveria normalmente, sem estrutura. <strong>Copie em algum lugar</strong> &mdash; voce vai comparar depois.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text"><strong>Escreva o Prompt 2 em P/A/C/E.</strong> <span class="time">(5 min)</span><br>Use o template da proxima secao, substituindo as variaveis entre [colchetes].</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text"><strong>Rode e compare.</strong> <span class="time">(3 min)</span><br>Rode os dois prompts. Compare: o que mudou em especificidade, profundidade e acionabilidade?</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">5</div>
+          <div class="inst-text"><strong>Debrief em sala.</strong> <span class="time">(3 min)</span><br>1-2 voluntarios compartilham os dois prompts e a diferenca nas respostas.</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 07. PROMPT PARA VOCE ==================== -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Prompt para voce usar (template)</div>
+      <div class="sec-desc">Substitua as variaveis entre [colchetes] pelo contexto do seu problema</div>
+
+      <div class="copy-block user-block" id="user-prompt">
+<span class="label">Template P/A/C/E</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
+<span id="user-prompt-text">[PAPEL]
+Voce e [ex.: consultor estrategico senior com 15 anos de experiencia em [SETOR DA SUA EMPRESA], especializado em [AREA DO PROBLEMA]].
+
+[ACAO]
+[Descreva em 1-2 frases o que voce quer que a AI faca: analise, proponha, compare, avalie, redija, estruture].
+
+[CONTEXTO]
+- Minha empresa: [setor, porte, faturamento aproximado]
+- Meu cargo: [descreva]
+- Situacao atual: [descreva o problema em 3-4 linhas]
+- Restricoes: [o que nao e opcao &mdash; ex.: orcamento, prazo, pessoas disponiveis, compliance]
+
+[EXPECTATIVA]
+Entregue em [formato: bullets, tabela, texto estruturado].
+Tamanho: [curto / medio / longo].
+Profundidade: [superficial para validacao / detalhado para decisao].
+Tom: [direto / consultivo / provocativo].</span></div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se travar na secao [CONTEXTO], lembre: seja <strong>especifico e honesto</strong>. A AI nao te julga pelas restricoes da empresa. Quanto mais fiel ao seu problema real, mais util a resposta.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 08. SALVE O OUTPUT ==================== -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> &#9888; Salve o output</div>
+      <div class="sec-desc">Voce vai reutilizar esse material</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante &mdash; nao avance sem salvar</div>
+        <p>Cole <strong>Prompt 2 + Resposta</strong> em um Google Doc, Notion ou arquivo proprio antes de avancar para a proxima atividade.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Onde voce vai reutilizar este material</h3>
+        <ul>
+          <li>Nas <strong>demos do Bloco 6</strong> &mdash; o professor pode usar seu problema como exemplo</li>
+          <li>Na <strong>Atividade 5 (Projects)</strong> &mdash; vai subir este documento para um Project do Claude</li>
+          <li>Na <strong>Atividade Final (Compromisso de Acao)</strong> &mdash; input do Workshop de sexta</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight desta atividade</div>
+        <p>Saber perguntar <strong>NAO e um talento</strong>. E uma estrutura de 4 campos que voce aplica toda vez.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao indice</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id); updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'; setTimeout(() => btn.textContent = 'Copiar', 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta); ta.select()
+    document.execCommand('copy'); document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'; setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
+}
+updateProgress()
+</script>
+</body>
+</html>

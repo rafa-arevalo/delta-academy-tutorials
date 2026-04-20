@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04. Pesquisa Profunda &middot; Delta Board &mdash; Aula do Rafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F5F0EB;--white:#FFFFFF;--accent:#5C6C51;--accent2:#1F3331;--accent-light:#EDE8E2;--accent-lighter:#F0EBE4;--accent-border:#DDD8D2;--accent-text:#1F3331;--blue:#2B5B8E;--blue-light:#EAF1F7;--blue-border:#C8D8E5;--blue-text:#1A3D5F;--green:#4F6B3E;--green-light:#ECF2E5;--green-border:#C6D4B3;--green-text:#33491F;--gold:#C8A968;--text:#1A1A1A;--text2:#4A4A4A;--text3:#7A7A7A;--border:#EDE8E2;--border2:#DDD8D2;--shadow-xs:0 1px 2px rgba(0,0,0,0.04);--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:#1F3331;border-right:1px solid rgba(245,240,235,0.1);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:rgba(245,240,235,0.2);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid rgba(245,240,235,0.1)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:#F5F0EB;letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:#C8A968;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:#F5F0EB}
+  .nav-group{padding:12px 0 4px}.nav-group-title{padding:2px 16px 6px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,235,0.4)}
+  .nav-group-title.intro{color:rgba(200,169,104,0.7)}.nav-group-title.demo{color:rgba(112,160,210,0.7)}.nav-group-title.pratica{color:rgba(168,198,140,0.9)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:rgba(245,240,235,0.7);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:rgba(92,108,81,0.2);color:#F5F0EB}
+  .nav-item.active{background:#5C6C51;color:#F5F0EB;border-left-color:#F5F0EB;font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:rgba(245,240,235,0.4);min-width:17px}.nav-item.active .ni-num{color:#F5F0EB}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:rgba(245,240,235,0.5);opacity:0;transition:opacity 0.2s}.nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid rgba(245,240,235,0.1);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:rgba(245,240,235,0.5);margin-bottom:6px}
+  .sp-bar{height:3px;background:rgba(245,240,235,0.1);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:#C8A968;border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}.section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}.breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+  .badge-intro{background:var(--accent-light);color:var(--accent-text)}
+  .badge-demo{background:var(--blue-light);color:var(--blue-text)}
+  .badge-pratica{background:var(--green-light);color:var(--green-text)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}.sec-title.demo .snum{color:var(--blue)}.sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .section-divider{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin:20px 0 8px}
+  .overview-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:#EDE8E2;color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:#FAF8F4}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--white);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}.inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-block{position:relative;background:#F0EBE4;border:1px solid #DDD8D2;border-left:3px solid #5C6C51;border-radius:8px;padding:20px 24px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.8rem;color:#2A2A2A;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+  .copy-block .label{font-family:'Montserrat',system-ui,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#5C6C51;margin-bottom:10px;display:block}
+  .copy-block.demo-block{border-left-color:#2B5B8E}.copy-block.demo-block .label{color:#2B5B8E}
+  .copy-block.user-block{border-left-color:#4F6B3E}.copy-block.user-block .label{color:#4F6B3E}
+  .copy-btn{position:absolute;top:8px;right:8px;background:#EDE8E2;border:1px solid #DDD8D2;color:#5C6C51;padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:#1F3331;color:#F5F0EB;border-color:#1F3331}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:#FEF3E2;border:1px solid #F5C96A;border-left:3px solid #D97706;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#92610A;margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:#7A520D;line-height:1.55}
+  .insight-box{background:var(--accent2);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C8A968;margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:#F5F0EB;line-height:1.55}
+  .insight-box p strong{color:#C8A968;font-weight:800}
+  .tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .tool-link{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-decoration:none;transition:all 0.15s;box-shadow:var(--shadow-xs)}
+  .tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .tool-link .tl-name{font-size:0.78rem;font-weight:700;color:var(--accent2)}
+  .tool-link .tl-url{font-size:0.64rem;color:var(--text3);margin-top:1px}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.nav-btn.primary:hover{background:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice da Aula</a>
+      <h2>Pesquisa Profunda</h2>
+      <p>Atividade 04 &middot; Aula do Rafa</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Inicio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visao Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introducao</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Contexto e objetivo<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstracao</div>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> O que o professor mostra<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Prompts da demo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Pratica</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Instrucao para voce<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Prompts para voce<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> &#9888; Salve o relatorio<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; Aula do Rafa &rsaquo; <a href="index.html">Indice</a> &rsaquo; 04. Pesquisa Profunda</div>
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Atividade 04 &mdash; Pesquisa Profunda</div>
+
+      <p class="lead-text">Primeira das 4 atividades do Bloco 6 ("Do Chat ao Agente"). Voce vai conhecer a diferenca entre <strong>busca rapida na web</strong> e <strong>pesquisa profunda</strong> &mdash; e executar as duas sobre o seu proprio setor.</p>
+
+      <div class="overview-card">
+        <h3>Ficha tecnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Demonstracao + Atividade Pratica</td></tr>
+          <tr><td>Duracao</td><td>15 minutos (5 min demo + 10 min atividade)</td></tr>
+          <tr><td>Tecnica de AI</td><td>Web Search + Deep Research (pesquisa agentica)</td></tr>
+          <tr><td>Ferramentas</td><td>Claude &middot; ChatGPT &middot; Perplexity &middot; Manus AI</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao indice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introducao</span>
+      <div class="sec-title"><span class="snum">01.</span> Contexto e objetivo</div>
+      <div class="sec-desc">Os dois modos de pesquisa com AI</div>
+
+      <div class="overview-card">
+        <h3>Dois modos, dois usos</h3>
+        <ul>
+          <li><strong>Busca rapida</strong> &mdash; como Google, mas com sintese da AI e fontes citadas. 30 segundos.</li>
+          <li><strong>Deep Research</strong> &mdash; o agente faz dezenas de pesquisas, le conteudos e entrega relatorio executivo de 3-5 paginas. 10-20 minutos.</li>
+        </ul>
+      </div>
+
+      <p class="lead-text"><strong>Objetivo:</strong> saber quando usar cada um e executar pelo menos uma pesquisa profunda sobre o seu setor durante a aula.</p>
+
+      <div class="overview-card">
+        <h3>Ferramentas disponiveis</h3>
+        <table class="ficha-table">
+          <thead><tr><th>Ferramenta</th><th>Link</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Claude</strong></td><td>claude.ai</td><td>Preferencial, Deep Research nativo</td></tr>
+            <tr><td><strong>ChatGPT</strong></td><td>chatgpt.com</td><td>Modo Deep Research</td></tr>
+            <tr><td><strong>Perplexity</strong></td><td>perplexity.ai</td><td>Pro Search ou Deep Research</td></tr>
+            <tr><td><strong>Manus AI</strong></td><td>manus.im</td><td>Alternativa agentica</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">02.</span> O que o professor vai mostrar</div>
+      <div class="sec-desc">Duas pesquisas consecutivas sobre um setor da turma</div>
+
+      <p class="lead-text">O professor escolhe um setor representativo da turma (varejo, servicos financeiros, saude...) e executa <strong>duas pesquisas consecutivas ao vivo</strong>:</p>
+
+      <div class="overview-card">
+        <h3>Sequencia da demo</h3>
+        <ul>
+          <li><strong>Demo A &mdash; Busca rapida</strong> sobre concorrentes brasileiros no setor, com resultado em ~30 segundos</li>
+          <li><strong>Demo B &mdash; Deep Research</strong> sobre tendencias, players, ROI e riscos regulatorios no mesmo setor</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica de execucao</div>
+        <p>O professor <strong>inicia o Deep Research no comeco</strong> e deixa rodando em paralelo, mostrando a busca rapida enquanto isso. O resultado da Deep Research e usado tambem na Atividade 5 (Projects) &mdash; economiza tempo de aula.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompts usados na demo</div>
+      <div class="sec-desc">Os dois prompts que o professor vai rodar</div>
+
+      <div class="section-divider">Demo A &mdash; Busca rapida</div>
+      <div class="copy-block demo-block" id="demo-a">
+<span class="label">Prompt A &mdash; busca rapida</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-a-text').textContent)">Copiar</button>
+<span id="demo-a-text">Quais sao os 5 principais concorrentes de empresas brasileiras em adocao de AI no setor [SETOR ESCOLHIDO PELA TURMA]?
+
+Para cada um, traga:
+- Nome da empresa
+- Caso de uso principal de AI
+- Resultado quantitativo reportado publicamente
+
+Priorize fontes dos ultimos 6 meses.</span></div>
+
+      <div class="section-divider" style="margin-top:24px">Demo B &mdash; Deep Research</div>
+      <div class="copy-block demo-block" id="demo-b">
+<span class="label">Prompt B &mdash; Deep Research</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-b-text').textContent)">Copiar</button>
+<span id="demo-b-text">Faca uma pesquisa profunda sobre o setor de [SETOR ESCOLHIDO] no Brasil em 2026, respondendo:
+
+1. Quais sao as 3 principais tendencias de adocao de AI?
+2. Quais empresas brasileiras lideram em cada tendencia?
+3. Quais sao os casos de uso com ROI comprovado?
+4. Que riscos regulatorios especificos do Brasil precisam ser considerados?
+5. Onde estao as oportunidades ainda nao exploradas?
+
+Entregue em formato de relatorio executivo com fontes citadas. Priorize dados de 2026 e analise critica, nao apenas descricao.</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar na demo</div>
+      <div class="sec-desc">3 padroes visiveis ao comparar os dois modos</div>
+
+      <ul class="observation-list">
+        <li><strong>Velocidade vs profundidade</strong> &mdash; busca rapida entrega em segundos com informacao utilizavel; Deep Research demora minutos mas entrega relatorio pronto para board.</li>
+        <li><strong>Estrutura do output</strong> &mdash; Deep Research retorna com indice, fontes e analise critica; busca rapida retorna lista compacta.</li>
+        <li><strong>Regra pratica</strong> &mdash; busca rapida para perguntas operacionais; Deep Research para decisoes estrategicas.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> Instrucao para voce</div>
+      <div class="sec-desc">Agora e a sua vez &mdash; sobre o setor da SUA empresa</div>
+
+      <p class="lead-text">Abra o Claude (ou sua ferramenta preferida) e execute as duas pesquisas <strong>sobre o setor da sua empresa</strong>. Substitua <code>[SETOR ESCOLHIDO]</code> pelo setor em que sua empresa atua.</p>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai</div></div></a>
+        <a class="tool-link" href="https://chatgpt.com" target="_blank"><div><div class="tl-name">ChatGPT</div><div class="tl-url">chatgpt.com</div></div></a>
+        <a class="tool-link" href="https://perplexity.ai" target="_blank"><div><div class="tl-name">Perplexity</div><div class="tl-url">perplexity.ai</div></div></a>
+        <a class="tool-link" href="https://manus.im" target="_blank"><div><div class="tl-name">Manus AI</div><div class="tl-url">manus.im</div></div></a>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se voce trabalha em setor muito especifico, generalize um nivel. Ex.: "gestao de frotas offshore" &rarr; "logistica maritima" ou "oil &amp; gas Brasil".</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
+      <div class="sec-desc">5 passos em 10 minutos (com Deep Research rodando em paralelo)</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Abra o Claude.</strong> <span class="time">(30 seg)</span><br>Acesse claude.ai e crie uma nova conversa.</div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Inicie o Deep Research.</strong> <span class="time">(30 seg)</span><br>Cole o <strong>Prompt B</strong> da secao 07, substituindo [SETOR ESCOLHIDO] pelo seu setor. Rode e deixe processando em background.</div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Execute a busca rapida.</strong> <span class="time">(2 min)</span><br>Em outra conversa do Claude (ou no Perplexity), cole o <strong>Prompt A</strong> com o mesmo setor. Leia a resposta.</div></div>
+        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Acompanhe o Deep Research.</strong> <span class="time">(5 min)</span><br>Enquanto finaliza, compare a profundidade esperada com o que a busca rapida te deu.</div></div>
+        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Salve o relatorio final.</strong> <span class="time">(2 min)</span><br>Quando terminar, copie e salve em um Google Doc ou Notion. <strong>Voce vai usar na Atividade 5 (Projects).</strong></div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Prompts para voce usar</div>
+      <div class="sec-desc">Substitua [SETOR] pelo setor da sua empresa</div>
+
+      <div class="section-divider">Prompt A &mdash; Busca rapida</div>
+      <div class="copy-block user-block" id="user-a">
+<span class="label">Prompt A &mdash; busca rapida</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-a-text').textContent)">Copiar</button>
+<span id="user-a-text">Quais sao os 5 principais concorrentes de empresas brasileiras em adocao de AI no setor [SETOR DA SUA EMPRESA]?
+
+Para cada um, traga:
+- Nome da empresa
+- Caso de uso principal de AI
+- Resultado quantitativo reportado publicamente
+
+Priorize fontes dos ultimos 6 meses.</span></div>
+
+      <div class="section-divider" style="margin-top:24px">Prompt B &mdash; Deep Research</div>
+      <div class="copy-block user-block" id="user-b">
+<span class="label">Prompt B &mdash; Deep Research</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-b-text').textContent)">Copiar</button>
+<span id="user-b-text">Faca uma pesquisa profunda sobre o setor de [SETOR DA SUA EMPRESA] no Brasil em 2026, respondendo:
+
+1. Quais sao as 3 principais tendencias de adocao de AI?
+2. Quais empresas brasileiras lideram em cada tendencia?
+3. Quais sao os casos de uso com ROI comprovado?
+4. Que riscos regulatorios especificos do Brasil precisam ser considerados?
+5. Onde estao as oportunidades ainda nao exploradas?
+
+Entregue em formato de relatorio executivo com fontes citadas. Priorize dados de 2026 e analise critica, nao apenas descricao.</span></div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> &#9888; Salve o relatorio do Deep Research</div>
+      <div class="sec-desc">Voce vai reutilizar este material</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante</div>
+        <p>Cole o <strong>relatorio completo</strong> em um Google Doc ou Notion antes de avancar.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Onde voce vai reutilizar</h3>
+        <ul>
+          <li>Na proxima atividade (<strong>Projects</strong>) como documento fonte</li>
+          <li>Potencialmente na Atividade 7 (<strong>Prompts Agenticos</strong>)</li>
+          <li>Como base de conhecimento do seu setor para decisoes futuras</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>Pesquisa profunda <strong>sozinha</strong> e ja um diferencial. Ainda assim e so o <strong>primeiro nivel</strong> do que voce vai ver no Bloco 6.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao indice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>{n.classList.toggle('active',n.dataset.section===id);if(visited.has(n.dataset.section))n.classList.add('completed')});visited.add(id);updateProgress();window.scrollTo({top:0,behavior:'smooth'})}
+function updateProgress(){const p=Math.round((visited.size/document.querySelectorAll('.section').length)*100);document.getElementById('pct').textContent=p;document.getElementById('sp-fill').style.width=p+'%'}
+function copyText(btn,text){navigator.clipboard?.writeText(text).then(()=>{btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.textContent='Copiado!';setTimeout(()=>btn.textContent='Copiar',1800)})}
+updateProgress()
+</script>
+</body>
+</html>

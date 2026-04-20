@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01. Pontos Cegos &middot; Delta Board &mdash; Aula do Rafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F5F0EB;--white:#FFFFFF;--accent:#5C6C51;--accent2:#1F3331;--accent-light:#EDE8E2;--accent-lighter:#F0EBE4;--accent-border:#DDD8D2;--accent-text:#1F3331;--blue:#2B5B8E;--blue-light:#EAF1F7;--blue-border:#C8D8E5;--blue-text:#1A3D5F;--green:#4F6B3E;--green-light:#ECF2E5;--green-border:#C6D4B3;--green-text:#33491F;--gold:#C8A968;--text:#1A1A1A;--text2:#4A4A4A;--text3:#7A7A7A;--text4:#B0A89F;--border:#EDE8E2;--border2:#DDD8D2;--shadow-xs:0 1px 2px rgba(0,0,0,0.04);--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.05)}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:#1F3331;border-right:1px solid rgba(245,240,235,0.1);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}
+  .sidebar::-webkit-scrollbar-track{background:transparent}
+  .sidebar::-webkit-scrollbar-thumb{background:rgba(245,240,235,0.2);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid rgba(245,240,235,0.1)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:#F5F0EB;letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:#C8A968;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:rgba(245,240,235,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;transition:color 0.15s}
+  .sidebar-header .back-link:hover{color:#F5F0EB}
+  .nav-group{padding:12px 0 4px}
+  .nav-group-title{padding:2px 16px 6px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,240,235,0.4)}
+  .nav-group-title.intro{color:rgba(200,169,104,0.7)}
+  .nav-group-title.demo{color:rgba(112,160,210,0.7)}
+  .nav-group-title.pratica{color:rgba(168,198,140,0.9)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:rgba(245,240,235,0.7);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:rgba(92,108,81,0.2);color:#F5F0EB}
+  .nav-item.active{background:#5C6C51;color:#F5F0EB;border-left-color:#F5F0EB;font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:rgba(245,240,235,0.4);min-width:17px;font-variant-numeric:tabular-nums}
+  .nav-item.active .ni-num{color:#F5F0EB}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:rgba(245,240,235,0.5);opacity:0;transition:opacity 0.2s;flex-shrink:0}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid rgba(245,240,235,0.1);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:rgba(245,240,235,0.5);font-weight:500;margin-bottom:6px}
+  .sp-bar{height:3px;background:rgba(245,240,235,0.1);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:#C8A968;border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px;letter-spacing:0.02em}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+  .badge-intro{background:var(--accent-light);color:var(--accent-text)}
+  .badge-demo{background:var(--blue-light);color:var(--blue-text)}
+  .badge-pratica{background:var(--green-light);color:var(--green-text)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px;font-weight:400}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .section-divider{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin:20px 0 8px}
+  .overview-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-0.01em}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:#EDE8E2;color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:#FAF8F4}
+  .ficha-table td strong{color:var(--text);font-weight:600}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--white);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}
+  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-block{position:relative;background:#F0EBE4;border:1px solid #DDD8D2;border-left:3px solid #5C6C51;border-radius:8px;padding:20px 24px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.8rem;color:#2A2A2A;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+  .copy-block .label{font-family:'Montserrat',system-ui,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#5C6C51;margin-bottom:10px;display:block}
+  .copy-btn{position:absolute;top:8px;right:8px;background:#EDE8E2;border:1px solid #DDD8D2;color:#5C6C51;padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:#1F3331;color:#F5F0EB;border-color:#1F3331}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:#FEF3E2;border:1px solid #F5C96A;border-left:3px solid #D97706;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#92610A;margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:#7A520D;line-height:1.55}
+  .insight-box{background:var(--accent2);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C8A968;margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:#F5F0EB;line-height:1.55}
+  .insight-box p strong{color:#C8A968;font-weight:800}
+  .tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .tool-link{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-decoration:none;transition:all 0.15s;box-shadow:var(--shadow-xs)}
+  .tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .tool-link .tl-name{font-size:0.78rem;font-weight:700;color:var(--accent2)}
+  .tool-link .tl-url{font-size:0.64rem;color:var(--text3);margin-top:1px}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .nav-btn.primary:hover{background:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Indice da Aula</a>
+      <h2>Pontos Cegos</h2>
+      <p>Atividade 01 &middot; Aula do Rafa</p>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Inicio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')">
+        <span class="ni-num">00</span> Visao Geral
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title intro">Introducao</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')">
+        <span class="ni-num">01</span> Contexto e objetivo
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title demo">Demonstracao</div>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')">
+        <span class="ni-num">02</span> O que vai acontecer
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')">
+        <span class="ni-num">03</span> Prompt usado
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')">
+        <span class="ni-num">04</span> O que observar
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title pratica">Atividade Pratica</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')">
+        <span class="ni-num">05</span> Instrucao para voce
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')">
+        <span class="ni-num">06</span> Passo a passo
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')">
+        <span class="ni-num">07</span> Prompt para voce
+        <span class="ni-check">&#10003;</span>
+      </a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')">
+        <span class="ni-num">08</span> Insight-chave
+        <span class="ni-check">&#10003;</span>
+      </a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- ==================== 00. VISAO GERAL ==================== -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; Aula do Rafa &rsaquo; <a href="index.html">Indice</a> &rsaquo; 01. Pontos Cegos</div>
+      <div class="sec-title"><span class="snum">00.</span> Visao Geral</div>
+      <div class="sec-desc">Atividade 01 &mdash; Pontos Cegos (quebra-gelo)</div>
+
+      <p class="lead-text">Este e um <strong>quebra-gelo isolado</strong>. Ele nao se conecta com as demais atividades da aula, mas cumpre duas funcoes: engajar voce logo no inicio e demonstrar empiricamente como <strong>memoria e contexto persistente</strong> diferenciam modelos.</p>
+
+      <div class="overview-card">
+        <h3>Ficha tecnica</h3>
+        <table class="ficha-table">
+          <tbody>
+            <tr><td>Tipo</td><td>Quebra-gelo isolado (abre a aula)</td></tr>
+            <tr><td>Duracao</td><td>12 minutos</td></tr>
+            <tr><td>Tecnica de AI</td><td>Engenharia de prompt basica + memoria/contexto persistente</td></tr>
+            <tr><td>Ferramenta</td><td>O LLM que voce mais usa no dia a dia</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-card">
+        <h3>O que voce vai levar desta atividade</h3>
+        <ul>
+          <li>A experiencia pratica de ver o que o seu LLM preferido ja aprendeu sobre voce</li>
+          <li>A compreensao de que historico = qualidade de resposta</li>
+          <li>O conceito da Camada 2 da Stack Executivo AI-First: memoria e contexto persistente</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao indice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 01. CONTEXTO E OBJETIVO ==================== -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introducao</span>
+      <div class="sec-title"><span class="snum">01.</span> Contexto e objetivo</div>
+      <div class="sec-desc">Por que estamos comecando a aula com este exercicio?</div>
+
+      <p class="lead-text"><strong>Por que estamos fazendo isso?</strong></p>
+
+      <p class="lead-text">Para voce experimentar, antes de qualquer teoria, como a qualidade da resposta de um LLM e diretamente proporcional ao seu historico de uso com aquela ferramenta.</p>
+
+      <div class="overview-card">
+        <h3>O que voce vai descobrir</h3>
+        <ul>
+          <li>Que o LLM que voce mais usa acumulou mais entendimento sobre voce do que parece</li>
+          <li>Que isso e chamado de <strong>memoria e contexto persistente</strong> (Camada 2 da Stack Executivo AI-First)</li>
+          <li>Que trocar de LLM toda hora significa <strong>perder ativo acumulado</strong></li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Regra</div>
+        <p>Use o LLM que voce mais usa no dia a dia. Se abrir conta nova agora para este exercicio, o resultado vai ser generico e voce vai perder o ponto da atividade.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 02. O QUE VAI ACONTECER ==================== -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">02.</span> O que voce vai ver acontecer na sala</div>
+      <div class="sec-desc">Professor e alunos executam juntos, ao mesmo tempo</div>
+
+      <p class="lead-text">Nesta atividade, professor e alunos fazem <strong>juntos e ao mesmo tempo</strong>. Nao ha uma demo previa: o professor da o comando, todo mundo abre o LLM que mais usa e roda o prompt ao mesmo tempo. Em seguida, 2-3 voluntarios compartilham o que receberam.</p>
+
+      <p class="lead-text">O professor mostra o resultado que ele recebeu no proprio LLM dele como referencia &mdash; e ai fica claro que a resposta de cada aluno e radicalmente diferente da dele, mesmo usando o mesmo prompt.</p>
+
+      <div class="overview-card">
+        <h3>Dinamica da sala</h3>
+        <ul>
+          <li>Professor da o comando: "abram seu LLM preferido agora"</li>
+          <li>Todos colam o mesmo prompt e rodam ao mesmo tempo</li>
+          <li>5 minutos de leitura silenciosa do resultado</li>
+          <li>2-3 voluntarios compartilham o que receberam</li>
+          <li>Professor mostra o resultado dele para contraste</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 03. PROMPT USADO ==================== -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompt usado</div>
+      <div class="sec-desc">O mesmo prompt que todo mundo vai rodar ao mesmo tempo</div>
+
+      <p class="lead-text">Este e o prompt unico da atividade. Nao tem variacao. Todo mundo na sala vai colar <strong>exatamente este texto</strong> no seu LLM preferido.</p>
+
+      <div class="copy-block" id="demo-prompt">
+<span class="label">Prompt &mdash; qualquer LLM</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
+<span id="demo-prompt-text">Quais pontos cegos e padroes ocultos voce pontuaria sobre mim? Seja direto, mesmo que desconfortavel. Foque em padroes que aparecem nas minhas conversas com voce e que eu mesmo provavelmente nao percebo.</span></div>
+
+      <div class="tip-box">
+        <div class="tip-label">Observacao</div>
+        <p>O prompt e deliberadamente curto e direto. O trabalho pesado vai ser feito pelo <strong>historico de uso</strong> que cada aluno ja tem com o seu LLM.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 04. O QUE OBSERVAR ==================== -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstracao</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar na demo</div>
+      <div class="sec-desc">Os 3 padroes que vao aparecer na sala</div>
+
+      <p class="lead-text">Enquanto voce le a sua resposta e ouve os voluntarios compartilharem a deles, preste atencao a <strong>3 padroes</strong>:</p>
+
+      <ul class="observation-list">
+        <li><strong>Cada pessoa recebe uma resposta completamente diferente</strong>, mesmo usando o mesmo prompt. Sem excecao.</li>
+        <li><strong>Quem usa o LLM ha mais tempo recebe analise mais profunda e especifica</strong> &mdash; com referencias a conversas anteriores, decisoes que tomou, temas recorrentes.</li>
+        <li><strong>Quem abriu conta ha pouco tempo recebe algo generico</strong>, quase de autoajuda &mdash; porque o modelo nao tem ativo acumulado sobre aquele usuario.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 05. INSTRUCAO PARA VOCE ==================== -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> Instrucao para voce</div>
+      <div class="sec-desc">Agora e voce quem executa &mdash; ao vivo, na sala</div>
+
+      <p class="lead-text">Abra o LLM que voce <strong>mais usa no dia a dia</strong>. Quanto mais historico de uso, mais rica sera a resposta.</p>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://chatgpt.com" target="_blank">
+          <div>
+            <div class="tl-name">ChatGPT</div>
+            <div class="tl-url">chatgpt.com</div>
+          </div>
+        </a>
+        <a class="tool-link" href="https://claude.ai" target="_blank">
+          <div>
+            <div class="tl-name">Claude</div>
+            <div class="tl-url">claude.ai</div>
+          </div>
+        </a>
+        <a class="tool-link" href="https://gemini.google.com" target="_blank">
+          <div>
+            <div class="tl-name">Gemini</div>
+            <div class="tl-url">gemini.google.com</div>
+          </div>
+        </a>
+        <a class="tool-link" href="https://perplexity.ai" target="_blank">
+          <div>
+            <div class="tl-name">Perplexity</div>
+            <div class="tl-url">perplexity.ai</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Atencao</div>
+        <p>Nao abra conta nova nem use um LLM onde voce raramente acessa. O valor do exercicio esta no <strong>historico de uso acumulado</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 06. PASSO A PASSO ==================== -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
+      <div class="sec-desc">4 passos em 12 minutos</div>
+
+      <div class="instructions">
+        <div class="inst">
+          <div class="inst-num">1</div>
+          <div class="inst-text"><strong>Abra o LLM.</strong> <span class="time">(1 min)</span><br>Use aquele em que voce tem mais historico de uso.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">2</div>
+          <div class="inst-text"><strong>Cole e rode o prompt.</strong> <span class="time">(1 min)</span><br>Sem modificar nada. Exatamente como esta na proxima secao.</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">3</div>
+          <div class="inst-text"><strong>Leia em silencio.</strong> <span class="time">(5 min)</span><br>Observe: que padroes o modelo identificou? Quais voce reconhece? Quais te surpreenderam?</div>
+        </div>
+        <div class="inst">
+          <div class="inst-num">4</div>
+          <div class="inst-text"><strong>Debrief em sala.</strong> <span class="time">(5 min)</span><br>O professor convida 2-3 voluntarios para compartilhar o que receberam.</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 07. PROMPT PARA VOCE ==================== -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Prompt para voce usar</div>
+      <div class="sec-desc">Copie e cole sem modificar</div>
+
+      <p class="lead-text">O mesmo da demonstracao. <strong>Copie e cole sem modificar:</strong></p>
+
+      <div class="copy-block" id="user-prompt">
+<span class="label">Prompt &mdash; qualquer LLM</span>
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
+<span id="user-prompt-text">Quais pontos cegos e padroes ocultos voce pontuaria sobre mim? Seja direto, mesmo que desconfortavel. Foque em padroes que aparecem nas minhas conversas com voce e que eu mesmo provavelmente nao percebo.</span></div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se vier uma resposta muito generica de primeira, nao e bug do prompt &mdash; e sinal de que seu historico naquela ferramenta ainda e curto. Guarde o aprendizado.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Proximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- ==================== 08. INSIGHT-CHAVE ==================== -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pratica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Insight-chave</div>
+      <div class="sec-desc">O que ficar desta atividade</div>
+
+      <p class="lead-text">A qualidade da resposta e <strong>diretamente proporcional ao seu historico de uso</strong>. Isso e memoria e contexto persistente. E tambem a razao pela qual <strong>trocar de LLM toda hora = perder ativo acumulado</strong>.</p>
+
+      <div class="insight-box">
+        <div class="insight-label">Leve isto para a proxima atividade</div>
+        <p>Escolha <strong>um LLM principal</strong> e invista tempo de uso nele. O valor nao esta no modelo &mdash; esta no que voce acumulou junto dele.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Proximas atividades</h3>
+        <p>Agora que voce experimentou memoria e contexto, vamos para a tecnica #1 do executivo AI-First: <strong>saber perguntar</strong>. E aqui que o metodo P/A/C/E entra.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao indice</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const visited = new Set(['sec-home'])
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.section === id)
+    if (visited.has(n.dataset.section)) n.classList.add('completed')
+  })
+  visited.add(id)
+  updateProgress()
+  window.scrollTo({top:0,behavior:'smooth'})
+}
+
+function updateProgress() {
+  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
+  document.getElementById('pct').textContent = pct
+  document.getElementById('sp-fill').style.width = pct + '%'
+}
+
+function copyText(btn, text) {
+  navigator.clipboard?.writeText(text).then(() => {
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = text; document.body.appendChild(ta)
+    ta.select(); document.execCommand('copy')
+    document.body.removeChild(ta)
+    btn.textContent = 'Copiado!'
+    setTimeout(() => btn.textContent = 'Copiar', 1800)
+  })
+}
+
+updateProgress()
+</script>
+</body>
+</html>
