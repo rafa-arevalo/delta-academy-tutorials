@@ -1,6 +1,23 @@
-Você foi acionado para criar uma nova aula no site da **Delta Academy**.
+---
+description: Cria uma nova aula (tutorial único ou sub-aula com múltiplos módulos) no padrão do Design System Delta Academy
+---
 
-O usuário vai colar um roteiro. Sua missão é transformar esse roteiro em um arquivo HTML completo seguindo exatamente o padrão do projeto, depois adicionar o card em `index.html`.
+Você foi acionado para criar uma nova aula no site da **Delta Academy** seguindo **estritamente** o Design System Delta Academy.
+
+---
+
+## PASSO 0 — Carregar o Design System (OBRIGATÓRIO, antes de qualquer coisa)
+
+Leia **na íntegra e na ordem** os arquivos abaixo. Não prossiga sem fazer isso. O design system é a fonte da verdade — contradições entre o que você lembra e o que está nesses arquivos, **ganha o arquivo**:
+
+1. `/Users/rafael-arevalo/Documents/delta-board-main/design-system/DESIGN_SYSTEM.md` — regras em linguagem natural
+2. `/Users/rafael-arevalo/Documents/delta-board-main/design-system/palettes.css` — tokens das 3 paletas (cream é padrão)
+3. `/Users/rafael-arevalo/Documents/delta-board-main/design-system/templates/index.reference.html` — template da página-índice
+4. `/Users/rafael-arevalo/Documents/delta-board-main/design-system/templates/tutorial.reference.html` — template da página de tutorial
+
+> Se qualquer um desses arquivos não existir, **pare e avise o usuário** — o design system está quebrado e não dá para gerar aula sem ele.
+
+Depois de ler, **confirme em uma linha** que carregou o design system antes de seguir. Exemplo: "✅ Design System Delta Academy carregado (paleta default: cream)."
 
 ---
 
@@ -11,194 +28,148 @@ O roteiro fornecido é: $ARGUMENTS
 Se `$ARGUMENTS` estiver vazio, peça ao usuário que cole o roteiro agora antes de continuar.
 
 Ao analisar o roteiro, extraia obrigatoriamente:
-- **Título da aula** (ex: "Automação de Cobrança com N8N")
-- **Código/tag** (ex: A01, A04, EXERCICIO, N8N, PITCH — pergunte ao usuário se não estiver claro)
-- **Cor da tag** para o index: green, orange, blue, purple ou red
-- **Descrição curta** (1–2 frases para o card do index)
-- **Lista de seções/steps** com seus títulos e conteúdo
-- **Slug para o nome do arquivo** (kebab-case, ex: `tutorial-automacao-n8n.html`)
 
-Confirme com o usuário o nome do arquivo e a tag antes de gerar o HTML.
+- **Tipo de entrega** (decidir com heurística abaixo):
+  - **Tutorial único** — uma aula avulsa em arquivo único na raiz (`tutorial-{slug}.html`)
+  - **Sub-aula** — curso com ≥ 3 módulos/atividades independentes, com diretório próprio e índice (`aula-{slug}/`)
+- **Título da aula/curso**
+- **Slug** (kebab-case, sem acentos)
+- **Descrição curta** (1-2 frases para o card do index raiz)
+- **Estrutura de seções/módulos** com títulos e conteúdo
 
----
-
-## PASSO 2 — Gerar o arquivo HTML
-
-Crie o arquivo `tutorial-{slug}.html` na raiz do repositório (`/Users/rafael-arevalo/Documents/delta-board-main/`).
-
-### Identidade visual — Delta Academy
-
-```css
---accent: #57674E;
---accent2: #475840;
---accent-light: #EEF1EB;
---accent-lighter: #F5F7F3;
---accent-border: #C8D1C0;
---accent-text: #3D4A36;
-```
-
-Logo: `logo-delta-light.svg` (não usado no tutorial, apenas no index)
-
-### Template HTML obrigatório
-
-Siga esta estrutura **exatamente** — não invente componentes novos:
-
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorial — {TÍTULO DA AULA}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  /* Cole aqui o CSS completo — copie de tutorial-eng-prompt.html e adapte apenas as variáveis --accent se necessário */
-  /* NÃO incluir CSS de .stepper-header, .stepper-node, .sn-label, .sn-check, .stepper-arrow, .back-btn (stepper), .right-sidebar, .rs-section-title, .rs-table */
-  /* Layout usa apenas sidebar esquerda (256px) + main content — sem stepper no topo e sem right sidebar */
-  /* .layout min-height deve ser 100vh (não calc(100vh - 52px)) */
-  /* .sidebar top deve ser 0 e height 100vh (não 52px e calc(100vh - 52px)) */
-</style>
-</head>
-<body>
-
-<div class="layout">
-
-  <!-- SIDEBAR ESQUERDA (256px) -->
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <a href="index.html" style="font-size:0.68rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600;">← Índice</a>
-      <h2>{TÍTULO DA AULA}</h2>
-      <p>{TAG} · Delta Skills</p>
-    </div>
-    <nav>
-      <!-- nav-group com nav-items para cada seção -->
-      <div class="nav-group">
-        <div class="nav-group-title">Conteúdo</div>
-        <div class="nav-item active" onclick="showSection('sec-home')" data-section="sec-home">
-          <span class="ni-num">00</span>Visão Geral<span class="ni-check">✓</span>
-        </div>
-        <!-- um nav-item por seção -->
-      </div>
-    </nav>
-    <div class="sidebar-progress">
-      <div class="sp-label">Progresso — <span id="pct">0</span>%</div>
-      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div class="main">
-
-    <!-- SEÇÃO HOME (sempre a primeira, class="section active") -->
-    <div class="section active" id="sec-home">
-      <div class="sec-title"><span class="snum">00.</span> {Título da Seção}</div>
-      <div class="sec-desc">{Subtítulo da seção}</div>
-      <!-- Conteúdo: overview-card, instructions, copy-block, tip-box, etc. -->
-      <div class="nav-buttons">
-        <button class="nav-btn secondary" onclick="goHome()">↩ Início</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step1')">Próximo →</button>
-      </div>
-    </div>
-
-    <!-- SEÇÕES SUBSEQUENTES (class="section", sem active) -->
-    <!-- ... -->
-
-  </div>
-
-  <!-- NÃO usar right-sidebar — o conteúdo de referência vai dentro das seções do main -->
-
-</div>
-
-<script>
-const visited = new Set(['sec-home'])
-
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
-  document.getElementById(id)?.classList.add('active')
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.dataset.section === id)
-    if (visited.has(n.dataset.section)) n.classList.add('completed')
-  })
-  visited.add(id)
-  updateProgress()
-  window.scrollTo({top:0,behavior:'smooth'})
-}
-
-function updateProgress() {
-  const pct = Math.round((visited.size / document.querySelectorAll('.section').length) * 100)
-  document.getElementById('pct').textContent = pct
-  document.getElementById('sp-fill').style.width = pct + '%'
-}
-
-function goHome() { showSection('sec-home') }
-
-function copyText(btn, text) {
-  navigator.clipboard?.writeText(text).then(() => {
-    btn.textContent = 'Copiado!'
-    setTimeout(() => btn.textContent = 'Copiar', 1800)
-  }).catch(() => {
-    const ta = document.createElement('textarea')
-    ta.value = text; document.body.appendChild(ta)
-    ta.select(); document.execCommand('copy')
-    document.body.removeChild(ta)
-    btn.textContent = 'Copiado!'
-    setTimeout(() => btn.textContent = 'Copiar', 1800)
-  })
-}
-
-updateProgress()
-</script>
-</body>
-</html>
-```
-
-### Regras de conteúdo
-
-- Títulos de seção: `<div class="sec-title"><span class="snum">01.</span> Título</div>`
-- Passos numerados: use `.instructions` > `.inst` > `.inst-num` + `.inst-text`
-- Prompts/código para copiar: use `.copy-block` com `.copy-btn` e `onclick="copyText(this, '...')"`
-- Dicas: `.tip-box` (verde); alertas: `.warning-box` (vermelho)
-- Cada seção termina com `.nav-buttons` contendo "← Anterior" e "Próximo →"
-- Numeração das seções: 00 (home), 01, 02, 03...
-- IDs das seções: `sec-home`, `sec-step1`, `sec-step2`, etc.
-- Todo o CSS vai inline no `<style>` da página — **não crie arquivos externos**
+**Confirme com o usuário** o tipo de entrega (tutorial único vs sub-aula), o slug e o título antes de gerar o HTML. Uma pergunta só, objetiva.
 
 ---
 
-## PASSO 3 — Adicionar card em `index.html`
+## PASSO 2 — Gerar os HTMLs
 
-Abra `/Users/rafael-arevalo/Documents/delta-board-main/index.html` e insira o novo card **após o último `</a>` existente dentro do container**, mantendo a ordem numérica da lista:
+### Regras absolutas (valem para qualquer HTML gerado)
 
+1. **Paleta default:** sempre `<html lang="pt-BR" data-palette="cream">` e `class="is-active"` no botão Cream do palette-switch.
+2. **Fontes:** Montserrat via Google Fonts (`https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap`). Mono para prompts: `'JetBrains Mono','Courier New',ui-monospace,monospace`.
+3. **CSS inline:** todo o CSS dentro de `<style>` no próprio HTML, incluindo o conteúdo integral de `palettes.css`. **Nunca** `<link rel="stylesheet" href="palettes.css">`.
+4. **JS inline:** os dois blocos de JS do `DESIGN_SYSTEM.md` — palette switcher (idêntico) + (só no tutorial) navegação/progresso/copy com `PKEY` único.
+5. **Palette-switch** fixo no top-right sempre presente, nas duas páginas.
+6. **Card da home** — **sempre** estrutura `card-head` (verde escuro com num+title) + `card-body` (branco com desc). Não inverter.
+7. **Bloco de prompt** — **sempre** `.copy-wrap` > `.copy-label` (fora, verde com underline) + `.copy-block` (dentro, branco puro com borda verde 4px).
+8. **Section badges** — **todas iguais** (verde escuro sobre creme). Não diferenciar por cor.
+9. **Sidebar** — títulos de grupo em creme claro, 0.82rem, peso 800, **maiores** que subitens (0.74rem, 400).
+10. **Header da home** — card único só com box escuro: H1 título do curso em claro, H2 literal "Delta Academy" em gold.
+11. **Section-label "AULAS"** entre header e cards: 1.15rem, 800, sage, uppercase, tracking 0.14em.
+
+### 2A. Se for TUTORIAL ÚNICO
+
+Gere **um arquivo** em `/Users/rafael-arevalo/Documents/delta-board-main/tutorial-{slug}.html` usando `tutorial.reference.html` como base. Substitua apenas o conteúdo (título, sidebar, seções, prompts, PKEY, TOTAL).
+
+### 2B. Se for SUB-AULA
+
+Crie o diretório `/Users/rafael-arevalo/Documents/delta-board-main/aula-{slug-curso}/` e gere:
+
+1. **`aula-{slug-curso}/index.html`** — usando `index.reference.html` como base. Substitua header, cards das aulas e footer.
+2. **`aula-{slug-curso}/tutorial-NN-{slug-aula}.html`** — um por módulo/atividade, usando `tutorial.reference.html` como base.
+
+Todos os links internos (breadcrumbs, sidebar back-link, nav-buttons) devem apontar para `index.html` local do diretório da sub-aula, **não** para a raiz.
+
+### Conteúdo — não inventar
+
+- Siga **exatamente** os componentes listados no `DESIGN_SYSTEM.md`. Não invente novos callouts, não mude cores de badges, não altere hierarquia.
+- **Não inserir emojis** que não estivessem no roteiro original.
+- Se o roteiro pedir algo que não existe no design system (ex.: um tipo de caixa que não está lá), pergunte ao usuário antes de improvisar.
+
+---
+
+## PASSO 3 — Adicionar card em `index.html` da raiz
+
+Abra `/Users/rafael-arevalo/Documents/delta-board-main/index.html`. Insira um novo `<a class="card">` **após o último `</a>` existente** dentro do `<div class="container">`, seguindo o mesmo padrão visual dos cards existentes no index raiz (esse index é diferente do template da sub-aula — é o catálogo geral do site e usa paleta mais simples).
+
+### Para TUTORIAL ÚNICO
 ```html
 <a class="card" href="tutorial-{slug}.html">
   <span class="card-tag tag-{cor}">{TAG}</span>
   <div class="card-title">{Título da Aula}</div>
-  <div class="card-desc">{Descrição curta de 1-2 frases}</div>
+  <div class="card-desc">{Descrição curta}</div>
 </a>
 ```
+Cores de tag: `tag-green`, `tag-orange`, `tag-blue`, `tag-purple`, `tag-red`.
 
-Cores disponíveis para a tag: `tag-green`, `tag-orange`, `tag-blue`, `tag-purple`, `tag-red`
+### Para SUB-AULA
+```html
+<a class="card" href="aula-{slug-curso}/index.html" style="border-left:3px solid {COR-HEX}">
+  <span class="card-tag tag-{cor}">{TAG-CURSO}</span>
+  <div class="card-title">{Nome do Curso}</div>
+  <div class="card-desc">{Descrição: N módulos práticos: ...}</div>
+</a>
+```
+Sugestão de cor da border-left para Delta Academy: `#1F3331` (pine) ou `#B8933E` (gold).
 
 ---
 
-## PASSO 4 — Publicar e retornar URL
+## PASSO 4 — Publicar
 
-Execute os comandos abaixo **na ordem**, a partir do diretório `/Users/rafael-arevalo/Documents/delta-board-main/`:
+A partir de `/Users/rafael-arevalo/Documents/delta-board-main/`:
 
 ```bash
+# Tutorial único
 git add tutorial-{slug}.html index.html
 git commit -m "Add {TAG}: {Título da Aula}"
+
+# Sub-aula
+git add aula-{slug-curso}/ index.html
+git commit -m "Add {TAG}: {Nome do Curso} (sub-aula com N módulos)"
+
 git push origin main
 ```
 
-Após o push ser concluído com sucesso, retorne ao usuário a mensagem:
+**Só entregue a URL depois do `git push` retornar sucesso.** Se der erro (rejected, autenticação, hook), reporte o erro e **não** entregue a URL.
 
+Use HEREDOC para a mensagem de commit se ela tiver múltiplas linhas. Inclua `Co-Authored-By: Claude <noreply@anthropic.com>` se for prática do projeto.
+
+---
+
+## PASSO 5 — Entregar ao usuário
+
+Após push bem-sucedido, retorne a mensagem abaixo com os placeholders **já substituídos** pelos valores reais:
+
+### Tutorial único
 ```
-✅ Aula publicada!
+✅ Aula publicada no GitHub Pages!
 
-📄 Página: https://rafa-arevalo.github.io/delta-academy-tutorials/tutorial-{slug}.html
-📋 Índice: https://rafa-arevalo.github.io/delta-academy-tutorials/
+🔗 URL para testar:
+   https://rafa-arevalo.github.io/delta-academy-tutorials/tutorial-{slug}.html
 
-⏱ O GitHub Pages pode levar até 1 minuto para refletir a atualização.
+📋 Índice atualizado:
+   https://rafa-arevalo.github.io/delta-academy-tutorials/
+
+⏱ Aguarde 30–60 segundos antes de abrir (GitHub Pages demora alguns segundos para publicar). Cmd+Shift+R se não carregar.
+
+🎨 Paleta default: Cream. Use o switch no canto superior direito para testar Forest e Dusk.
 ```
+
+### Sub-aula
+```
+✅ Sub-aula publicada no GitHub Pages!
+
+🔗 Índice da sub-aula:
+   https://rafa-arevalo.github.io/delta-academy-tutorials/aula-{slug-curso}/
+
+🔗 Tutoriais:
+   https://rafa-arevalo.github.io/delta-academy-tutorials/aula-{slug-curso}/tutorial-01-{slug}.html
+   https://rafa-arevalo.github.io/delta-academy-tutorials/aula-{slug-curso}/tutorial-02-{slug}.html
+   ...
+
+📋 Índice raiz atualizado:
+   https://rafa-arevalo.github.io/delta-academy-tutorials/
+
+⏱ Aguarde 30–60 segundos. Cmd+Shift+R se não carregar.
+
+🎨 Paleta default: Cream. Switch de paleta no canto superior direito (persistido em localStorage).
+```
+
+---
+
+## Regras operacionais
+
+- **Sempre entregue URLs completas clicáveis** (com `https://` e slugs substituídos).
+- **Não abra a URL** — quem testa é o usuário.
+- **Se o design system for atualizado** (arquivos em `design-system/` mudarem), as próximas aulas geradas já refletem — o comando relê tudo a cada execução.
+- **Se surgir dúvida** entre roteiro vs design system, **peça confirmação** antes de decidir por conta.

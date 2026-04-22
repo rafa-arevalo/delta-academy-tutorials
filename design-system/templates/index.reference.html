@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delta Board — Aula do Rafa · O Executivo AI-First</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="palettes.css">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .container{max-width:560px;width:100%}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:var(--text3);text-decoration:none;margin-bottom:16px;transition:color 0.15s}
+  .back-link:hover{color:var(--accent2)}
+  .header{text-align:center;margin-bottom:32px}
+  .header-bar{background:var(--accent2);border-radius:14px;padding:26px 22px 22px}
+  .header-bar h1{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:var(--bg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.2}
+  .header-bar h2{font-family:'Montserrat',sans-serif;font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:6px}
+  .section-label{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin:28px 0 14px;padding-left:4px}
+  .card{display:block;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:0;margin-bottom:10px;text-decoration:none;color:inherit;box-shadow:var(--shadow-xs);transition:all 0.15s;position:relative;overflow:hidden}
+  .card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .card-head{background:var(--card-tag-bg);color:var(--card-tag-fg);padding:14px 20px;display:flex;align-items:baseline;gap:12px}
+  .card-head .card-num{font-family:'Montserrat',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.02em;opacity:0.7}
+  .card-head .card-title{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:-0.01em;line-height:1.25}
+  .card-body{padding:14px 20px 16px;background:#FFFFFF;border-top:1px solid var(--border)}
+  .card-desc{font-size:0.78rem;color:#0E1A19;line-height:1.6;font-weight:500}
+  .footer{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+  .footer p{font-size:0.72rem;color:var(--text3);line-height:1.6}
+  .footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  .footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="container">
+  <a class="back-link" href="#"><span>&#8592;</span> Delta Academy</a>
+
+  <div class="header">
+    <div class="header-bar">
+      <h1>Delta Board &mdash; Aula do Rafa</h1>
+      <h2>Delta Academy</h2>
+    </div>
+  </div>
+
+  <div class="section-label">AULAS</div>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">01</span><span class="card-title">Pontos Cegos</span></div>
+    <div class="card-body"><div class="card-desc">Quebra-gelo: descubra o que o LLM que você mais usa já sabe sobre você. Experimente memória e contexto persistente na prática.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">02</span><span class="card-title">Método P/A/C/E &mdash; Saber Perguntar</span></div>
+    <div class="card-body"><div class="card-desc">O framework que transforma um prompt comum em entregável executivo. Aplique ao vivo sobre um problema real da sua empresa.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">03</span><span class="card-title">As 5 Perguntas da Stack</span></div>
+    <div class="card-body"><div class="card-desc">Autodiagnóstico em 2 minutos sobre ERP, CRM, workspace, cloud e gestão de projetos da sua empresa. Input direto do Workshop de sexta.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">04</span><span class="card-title">Pesquisa Profunda</span></div>
+    <div class="card-body"><div class="card-desc">Do Google ao relatório executivo em minutos. Veja a demo e execute no seu próprio setor em seguida.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">05</span><span class="card-title">Projects</span></div>
+    <div class="card-body"><div class="card-desc">Cruze múltiplos documentos em 1 briefing executivo. Veja a demo e monte o seu próprio Project na sequência.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">06</span><span class="card-title">Artefatos</span></div>
+    <div class="card-body"><div class="card-desc">Quando a AI para de entregar texto e passa a entregar ferramenta funcional. Veja a demo e adapte o prompt para sua empresa.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">07</span><span class="card-title">Prompts Agênticos</span></div>
+    <div class="card-body"><div class="card-desc">O clímax: agente autônomo executa análise estratégica completa. Veja a demo e prepare seu próprio prompt agêntico.</div></div>
+  </a>
+
+  <a class="card" href="tutorial.html">
+    <div class="card-head"><span class="card-num">08</span><span class="card-title">Compromisso de Ação</span></div>
+    <div class="card-body"><div class="card-desc">Consolide tudo em 3 casos de uso pré-classificados para o Workshop de Roadmap de 90 dias de amanhã.</div></div>
+  </a>
+
+  <div class="footer">
+    <p>Dúvidas? Volte para este índice a qualquer momento.</p>
+    <p><a href="https://deltaacademy.com.br">deltaacademy.com.br</a> &middot; Delta Academy &middot; 2026</p>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+</script>
+</body>
+</html>
