@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP01. Engenharia de Prompt &middot; DELTA BOARD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* ================ Palette switch ================ */
+  .palette-switch {
+    position: fixed; top: 12px; right: 12px; z-index: 100;
+    display: inline-flex; gap: 3px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px;
+    box-shadow: var(--shadow-sm);
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .palette-switch button {
+    font: inherit; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 5px 10px; border-radius: 999px;
+    border: none; background: transparent; color: var(--text3);
+    cursor: pointer; transition: all 160ms ease;
+  }
+  .palette-switch button:hover { color: var(--text); }
+  .palette-switch button.is-active { background: var(--accent2); color: var(--bg); }
+
+  /* ================ Page ================ */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-group-title.intro,.nav-group-title.demo,.nav-group-title.pratica{color:var(--sidebar-fg);opacity:1}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica{background:var(--accent2);color:var(--bg)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}
+  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
+  .insight-box p strong{color:var(--insight-strong);font-weight:800}
+  .tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .tool-link{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-decoration:none;transition:all 0.15s;box-shadow:var(--shadow-xs)}
+  .tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .tool-link .tl-name{font-size:0.78rem;font-weight:700;color:var(--accent2)}
+  .tool-link .tl-url{font-size:0.64rem;color:var(--text3);margin-top:1px}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .palette-switch{right:12px;top:12px}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice do Curso</a>
+      <h2>Engenharia de Prompt</h2>
+      <p>AP01 &middot; DELTA BOARD</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Início</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visão Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introdução</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Método PACE<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Prompt sem técnica<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Prompt com método PACE<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> PACE + relatório<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt para você<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Board &rsaquo; DELTA BOARD &rsaquo; <a href="index.html">Índice</a> &rsaquo; AP01. Engenharia de Prompt</div>
+      <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
+      <div class="sec-desc">AP01 &mdash; Engenharia de Prompt</div>
+
+      <p class="lead-text">Primeira atividade prática do <strong>DELTA BOARD</strong>. Você vai entender a base da engenharia de prompt com o framework <strong>PACE</strong> (Papel, Ação, Contexto, Expectativa) e estruturar um prompt que mapeia oportunidades de AI na sua rotina usando a <strong>Matrix Kai-Fu Lee</strong>.</p>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
+          <tr><td>Duração</td><td>5 minutos</td></tr>
+          <tr><td>Bloco</td><td>04 &mdash; Como usar AI &middot; Primeira atividade</td></tr>
+          <tr><td>Técnica de AI</td><td>Engenharia de Prompt &mdash; Framework PACE</td></tr>
+          <tr><td>Ferramenta</td><td>Claude</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">O que você vai aprender nesta atividade</div>
+
+      <p class="lead-text">Entender a base dos conceitos de engenharia de prompt com o framework <strong>PACE</strong> (Papel, Ação, Contexto, Expectativa).</p>
+
+      <p class="lead-text">Com isso, você irá realizar uma atividade prática para estruturar um prompt que mapeia oportunidades de uso de AI na própria rotina usando a <strong>Matrix Kai-Fu Lee</strong>.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Método PACE</div>
+      <div class="sec-desc">Um framework em 4 camadas para estruturar qualquer prompt</div>
+
+      <p class="lead-text">Um prompt básico é como pedir <strong>"me faz um relatório"</strong> a um estagiário no primeiro dia &mdash; ele não sabe o tom, o contexto nem o que você espera.</p>
+
+      <p class="lead-text">O PACE resolve isso estruturando seu pedido em 4 camadas:</p>
+
+      <div class="overview-card">
+        <h3>As 4 camadas do PACE</h3>
+        <ul>
+          <li><strong>Papel</strong> &mdash; quem a IA deve ser</li>
+          <li><strong>Ação</strong> &mdash; o que fazer</li>
+          <li><strong>Contexto</strong> &mdash; com quais informações</li>
+          <li><strong>Expectativa</strong> &mdash; em que formato e qualidade entregar</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>A diferença é <strong>previsibilidade</strong>. Sem PACE, você depende da sorte; com PACE, você controla o resultado. Pense nisso como um briefing executivo &mdash; quanto mais preciso o briefing, menos retrabalho no entregável.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">03.</span> Prompt sem técnica</div>
+      <div class="sec-desc">O que acontece quando não se usa nenhuma estrutura</div>
+
+      <p class="lead-text">Veja como fica uma pergunta aberta, sem papel, sem contexto e sem expectativa clara de entrega:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt sem técnica</span>
+        <div class="copy-block" id="demo-sem-tecnica">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-sem-tecnica-text').textContent)">Copiar</button>
+<span id="demo-sem-tecnica-text">Me mostre como eu posso usar AI no meu dia a dia</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">O que observar</div>
+        <p>A IA não sabe quem você é, o que você faz, nem em que formato responder. O resultado vai ser genérico &mdash; uma lista de 10 usos padrão que você já viu em qualquer post do LinkedIn.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">04.</span> Prompt com método PACE</div>
+      <div class="sec-desc">Mesma pergunta, agora estruturada em Papel + Ação + Contexto + Expectativa</div>
+
+      <p class="lead-text">Agora o mesmo pedido, mas escrito com as 4 camadas do PACE. Observe como cada bloco responde uma pergunta diferente:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt com PACE</span>
+        <div class="copy-block" id="demo-pace">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-pace-text').textContent)">Copiar</button>
+<span id="demo-pace-text">PAPEL
+Atue como um consultor com muita experiência em analisar
+oportunidades de usar inteligência artificial no dia a dia
+do trabalho.
+
+AÇÃO
+Sua tarefa é analisar o meu contexto e mapear as
+oportunidades de usar AI no dia a dia do meu trabalho
+segundo a matriz de Kai-Fu Lee.
+
+CONTEXTO
+Atuo no segmento de mercado de educação e no cargo de
+Head de educação crio a ementa do semestre, crio roteiro
+de aulas, aplico e corrijo provas.
+
+EXPECTATIVA
+Preciso que você me responda em um formato de tabela
+me mostrando para cada quadrante da matriz de Kai-Fu Lee
+as possibilidades para que eu possa aplicar AI no meu
+dia a dia.</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> Prompt com PACE + relatório HTML</div>
+      <div class="sec-desc">A versão máxima &mdash; a IA entrega um artefato HTML interativo, não só texto</div>
+
+      <p class="lead-text">Mesma estrutura PACE, mas agora detalhando <strong>exatamente</strong> o formato visual da entrega. O resultado deixa de ser uma resposta em texto e passa a ser um <strong>relatório interativo</strong> pronto para uso.</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt PACE + relatório</span>
+        <div class="copy-block" id="demo-pace-rel">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-pace-rel-text').textContent)">Copiar</button>
+<span id="demo-pace-rel-text">PAPEL
+Você é um consultor especialista em IA Generativa aplicada
+a produtividade corporativa, com experiência em diagnóstico
+de processos e recomendação de ferramentas de IA para times
+executivos.
+
+AÇÃO
+Analise meu contexto profissional e mapeie oportunidades de
+aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica
+atividades em 4 quadrantes:
+
+- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
+- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+
+Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
+
+Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
+Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
+Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
+Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
+
+Para CADA quadrante:
+- O que é — 1 frase aplicada ao meu contexto
+- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
+- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica do Delta Board usar
+- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
+- Risco ou cuidado — 1 limitação relevante
+
+Encerre com uma tabela-resumo consolidada com estas colunas:
+| Quadrante | Atividade | Ferramenta Delta Board | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
+
+A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
+
+CONTEXTO
+Ferramentas e técnicas que eu aprendi
+
+Durante a imersão Delta Board da Delta Academy, aprendi as seguintes
+ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas
+ao mapear as oportunidades:
+
+- Engenharia de Prompt — técnicas estruturadas para obter respostas precisas de IAs generativas
+- Claude (Anthropic) — assistente de IA com funcionalidades específicas:
+  - Pesquisa Profunda (research multi-fonte)
+  - Projects (assistentes personalizados com contexto fixo)
+  - Claude Design
+  - Artefatos (documentos, código, visualizações gerados na conversa)
+  - Skills
+  - Claude Cowork
+  - Claude Code
+- Vibe Coding com Lovable — criar aplicações web funcionais descrevendo em linguagem natural, sem escrever código
+- Agentes de IA — sistemas autônomos que executam tarefas complexas com múltiplas etapas
+
+Meu contexto profissional
+
+Sobre mim:
+- Segmento de mercado: educação
+- Cargo: Head de educação
+- Departamento: educacional
+- Minhas 3 a 5 principais atividades no dia a dia:
+  - Criar a ementa do semestre
+  - Criar o roteiro de aulas
+  - Criar avaliações
+  - Corrigir avaliações
+  - Mostrar as notas das avaliações para os alunos
+
+Sobre minha equipe:
+- Total de colaboradores sob minha gestão direta: 2
+- Cargos dos colaboradores sob minha gestão: especialista em AI, coordenador pedagógico
+- Principais atividades que meus colaboradores executam no dia a dia:
+  - Pesquisar e testar novos lançamentos de AI
+  - Criar tutoriais com os lançamentos de AI
+  - Analisar e acompanhar a implementação da ementa do semestre
+  - Tarefas administrativas
+
+EXPECTATIVA
+Regras de conteúdo
+- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
+- Use bullet points — sem parágrafos longos
+- Linguagem direta, sem jargão acadêmico
+- Toda recomendação de IA DEVE referenciar uma ferramenta ou técnica específica aprendida no Delta Board
+
+Formato de entrega: artefato HTML interativo
+
+O resultado final DEVE ser entregue como um artefato HTML único,
+interativo e responsivo. Siga EXATAMENTE estas especificações visuais
+e estruturais:
+
+Estilo geral
+- Fundo da página: #FAFAF7 (off-white quente)
+- Cor de texto principal: #1a1a1a
+- Cor de texto secundário/muted: #6b7c6e
+- Cor de bordas: #d6d1ca (bordas principais) e #e8e3dc (bordas internas leves)
+- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
+- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
+- Fonte única para tudo: Montserrat (importar do Google Fonts), pesos 400, 500, 600 e 700
+- Line-height do body: 1.65
+- Anti-aliasing: -webkit-font-smoothing: antialiased
+
+Header
+- Badge no topo: texto "DELTA BOARD · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
+- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
+- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
+
+Matriz visual (mini-mapa clicável)
+- Grid 2×2, sem gap visível (gap: 0), border-radius 10px, overflow hidden
+- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
+- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
+- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
+- Hover nas células: fundo muda para #F5F0EB
+- Labels dos eixos acima e abaixo da matriz: font-size 9px, peso 700, uppercase, letter-spacing 2px, cor #6b7c6e
+- Disposição da matriz (ordem visual):
+  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
+  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
+- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
+
+Cores por quadrante
+- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
+- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
+- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
+- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
+
+Painéis de detalhe (accordion)
+- Cada quadrante é um painel colapsável (accordion), fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
+- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
+- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
+- Hover no header: fundo #F5F0EB
+- Chevron rotaciona 180° quando aberto (transition 0.3s)
+- Body do painel: max-height 0 quando fechado, max-height 2000px quando aberto (transition 0.4s ease)
+- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
+- O primeiro painel (Q1) começa aberto por padrão; os demais fechados
+- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s entre painéis
+
+Dentro de cada painel
+- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
+- Texto de parágrafo: font-size 13px
+- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
+- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
+- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
+- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
+
+Tabela-resumo
+- Título h2: font-size 18px, peso 700, cor #1F3331
+- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
+- Container da tabela: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
+- Header da tabela (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
+- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
+- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
+- Hover nas linhas: fundo #ede8e1
+- Coluna Autonomia da IA — cores por nível:
+  - Alta: cor #3D7A54, peso 700
+  - Média: cor #C4883A, peso 700
+  - Baixa: cor #3A8C8C, peso 700
+- Dots de quadrante na coluna "Quadrante": círculo de 8×8px com a cor do respectivo quadrante, inline-block, margin-right 5px
+- Min-width da tabela: 720px (scroll horizontal em mobile)
+
+Responsividade (max-width 600px)
+- Container: padding 24px 16px 60px
+- Título h1: font-size 21px
+- Matriz: muda para grid de 1 coluna
+- Painéis: padding lateral reduzido para 16px
+- Tabela: font-size 11px, padding das células 9px 10px
+
+JavaScript
+- Função togglePanel(id): alterna a classe open no painel correspondente
+- Função scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout de 100ms
+- Cada célula da matriz chama scrollToPanel no onclick
+- Cada header de painel chama togglePanel no onclick</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Sua vez &mdash; aplique no seu contexto</div>
+      <div class="sec-desc">Preencha as variáveis, cole no Claude e analise o mapa personalizado</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Preencha as variáveis.</strong> <span class="time">(2 min)</span><br>Substitua os campos entre colchetes pelos dados do seu contexto (segmento, cargo, atividades, equipe).</div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Cole no Claude.</strong> <span class="time">(1 min)</span><br>Abra o Claude, cole o prompt completo e rode.</div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Analise o resultado.</strong> <span class="time">(2 min)</span><br>Leia o mapa de oportunidades de AI personalizado para o seu dia a dia e identifique por onde começar.</div></div>
+      </div>
+
+      <div class="tool-links">
+        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai</div></div></a>
+      </div>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt para você usar</span>
+        <div class="copy-block" id="user-prompt">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
+<span id="user-prompt-text">PAPEL
+Você é um consultor especialista em IA Generativa aplicada
+a produtividade corporativa, com experiência em diagnóstico
+de processos e recomendação de ferramentas de IA para times
+executivos.
+
+AÇÃO
+Analise meu contexto profissional e mapeie oportunidades de
+aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica
+atividades em 4 quadrantes:
+
+- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
+- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+
+Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
+
+Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
+Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
+Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
+Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
+
+Para CADA quadrante:
+- O que é — 1 frase aplicada ao meu contexto
+- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
+- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica do Delta Board usar
+- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
+- Risco ou cuidado — 1 limitação relevante
+
+Encerre com uma tabela-resumo consolidada com estas colunas:
+| Quadrante | Atividade | Ferramenta Delta Board | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
+
+A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
+
+CONTEXTO
+Ferramentas e técnicas que eu aprendi
+
+Durante a imersão Delta Board da Delta Academy, aprendi as seguintes
+ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas
+ao mapear as oportunidades:
+
+- Engenharia de Prompt — técnicas estruturadas para obter respostas precisas de IAs generativas
+- Claude (Anthropic) — assistente de IA com funcionalidades específicas:
+  - Pesquisa Profunda (research multi-fonte)
+  - Projects (assistentes personalizados com contexto fixo)
+  - Claude Design
+  - Artefatos (documentos, código, visualizações gerados na conversa)
+  - Skills
+  - Claude Cowork
+  - Claude Code
+- Vibe Coding com Lovable — criar aplicações web funcionais descrevendo em linguagem natural, sem escrever código
+- Agentes de IA — sistemas autônomos que executam tarefas complexas com múltiplas etapas
+
+Meu contexto profissional
+
+Sobre mim:
+- Segmento de mercado: [ex.: varejo, saúde, indústria, serviços financeiros]
+- Cargo: [ex.: Diretor Comercial, Head de Marketing, Gerente de Operações]
+- Departamento: [ex.: Comercial, RH, Financeiro, Operações]
+- Minhas 3 a 5 principais atividades no dia a dia:
+  - [ex.: análise de relatórios de vendas semanais]
+  - [ex.: reuniões de alinhamento com equipe]
+  - [ex.: criação de propostas comerciais para clientes]
+  - [ex.: planejamento estratégico trimestral]
+  - [ex.: aprovação de orçamentos e contratos]
+
+Sobre minha equipe:
+- Total de colaboradores sob minha gestão direta: [ex.: 8]
+- Cargos dos colaboradores sob minha gestão: [ex.: analista comercial, coordenador de marketing, assistente administrativo]
+- Principais atividades que meus colaboradores executam no dia a dia:
+  - [ex.: preenchimento de planilhas e relatórios operacionais]
+  - [ex.: atendimento e follow-up com clientes]
+  - [ex.: pesquisa de mercado e análise de concorrentes]
+  - [ex.: criação de apresentações e materiais internos]
+  - [ex.: agendamento e organização de reuniões]
+
+EXPECTATIVA
+Regras de conteúdo
+- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
+- Use bullet points — sem parágrafos longos
+- Linguagem direta, sem jargão acadêmico
+- Toda recomendação de IA DEVE referenciar uma ferramenta ou técnica específica aprendida no Delta Board
+
+Formato de entrega: artefato HTML interativo
+
+O resultado final DEVE ser entregue como um artefato HTML único,
+interativo e responsivo. Siga EXATAMENTE estas especificações visuais
+e estruturais:
+
+Estilo geral
+- Fundo da página: #FAFAF7 (off-white quente)
+- Cor de texto principal: #1a1a1a
+- Cor de texto secundário/muted: #6b7c6e
+- Cor de bordas: #d6d1ca (bordas principais) e #e8e3dc (bordas internas leves)
+- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
+- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
+- Fonte única para tudo: Montserrat (importar do Google Fonts), pesos 400, 500, 600 e 700
+- Line-height do body: 1.65
+- Anti-aliasing: -webkit-font-smoothing: antialiased
+
+Header
+- Badge no topo: texto "DELTA BOARD · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
+- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
+- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
+
+Matriz visual (mini-mapa clicável)
+- Grid 2×2, sem gap visível (gap: 0), border-radius 10px, overflow hidden
+- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
+- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
+- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
+- Hover nas células: fundo muda para #F5F0EB
+- Labels dos eixos acima e abaixo da matriz: font-size 9px, peso 700, uppercase, letter-spacing 2px, cor #6b7c6e
+- Disposição da matriz (ordem visual):
+  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
+  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
+- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
+
+Cores por quadrante
+- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
+- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
+- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
+- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
+
+Painéis de detalhe (accordion)
+- Cada quadrante é um painel colapsável (accordion), fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
+- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
+- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
+- Hover no header: fundo #F5F0EB
+- Chevron rotaciona 180° quando aberto (transition 0.3s)
+- Body do painel: max-height 0 quando fechado, max-height 2000px quando aberto (transition 0.4s ease)
+- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
+- O primeiro painel (Q1) começa aberto por padrão; os demais fechados
+- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s entre painéis
+
+Dentro de cada painel
+- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
+- Texto de parágrafo: font-size 13px
+- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
+- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
+- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
+- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
+
+Tabela-resumo
+- Título h2: font-size 18px, peso 700, cor #1F3331
+- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
+- Container da tabela: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
+- Header da tabela (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
+- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
+- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
+- Hover nas linhas: fundo #ede8e1
+- Coluna Autonomia da IA — cores por nível:
+  - Alta: cor #3D7A54, peso 700
+  - Média: cor #C4883A, peso 700
+  - Baixa: cor #3A8C8C, peso 700
+- Dots de quadrante na coluna "Quadrante": círculo de 8×8px com a cor do respectivo quadrante, inline-block, margin-right 5px
+- Min-width da tabela: 720px (scroll horizontal em mobile)
+
+Responsividade (max-width 600px)
+- Container: padding 24px 16px 60px
+- Título h1: font-size 21px
+- Matriz: muda para grid de 1 coluna
+- Painéis: padding lateral reduzido para 16px
+- Tabela: font-size 11px, padding das células 9px 10px
+
+JavaScript
+- Função togglePanel(id): alterna a classe open no painel correspondente
+- Função scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout de 100ms
+- Cada célula da matriz chama scrollToPanel no onclick
+- Cada header de painel chama togglePanel no onclick</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Se você trabalha em setor muito específico, generalize um nível. O objetivo é que o Claude entenda o contexto e devolva um mapa <strong>acionável</strong> &mdash; não exato.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap01-engenharia-de-prompt";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 7;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-home";
+    completed.add("sec-home");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-home") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
