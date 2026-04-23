@@ -89,25 +89,6 @@
     --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
   }
 
-  /* ================ Palette switch ================ */
-  .palette-switch {
-    position: fixed; top: 12px; right: 12px; z-index: 100;
-    display: inline-flex; gap: 3px;
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 999px; padding: 3px;
-    box-shadow: var(--shadow-sm);
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-  .palette-switch button {
-    font: inherit; font-size: 0.6rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    padding: 5px 10px; border-radius: 999px;
-    border: none; background: transparent; color: var(--text3);
-    cursor: pointer; transition: all 160ms ease;
-  }
-  .palette-switch button:hover { color: var(--text); }
-  .palette-switch button.is-active { background: var(--accent2); color: var(--bg); }
-
   /* ================ Page ================ */
   body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
   .layout{display:flex;min-height:100vh}
@@ -196,7 +177,6 @@
   .observation-list{list-style:none;margin:12px 0}
   .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
   .observation-list li strong{color:var(--blue-text);font-weight:700}
-  .palette-switch{right:12px;top:12px}
   @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
 </style>
 </head>
@@ -218,14 +198,15 @@
       <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Cowork<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
-      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> O que você vai ver &mdash; 3 momentos<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Como o professor prepara os arquivos<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que observar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
-      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que você vai fazer<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Passo a passo<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que você vai fazer<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -303,12 +284,25 @@
     <!-- 03 -->
     <div class="section" id="sec-step3">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver</div>
-      <div class="sec-desc">Cowork acessando uma pasta com 2 arquivos e gerando o PPT ao vivo</div>
+      <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver &mdash; 3 momentos</div>
+      <div class="sec-desc">Sequência completa: pasta → configurar Cowork → gerar PPT</div>
 
-      <p class="lead-text">O professor abre o <strong>Claude Desktop</strong>, acessa o <strong>Cowork</strong>, aponta para uma pasta com dois arquivos &mdash; a planilha de OKRs e o arquivo de identidade visual da empresa de logística &mdash; e roda o prompt.</p>
+      <p class="lead-text">A demonstração tem três momentos em sequência:</p>
 
-      <p class="lead-text">O Cowork <strong>lê os dois arquivos da pasta e gera o PPT diretamente na mesma pasta</strong>. O professor abre o arquivo gerado ao vivo para mostrar o resultado.</p>
+      <div class="overview-card">
+        <h3>Momento 1 &mdash; Criar a pasta e preparar os arquivos</h3>
+        <p>O professor cria ao vivo a pasta de trabalho no computador, salva a planilha de OKRs da empresa de logística e o arquivo de identidade visual dentro dela. Isso mostra que o Cowork <strong>não inventa dados</strong> &mdash; ele lê arquivos reais do seu computador.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Momento 2 &mdash; Configurar o Cowork e apontar para a pasta</h3>
+        <p>O professor abre o Claude Desktop, acessa a aba Cowork e aponta para a pasta recém-criada. A partir desse momento, o <strong>Cowork tem acesso a tudo que estiver nela</strong>.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Momento 3 &mdash; Rodar o prompt e acompanhar a geração</h3>
+        <p>O professor cola o prompt e o Cowork trabalha de forma autônoma &mdash; lendo os dois arquivos, montando os slides, aplicando a identidade visual e salvando o PPT na mesma pasta. O professor <strong>abre o arquivo gerado ao vivo</strong>.</p>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
@@ -319,15 +313,75 @@
     <!-- 04 -->
     <div class="section" id="sec-step4">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">04.</span> O que observar</div>
-      <div class="sec-desc">4 características do Cowork na prática</div>
+      <div class="sec-title demo"><span class="snum">04.</span> Como o professor prepara os arquivos na demonstração</div>
+      <div class="sec-desc">Pasta <strong>Delta Board Demo</strong> com os 2 arquivos-semente da empresa de logística</div>
 
-      <ul class="observation-list">
-        <li><strong>Acesso direto aos arquivos.</strong> O Cowork acessa os arquivos diretamente da pasta &mdash; você não precisa abrir, copiar nem colar nada no prompt.</li>
-        <li><strong>Transparência em tempo real.</strong> O agente mostra cada passo: lendo os arquivos, organizando os slides, aplicando as cores.</li>
-        <li><strong>Entrega direto na pasta.</strong> O PPT chega pronto na pasta de destino &mdash; você abre no PowerPoint ou Google Slides e o conteúdo já está estruturado com a identidade visual da empresa.</li>
-        <li><strong>Ajustes em linguagem natural.</strong> Após a geração, você pede correções no chat (cor, fonte, título) e o Cowork reedita o arquivo.</li>
-      </ul>
+      <div class="overview-card">
+        <h3>Criar a pasta &mdash; Mac</h3>
+        <ul>
+          <li>Abra o <strong>Finder</strong></li>
+          <li>Clique em <strong>Documentos</strong> no menu lateral esquerdo</li>
+          <li>Clique com o botão direito em uma área vazia &rarr; <strong>Nova Pasta</strong></li>
+          <li>Nomeie como <strong>Delta Board Demo</strong> e pressione Enter</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Criar a pasta &mdash; Windows</h3>
+        <ul>
+          <li>Abra o <strong>Explorador de Arquivos</strong></li>
+          <li>Clique em <strong>Documentos</strong> no menu lateral esquerdo</li>
+          <li>Clique com o botão direito em uma área vazia &rarr; <strong>Novo</strong> &rarr; <strong>Pasta</strong></li>
+          <li>Nomeie como <strong>Delta Board Demo</strong> e pressione Enter</li>
+        </ul>
+      </div>
+
+      <p class="lead-text">Abra um editor de texto simples (<strong>TextEdit no Mac</strong> em modo texto simples, ou <strong>Bloco de Notas no Windows</strong>), cole os dados abaixo e salve com o nome <strong>okrs-logistica.csv</strong> dentro da pasta <strong>Delta Board Demo</strong>:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">okrs-logistica.csv &mdash; dados da demo</span>
+        <div class="copy-block" id="demo-csv">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-csv-text').textContent)">Copiar</button>
+<span id="demo-csv-text">Objetivo,Key Result,Meta,Resultado Atual,% Atingimento,Status
+Reduzir custo operacional,Reduzir custo por entrega,R$ 12&#44;00,R$ 13&#44;20,90%,Em risco
+Reduzir custo operacional,Diminuir retrabalho em 20%,20%,8%,40%,Atrasado
+Reduzir custo operacional,Aumentar ocupação dos veículos para 85%,85%,88%,104%,No prazo
+Melhorar NPS de clientes,Atingir NPS 72,72,68,94%,Em risco
+Melhorar NPS de clientes,Reduzir tempo de resposta para 4h,4h,6h,67%,Atrasado
+Melhorar NPS de clientes,Resolver 95% das ocorrências no 1º contato,95%,91%,96%,Em risco
+Desenvolver o time,Treinar 100% dos motoristas em segurança,100%,100%,100%,No prazo
+Desenvolver o time,Reduzir turnover para 8%,8%,11%,73%,Atrasado
+Desenvolver o time,Promover 3 líderes internos,3,2,67%,Em risco</span></div>
+      </div>
+
+      <p class="lead-text">No mesmo editor de texto simples, abra um arquivo novo, cole o texto abaixo e salve com o nome <strong>identidade-visual.txt</strong> dentro da mesma pasta <strong>Delta Board Demo</strong>:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">identidade-visual.txt &mdash; empresa da demo</span>
+        <div class="copy-block" id="demo-id">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-id-text').textContent)">Copiar</button>
+<span id="demo-id-text">IDENTIDADE VISUAL — EMPRESA DE LOGÍSTICA FERROVIÁRIA
+
+Cores principais:
+- Azul ferroviário: #1A3A5C (fundo de slides, cabeçalhos)
+- Laranja trilho: #E8681A (destaques, botões, ícones de ação)
+- Branco: #FFFFFF (texto principal sobre fundos escuros)
+- Cinza aço: #4A5568 (texto secundário, bordas)
+
+Tipografia:
+- Títulos: Montserrat Bold — uppercase, espaçamento -0.5px
+- Corpo: Open Sans Regular — line-height 1.6
+- Dados e números: DM Mono Medium
+
+Tom de voz: direto, técnico e confiável.
+Estilo visual: robusto, preciso, industrial.
+Bordas: retas, sem arredondamento excessivo.</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Estrutura final da pasta</div>
+        <p><strong>Delta Board Demo/</strong> &nbsp;&middot;&nbsp; okrs-logistica.csv &nbsp;&middot;&nbsp; identidade-visual.txt</p>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
@@ -338,8 +392,27 @@
     <!-- 05 -->
     <div class="section" id="sec-step5">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">05.</span> Prompt da demonstração</div>
-      <div class="sec-desc">Contexto: empresa de logística &middot; gestor: Rafael Arevalo</div>
+      <div class="sec-title demo"><span class="snum">05.</span> O que observar</div>
+      <div class="sec-desc">4 características do Cowork na prática</div>
+
+      <ul class="observation-list">
+        <li><strong>Acesso direto aos arquivos.</strong> O Cowork acessa os arquivos diretamente da pasta &mdash; <strong>nenhum dado foi copiado ou colado no prompt</strong>.</li>
+        <li><strong>Transparência em tempo real.</strong> O agente mostra cada passo: lendo os arquivos, organizando os slides, aplicando as cores.</li>
+        <li><strong>Entrega direto na pasta.</strong> O PPT chega pronto na pasta de destino &mdash; você abre no PowerPoint ou Google Slides e o conteúdo já está estruturado com a identidade visual da empresa.</li>
+        <li><strong>Ajustes em linguagem natural.</strong> Após a geração, você pede correções no chat (cor, fonte, título) e o Cowork reedita o arquivo.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstração</div>
+      <div class="sec-desc">Contexto: empresa de logística &middot; gestor: Rafael Arevalo &middot; Q1 2026</div>
 
       <div class="copy-wrap">
         <span class="copy-label">Prompt da demo &mdash; PPT de OKRs</span>
@@ -394,20 +467,6 @@ na mesma pasta dos arquivos de origem.</span></div>
       </div>
 
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
-      </div>
-    </div>
-
-    <!-- 06 -->
-    <div class="section" id="sec-step6">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">06.</span> O que você vai fazer</div>
-      <div class="sec-desc">Uma pasta, dois arquivos, um PPT executivo pronto</div>
-
-      <p class="lead-text">Criar uma <strong>pasta no computador</strong>, salvar <strong>dois arquivos</strong> nela, abrir o Cowork, apontar para essa pasta e rodar o prompt para gerar a apresentação PPT <strong>com a identidade visual da sua empresa</strong>.</p>
-
-      <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
         <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
       </div>
@@ -416,7 +475,21 @@ na mesma pasta dos arquivos de origem.</span></div>
     <!-- 07 -->
     <div class="section" id="sec-step7">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">07.</span> Passo a passo</div>
+      <div class="sec-title pratica"><span class="snum">07.</span> O que você vai fazer</div>
+      <div class="sec-desc">Uma pasta, dois arquivos, um PPT executivo pronto</div>
+
+      <p class="lead-text">Criar uma <strong>pasta no computador</strong>, salvar <strong>dois arquivos</strong> nela, abrir o Cowork, apontar para essa pasta e rodar o prompt para gerar a apresentação PPT <strong>com a identidade visual da sua empresa</strong>.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
       <div class="sec-desc">8 passos em até 12 minutos</div>
 
       <div class="instructions">
@@ -493,15 +566,15 @@ na mesma pasta dos arquivos de origem.</span></div>
       </div>
 
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
       </div>
     </div>
 
-    <!-- 08 -->
-    <div class="section" id="sec-step8">
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">08.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
       <div class="sec-desc">3 entregas reutilizáveis</div>
 
       <div class="overview-card">
@@ -519,7 +592,7 @@ na mesma pasta dos arquivos de origem.</span></div>
       </div>
 
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -531,7 +604,7 @@ na mesma pasta dos arquivos de origem.</span></div>
   // Section navigation + progress
   const PKEY = "delta-tut-ap07-cowork";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 9;
+  const TOTAL = 10;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
