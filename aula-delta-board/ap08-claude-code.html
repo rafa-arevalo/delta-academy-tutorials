@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-palette="cream">
+<html lang="pt-BR" data-palette="forest">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -203,12 +203,6 @@
 </style>
 </head>
 <body>
-
-<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
-  <button data-palette="forest">Forest</button>
-  <button data-palette="dusk">Dusk</button>
-  <button data-palette="cream" class="is-active">Cream</button>
-</div>
 
 <div class="layout">
 
@@ -576,20 +570,6 @@ sem precisar de internet.</span></div>
 </div>
 
 <script>
-  // Palette switcher
-  (function(){
-    const KEY="delta-tut-palette";
-    const saved=localStorage.getItem(KEY)||"cream";
-    document.documentElement.setAttribute("data-palette",saved);
-    const apply=(p)=>{
-      document.documentElement.setAttribute("data-palette",p);
-      localStorage.setItem(KEY,p);
-      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
-    };
-    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
-    apply(saved);
-  })();
-
   // Section navigation + progress
   const PKEY = "delta-tut-ap08-claude-code";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
