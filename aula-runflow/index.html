@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="forest">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula de Runflow &middot; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  /* ================ Page ================ */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .container{max-width:560px;width:100%}
+  .header{text-align:center;margin-bottom:32px}
+  .header-bar{background:var(--accent2);border-radius:14px;padding:26px 22px 22px}
+  .header-bar h1{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:var(--bg);letter-spacing:0.04em;text-transform:uppercase;line-height:1.2}
+  .header-bar h2{font-family:'Montserrat',sans-serif;font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-top:6px}
+  .section-label{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin:28px 0 14px;padding-left:4px}
+  .card{display:block;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:0;margin-bottom:10px;text-decoration:none;color:inherit;box-shadow:var(--shadow-xs);transition:all 0.15s;position:relative;overflow:hidden}
+  .card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+  .card-head{background:var(--card-tag-bg);color:var(--card-tag-fg);padding:14px 20px;display:flex;align-items:baseline;gap:12px}
+  .card-head .card-num{font-family:'Montserrat',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.02em;opacity:0.7}
+  .card-head .card-title{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:-0.01em;line-height:1.25}
+  .card-body{padding:14px 20px 16px;background:#FFFFFF;border-top:1px solid var(--border)}
+  .card-desc{font-size:0.78rem;color:#0E1A19;line-height:1.6;font-weight:500}
+  .footer{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+  .footer p{font-size:0.72rem;color:var(--text3);line-height:1.6}
+  .footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  .footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-bar">
+      <h1>AULA DE RUNFLOW</h1>
+      <h2>Delta Academy</h2>
+    </div>
+  </div>
+
+  <div class="section-label">AULAS</div>
+
+  <a class="card" href="runflow-knowledge-base.html">
+    <div class="card-head"><span class="card-num">01</span><span class="card-title">Knowledge Base no Runflow</span></div>
+    <div class="card-body"><div class="card-desc">Configure uma Knowledge Base no Runflow alimentada por modelos de embedding da OpenAI — uma base de conhecimento que o agente de AI consulta para responder com precisão sobre dados do seu negócio.</div></div>
+  </a>
+
+  <div class="footer">
+    <p>Dúvidas? Volte para este índice a qualquer momento.</p>
+    <p><a href="https://deltaacademy.com.br">deltaacademy.com.br</a> &middot; Delta Academy &middot; 2026</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="forest">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Base no Runflow &middot; Aula de Runflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paleta Forest (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  /* ================ Page ================ */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-group-title.intro,.nav-group-title.demo,.nav-group-title.pratica{color:var(--sidebar-fg);opacity:1}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:880px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica{background:var(--accent2);color:var(--bg)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .overview-card a{color:var(--accent2);font-weight:700;text-decoration:underline}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .instructions{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:14px 16px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}
+  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .inst-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.72rem;background:var(--accent-lighter);border:1px solid var(--accent-border);padding:1px 6px;border-radius:4px;color:var(--accent2);font-weight:600}
+  .screenshot{display:block;margin:12px 0 0;border:1px solid var(--border2);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-xs);background:#FFFFFF}
+  .screenshot img{display:block;width:100%;height:auto}
+  .screenshot figcaption{font-size:0.66rem;color:var(--text3);padding:7px 12px;border-top:1px solid var(--border);background:var(--accent-lighter);font-weight:600}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
+  .insight-box p strong{color:var(--insight-strong);font-weight:800}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice do Curso</a>
+      <h2>Knowledge Base</h2>
+      <p>Aula 01 &middot; Runflow</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Início</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visão Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introdução</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Knowledge Base<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> O que você vai ver &mdash; 4 momentos<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai fazer<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Parte 1 &mdash; Ativar embeddings<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Parte 2 &mdash; Criar a Knowledge Base<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Parte 3 &mdash; Upload do arquivo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Academy &rsaquo; Aula de Runflow &rsaquo; <a href="index.html">Índice</a> &rsaquo; Knowledge Base no Runflow</div>
+      <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
+      <div class="sec-desc">Configurar uma Knowledge Base no Runflow com OpenAI Embeddings</div>
+
+      <p class="lead-text">Primeira aula do curso <strong>Aula de Runflow &mdash; Criação de Agentes de AI</strong>. Você vai configurar uma <strong>Knowledge Base</strong> no Runflow alimentada por modelos de <strong>embedding da OpenAI</strong> &mdash; uma base de conhecimento que o agente vai consultar para responder com precisão sobre dados específicos do seu negócio.</p>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
+          <tr><td>Plataforma</td><td><a href="https://platform.runflow.ai" target="_blank">platform.runflow.ai</a></td></tr>
+          <tr><td>Técnica de AI</td><td>Embeddings (busca semântica)</td></tr>
+          <tr><td>Modelo de embedding</td><td>Text Embedding 3 Large (3072D)</td></tr>
+          <tr><td>Pré-requisito</td><td>LLM Provider OpenAI já configurado no workspace</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">Uma base que o agente consulta antes de responder</div>
+
+      <p class="lead-text">Configurar uma <strong>Knowledge Base no Runflow</strong> alimentada por modelos de embedding da OpenAI &mdash; uma base de conhecimento que o agente de AI vai <strong>consultar para responder com precisão</strong> sobre dados específicos do seu negócio.</p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Knowledge Base</div>
+      <div class="sec-desc">A memória especializada do agente</div>
+
+      <p class="lead-text">Um modelo de AI generativa <strong>sabe muito sobre o mundo</strong>, mas não sabe nada sobre a sua empresa. Um agente de AI funcional precisa ter acesso ao conhecimento específico do seu contexto &mdash; políticas internas, FAQ de produtos, manuais, documentação técnica.</p>
+
+      <p class="lead-text">Uma <strong>Knowledge Base</strong> resolve isso. Você sobe os documentos da sua empresa, e o Runflow transforma esses documentos em uma base que o agente <strong>consulta antes de responder</strong>. Quando alguém pergunta algo, o agente busca a informação relevante na base, lê o trecho correto e responde com base nessa informação real &mdash; <strong>não inventa</strong>.</p>
+
+      <div class="insight-box">
+        <div class="insight-label">O papel dos embeddings</div>
+        <p>Os modelos de embedding transformam o texto dos documentos em <strong>representações numéricas</strong> que permitem ao agente encontrar rapidamente o conteúdo mais relevante para cada pergunta. É a tecnologia por trás da <strong>busca semântica</strong>.</p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">&#9888; Pré-requisito</div>
+        <p>Você precisa ter um <strong>LLM Provider de OpenAI já configurado</strong> no seu workspace do Runflow antes desta atividade.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver &mdash; 4 momentos</div>
+      <div class="sec-desc">Sequência completa: ativar embeddings → criar base → baixar arquivo → upload</div>
+
+      <p class="lead-text">A demonstração tem quatro momentos em sequência:</p>
+
+      <div class="overview-card">
+        <h3>Momento 1 &mdash; Ativar os modelos de embedding</h3>
+        <p>O professor entra em <strong>LLM Providers</strong>, abre o provider <strong>OpenAI Production</strong>, filtra os modelos por "embedding" e ativa os 4 modelos de embedding disponíveis. <strong>Sem essa ativação, a Knowledge Base não consegue ser criada.</strong></p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Momento 2 &mdash; Criar a Knowledge Base</h3>
+        <p>O professor cria a base, define o nome, escolhe o provedor <strong>OpenAI Production</strong> como fonte e seleciona o modelo <strong>Text Embedding 3 Large (3072D)</strong> &mdash; o mais robusto para busca semântica de qualidade.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Momento 3 &mdash; Baixar o arquivo de conhecimento</h3>
+        <p>O professor acessa a pasta do <strong>Google Drive da aula</strong> e baixa o arquivo <code style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:var(--accent-lighter);padding:1px 6px;border-radius:4px;color:var(--accent2);font-weight:600">faq-lojademo.md</code> que será usado como base de conhecimento.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Momento 4 &mdash; Fazer upload do arquivo na Knowledge Base</h3>
+        <p>Com a base criada, o professor faz upload do arquivo. Em segundos, o conteúdo do FAQ vira uma <strong>base consultável pelo agente</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que observar</div>
+      <div class="sec-desc">4 detalhes que importam ao montar a base</div>
+
+      <ul class="observation-list">
+        <li><strong>Embedding ≠ chat.</strong> O Runflow trata os modelos de embedding separadamente dos modelos de chat (LLM) &mdash; você precisa <strong>ativar os dois tipos</strong> para usar todas as funcionalidades da plataforma.</li>
+        <li><strong>3072D = mais precisão.</strong> O modelo <strong>Text Embedding 3 Large</strong> (3072 dimensões) é o mais preciso para busca semântica em português &mdash; vale o custo extra para casos executivos.</li>
+        <li><strong>Base independente do agente.</strong> A Knowledge Base é independente do agente &mdash; você pode criar uma base e <strong>conectar a vários agentes diferentes</strong>.</li>
+        <li><strong>Formatos aceitos.</strong> O upload aceita <strong>PDF, Word, TXT, Markdown, JSON e CSV</strong> &mdash; máximo 10MB por arquivo, até 10 arquivos por upload.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">05.</span> O que você vai fazer</div>
+      <div class="sec-desc">Replicar o passo a passo do professor</div>
+
+      <p class="lead-text">Replicar o passo a passo do professor: <strong>ativar os modelos de embedding</strong>, <strong>criar a Knowledge Base</strong>, <strong>baixar o arquivo de conhecimento</strong> da pasta da aula e <strong>fazer o upload</strong> na sua base recém-criada.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Material da aula</div>
+        <p>O arquivo <strong>faq-lojademo.md</strong> está disponível na <strong>pasta do Google Drive</strong> compartilhada antes da aula. Verifique se você tem acesso antes de começar.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">06.</span> Parte 1 &mdash; Ativar os modelos de embedding</div>
+      <div class="sec-desc">17 passos para ativar os 4 modelos de embedding da OpenAI</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Acesse o menu LLM Providers.</strong><br>No painel lateral esquerdo do Runflow, clique em <strong>LLM Providers</strong>.<figure class="screenshot"><img src="runflow-01.png" alt="Passo 1 — LLM Providers"><figcaption>Passo 1 &mdash; LLM Providers</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Clique no campo de busca.</strong><br>Clique no campo <strong>Buscar providers...</strong> no topo da tela.<figure class="screenshot"><img src="runflow-02.png" alt="Passo 2 — Campo de busca"><figcaption>Passo 2 &mdash; Campo de busca</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Digite "embeddin" para testar a busca.</strong><br>Digite <code>embeddin</code> no campo. Você vai ver <strong>"Nenhum provider encontrado"</strong> &mdash; a busca filtra apenas pelo nome dos providers, não pelos modelos. Esse passo serve só para entender o comportamento.<figure class="screenshot"><img src="runflow-03.png" alt="Passo 3 — Busca embeddin"><figcaption>Passo 3 &mdash; Busca embeddin</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Limpe o campo de busca.</strong><br>Selecione o texto digitado (Cmd+A no Mac ou Ctrl+A no Windows) e apague.</div></div>
+        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Clique no campo de busca novamente.</strong><br>Volte a clicar no campo <strong>Buscar providers...</strong> para preparar uma nova busca.<figure class="screenshot"><img src="runflow-04.png" alt="Passo 5 — Campo de busca limpo"><figcaption>Passo 5 &mdash; Campo de busca limpo</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">6</div><div class="inst-text"><strong>Digite "s" para filtrar pelo provider OpenAI.</strong><br>Digite <code>s</code> para filtrar &mdash; o provider <strong>OpenAI - Isidro</strong> vai aparecer.<figure class="screenshot"><img src="runflow-05.png" alt="Passo 6 — Buscar OpenAI"><figcaption>Passo 6 &mdash; Buscar OpenAI</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">7</div><div class="inst-text"><strong>Limpe o campo de busca novamente.</strong><br>Selecione e apague o texto para voltar a ver todos os providers.<figure class="screenshot"><img src="runflow-06.png" alt="Passo 7 — Lista completa"><figcaption>Passo 7 &mdash; Lista completa</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">8</div><div class="inst-text"><strong>Clique em "Globais" para ver os providers globais.</strong><br>No grupo de filtros à direita do campo de busca, clique em <strong>Globais</strong>.<figure class="screenshot"><img src="runflow-07.png" alt="Passo 8 — Filtro Globais"><figcaption>Passo 8 &mdash; Filtro Globais</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">9</div><div class="inst-text"><strong>Clique em "Todos" para voltar à visão completa.</strong><br>Clique em <strong>Todos</strong> para ver tanto os providers globais quanto os personalizados.<figure class="screenshot"><img src="runflow-08.png" alt="Passo 9 — Filtro Todos"><figcaption>Passo 9 &mdash; Filtro Todos</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">10</div><div class="inst-text"><strong>Confirme que está em LLM Providers.</strong><br>Verifique no painel lateral que a opção <strong>LLM Providers</strong> está selecionada.<figure class="screenshot"><img src="runflow-09.png" alt="Passo 10 — LLM Providers selecionado"><figcaption>Passo 10 &mdash; LLM Providers selecionado</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">11</div><div class="inst-text"><strong>Acesse o MCP Gateway (visão rápida).</strong><br>No painel lateral, clique em <strong>MCP Gateway</strong> apenas para visualizar essa seção.<figure class="screenshot"><img src="runflow-10.png" alt="Passo 11 — MCP Gateway"><figcaption>Passo 11 &mdash; MCP Gateway</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">12</div><div class="inst-text"><strong>Volte para LLM Providers.</strong><br>Clique novamente em <strong>LLM Providers</strong> no painel lateral.<figure class="screenshot"><img src="runflow-11.png" alt="Passo 12 — Volta para LLM Providers"><figcaption>Passo 12 &mdash; Volta para LLM Providers</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">13</div><div class="inst-text"><strong>Abra o provider OpenAI Production (Rafa).</strong><br>Clique no card <strong>OpenAI Production (Rafa) &mdash; Personalizado &middot; 89 modelos</strong>.<figure class="screenshot"><img src="runflow-12.png" alt="Passo 13 — OpenAI Production"><figcaption>Passo 13 &mdash; OpenAI Production</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">14</div><div class="inst-text"><strong>Clique no campo "Buscar modelos...".</strong><br>Dentro do provider, clique no campo de busca de modelos.<figure class="screenshot"><img src="runflow-13.png" alt="Passo 14 — Buscar modelos"><figcaption>Passo 14 &mdash; Buscar modelos</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">15</div><div class="inst-text"><strong>Digite "embedding".</strong><br>Digite <code>embedding</code> no campo de busca para filtrar apenas os modelos de embedding.</div></div>
+        <div class="inst"><div class="inst-num">16</div><div class="inst-text"><strong>Selecione todos os modelos de embedding.</strong><br>Clique no checkbox no cabeçalho da tabela para selecionar os 4 modelos de embedding filtrados de uma vez.<figure class="screenshot"><img src="runflow-14.png" alt="Passo 16 — Selecionar todos"><figcaption>Passo 16 &mdash; Selecionar todos</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">17</div><div class="inst-text"><strong>Ative os modelos selecionados.</strong><br>Clique no botão <strong>Ativar (4)</strong> acima da tabela. O status dos 4 modelos vai mudar para <strong>verde</strong>, confirmando a ativação.<figure class="screenshot"><img src="runflow-15.png" alt="Passo 17 — Ativar modelos"><figcaption>Passo 17 &mdash; Ativar modelos</figcaption></figure></div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Parte 2 &mdash; Criar a Knowledge Base</div>
+      <div class="sec-desc">6 passos para criar a base com Text Embedding 3 Large</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">18</div><div class="inst-text"><strong>Acesse o menu Knowledge Bases.</strong><br>No painel lateral esquerdo, clique em <strong>Knowledge Bases</strong>.<figure class="screenshot"><img src="runflow-16.png" alt="Passo 18 — Knowledge Bases"><figcaption>Passo 18 &mdash; Knowledge Bases</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">19</div><div class="inst-text"><strong>Clique em "Nova Knowledge Base".</strong><br>Clique no botão azul <strong>+ Nova Knowledge Base</strong> no canto superior direito.<figure class="screenshot"><img src="runflow-17.png" alt="Passo 19 — Nova Knowledge Base"><figcaption>Passo 19 &mdash; Nova Knowledge Base</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">20</div><div class="inst-text"><strong>Preencha o nome da Knowledge Base.</strong><br>No formulário <strong>Nova Knowledge Base</strong>:<br>&bull; <strong>Tipo de Knowledge Base:</strong> mantenha <strong>Knowledge</strong> (Upload de arquivos PDF, Word, TXT) selecionado<br>&bull; <strong>Nome da Knowledge Base:</strong> clique no campo e digite <code>base-ecom-rafa</code><br>&bull; <strong>Descrição:</strong> deixe em branco (opcional)<figure class="screenshot"><img src="runflow-18.png" alt="Passo 20 — Nome da base"><figcaption>Passo 20 &mdash; Nome da base</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">21</div><div class="inst-text"><strong>Selecione o Provedor de Embedding.</strong><br>No campo <strong>Provedor de Embedding</strong>, clique e selecione <strong>OpenAI Production (Rafa) (OPENAI)</strong>.<figure class="screenshot"><img src="runflow-19.png" alt="Passo 21 — Provedor de Embedding"><figcaption>Passo 21 &mdash; Provedor de Embedding</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">22</div><div class="inst-text"><strong>Selecione o Modelo de Embedding.</strong><br>No campo <strong>Modelo de Embedding</strong>, selecione <strong>Text Embedding 3 Large (3072D)</strong>. O número 3072D refere-se à <strong>dimensão do vetor</strong> &mdash; quanto maior, mais precisa a busca semântica.<figure class="screenshot"><img src="runflow-20.png" alt="Passo 22 — Modelo de Embedding"><figcaption>Passo 22 &mdash; Modelo de Embedding</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">23</div><div class="inst-text"><strong>Clique em "Criar Knowledge Base".</strong><br>Clique no botão azul <strong>Criar Knowledge Base</strong> no canto inferior direito do formulário.<figure class="screenshot"><img src="runflow-21.png" alt="Passo 23 — Criar Knowledge Base"><figcaption>Passo 23 &mdash; Criar Knowledge Base</figcaption></figure></div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Parte 3 &mdash; Upload do arquivo de conhecimento</div>
+      <div class="sec-desc">6 passos para indexar o FAQ na sua base</div>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">24</div><div class="inst-text"><strong>Localize o arquivo na pasta da aula.</strong><br>Acesse a pasta do <strong>Google Drive</strong> compartilhada antes da aula e localize o arquivo <code>faq-lojademo.md</code>. Baixe o arquivo no seu computador.</div></div>
+        <div class="inst"><div class="inst-num">25</div><div class="inst-text"><strong>Volte à Knowledge Base no Runflow.</strong><br>Volte para a aba do Runflow onde a sua Knowledge Base <strong>base-ecom-rafa</strong> acabou de ser criada.</div></div>
+        <div class="inst"><div class="inst-num">26</div><div class="inst-text"><strong>Clique em "Upload Arquivo".</strong><br>Na tela da Knowledge Base, clique no botão azul <strong>&uarr; Upload Arquivo</strong>.<figure class="screenshot"><img src="runflow-22.png" alt="Passo 26 — Upload Arquivo"><figcaption>Passo 26 &mdash; Upload Arquivo</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">27</div><div class="inst-text"><strong>Clique em "Escolher arquivos".</strong><br>Na janela de upload que abrir, clique em <strong>Escolher arquivos</strong> (texto azul abaixo do ícone de upload).<figure class="screenshot"><img src="runflow-23.png" alt="Passo 27 — Escolher arquivos"><figcaption>Passo 27 &mdash; Escolher arquivos</figcaption></figure></div></div>
+        <div class="inst"><div class="inst-num">28</div><div class="inst-text"><strong>Selecione o arquivo baixado.</strong><br>Na janela do sistema que abrir, navegue até a pasta onde você baixou o arquivo <code>faq-lojademo.md</code> e selecione-o.</div></div>
+        <div class="inst"><div class="inst-num">29</div><div class="inst-text"><strong>Confirme o envio.</strong><br>Com o arquivo selecionado (você vai ver o nome e o tamanho na lista <strong>Arquivos selecionados</strong>), clique no botão azul <strong>&uarr; Enviar 1 Arquivo(s)</strong> no canto inferior direito.<figure class="screenshot"><img src="runflow-24.png" alt="Passo 29 — Enviar arquivo"><figcaption>Passo 29 &mdash; Enviar arquivo</figcaption></figure></div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">3 entregas que viram base do agente</div>
+
+      <div class="overview-card">
+        <h3>Ao final desta atividade você tem:</h3>
+        <ul>
+          <li>Os <strong>modelos de embedding da OpenAI</strong> ativos no seu workspace</li>
+          <li>Uma Knowledge Base chamada <strong>base-ecom-rafa</strong> criada e configurada com <strong>Text Embedding 3 Large</strong></li>
+          <li>O arquivo <strong>faq-lojademo.md</strong> indexado e pronto para ser consultado pelo agente de AI</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo</div>
+        <p>A próxima atividade vai <strong>conectar essa Knowledge Base a um agente</strong>, transformando esse conhecimento em respostas reais para os usuários.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Section navigation + progress
+  const PKEY = "delta-tut-runflow-knowledge-base";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 10;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-home";
+    completed.add("sec-home");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-home") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
