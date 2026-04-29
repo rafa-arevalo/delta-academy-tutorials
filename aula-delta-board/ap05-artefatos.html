@@ -89,25 +89,6 @@
     --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
   }
 
-  /* ================ Palette switch ================ */
-  .palette-switch {
-    position: fixed; top: 12px; right: 12px; z-index: 100;
-    display: inline-flex; gap: 3px;
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 999px; padding: 3px;
-    box-shadow: var(--shadow-sm);
-    font-family: 'Montserrat', system-ui, sans-serif;
-  }
-  .palette-switch button {
-    font: inherit; font-size: 0.6rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    padding: 5px 10px; border-radius: 999px;
-    border: none; background: transparent; color: var(--text3);
-    cursor: pointer; transition: all 160ms ease;
-  }
-  .palette-switch button:hover { color: var(--text); }
-  .palette-switch button.is-active { background: var(--accent2); color: var(--bg); }
-
   /* ================ Page ================ */
   body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
   .layout{display:flex;min-height:100vh}
@@ -155,6 +136,7 @@
   .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
   .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .overview-card a{color:var(--accent2);font-weight:700;text-decoration:underline}
   .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
   .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
   .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
@@ -166,6 +148,8 @@
   .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
   .inst-text strong{font-weight:700;color:var(--accent2)}
   .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .inst-text a{color:var(--accent2);font-weight:700;text-decoration:underline}
+  .inst-text em{color:var(--accent2);font-style:italic}
   .copy-wrap{margin:14px 0 16px}
   .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
   .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
@@ -178,6 +162,7 @@
   .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
   .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box a{color:var(--warn-label);font-weight:700;text-decoration:underline}
   .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
   .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
   .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
@@ -195,7 +180,7 @@
   .observation-list{list-style:none;margin:12px 0}
   .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
   .observation-list li strong{color:var(--blue-text);font-weight:700}
-  .palette-switch{right:12px;top:12px}
+  .observation-list li em{color:var(--blue-text);font-style:italic}
   @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
 </style>
 </head>
@@ -224,8 +209,7 @@
     <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
       <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que você vai fazer<span class="ni-check">&#10003;</span></a>
       <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Passo a passo<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Prompt para você usar<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -237,20 +221,19 @@
 
     <!-- 00 -->
     <div class="section active" id="sec-home">
-      <div class="breadcrumb">Delta Board &rsaquo; DELTA BOARD &rsaquo; <a href="index.html">Índice</a> &rsaquo; AP05. Artefatos</div>
+      <div class="breadcrumb">Delta Academy &rsaquo; DELTA BOARD &rsaquo; <a href="index.html">Índice</a> &rsaquo; AP05. Artefatos</div>
       <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
       <div class="sec-desc">AP05 &mdash; Artefatos</div>
 
-      <p class="lead-text">Quinta atividade prática do <strong>DELTA BOARD</strong>. Você vai criar um <strong>artefato HTML interativo</strong> que calcula o ROI de assinar o Claude para os colaboradores da sua empresa &mdash; usando a identidade visual extraída na AP04.</p>
+      <p class="lead-text">Quinta atividade do bloco <strong>Como usar AI</strong>. Você vai criar um <strong>artefato HTML interativo</strong> &mdash; uma calculadora de ROI para avaliar se vale a pena assinar o Claude para os colaboradores da sua empresa, com a identidade visual da sua empresa aplicada automaticamente.</p>
 
       <div class="overview-card">
         <h3>Ficha técnica</h3>
         <table class="ficha-table"><tbody>
           <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
           <tr><td>Duração</td><td>10 minutos</td></tr>
-          <tr><td>Bloco</td><td>04 &mdash; Como usar AI &middot; Quinta atividade</td></tr>
-          <tr><td>Técnica de AI</td><td>Artefatos HTML interativos</td></tr>
-          <tr><td>Ferramenta</td><td>Claude (Project da AP03)</td></tr>
+          <tr><td>Técnica de AI</td><td>Geração de artefato HTML interativo</td></tr>
+          <tr><td>Ferramenta</td><td>Claude (Project criado na AP03)</td></tr>
           <tr><td>Pré-requisito</td><td>Identidade visual salva no Project (AP04)</td></tr>
         </tbody></table>
       </div>
@@ -265,7 +248,7 @@
     <div class="section" id="sec-step1">
       <span class="section-badge badge-intro">Introdução</span>
       <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
-      <div class="sec-desc">Uma calculadora de ROI com a cara da sua empresa</div>
+      <div class="sec-desc">O que você sai sabendo ao fim desta aula</div>
 
       <p class="lead-text">Criar um <strong>artefato HTML interativo</strong> que calcula o ROI de assinar o Claude para os colaboradores da sua empresa &mdash; usando a <strong>identidade visual da sua empresa</strong> extraída na atividade prática anterior.</p>
 
@@ -281,18 +264,15 @@
       <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Artefatos</div>
       <div class="sec-desc">Quando a AI para de entregar texto e entrega ferramenta</div>
 
-      <p class="lead-text">Até aqui, o Claude entregou texto: relatórios, briefings, análises. Um <strong>artefato</strong> é diferente. É uma <strong>ferramenta funcional</strong> gerada pelo Claude &mdash; um HTML que roda no navegador, tem campos para preencher, faz cálculos e mostra resultados visuais. Você não escreve código. Você descreve o que quer e o Claude constrói.</p>
+      <p class="lead-text">Até aqui, o Claude entregou texto: relatórios, briefings, análises. Um <strong>artefato é diferente</strong>. É uma ferramenta funcional gerada pelo Claude &mdash; um HTML que roda no navegador, tem campos para preencher, faz cálculos e mostra resultados visuais. Você não escreve código. <strong>Você descreve o que quer e o Claude constrói.</strong></p>
 
       <p class="lead-text">O artefato desta atividade é uma <strong>calculadora de ROI</strong>: você entra com o número de colaboradores, o custo médio por hora e as horas estimadas de ganho de produtividade &mdash; e recebe o retorno financeiro projetado de adotar o Claude na empresa.</p>
 
-      <div class="insight-box">
-        <div class="insight-label">O diferencial</div>
-        <p>O artefato vai usar as <strong>cores e fontes da sua empresa</strong> que você salvou no Project na AP04. O resultado vai parecer feito pelo time de marketing da sua empresa, não por uma AI genérica.</p>
-      </div>
+      <p class="lead-text">O diferencial: o artefato vai usar as <strong>cores e fontes da sua empresa</strong> que você salvou no Project na atividade anterior. O resultado vai parecer feito pelo time de marketing da sua empresa, não por uma AI genérica.</p>
 
       <div class="warning-box">
-        <div class="warning-label">&#9888; Pré-requisito</div>
-        <p>Esta atividade usa a identidade visual salva no seu Project na <strong>AP04</strong>. Se você não completou aquela atividade, o artefato vai ser gerado com um <strong>visual genérico</strong>, sem as cores e fontes da sua empresa.</p>
+        <div class="warning-label">⚠️ Pré-requisito</div>
+        <p>Esta atividade usa a <strong>identidade visual</strong> salva no seu Project na <strong>atividade prática 04</strong>. Se você não completou aquela atividade, o artefato vai ser gerado com um visual genérico, sem as cores e fontes da sua empresa.</p>
       </div>
 
       <div class="nav-buttons">
@@ -305,9 +285,9 @@
     <div class="section" id="sec-step3">
       <span class="section-badge badge-demo">Demonstração</span>
       <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver</div>
-      <div class="sec-desc">Calculadora de ROI gerada ao vivo dentro do Project de logística</div>
+      <div class="sec-desc">Calculadora de ROI gerada ao vivo, com a identidade visual aplicada</div>
 
-      <p class="lead-text">O professor abre o <strong>Project da aula</strong> e cola o prompt de demonstração &mdash; já com o contexto de logística e a identidade visual da empresa de demo salva no Project. O Claude gera o <strong>artefato HTML ao vivo</strong>, com campos interativos, cálculos automáticos e visual com as cores da empresa.</p>
+      <p class="lead-text">O professor abre o Project da aula e cola o prompt de demonstração &mdash; já com o contexto de logística e a identidade visual da empresa de demonstração salva no Project. O Claude <strong>gera o artefato HTML ao vivo</strong>, com campos interativos, cálculos automáticos e visual com as cores da empresa.</p>
 
       <p class="lead-text">Em seguida, o professor preenche os campos da calculadora ao vivo com dados fictícios e mostra o resultado: <strong>ROI calculado, tempo de payback e economia anual projetada</strong>.</p>
 
@@ -321,13 +301,13 @@
     <div class="section" id="sec-step4">
       <span class="section-badge badge-demo">Demonstração</span>
       <div class="sec-title demo"><span class="snum">04.</span> O que observar</div>
-      <div class="sec-desc">4 padrões visíveis na criação do artefato</div>
+      <div class="sec-desc">4 sinais visíveis durante a geração do artefato</div>
 
       <ul class="observation-list">
-        <li><strong>Entrega = ferramenta, não texto.</strong> O Claude não entrega texto explicando como seria a calculadora &mdash; ele entrega a calculadora funcionando.</li>
-        <li><strong>Identidade visual aplicada.</strong> As cores e fontes usadas no artefato vêm diretamente da identidade visual salva no Project.</li>
-        <li><strong>Ajustes em linguagem natural.</strong> "Aumenta o tamanho da fonte", "muda o botão para verde", "adiciona um campo para o custo mensal da ferramenta".</li>
-        <li><strong>Exportável.</strong> O artefato pode ser exportado como HTML e enviado por e-mail ou publicado internamente.</li>
+        <li><strong>Não é texto, é ferramenta.</strong> O Claude não entrega texto explicando como seria a calculadora &mdash; ele entrega a calculadora funcionando.</li>
+        <li><strong>Identidade visual automática.</strong> As cores e fontes usadas no artefato vêm diretamente da identidade visual salva no Project.</li>
+        <li><strong>Ajustes em linguagem natural.</strong> Você pode pedir mudanças sem escrever código: <em>"aumenta o tamanho da fonte"</em>, <em>"muda o botão para verde"</em>, <em>"adiciona um campo para o custo mensal da ferramenta"</em>.</li>
+        <li><strong>Saída pronta para distribuir.</strong> O artefato pode ser exportado como HTML e enviado por e-mail ou publicado internamente.</li>
       </ul>
 
       <div class="nav-buttons">
@@ -340,24 +320,20 @@
     <div class="section" id="sec-step5">
       <span class="section-badge badge-demo">Demonstração</span>
       <div class="sec-title demo"><span class="snum">05.</span> Prompt da demonstração</div>
-      <div class="sec-desc">Contexto: empresa de logística da demo</div>
+      <div class="sec-desc">O prompt que o professor cola no Project ao vivo</div>
 
       <div class="copy-wrap">
-        <span class="copy-label">Prompt da demo &mdash; Calculadora de ROI</span>
+        <span class="copy-label">Prompt &mdash; Calculadora de ROI (logística)</span>
         <div class="copy-block" id="demo-prompt">
 <button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
-<span id="demo-prompt-text">Usando a identidade visual da empresa de logística salva
-neste Project, crie um artefato HTML interativo: uma
-calculadora de ROI para avaliar se vale a pena assinar
-o Claude Pro para os colaboradores da empresa.
+<span id="demo-prompt-text">Usando a identidade visual da empresa de logística salva neste Project, crie um artefato HTML interativo: uma calculadora de ROI para avaliar se vale a pena assinar o Claude Pro para os colaboradores da empresa.
 
 A calculadora deve ter:
 
 CAMPOS DE INPUT:
 - Número de colaboradores que usariam o Claude
 - Custo médio por hora do colaborador (R$)
-- Horas estimadas de ganho de produtividade por semana
-  por colaborador
+- Horas estimadas de ganho de produtividade por semana por colaborador
 - Custo mensal do Claude Pro por usuário (R$ 100)
 
 OUTPUTS calculados automaticamente:
@@ -369,8 +345,7 @@ OUTPUTS calculados automaticamente:
 - Economia acumulada em 12 meses
 
 DESIGN:
-- Usar as cores e fontes da identidade visual salva
-  neste Project
+- Usar as cores e fontes da identidade visual salva neste Project
 - Layout limpo e executivo
 - Botão "Calcular ROI" em destaque
 - Resultados em cards com os números em tamanho grande
@@ -378,9 +353,7 @@ DESIGN:
 - Texto em português do Brasil
 
 Nota de rodapé discreta:
-"Estimativa baseada em ganho médio de produtividade
-reportado por empresas que adotaram AI generativa.
-Resultados reais variam."</span></div>
+"Estimativa baseada em ganho médio de produtividade reportado por empresas que adotaram AI generativa. Resultados reais variam."</span></div>
       </div>
 
       <div class="nav-buttons">
@@ -393,12 +366,12 @@ Resultados reais variam."</span></div>
     <div class="section" id="sec-step6">
       <span class="section-badge badge-pratica">Atividade Prática</span>
       <div class="sec-title pratica"><span class="snum">06.</span> O que você vai fazer</div>
-      <div class="sec-desc">A mesma calculadora, com a cara da sua empresa</div>
+      <div class="sec-desc">Sua vez &mdash; calculadora personalizada para a SUA empresa</div>
 
-      <p class="lead-text">Gerar a <strong>calculadora de ROI personalizada</strong> para a sua empresa, usando a identidade visual e o contexto que você já tem salvo no seu Project.</p>
+      <p class="lead-text">Gerar a calculadora de ROI <strong>personalizada para a sua empresa</strong>, usando a identidade visual e o contexto que você já tem salvo no seu Project.</p>
 
       <div class="tool-links">
-        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai (Projects)</div></div></a>
+        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai</div></div></a>
       </div>
 
       <div class="nav-buttons">
@@ -411,49 +384,23 @@ Resultados reais variam."</span></div>
     <div class="section" id="sec-step7">
       <span class="section-badge badge-pratica">Atividade Prática</span>
       <div class="sec-title pratica"><span class="snum">07.</span> Passo a passo</div>
-      <div class="sec-desc">5 passos em até 10 minutos</div>
+      <div class="sec-desc">5 passos em ~7 minutos</div>
 
       <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Abra o seu Project.</strong> <span class="time">(15 seg)</span><br>Acesse claude.ai e abra o Project criado na <strong>AP03</strong>. Ele já tem a identidade visual da sua empresa salva como documento &mdash; o Claude vai usá-la automaticamente.</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Cole e rode o prompt.</strong> <span class="time">(1 min)</span><br>Cole o prompt da <strong>seção 08</strong> no chat do seu Project.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Aguarde a geração.</strong> <span class="time">(1 a 2 min)</span><br>O Claude vai gerar o artefato HTML ao vivo. Você vai ver o resultado aparecendo ao lado do chat.</div></div>
-        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Teste a calculadora.</strong> <span class="time">(3 min)</span><br>Preencha os campos com dados reais ou estimados da sua empresa e veja o resultado. Verifique se as cores e fontes estão corretas.</div></div>
-        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Ajuste se necessário.</strong> <span class="time">(2 min)</span><br>Se algum elemento visual não estiver certo, corrija em linguagem natural no chat (ex.: "a cor do botão não está correta, use o verde da nossa marca").</div></div>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Exemplos de ajustes em linguagem natural</div>
-        <p>"A cor do botão não está correta, use o verde da nossa marca." &middot; "Aumenta o tamanho dos números de resultado." &middot; "Adiciona o nome da empresa no topo."</p>
-      </div>
-
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
-      </div>
-    </div>
-
-    <!-- 08 -->
-    <div class="section" id="sec-step8">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">08.</span> Prompt para você usar</div>
-      <div class="sec-desc">Cole no chat do seu Project &mdash; o Claude usa a identidade visual automaticamente</div>
-
-      <div class="copy-wrap">
-        <span class="copy-label">Prompt para você &mdash; Calculadora de ROI</span>
-        <div class="copy-block" id="user-prompt">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Abra o seu Project.</strong> <span class="time">(15 seg)</span><br>Acesse <a href="https://claude.ai" target="_blank">claude.ai</a> e abra o Project criado na <strong>atividade prática 03</strong>. O Project já tem a identidade visual da sua empresa salva como documento &mdash; o Claude vai usá-la automaticamente.</div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Cole e rode o prompt.</strong> <span class="time">(1 min)</span><br>Cole o prompt abaixo no chat do seu Project e envie.
+          <div class="copy-wrap" style="margin:12px 0 4px">
+            <span class="copy-label">Prompt para colar no Project</span>
+            <div class="copy-block" id="user-prompt">
 <button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
-<span id="user-prompt-text">Usando a identidade visual da minha empresa salva
-neste Project, crie um artefato HTML interativo: uma
-calculadora de ROI para avaliar se vale a pena assinar
-o Claude Pro para os colaboradores da minha empresa.
+<span id="user-prompt-text">Usando a identidade visual da minha empresa salva neste Project, crie um artefato HTML interativo: uma calculadora de ROI para avaliar se vale a pena assinar o Claude Pro para os colaboradores da minha empresa.
 
 A calculadora deve ter:
 
 CAMPOS DE INPUT:
 - Número de colaboradores que usariam o Claude
 - Custo médio por hora do colaborador (R$)
-- Horas estimadas de ganho de produtividade por semana
-  por colaborador
+- Horas estimadas de ganho de produtividade por semana por colaborador
 - Custo mensal do Claude Pro por usuário (R$ 100)
 
 OUTPUTS calculados automaticamente:
@@ -465,8 +412,7 @@ OUTPUTS calculados automaticamente:
 - Economia acumulada em 12 meses
 
 DESIGN:
-- Usar as cores e fontes da identidade visual salva
-  neste Project
+- Usar as cores e fontes da identidade visual salva neste Project
 - Layout limpo e executivo
 - Botão "Calcular ROI" em destaque
 - Resultados em cards com os números em tamanho grande
@@ -474,32 +420,35 @@ DESIGN:
 - Texto em português do Brasil
 
 Nota de rodapé discreta:
-"Estimativa baseada em ganho médio de produtividade
-reportado por empresas que adotaram AI generativa.
-Resultados reais variam."</span></div>
+"Estimativa baseada em ganho médio de produtividade reportado por empresas que adotaram AI generativa. Resultados reais variam."</span></div>
+          </div>
+        </div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Aguarde a geração.</strong> <span class="time">(1 a 2 min)</span><br>O Claude vai gerar o artefato HTML ao vivo. Você vai ver o resultado aparecendo ao lado do chat.</div></div>
+        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Teste a calculadora.</strong> <span class="time">(3 min)</span><br>Preencha os campos com dados reais ou estimados da sua empresa e veja o resultado. Verifique se as cores e fontes estão corretas.</div></div>
+        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Ajuste se necessário.</strong> <span class="time">(2 min)</span><br>Se algum elemento visual não estiver certo, corrija em linguagem natural no chat. Exemplos: <em>"A cor do botão não está correta, use o verde da nossa marca"</em>, <em>"Aumenta o tamanho dos números de resultado"</em>, <em>"Adiciona o nome da empresa no topo"</em>.</div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Uma calculadora pronta para apresentar ao board</div>
+
+      <p class="lead-text">Uma <strong>calculadora de ROI funcional</strong>, com a identidade visual da sua empresa, pronta para apresentar ao <strong>board ou ao time de gestão</strong>. Você pode usar essa calculadora para sustentar a decisão de adotar o Claude na empresa com <strong>números reais do seu contexto</strong>.</p>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>Na próxima atividade você dá o pulo para <strong>Skills</strong> &mdash; pacotes de instruções reutilizáveis que transformam o Claude num especialista permanente em qualquer função do seu trabalho.</p>
       </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
-      </div>
-    </div>
-
-    <!-- 09 -->
-    <div class="section" id="sec-step9">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
-      <div class="sec-desc">Uma ferramenta pronta para o board</div>
-
-      <p class="lead-text">Uma <strong>calculadora de ROI funcional</strong>, com a identidade visual da sua empresa, pronta para apresentar ao <strong>board ou ao time de gestão</strong>.</p>
-
-      <div class="insight-box">
-        <div class="insight-label">Use como munição executiva</div>
-        <p>Essa calculadora serve para <strong>sustentar a decisão de adotar o Claude na empresa</strong> com números reais do seu contexto &mdash; não com slides genéricos de fornecedor.</p>
-      </div>
-
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -511,7 +460,7 @@ Resultados reais variam."</span></div>
   // Section navigation + progress
   const PKEY = "delta-tut-ap05-artefatos";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 10;
+  const TOTAL = 9;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
