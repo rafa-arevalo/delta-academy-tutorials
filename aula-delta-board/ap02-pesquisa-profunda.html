@@ -132,7 +132,7 @@
   .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
   .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
   .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
-  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .main{flex:1;padding:20px 36px 40px;max-width:820px}
   .section{display:none;animation:fadeIn 0.25s ease}
   .section.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
@@ -160,18 +160,14 @@
   .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
   .ficha-table tr:last-child td{border-bottom:none}
   .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
-  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
-  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
-  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
-  .inst-text strong{font-weight:700;color:var(--accent2)}
-  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
   .copy-wrap{margin:14px 0 16px}
   .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
   .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
   [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
   .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
   .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .copy-confirm{display:block;margin-top:8px;font-size:0.7rem;color:var(--text3);font-style:italic}
+  .copy-confirm strong{color:var(--accent2);font-weight:700;font-style:normal}
   .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
   .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
@@ -182,24 +178,101 @@
   .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
   .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
   .insight-box p strong{color:var(--insight-strong);font-weight:800}
-  .tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-  .tool-link{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-decoration:none;transition:all 0.15s;box-shadow:var(--shadow-xs)}
-  .tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
-  .tool-link .tl-name{font-size:0.78rem;font-weight:700;color:var(--accent2)}
-  .tool-link .tl-url{font-size:0.64rem;color:var(--text3);margin-top:1px}
   .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
   .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
   .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
   .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
   .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
-  .observation-list{list-style:none;margin:12px 0}
-  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
-  .observation-list li strong{color:var(--blue-text);font-weight:700}
   .palette-switch{right:12px;top:12px}
-  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+
+  /* ================ Componentes específicos da AP02 ================ */
+
+  /* Banner do entregável (relatório executivo de inteligência competitiva) */
+  .research-banner{background:linear-gradient(135deg,#1F3331 0%,#2A4441 100%);border:1px solid #C9A961;border-radius:14px;padding:22px;margin:14px 0 18px;box-shadow:0 6px 20px rgba(31,51,49,0.12)}
+  .research-banner .rb-label{font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#C9A961;margin-bottom:6px}
+  .research-banner .rb-title{font-size:0.95rem;font-weight:700;color:#F5F0EB;margin-bottom:14px;line-height:1.35}
+  .research-preview{background:#FFFFFF;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.04)}
+  .rp-company{border-left:4px solid #C9A961;background:#FAFAF7;border-radius:0 8px 8px 0;padding:11px 14px}
+  .rp-co-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #EDE8E2}
+  .rp-co-num{font-size:0.55rem;font-weight:800;color:#1F3331;background:#C9A961;padding:2px 8px;border-radius:4px;letter-spacing:0.08em}
+  .rp-co-name{font-size:0.82rem;font-weight:800;color:#1F3331}
+  .rp-co-body{display:flex;flex-direction:column;gap:5px}
+  .rp-row{display:flex;gap:10px;font-size:0.66rem;line-height:1.45}
+  .rp-row .rp-label{flex-shrink:0;width:90px;color:#7A7A7A;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:0.55rem;padding-top:1px}
+  .rp-row .rp-val{color:#1A1A1A;font-weight:500;flex:1}
+  .rp-pattern{background:#F5E4B8;border:1px solid #D1AA53;border-radius:8px;padding:10px 14px}
+  .rp-pattern-label{font-size:0.55rem;font-weight:800;letter-spacing:0.12em;color:#5A4414;text-transform:uppercase;margin-bottom:4px}
+  .rp-pattern p{font-size:0.72rem;color:#1F3331;line-height:1.5;font-weight:600}
+
+  /* Comparativo lado a lado (item 03) */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .compare-card{padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--panel);box-shadow:var(--shadow-xs)}
+  .compare-card.before{border-left:3px solid #A32D2D}
+  .compare-card.after{border-left:3px solid #173404}
+  .compare-card .cc-label{font-size:0.58rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px}
+  .compare-card.before .cc-label{color:#A32D2D}
+  .compare-card.after .cc-label{color:#173404}
+  .compare-card .cc-title{font-size:0.78rem;font-weight:700;color:var(--accent2);margin-bottom:6px;font-style:italic;line-height:1.35}
+  .compare-card .cc-text{font-size:0.72rem;line-height:1.55;color:var(--text2)}
+
+  /* Lista de observações (item 06) */
+  .observation-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .observation-list .obs-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:11px 14px;box-shadow:var(--shadow-xs)}
+  .observation-list .obs-bullet{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .observation-list .obs-text{font-size:0.76rem;color:var(--text);line-height:1.55;flex:1}
+  .observation-list .obs-text strong{color:var(--accent2);font-weight:700}
+
+  /* Card de duração + Card de modelo recomendado */
+  .resource-grid{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:14px 0}
+  .duration-card{background:linear-gradient(135deg,#1F3331 0%,#0E1A19 100%);border:1px solid #C9A961;border-radius:12px;padding:16px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .duration-card .dc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9A961;margin-bottom:4px}
+  .duration-card .dc-value{font-size:1.6rem;font-weight:800;color:#F5F0EB;line-height:1}
+  .duration-card .dc-sub{font-size:0.62rem;color:#C9A961;margin-top:2px;font-weight:600}
+  .model-card{background:#EEEDFE;border:1px solid #6B5B95;border-radius:12px;padding:14px 16px}
+  .model-card .mc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#3C3489;margin-bottom:4px}
+  .model-card .mc-name{font-size:0.95rem;font-weight:800;color:#3C3489;margin-bottom:6px;line-height:1.2}
+  .model-card .mc-text{font-size:0.7rem;color:#3C3489;line-height:1.55;opacity:0.92}
+
+  /* Insight de janela de contexto (dourado claro com borda dourada) */
+  .context-insight{background:#FFF8E5;border:1px solid #F0D77E;border-left:4px solid #C9A961;border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0}
+  .context-insight .ci-label{font-size:0.6rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#8A6E2C;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .context-insight .ci-title{font-size:0.84rem;font-weight:700;color:#1F3331;margin-bottom:6px;line-height:1.35}
+  .context-insight p{font-size:0.76rem;color:#4A4538;line-height:1.6}
+  .context-insight p strong{color:#1F3331;font-weight:700}
+
+  /* Pílulas de passo */
+  .passo-pill{display:inline-block;background:#EAF3DE;color:#173404;border:1px solid #173404;border-radius:999px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;margin:18px 0 10px}
+  .passo-block{margin-bottom:6px}
+
+  /* Print necessário (placeholder para prints ainda não capturados) */
+  .print-marker{display:flex;gap:10px;align-items:flex-start;background:var(--accent-lighter);border:1px dashed var(--accent-border);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:0.72rem;color:var(--text2)}
+  .print-marker .pm-icon{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
+  .print-marker .pm-text strong{color:var(--accent2);font-weight:700}
+  .print-marker .pm-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.68rem;background:var(--accent-light);color:var(--accent2);padding:1px 6px;border-radius:4px;border:1px solid var(--accent-border)}
+
+  /* Outcome list (item 09) */
+  .outcome-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .outcome-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .outcome-item .oi-check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .outcome-item .oi-text{font-size:0.78rem;color:var(--text);line-height:1.55}
+  .outcome-item .oi-text strong{color:var(--accent2);font-weight:700}
+
+  @media (max-width:768px){
+    .sidebar{display:none}
+    .main{padding:20px 16px 40px;max-width:100%}
+    .compare-grid,.resource-grid{grid-template-columns:1fr}
+    .rp-row{flex-direction:column;gap:2px}
+    .rp-row .rp-label{width:auto}
+  }
 </style>
 </head>
 <body>
+
+<div class="palette-switch" role="tablist" aria-label="Trocar paleta">
+  <button data-palette="forest" class="is-active" type="button">Forest</button>
+  <button data-palette="dusk" type="button">Dusk</button>
+  <button data-palette="cream" type="button">Cream</button>
+</div>
 
 <div class="layout">
 
@@ -213,18 +286,19 @@
       <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visão Geral<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title intro">Introdução</div>
-      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Deep Research<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Conceito &mdash; Deep Research<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
-      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que observar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Prompt simples<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Prompt com Deep Research<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que observar<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
-      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que você vai fazer<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Prompt para você usar<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> O que fazer com o output<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Inteligência competitiva<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -240,16 +314,18 @@
       <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
       <div class="sec-desc">AP02 &mdash; Pesquisa Profunda</div>
 
-      <p class="lead-text">Segunda atividade prática do <strong>DELTA BOARD</strong>. Você vai usar o <strong>Deep Research do Claude</strong> para mapear como os concorrentes do seu segmento de mercado estão adotando AI &mdash; e transformar isso em inteligência estratégica para a sua empresa.</p>
+      <p class="lead-text">Segunda atividade prática do <strong>DELTA BOARD</strong>. Você vai usar o <strong>Deep Research</strong> do Claude (modelo Opus 4.7) para mapear como concorrentes do seu segmento estão adotando AI no Brasil &mdash; e transformar isso em um briefing executivo de inteligência competitiva, pronto para uma reunião de board.</p>
 
       <div class="overview-card">
         <h3>Ficha técnica</h3>
         <table class="ficha-table"><tbody>
           <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
-          <tr><td>Duração</td><td>20 minutos</td></tr>
+          <tr><td>Duração da prática</td><td>8 minutos</td></tr>
           <tr><td>Bloco</td><td>04 &mdash; Como usar AI &middot; Segunda atividade</td></tr>
-          <tr><td>Técnica de AI</td><td>Pesquisa Profunda (Deep Research)</td></tr>
-          <tr><td>Ferramenta</td><td>Claude (Deep Research nativo)</td></tr>
+          <tr><td>Técnica de AI</td><td>Deep Research (Pesquisa Profunda)</td></tr>
+          <tr><td>Ferramenta</td><td>Claude (modelo Opus 4.7) com Deep Research</td></tr>
+          <tr><td>Pré-requisito</td><td>Ter completado a AP01 e mantido o chat do Claude aberto</td></tr>
+          <tr><td>Entregável</td><td>Briefing executivo de inteligência competitiva (2 empresas + padrão estratégico)</td></tr>
         </tbody></table>
       </div>
 
@@ -262,10 +338,47 @@
     <!-- 01 -->
     <div class="section" id="sec-step1">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
-      <div class="sec-desc">O que você vai aprender nesta atividade</div>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">Antes de começar, veja o que você vai conquistar ao final desta atividade prática</div>
 
-      <p class="lead-text">Usar o <strong>Deep Research do Claude</strong> para mapear como os concorrentes do seu segmento de mercado estão adotando AI e quais resultados concretos já conseguiram &mdash; transformando isso em <strong>inteligência estratégica</strong> para a sua empresa.</p>
+      <p class="lead-text"><strong>Entregável final:</strong> Relatório executivo de inteligência competitiva.</p>
+
+      <p class="lead-text">Um briefing executivo gerado pelo Deep Research mapeando como <strong>2 empresas reais do seu segmento</strong> estão usando AI &mdash; com resultados concretos, fontes citadas e padrão estratégico identificado.</p>
+
+      <div class="research-banner">
+        <div class="rb-label">Prévia do entregável</div>
+        <div class="rb-title">Adoção de AI no setor de logística ferroviária &mdash; Brasil</div>
+        <div class="research-preview">
+          <div class="rp-company">
+            <div class="rp-co-head">
+              <span class="rp-co-num">EMPRESA 1</span>
+              <span class="rp-co-name">Rumo Logística</span>
+            </div>
+            <div class="rp-co-body">
+              <div class="rp-row"><span class="rp-label">Implementado</span><span class="rp-val">Sistema de previsão de manutenção de ativos via AI</span></div>
+              <div class="rp-row"><span class="rp-label">Resultado</span><span class="rp-val">Redução de 23% em paradas não programadas</span></div>
+              <div class="rp-row"><span class="rp-label">Área</span><span class="rp-val">Operações</span></div>
+              <div class="rp-row"><span class="rp-label">Fonte</span><span class="rp-val">Relatório anual Rumo 2025</span></div>
+            </div>
+          </div>
+          <div class="rp-company">
+            <div class="rp-co-head">
+              <span class="rp-co-num">EMPRESA 2</span>
+              <span class="rp-co-name">MRS Logística</span>
+            </div>
+            <div class="rp-co-body">
+              <div class="rp-row"><span class="rp-label">Implementado</span><span class="rp-val">Otimização de carga via algoritmos de roteirização</span></div>
+              <div class="rp-row"><span class="rp-label">Resultado</span><span class="rp-val">+15% de utilização da capacidade</span></div>
+              <div class="rp-row"><span class="rp-label">Área</span><span class="rp-val">Operações + Comercial</span></div>
+              <div class="rp-row"><span class="rp-label">Fonte</span><span class="rp-val">Valor Econômico (Mar/2025)</span></div>
+            </div>
+          </div>
+          <div class="rp-pattern">
+            <div class="rp-pattern-label">Padrão comum</div>
+            <p>Ambas começaram pela área operacional com casos de uso de eficiência mensurável (manutenção e roteirização) antes de avançar para áreas comerciais.</p>
+          </div>
+        </div>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
@@ -276,17 +389,10 @@
     <!-- 02 -->
     <div class="section" id="sec-step2">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Deep Research</div>
-      <div class="sec-desc">Pesquisa Profunda com AI</div>
+      <div class="sec-title"><span class="snum">02.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">O que você vai aprender e produzir nesta atividade</div>
 
-      <p class="lead-text">Uma busca comum no Google (ou um prompt simples num LLM) entrega <strong>links e fragmentos</strong>. O Deep Research faz algo diferente: o Claude navega autonomamente por dezenas de fontes, lê, cruza e sintetiza tudo num relatório estruturado.</p>
-
-      <p class="lead-text">É como se um <strong>analista júnior</strong> tivesse pesquisado por 3 horas e te entregado um briefing executivo pronto.</p>
-
-      <div class="insight-box">
-        <div class="insight-label">Insight</div>
-        <p>O resultado não é uma lista de links. É um <strong>documento com contexto, comparações e conclusões</strong> &mdash; pronto para levar para uma reunião de board.</p>
-      </div>
+      <p class="lead-text">Usar o <strong>Deep Research</strong> do Claude para mapear como concorrentes do seu segmento de mercado estão adotando AI e quais resultados concretos já conseguiram &mdash; transformando isso em <strong>inteligência estratégica</strong> para a sua empresa, em formato de briefing executivo pronto para o board.</p>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
@@ -296,19 +402,32 @@
 
     <!-- 03 -->
     <div class="section" id="sec-step3">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver</div>
-      <div class="sec-desc">O professor rodando o Deep Research ao vivo sobre logística</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Conceito &mdash; Deep Research</div>
+      <div class="sec-desc">A diferença entre uma busca comum e uma pesquisa profunda</div>
 
-      <p class="lead-text">O professor acessa o Claude, ativa o modo <strong>Deep Research</strong> e roda o prompt da próxima seção sobre o setor de logística.</p>
+      <p class="lead-text">Uma busca comum no Google te entrega <strong>links</strong> para que você possa abrir e analisar o conteúdo de cada um deles, o que pode levar um tempo considerável de pesquisa. Já o <strong>Deep Research (Pesquisa Profunda)</strong> faz algo diferente: o Claude navega autonomamente por dezenas de fontes, lê, analisa e sintetiza tudo em um único relatório estruturado. Em minutos e não em horas.</p>
 
-      <p class="lead-text">Enquanto o Deep Research processa, observe o que acontece nos bastidores: o Claude está <strong>abrindo fontes, lendo artigos, cruzando dados e montando o relatório</strong> de forma autônoma &mdash; sem nenhuma intervenção manual.</p>
+      <p class="lead-text">É como se um analista júnior tivesse pesquisado por 3 horas e te entregado um briefing executivo pronto. O resultado não é uma lista de links &mdash; é um documento com contexto, comparações e conclusões, pronto para uma reunião de board.</p>
 
-      <p class="lead-text">Quando o relatório chegar, observe a estrutura do output: quais empresas foram mapeadas, que resultados apareceram e como o Claude organizou as informações.</p>
+      <p class="lead-text"><strong>Comparativo visual:</strong></p>
 
-      <div class="tip-box">
-        <div class="tip-label">Ponto central da demo</div>
-        <p>A diferença de <strong>profundidade</strong> entre o que um prompt simples entregaria e o que o Deep Research entrega.</p>
+      <div class="compare-grid">
+        <div class="compare-card before">
+          <div class="cc-label">Prompt comum</div>
+          <div class="cc-title">"Quem está usando AI no setor de logística no Brasil?"</div>
+          <div class="cc-text">Resposta vai ser uma lista de empresas conhecidas com casos genéricos, sem dados concretos, sem fontes verificáveis.</div>
+        </div>
+        <div class="compare-card after">
+          <div class="cc-label">Deep Research</div>
+          <div class="cc-title">Mesmo prompt + modo Deep Research ativado</div>
+          <div class="cc-text">Claude pesquisa em dezenas de fontes, cita os artigos, traz números concretos (como "redução de 23%") e identifica padrão comum entre empresas. Pronto para apresentar.</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>O Deep Research troca <strong>tempo de pesquisa por tempo de processamento</strong> &mdash; você espera uma vez, usa o relatório por meses.</p>
       </div>
 
       <div class="nav-buttons">
@@ -320,14 +439,47 @@
     <!-- 04 -->
     <div class="section" id="sec-step4">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">04.</span> Prompt da demonstração</div>
-      <div class="sec-desc">Setor de referência: logística no Brasil</div>
+      <div class="sec-title demo"><span class="snum">04.</span> Prompt simples &mdash; sem Deep Research</div>
+      <div class="sec-desc">O que o Claude entrega sem Deep Research ativado</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>Os prompts a seguir (04 e 05) são <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testá-los agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">Veja primeiro o que o Claude entrega sem Deep Research ativado, usando uma pergunta simples:</p>
 
       <div class="copy-wrap">
-        <span class="copy-label">Prompt da demo &mdash; Logística</span>
-        <div class="copy-block" id="demo-prompt">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
-<span id="demo-prompt-text">Faça uma pesquisa profunda sobre como empresas do setor
+        <span class="copy-label">Prompt sem Deep Research</span>
+        <div class="copy-block" id="demo-simples">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-simples-text').textContent)">Copiar</button>
+<span id="demo-simples-text">Quem está usando AI no setor de logística no Brasil?</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Resposta esperada</div>
+        <p>Lista de empresas conhecidas com casos genéricos, <strong>sem dados concretos</strong> e <strong>sem fontes verificáveis</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> Prompt com Deep Research</div>
+      <div class="sec-desc">Mesmo tipo de pergunta, agora com Deep Research e instruções estruturadas</div>
+
+      <p class="lead-text">Agora o mesmo tipo de pergunta, mas com o modo Deep Research ativado e instruções estruturadas para o Claude entregar um briefing executivo:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt com Deep Research</span>
+        <div class="copy-block" id="demo-deep">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-deep-text').textContent)">Copiar</button>
+<span id="demo-deep-text">Faça uma pesquisa profunda sobre como empresas do setor
 de logística no Brasil estão adotando Inteligência Artificial.
 
 Foque nas 2 empresas com os casos mais relevantes.
@@ -342,26 +494,8 @@ Encerre com 1 parágrafo curto identificando o padrão
 comum entre as duas empresas.
 
 Priorize fontes dos últimos 12 meses. Cite as fontes.
-Seja objetivo e direto — máximo 1 página.</span></div>
+Seja objetivo e direto &mdash; máximo 1 página.</span></div>
       </div>
-
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
-      </div>
-    </div>
-
-    <!-- 05 -->
-    <div class="section" id="sec-step5">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">05.</span> O que observar</div>
-      <div class="sec-desc">3 padrões visíveis ao comparar Deep Research com uma busca comum</div>
-
-      <ul class="observation-list">
-        <li><strong>Autonomia.</strong> O Claude abre e lê múltiplas fontes de forma autônoma &mdash; não é uma busca, é uma pesquisa.</li>
-        <li><strong>Estrutura.</strong> O relatório chega estruturado, com empresas nomeadas e resultados reais citados com fonte.</li>
-        <li><strong>Síntese.</strong> O parágrafo final já é inteligência estratégica &mdash; não dados brutos.</li>
-      </ul>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
@@ -371,19 +505,27 @@ Seja objetivo e direto — máximo 1 página.</span></div>
 
     <!-- 06 -->
     <div class="section" id="sec-step6">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">06.</span> O que você vai fazer</div>
-      <div class="sec-desc">Agora sobre o seu próprio segmento de mercado</div>
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">Os 4 sinais que diferenciam Deep Research de uma busca comum</div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Adapte o prompt.</strong> <span class="time">(1 min)</span><br>Substitua <code>[SEU SEGMENTO DE MERCADO]</code> pelo segmento em que sua empresa atua.</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Cole no Claude.</strong> <span class="time">(1 min)</span><br>Abra o Claude e cole o prompt com o modo <strong>Deep Research</strong> ativado.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Aguarde o relatório.</strong> <span class="time">(até 5 min)</span><br>O processamento leva até 5 minutos. Enquanto roda, observe as fontes sendo consultadas.</div></div>
-        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Salve o relatório.</strong> <span class="time">(1 min)</span><br>Ao final, salve o relatório completo &mdash; você vai usar na próxima atividade (<strong>AP03 &mdash; Projects</strong>).</div></div>
-      </div>
-
-      <div class="tool-links">
-        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai</div></div></a>
+      <div class="observation-list">
+        <div class="obs-item">
+          <div class="obs-bullet">1</div>
+          <div class="obs-text">O Claude abre e lê <strong>múltiplas fontes de forma autônoma</strong> &mdash; não é uma busca, é uma pesquisa.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">2</div>
+          <div class="obs-text">O relatório chega estruturado, com <strong>empresas nomeadas</strong> e resultados reais citados com fonte.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">3</div>
+          <div class="obs-text">O parágrafo final já é <strong>inteligência estratégica</strong> &mdash; não dados brutos.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">4</div>
+          <div class="obs-text">O tempo de processamento é <strong>o custo da profundidade</strong>: você espera uma vez, usa o relatório por meses.</div>
+        </div>
       </div>
 
       <div class="nav-buttons">
@@ -395,35 +537,28 @@ Seja objetivo e direto — máximo 1 página.</span></div>
     <!-- 07 -->
     <div class="section" id="sec-step7">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">07.</span> Prompt para você usar</div>
-      <div class="sec-desc">Substitua [SEU SEGMENTO DE MERCADO] e cole no Claude</div>
+      <div class="sec-title pratica"><span class="snum">07.</span> Inteligência competitiva do seu setor</div>
+      <div class="sec-desc">Sua vez &mdash; gere um briefing executivo sobre como concorrentes seus usam AI</div>
 
-      <div class="copy-wrap">
-        <span class="copy-label">Prompt para você</span>
-        <div class="copy-block" id="user-prompt">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
-<span id="user-prompt-text">Faça uma pesquisa profunda sobre como empresas do segmento
-de [SEU SEGMENTO DE MERCADO] no Brasil estão adotando
-Inteligência Artificial.
+      <p class="lead-text">Você vai gerar um briefing executivo sobre como <strong>2 empresas do seu segmento</strong> estão usando AI no Brasil. <strong>Continue no mesmo chat da AP01</strong> &mdash; o Claude já conhece seu segmento, cargo e contexto, então o prompt vai ser mais curto e direto.</p>
 
-Foque nas 2 empresas com os casos mais relevantes.
-Para cada uma traga:
-- O que foi implementado (produto, processo ou área)
-- Resultado concreto reportado (número, percentual ou
-  tempo economizado)
-- Área de aplicação (operações, vendas, atendimento,
-  produto, RH ou financeiro)
-
-Encerre com 1 parágrafo curto identificando o padrão
-comum entre as duas empresas.
-
-Priorize fontes dos últimos 12 meses. Cite as fontes.
-Seja objetivo e direto — máximo 1 página.</span></div>
+      <div class="resource-grid">
+        <div class="duration-card">
+          <div class="dc-label">Duração total</div>
+          <div class="dc-value">8 min</div>
+          <div class="dc-sub">estimado</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-name">Claude Opus 4.7</div>
+          <div class="mc-text">Você vai continuar no mesmo chat da AP01, então o modelo já está em Opus 4.7. É o ideal para Deep Research porque sintetiza muitas fontes em conclusões executivas com profundidade.</div>
+        </div>
       </div>
 
-      <div class="tip-box">
-        <div class="tip-label">Dica</div>
-        <p>Se o seu segmento for muito específico, generalize um nível (ex.: <strong>"operação offshore"</strong> &rarr; <strong>"oil &amp; gas Brasil"</strong>). O Deep Research acha mais fontes e entrega um mapa mais rico.</p>
+      <div class="context-insight">
+        <div class="ci-label">&#128161; Janela de contexto</div>
+        <div class="ci-title">Por que continuamos no mesmo chat</div>
+        <p>Toda conversa com o Claude tem uma <strong>janela de contexto</strong>: o Claude lembra de tudo que foi discutido naquele chat. Como você acabou de dizer ao Claude na AP01 qual é seu segmento, cargo e responsabilidades, o Claude já sabe. Por isso esta atividade <strong>continua no mesmo chat da AP01</strong> &mdash; o prompt fica curto e direto, sem você precisar repetir nada.</p>
       </div>
 
       <div class="nav-buttons">
@@ -435,27 +570,140 @@ Seja objetivo e direto — máximo 1 página.</span></div>
     <!-- 08 -->
     <div class="section" id="sec-step8">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">08.</span> O que fazer com o output</div>
-      <div class="sec-desc">Não jogue o relatório fora &mdash; ele é insumo da AP03</div>
+      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
+      <div class="sec-desc">6 passos para gerar seu briefing executivo no Claude</div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Salve o relatório completo.</strong><br>Copie o texto ou baixe o PDF se disponível.</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Identifique 1 empresa âncora.</strong><br>Pelo menos 1 empresa do seu segmento que já está usando AI com resultado comprovado.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Guarde o relatório.</strong><br>Ele será insumo da próxima atividade prática.</div></div>
+      <!-- Passo 01 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 01 &mdash; Volte para o chat da AP01</div>
+        <p class="lead-text">Abra a janela do navegador onde está o chat do Claude usado na AP01. <strong>Não abra um novo chat</strong> &mdash; você vai continuar exatamente onde parou. Isso preserva a janela de contexto e o Claude já sabe do seu segmento e responsabilidades.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT 01</span>
+          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-01.png</code> &mdash; Chat do Claude da AP01 com a resposta anterior visível.</span>
+        </div>
       </div>
 
-      <div class="warning-box">
-        <div class="warning-label">Importante</div>
-        <p>Cole o <strong>relatório completo</strong> em um Google Doc ou Notion antes de avançar. Você vai subir esse documento no Project da próxima atividade.</p>
+      <!-- Passo 02 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 02 &mdash; Ative o modo Deep Research</div>
+        <p class="lead-text">No campo de mensagem do Claude, localize e ative o modo <strong>Deep Research</strong> (ícone com forma de lupa ou texto "Pesquisa Profunda" dependendo da versão da interface).</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT 02</span>
+          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-02.png</code> &mdash; Modo Deep Research ativado no campo de mensagem.</span>
+        </div>
       </div>
 
-      <div class="insight-box">
-        <div class="insight-label">Próximo passo</div>
-        <p>Na <strong>AP03 &mdash; Projects</strong> você vai transformar esse relatório em base de conhecimento de um assistente persistente para a sua empresa.</p>
+      <!-- Passo 03 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 03 &mdash; Copie o prompt abaixo</div>
+        <p class="lead-text">Use o botão <strong>Copiar</strong> no bloco abaixo. O prompt foi simplificado especialmente para esta atividade: como você está continuando o chat da AP01, o Claude já sabe seu segmento &mdash; você não precisa preencher nada.</p>
+
+        <div class="copy-wrap">
+          <span class="copy-label">Prompt para Deep Research</span>
+          <div class="copy-block" id="prompt-ap02">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap02-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap02-text">Agora faça uma pesquisa profunda sobre como 2 empresas do meu segmento de mercado no Brasil estão adotando Inteligência Artificial.
+
+Para cada uma, traga:
+- O que foi implementado (produto, processo ou área)
+- Resultado concreto reportado (número, percentual ou tempo economizado)
+- Área de aplicação (operações, vendas, atendimento, produto, RH ou financeiro)
+
+Encerre com 1 parágrafo curto identificando o padrão comum entre as duas empresas.
+
+Priorize fontes dos últimos 12 meses. Cite as fontes.
+Seja objetivo e direto &mdash; máximo 1 página.</span></div>
+          <span class="copy-confirm"><strong>Prompt copiado.</strong> Cole no chat do Claude da AP01 com Deep Research ativado.</span>
+        </div>
+      </div>
+
+      <!-- Passo 04 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 04 &mdash; Cole o prompt no Claude e envie</div>
+        <p class="lead-text">Volte para o chat do Claude. Cole o prompt copiado (Cmd+V no Mac ou Ctrl+V no Windows) e clique no botão de envio. Confirme que o modo Deep Research continua ativado.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT 04</span>
+          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-04.png</code> &mdash; Prompt colado no Claude com Deep Research ativo, pronto para enviar.</span>
+        </div>
+      </div>
+
+      <!-- Passo 05 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 05 &mdash; Aguarde a pesquisa</div>
+        <p class="lead-text">O processamento pode levar alguns minutos para terminar a pesquisa profunda. Acompanhe o que o Claude está fazendo nos bastidores: abrindo fontes, lendo artigos, cruzando dados e montando o relatório de forma autônoma.</p>
+
+        <div class="warning-box">
+          <div class="warning-label">Observação sobre o tempo</div>
+          <p>Segundo a documentação oficial do Claude, uma pesquisa profunda pode durar de <strong>1 a 45 minutos</strong>, dependendo da complexidade e do volume da pesquisa. Nesta atividade, a pesquisa deve levar em média <strong>de 3 a 5 minutos</strong> porque pedimos apenas 2 concorrentes. Se depois da aula você quiser fazer uma pesquisa com mais concorrentes (5, 10), basta alterar a quantidade no prompt &mdash; só leve em conta que o tempo de processamento será proporcionalmente maior.</p>
+        </div>
+
+        <div class="print-marker">
+          <span class="pm-icon">PRINT 05</span>
+          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-05.png</code> &mdash; Claude executando Deep Research mostrando as fontes sendo consultadas.</span>
+        </div>
+      </div>
+
+      <!-- Passo 06 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 06 &mdash; Analise o resultado</div>
+        <p class="lead-text">Quando o relatório estiver pronto, leia atentamente o briefing gerado pelo Claude. Observe:</p>
+
+        <div class="overview-card">
+          <ul>
+            <li>As <strong>2 empresas</strong> mapeadas</li>
+            <li>Os <strong>resultados concretos</strong> reportados (números, percentuais, tempo economizado)</li>
+            <li>As <strong>áreas de aplicação</strong> identificadas</li>
+            <li>O <strong>padrão estratégico</strong> comum entre as empresas</li>
+          </ul>
+        </div>
+
+        <div class="tip-box">
+          <div class="tip-label">Não precisa salvar agora</div>
+          <p>Você não precisa baixar nem salvar o relatório agora &mdash; na <strong>AP03</strong> você vai usar o próprio chat para gerar um resumo aproveitável como insumo do seu Project personalizado.</p>
+        </div>
+
+        <div class="print-marker">
+          <span class="pm-icon">PRINT 06</span>
+          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-06.png</code> &mdash; Relatório final do Deep Research com 2 empresas analisadas e padrão identificado.</span>
+        </div>
       </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Os entregáveis e o contexto acumulado que ficam com você</div>
+
+      <p class="lead-text">Você sai desta atividade com:</p>
+
+      <div class="outcome-list">
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Um <strong>briefing executivo</strong> sobre adoção de AI no seu setor, com 2 casos reais de empresas e resultados concretos.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Um <strong>padrão estratégico</strong> identificado entre as empresas do seu segmento, pronto para discutir no seu time.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Um chat com <strong>contexto rico acumulado</strong> (cargo, segmento, responsabilidades, mapeamento Kai-Fu Lee e inteligência competitiva) &mdash; pronto para virar insumo do seu Project na AP03.</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo</div>
+        <p><strong>Mantenha o chat aberto.</strong> Na AP03 (Projects) você vai pedir ao Claude &mdash; ainda no mesmo chat &mdash; para resumir tudo que ele aprendeu sobre você nas APs 01 e 02. Esse resumo vai virar o <strong>System Prompt</strong> do Project, e os outputs das duas APs vão virar arquivos de contexto.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -464,10 +712,26 @@ Seja objetivo e direto — máximo 1 página.</span></div>
 </div>
 
 <script>
+  // Palette switcher
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"forest";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+</script>
+
+<script>
   // Section navigation + progress
   const PKEY = "delta-tut-ap02-pesquisa-profunda";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 9;
+  const TOTAL = 10;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
