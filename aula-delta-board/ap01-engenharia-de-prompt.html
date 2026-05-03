@@ -132,7 +132,7 @@
   .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
   .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
   .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
-  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .main{flex:1;padding:20px 36px 40px;max-width:820px}
   .section{display:none;animation:fadeIn 0.25s ease}
   .section.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
@@ -193,7 +193,124 @@
   .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
   .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
   .palette-switch{right:12px;top:12px}
-  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+
+  /* ================ Componentes específicos da AP01 ================ */
+
+  /* Banner do entregável */
+  .deliverable-banner{background:linear-gradient(135deg,#1F3331 0%,#2A4441 100%);border:1px solid #C9A961;border-radius:14px;padding:22px;margin:14px 0 18px;box-shadow:0 6px 20px rgba(31,51,49,0.12)}
+  .deliverable-banner .db-label{font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#C9A961;margin-bottom:6px}
+  .deliverable-banner .db-title{font-size:0.95rem;font-weight:700;color:#F5F0EB;margin-bottom:14px;line-height:1.35}
+  .deliverable-preview{background:#FFFFFF;border-radius:10px;padding:16px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.04)}
+  .deliverable-preview .dp-quadrants{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+  .dp-q{padding:10px 12px;border-radius:8px;border-left:4px solid var(--qc);background:#FAFAF7}
+  .dp-q .dp-q-label{font-size:0.55rem;font-weight:800;letter-spacing:0.12em;color:var(--qc);text-transform:uppercase;margin-bottom:2px}
+  .dp-q .dp-q-name{font-size:0.74rem;font-weight:700;color:#1F3331}
+  .dp-mini-table{width:100%;border-collapse:collapse;font-size:0.66rem;margin-top:4px}
+  .dp-mini-table th{background:#1F3331;color:#FFFFFF;text-align:left;padding:6px 8px;font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+  .dp-mini-table td{padding:6px 8px;border-bottom:1px solid #EDE8E2;color:#1A1A1A;font-weight:500}
+  .dp-mini-table tr:last-child td{border-bottom:none}
+  .dp-cat{display:inline-block;font-size:0.56rem;font-weight:800;letter-spacing:0.04em;padding:2px 8px;border-radius:4px;text-transform:uppercase}
+  .dp-cat.qw{background:#EAF3DE;color:#173404;border:1px solid #97C459}
+  .dp-cat.mp{background:#E6F1FB;color:#042C53;border:1px solid #85B7EB}
+  .dp-cat.fi{background:#FAEEDA;color:#412402;border:1px solid #EF9F27}
+
+  /* Cards das 4 camadas PACE */
+  .pace-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+  .pace-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow-xs);position:relative;overflow:hidden}
+  .pace-card .pc-letter{font-family:'Montserrat',sans-serif;font-size:2.2rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:4px}
+  .pace-card .pc-name{font-size:0.78rem;font-weight:700;color:var(--accent2);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em}
+  .pace-card .pc-desc{font-size:0.72rem;color:var(--text2);line-height:1.5}
+
+  /* Comparativo Antes / Depois */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .compare-card{padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--panel);box-shadow:var(--shadow-xs)}
+  .compare-card.before{border-left:3px solid #A32D2D}
+  .compare-card.after{border-left:3px solid #173404}
+  .compare-card .cc-label{font-size:0.58rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px}
+  .compare-card.before .cc-label{color:#A32D2D}
+  .compare-card.after .cc-label{color:#173404}
+  .compare-card .cc-text{font-size:0.74rem;line-height:1.55;color:var(--text2);font-style:italic}
+
+  /* Matriz de priorização */
+  .priority-matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0;position:relative}
+  .pm-cell{padding:14px;border-radius:10px;border:1.5px solid var(--pmc-border);background:var(--pmc-bg);min-height:90px}
+  .pm-cell .pm-label{font-size:0.58rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--pmc-text);margin-bottom:4px}
+  .pm-cell .pm-name{font-size:0.92rem;font-weight:800;color:var(--pmc-text);margin-bottom:4px}
+  .pm-cell .pm-desc{font-size:0.68rem;color:var(--pmc-text);line-height:1.45;opacity:0.85}
+  .pm-axis-y,.pm-axis-x{font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);text-align:center;margin:6px 0}
+
+  /* Tabela com tags coloridas */
+  .priority-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .priority-table th{background:var(--accent2);color:#FFFFFF;text-align:left;padding:8px 10px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
+  .priority-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle;font-size:0.74rem}
+  .priority-table tr:last-child td{border-bottom:none}
+  .priority-table tr:nth-child(even) td{background:var(--ficha-td1-bg)}
+  .cat-tag{display:inline-block;font-size:0.6rem;font-weight:800;letter-spacing:0.04em;padding:3px 9px;border-radius:4px;text-transform:uppercase;border:1px solid}
+  .cat-qw{background:#EAF3DE;color:#173404;border-color:#97C459}
+  .cat-mp{background:#E6F1FB;color:#042C53;border-color:#85B7EB}
+  .cat-fi{background:#FAEEDA;color:#412402;border-color:#EF9F27}
+  .cat-th{background:#F1EFE8;color:#2C2C2A;border-color:#B4B2A9}
+  .qd-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  /* Card de duração + Card de modelo recomendado */
+  .resource-grid{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:14px 0}
+  .duration-card{background:linear-gradient(135deg,#1F3331 0%,#0E1A19 100%);border:1px solid #C9A961;border-radius:12px;padding:16px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .duration-card .dc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9A961;margin-bottom:4px}
+  .duration-card .dc-value{font-size:1.6rem;font-weight:800;color:#F5F0EB;line-height:1}
+  .duration-card .dc-sub{font-size:0.62rem;color:#C9A961;margin-top:2px;font-weight:600}
+  .model-card{background:#EEEDFE;border:1px solid #6B5B95;border-radius:12px;padding:14px 16px}
+  .model-card .mc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#3C3489;margin-bottom:4px}
+  .model-card .mc-name{font-size:0.95rem;font-weight:800;color:#3C3489;margin-bottom:6px;line-height:1.2}
+  .model-card .mc-text{font-size:0.7rem;color:#3C3489;line-height:1.55;opacity:0.92}
+
+  /* Pílulas de passo */
+  .passo-pill{display:inline-block;background:#EAF3DE;color:#173404;border:1px solid #173404;border-radius:999px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;margin:18px 0 10px}
+  .passo-block{margin-bottom:6px}
+
+  /* Print necessário (marcador placeholder) */
+  .print-marker{display:flex;gap:10px;align-items:flex-start;background:var(--accent-lighter);border:1px dashed var(--accent-border);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:0.7rem;color:var(--text2)}
+  .print-marker .pm-icon{font-size:0.72rem;font-weight:800;color:var(--accent);letter-spacing:0.1em;flex-shrink:0}
+  .print-marker .pm-text strong{color:var(--accent2);font-weight:700}
+
+  /* Gerador interativo */
+  .pg-card{background:var(--panel);border:1.5px solid var(--accent);border-radius:12px;padding:18px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .pg-card .pg-head{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .pg-card .pg-head .pg-badge{background:var(--accent);color:var(--bg);font-size:0.55rem;padding:2px 8px;border-radius:4px;letter-spacing:0.1em}
+  .pg-card .pg-sub{font-size:0.7rem;color:var(--text3);margin-bottom:14px}
+  .pg-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .pg-field{display:flex;flex-direction:column;gap:4px}
+  .pg-field.full{grid-column:1/-1}
+  .pg-field label{font-size:0.64rem;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:0.06em}
+  .pg-field input,.pg-field textarea{font-family:'Montserrat',system-ui,sans-serif;font-size:0.78rem;padding:9px 12px;border:1px solid var(--border2);border-radius:7px;background:var(--white);color:var(--text);transition:all 0.15s;line-height:1.45}
+  .pg-field textarea{resize:vertical;min-height:64px}
+  .pg-field input:focus,.pg-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(92,108,81,0.12)}
+  .pg-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+  .pg-copy-btn{background:var(--accent2);color:var(--bg);border:none;padding:9px 18px;border-radius:7px;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'Montserrat',system-ui,sans-serif;transition:all 0.15s;letter-spacing:0.04em}
+  .pg-copy-btn:hover{background:var(--accent);color:var(--bg)}
+  .pg-copy-btn.copied{background:#173404;color:#EAF3DE}
+  .pg-warn{font-size:0.68rem;color:#A32D2D;font-weight:600;display:none}
+  .pg-warn.show{display:inline}
+  .pg-success{font-size:0.68rem;color:#173404;font-weight:600;display:none}
+  .pg-success.show{display:inline}
+  .pg-preview-wrap{margin-top:6px}
+  .pg-preview-label{display:inline-block;font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:6px;padding-bottom:3px;border-bottom:2px solid var(--accent2)}
+  .pg-preview{background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:18px 22px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.78rem;color:#0E1A19;line-height:1.7;white-space:pre-wrap;word-break:break-word;font-weight:500;max-height:380px;overflow-y:auto}
+  .pg-preview .var-filled{background:#EAF3DE;color:#173404;font-weight:600;padding:1px 5px;border-radius:3px;border-bottom:1.5px solid #97C459}
+  .pg-preview .var-empty{background:#FCEBEB;color:#A32D2D;font-weight:600;font-style:italic;padding:1px 5px;border-radius:3px;border-bottom:1.5px dashed #A32D2D}
+
+  /* Outcome list (item 09) */
+  .outcome-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .outcome-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .outcome-item .oi-check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .outcome-item .oi-text{font-size:0.78rem;color:var(--text);line-height:1.55}
+  .outcome-item .oi-text strong{color:var(--accent2);font-weight:700}
+
+  @media (max-width:768px){
+    .sidebar{display:none}
+    .main{padding:20px 16px 40px;max-width:100%}
+    .tool-links,.pace-grid,.compare-grid,.priority-matrix,.resource-grid,.pg-fields{grid-template-columns:1fr}
+    .deliverable-preview .dp-quadrants{grid-template-columns:1fr 1fr}
+  }
 </style>
 </head>
 <body>
@@ -210,16 +327,19 @@
       <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visão Geral<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title intro">Introdução</div>
-      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Método PACE<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Conceito &mdash; Método PACE<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
-      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Prompt sem técnica<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Prompt com método PACE<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> PACE + relatório<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Prompt sem técnica<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Prompt com método PACE<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Método PACE + relatório<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
-      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt para você<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Mapeamento de oportunidades<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -235,16 +355,17 @@
       <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
       <div class="sec-desc">AP01 &mdash; Engenharia de Prompt</div>
 
-      <p class="lead-text">Primeira atividade prática do <strong>DELTA BOARD</strong>. Você vai entender a base da engenharia de prompt com o framework <strong>PACE</strong> (Papel, Ação, Contexto, Expectativa) e estruturar um prompt que mapeia oportunidades de AI na sua rotina usando a <strong>Matrix Kai-Fu Lee</strong>.</p>
+      <p class="lead-text">Primeira atividade prática do <strong>DELTA BOARD</strong>. Você vai entender a base da engenharia de prompt com o framework <strong>PACE</strong> (Papel, Ação, Contexto, Expectativa) e estruturar um prompt que mapeia oportunidades de AI na sua rotina usando a <strong>Matriz Kai-Fu Lee</strong> &mdash; com priorização Impacto × Esforço.</p>
 
       <div class="overview-card">
         <h3>Ficha técnica</h3>
         <table class="ficha-table"><tbody>
           <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
-          <tr><td>Duração</td><td>5 minutos</td></tr>
+          <tr><td>Duração da prática</td><td>7 minutos</td></tr>
           <tr><td>Bloco</td><td>04 &mdash; Como usar AI &middot; Primeira atividade</td></tr>
           <tr><td>Técnica de AI</td><td>Engenharia de Prompt &mdash; Framework PACE</td></tr>
-          <tr><td>Ferramenta</td><td>Claude</td></tr>
+          <tr><td>Ferramenta</td><td>Claude (modelo Opus 4.7)</td></tr>
+          <tr><td>Entregável</td><td>Artefato HTML executivo com Matriz Kai-Fu Lee priorizada</td></tr>
         </tbody></table>
       </div>
 
@@ -257,12 +378,33 @@
     <!-- 01 -->
     <div class="section" id="sec-step1">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
-      <div class="sec-desc">O que você vai aprender nesta atividade</div>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">Antes de começar, veja o que você vai conquistar ao final desta atividade prática</div>
 
-      <p class="lead-text">Entender a base dos conceitos de engenharia de prompt com o framework <strong>PACE</strong> (Papel, Ação, Contexto, Expectativa).</p>
+      <p class="lead-text"><strong>Entregável final:</strong> Artefato HTML executivo com Matriz Kai-Fu Lee priorizada.</p>
 
-      <p class="lead-text">Com isso, você irá realizar uma atividade prática para estruturar um prompt que mapeia oportunidades de uso de AI na própria rotina usando a <strong>Matrix Kai-Fu Lee</strong>.</p>
+      <p class="lead-text">Um diagnóstico interativo aplicado ao seu contexto real de trabalho &mdash; com os 4 quadrantes da Matriz de Kai-Fu Lee detalhados e uma tabela final ordenada pela matriz Impacto × Esforço (<strong>Quick Wins primeiro</strong>).</p>
+
+      <div class="deliverable-banner">
+        <div class="db-label">Prévia do entregável</div>
+        <div class="db-title">Matriz Kai-Fu Lee priorizada por Impacto × Esforço</div>
+        <div class="deliverable-preview">
+          <div class="dp-quadrants">
+            <div class="dp-q" style="--qc:#C4883A"><div class="dp-q-label">Q1</div><div class="dp-q-name">Repetitivo</div></div>
+            <div class="dp-q" style="--qc:#6B5B95"><div class="dp-q-label">Q2</div><div class="dp-q-name">Estratégico</div></div>
+            <div class="dp-q" style="--qc:#3A8C8C"><div class="dp-q-label">Q3</div><div class="dp-q-name">Relacional</div></div>
+            <div class="dp-q" style="--qc:#3D7A54"><div class="dp-q-label">Q4</div><div class="dp-q-name">Liderança</div></div>
+          </div>
+          <table class="dp-mini-table">
+            <thead><tr><th>#</th><th>Atividade</th><th>Categoria</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Análise de KPIs operacionais</td><td><span class="dp-cat qw">Quick Win</span></td></tr>
+              <tr><td>2</td><td>Otimização de rotas com IA</td><td><span class="dp-cat mp">Major Project</span></td></tr>
+              <tr><td>3</td><td>Geração de relatórios para o board</td><td><span class="dp-cat fi">Fill-in</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
@@ -273,27 +415,12 @@
     <!-- 02 -->
     <div class="section" id="sec-step2">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Método PACE</div>
-      <div class="sec-desc">Um framework em 4 camadas para estruturar qualquer prompt</div>
+      <div class="sec-title"><span class="snum">02.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">O que você vai aprender e produzir nesta atividade</div>
 
-      <p class="lead-text">Um prompt básico é como pedir <strong>"me faz um relatório"</strong> a um estagiário no primeiro dia &mdash; ele não sabe o tom, o contexto nem o que você espera.</p>
+      <p class="lead-text">Aprender a aplicar o método <strong>PACE</strong> para escrever prompts profissionais que entregam respostas estruturadas, contextualizadas e prontas para uso executivo.</p>
 
-      <p class="lead-text">O PACE resolve isso estruturando seu pedido em 4 camadas:</p>
-
-      <div class="overview-card">
-        <h3>As 4 camadas do PACE</h3>
-        <ul>
-          <li><strong>Papel</strong> &mdash; quem a IA deve ser</li>
-          <li><strong>Ação</strong> &mdash; o que fazer</li>
-          <li><strong>Contexto</strong> &mdash; com quais informações</li>
-          <li><strong>Expectativa</strong> &mdash; em que formato e qualidade entregar</li>
-        </ul>
-      </div>
-
-      <div class="insight-box">
-        <div class="insight-label">Insight</div>
-        <p>A diferença é <strong>previsibilidade</strong>. Sem PACE, você depende da sorte; com PACE, você controla o resultado. Pense nisso como um briefing executivo &mdash; quanto mais preciso o briefing, menos retrabalho no entregável.</p>
-      </div>
+      <p class="lead-text">Ao final desta atividade, você terá um <strong>relatório personalizado</strong> mapeando onde aplicar AI no seu dia a dia segundo a Matriz de Kai-Fu Lee, já priorizado por uma matriz de Impacto e Esforço.</p>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
@@ -303,22 +430,71 @@
 
     <!-- 03 -->
     <div class="section" id="sec-step3">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">03.</span> Prompt sem técnica</div>
-      <div class="sec-desc">O que acontece quando não se usa nenhuma estrutura</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Conceito &mdash; Método PACE</div>
+      <div class="sec-desc">Um framework em 4 camadas para estruturar qualquer prompt profissional</div>
 
-      <p class="lead-text">Veja como fica uma pergunta aberta, sem papel, sem contexto e sem expectativa clara de entrega:</p>
+      <p class="lead-text">Existe uma diferença enorme entre fazer uma pergunta genérica para a AI e dar um comando estruturado. Compare:</p>
 
-      <div class="copy-wrap">
-        <span class="copy-label">Prompt sem técnica</span>
-        <div class="copy-block" id="demo-sem-tecnica">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-sem-tecnica-text').textContent)">Copiar</button>
-<span id="demo-sem-tecnica-text">Me mostre como eu posso usar AI no meu dia a dia</span></div>
+      <div class="compare-grid">
+        <div class="compare-card before">
+          <div class="cc-label">Prompt genérico</div>
+          <div class="cc-text">"Me fale onde posso usar AI"</div>
+        </div>
+        <div class="compare-card after">
+          <div class="cc-label">Prompt com PACE</div>
+          <div class="cc-text">"Atue como consultor sênior em logística ferroviária. Mapeie onde posso aplicar AI usando a Matriz Kai-Fu Lee, considerando minhas 5 atividades principais. Entregue tabela executiva, máximo 1 página."</div>
+        </div>
       </div>
 
-      <div class="tip-box">
-        <div class="tip-label">O que observar</div>
-        <p>A IA não sabe quem você é, o que você faz, nem em que formato responder. O resultado vai ser genérico &mdash; uma lista de 10 usos padrão que você já viu em qualquer post do LinkedIn.</p>
+      <p class="lead-text">A primeira gera uma lista genérica de aplicações de AI que serve para qualquer profissional. A segunda gera um <strong>diagnóstico executivo</strong>, contextualizado, priorizado e pronto para apresentar ao board.</p>
+
+      <p class="lead-text"><strong>As 4 camadas do método PACE:</strong></p>
+
+      <div class="pace-grid">
+        <div class="pace-card">
+          <div class="pc-letter">P</div>
+          <div class="pc-name">Papel</div>
+          <div class="pc-desc">Quem a AI deve "ser" para responder</div>
+        </div>
+        <div class="pace-card">
+          <div class="pc-letter">A</div>
+          <div class="pc-name">Ação</div>
+          <div class="pc-desc">O que ela deve fazer exatamente</div>
+        </div>
+        <div class="pace-card">
+          <div class="pc-letter">C</div>
+          <div class="pc-name">Contexto</div>
+          <div class="pc-desc">Sobre você, sua empresa, sua situação</div>
+        </div>
+        <div class="pace-card">
+          <div class="pc-letter">E</div>
+          <div class="pc-name">Expectativa</div>
+          <div class="pc-desc">Como a resposta deve ser entregue</div>
+        </div>
+      </div>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Exemplo &mdash; PACE aplicado</span>
+        <div class="copy-block" id="pace-example">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('pace-example-text').textContent)">Copiar</button>
+<span id="pace-example-text">PAPEL
+Atue como consultor especialista em produtividade corporativa.
+
+AÇÃO
+Mapeie oportunidades de aplicar AI nas minhas atividades.
+
+CONTEXTO
+Sou Diretor de Operações em uma empresa de logística ferroviária.
+Minhas atividades: gestão de equipes, análise de KPIs, decisões sobre rotas.
+
+EXPECTATIVA
+Tabela executiva, máximo 1 página, em bullets.</span></div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>Você não está pedindo informação para a AI &mdash; você está <strong>delegando trabalho</strong>. Quanto melhor o briefing (PACE), melhor o entregável.</p>
       </div>
 
       <div class="nav-buttons">
@@ -330,10 +506,41 @@
     <!-- 04 -->
     <div class="section" id="sec-step4">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">04.</span> Prompt com método PACE</div>
-      <div class="sec-desc">Mesma pergunta, agora estruturada em Papel + Ação + Contexto + Expectativa</div>
+      <div class="sec-title demo"><span class="snum">04.</span> Prompt sem técnica</div>
+      <div class="sec-desc">O que acontece quando enviamos um pedido sem estrutura ao Claude</div>
 
-      <p class="lead-text">Agora o mesmo pedido, mas escrito com as 4 camadas do PACE. Observe como cada bloco responde uma pergunta diferente:</p>
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>Os prompts a seguir (04, 05, 06) são <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testá-los agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">Veja o que acontece quando enviamos um pedido sem estrutura ao Claude:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt sem técnica</span>
+        <div class="copy-block" id="demo-sem-tecnica">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-sem-tecnica-text').textContent)">Copiar</button>
+<span id="demo-sem-tecnica-text">Onde posso usar AI no meu trabalho?</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Resposta esperada</div>
+        <p>Lista genérica, sem priorização, sem contexto. Útil como introdução, mas <strong>inutilizável como diagnóstico executivo</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> Prompt com método PACE</div>
+      <div class="sec-desc">Mesmo pedido, agora estruturado nas 4 camadas do PACE</div>
+
+      <p class="lead-text">Agora aplicando as 4 camadas do método PACE:</p>
 
       <div class="copy-wrap">
         <span class="copy-label">Prompt com PACE</span>
@@ -365,204 +572,6 @@ dia a dia.</span></div>
       </div>
 
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
-        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
-      </div>
-    </div>
-
-    <!-- 05 -->
-    <div class="section" id="sec-step5">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">05.</span> Prompt com PACE + relatório HTML</div>
-      <div class="sec-desc">A versão máxima &mdash; a IA entrega um artefato HTML interativo, não só texto</div>
-
-      <p class="lead-text">Mesma estrutura PACE, mas agora detalhando <strong>exatamente</strong> o formato visual da entrega. O resultado deixa de ser uma resposta em texto e passa a ser um <strong>relatório interativo</strong> pronto para uso.</p>
-
-      <div class="copy-wrap">
-        <span class="copy-label">Prompt PACE + relatório</span>
-        <div class="copy-block" id="demo-pace-rel">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-pace-rel-text').textContent)">Copiar</button>
-<span id="demo-pace-rel-text">PAPEL
-Você é um consultor especialista em IA Generativa aplicada
-a produtividade corporativa, com experiência em diagnóstico
-de processos e recomendação de ferramentas de IA para times
-executivos do setor de logística ferroviária.
-
-AÇÃO
-Analise meu contexto profissional e mapeie oportunidades de
-aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica
-atividades em 4 quadrantes:
-
-- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
-- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
-
-Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
-
-Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
-Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
-Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
-Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
-
-Para CADA quadrante:
-- O que é — 1 frase aplicada ao meu contexto
-- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
-- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica do Delta Board usar
-- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
-- Risco ou cuidado — 1 limitação relevante
-
-Encerre com uma tabela-resumo consolidada com estas colunas:
-| Quadrante | Atividade | Ferramenta Delta Board | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
-
-A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
-
-CONTEXTO
-Ferramentas e técnicas que eu aprendi
-
-Durante a imersão Delta Board da Delta Academy, aprendi as seguintes
-ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas
-ao mapear as oportunidades:
-
-- Engenharia de Prompt (método PACE)
-- Claude: Pesquisa Profunda, Projects, Claude Design,
-  Artefatos, Skills, Cowork, Claude Code
-- Vibe Coding com Lovable
-- Agentes de IA
-
-Meu contexto profissional
-
-Sobre mim:
-- Segmento de mercado: logística ferroviária
-- Cargo: Diretor de Operações
-- Departamento: Operações
-- Minhas principais atividades no dia a dia:
-  - Supervisão da operação de trens de carga na malha
-    ferroviária — controle de programação, janelas de
-    circulação e handoff entre trechos
-  - Monitoramento de indicadores críticos: tempo de ciclo
-    dos vagões, taxa de ocupação da malha, aderência ao
-    plano de transporte (APT) e avarias em carga
-  - Gestão de interfaces com clientes embarcadores sobre
-    cumprimento de volumes contratados e planos mensais
-  - Análise de ocorrências operacionais: descarrilamentos,
-    falhas de via, atrasos por cruzamentos e eventos
-    climáticos
-  - Relatório executivo semanal de KPIs para o board e
-    para a ANTt (Agência Nacional de Transportes Terrestres)
-
-Sobre minha equipe:
-- Total de colaboradores sob minha gestão direta: 6
-- Cargos: gerente de controle operacional, coordenador
-  de programação de trens, analista de desempenho da
-  malha, supervisor de manutenção de via permanente,
-  analista de relacionamento com embarcadores, assistente
-  de conformidade regulatória
-- Principais atividades da equipe:
-  - Programação diária de janelas de circulação e
-    cruzamentos na malha
-  - Monitoramento em tempo real do Centro de Controle
-    Operacional (CCO)
-  - Elaboração de relatórios de desempenho para clientes
-    embarcadores e para a ANTt
-  - Controle de manutenção preventiva de via permanente
-    e material rodante
-  - Gestão de não-conformidades e registro de ocorrências
-
-EXPECTATIVA
-Regras de conteúdo
-- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
-- Use bullet points — sem parágrafos longos
-- Linguagem direta, sem jargão acadêmico
-- Toda recomendação de IA DEVE referenciar uma ferramenta ou técnica específica aprendida no Delta Board
-
-Formato de entrega: artefato HTML interativo
-
-O resultado final DEVE ser entregue como um artefato HTML único,
-interativo e responsivo. Siga EXATAMENTE estas especificações visuais
-e estruturais:
-
-Estilo geral
-- Fundo da página: #FAFAF7 (off-white quente)
-- Cor de texto principal: #1a1a1a
-- Cor de texto secundário/muted: #6b7c6e
-- Cor de bordas: #d6d1ca (bordas principais) e #e8e3dc (bordas internas leves)
-- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
-- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
-- Fonte única para tudo: Montserrat (importar do Google Fonts), pesos 400, 500, 600 e 700
-- Line-height do body: 1.65
-- Anti-aliasing: -webkit-font-smoothing: antialiased
-
-Header
-- Badge no topo: texto "DELTA BOARD · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
-- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
-- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
-
-Matriz visual (mini-mapa clicável)
-- Grid 2×2, sem gap visível (gap: 0), border-radius 10px, overflow hidden
-- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
-- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
-- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
-- Hover nas células: fundo muda para #F5F0EB
-- Labels dos eixos acima e abaixo da matriz: font-size 9px, peso 700, uppercase, letter-spacing 2px, cor #6b7c6e
-- Disposição da matriz (ordem visual):
-  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
-  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
-- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
-
-Cores por quadrante
-- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
-- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
-- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
-- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
-
-Painéis de detalhe (accordion)
-- Cada quadrante é um painel colapsável (accordion), fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
-- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
-- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
-- Hover no header: fundo #F5F0EB
-- Chevron rotaciona 180° quando aberto (transition 0.3s)
-- Body do painel: max-height 0 quando fechado, max-height 2000px quando aberto (transition 0.4s ease)
-- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
-- O primeiro painel (Q1) começa aberto por padrão; os demais fechados
-- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s entre painéis
-
-Dentro de cada painel
-- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
-- Texto de parágrafo: font-size 13px
-- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
-- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
-- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
-- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
-
-Tabela-resumo
-- Título h2: font-size 18px, peso 700, cor #1F3331
-- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
-- Container da tabela: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
-- Header da tabela (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
-- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
-- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
-- Hover nas linhas: fundo #ede8e1
-- Coluna Autonomia da IA — cores por nível:
-  - Alta: cor #3D7A54, peso 700
-  - Média: cor #C4883A, peso 700
-  - Baixa: cor #3A8C8C, peso 700
-- Dots de quadrante na coluna "Quadrante": círculo de 8×8px com a cor do respectivo quadrante, inline-block, margin-right 5px
-- Min-width da tabela: 720px (scroll horizontal em mobile)
-
-Responsividade (max-width 600px)
-- Container: padding 24px 16px 60px
-- Título h1: font-size 21px
-- Matriz: muda para grid de 1 coluna
-- Painéis: padding lateral reduzido para 16px
-- Tabela: font-size 11px, padding das células 9px 10px
-
-JavaScript
-- Função togglePanel(id): alterna a classe open no painel correspondente
-- Função scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout de 100ms
-- Cada célula da matriz chama scrollToPanel no onclick
-- Cada header de painel chama togglePanel no onclick</span></div>
-      </div>
-
-      <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
         <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
       </div>
@@ -570,201 +579,261 @@ JavaScript
 
     <!-- 06 -->
     <div class="section" id="sec-step6">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">06.</span> Sua vez &mdash; aplique no seu contexto</div>
-      <div class="sec-desc">Preencha as variáveis, cole no Claude e analise o mapa personalizado</div>
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Método PACE + relatório</div>
+      <div class="sec-desc">A versão máxima &mdash; PACE + artefato HTML completo com priorização</div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Preencha as variáveis.</strong> <span class="time">(2 min)</span><br>Substitua os campos entre colchetes pelos dados do seu contexto (segmento, cargo, atividades, equipe).</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Cole no Claude.</strong> <span class="time">(1 min)</span><br>Abra o Claude, cole o prompt completo e rode.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Analise o resultado.</strong> <span class="time">(2 min)</span><br>Leia o mapa de oportunidades de AI personalizado para o seu dia a dia e identifique por onde começar.</div></div>
-      </div>
-
-      <div class="tool-links">
-        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude</div><div class="tl-url">claude.ai</div></div></a>
-      </div>
+      <p class="lead-text">Quando levamos o método PACE ao máximo &mdash; pedindo um <strong>artefato HTML</strong> completo com priorização e todas as especificações de design &mdash; o resultado é praticamente um entregável de consultoria pronto para apresentar:</p>
 
       <div class="copy-wrap">
-        <span class="copy-label">Prompt para você usar</span>
-        <div class="copy-block" id="user-prompt">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
-<span id="user-prompt-text">PAPEL
+        <span class="copy-label">Prompt PACE + relatório priorizado</span>
+        <div class="copy-block" id="demo-pace-rel">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-pace-rel-text').textContent)">Copiar</button>
+<span id="demo-pace-rel-text">PAPEL
 Você é um consultor especialista em IA Generativa aplicada
-a produtividade corporativa, com experiência em diagnóstico
-de processos e recomendação de ferramentas de IA para times
-executivos.
+a produtividade corporativa do setor de logística ferroviária.
 
 AÇÃO
-Analise meu contexto profissional e mapeie oportunidades de
-aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica
-atividades em 4 quadrantes:
+Mapeie oportunidades de IA usando a Matriz de Kai-Fu Lee.
+Para CADA quadrante: o que é, atividades mapeadas, aplicação
+prática de IA, resultado tangível, risco ou cuidado.
 
-- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
-- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+Encerre com uma TABELA-RESUMO FINAL contendo TODAS as
+oportunidades identificadas, ORDENADA POR PRIORIDADE segundo
+uma matriz Impacto × Esforço, com as colunas:
+| # | Atividade | Quadrante | Ferramenta Delta Board | Resultado | Categoria de Priorização |
 
-Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
-
-Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
-Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
-Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
-Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
-
-Para CADA quadrante:
-- O que é — 1 frase aplicada ao meu contexto
-- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
-- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica do Delta Board usar
-- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
-- Risco ou cuidado — 1 limitação relevante
-
-Encerre com uma tabela-resumo consolidada com estas colunas:
-| Quadrante | Atividade | Ferramenta Delta Board | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
-
-A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
+A coluna "Categoria de Priorização" deve classificar cada item em:
+- Quick Win (alto impacto + baixo esforço) → fazer primeiro
+- Major Project (alto impacto + alto esforço) → planejar
+- Fill-in (baixo impacto + baixo esforço) → fazer quando sobrar tempo
+- Thankless (baixo impacto + alto esforço) → evitar
 
 CONTEXTO
-Ferramentas e técnicas que eu aprendi
-
-Durante a imersão Delta Board da Delta Academy, aprendi as seguintes
-ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas
-ao mapear as oportunidades:
-
-- Engenharia de Prompt — técnicas estruturadas para obter respostas precisas de IAs generativas
-- Claude (Anthropic) — assistente de IA com funcionalidades específicas:
-  - Pesquisa Profunda (research multi-fonte)
-  - Projects (assistentes personalizados com contexto fixo)
-  - Claude Design
-  - Artefatos (documentos, código, visualizações gerados na conversa)
-  - Skills
-  - Claude Cowork
-  - Claude Code
-- Vibe Coding com Lovable — criar aplicações web funcionais descrevendo em linguagem natural, sem escrever código
-- Agentes de IA — sistemas autônomos que executam tarefas complexas com múltiplas etapas
-
-Meu contexto profissional
-
-Sobre mim:
-- Segmento de mercado: [ex.: varejo, saúde, indústria, serviços financeiros]
-- Cargo: [ex.: Diretor Comercial, Head de Marketing, Gerente de Operações]
-- Departamento: [ex.: Comercial, RH, Financeiro, Operações]
-- Minhas 3 a 5 principais atividades no dia a dia:
-  - [ex.: análise de relatórios de vendas semanais]
-  - [ex.: reuniões de alinhamento com equipe]
-  - [ex.: criação de propostas comerciais para clientes]
-  - [ex.: planejamento estratégico trimestral]
-  - [ex.: aprovação de orçamentos e contratos]
-
-Sobre minha equipe:
-- Total de colaboradores sob minha gestão direta: [ex.: 8]
-- Cargos dos colaboradores sob minha gestão: [ex.: analista comercial, coordenador de marketing, assistente administrativo]
-- Principais atividades que meus colaboradores executam no dia a dia:
-  - [ex.: preenchimento de planilhas e relatórios operacionais]
-  - [ex.: atendimento e follow-up com clientes]
-  - [ex.: pesquisa de mercado e análise de concorrentes]
-  - [ex.: criação de apresentações e materiais internos]
-  - [ex.: agendamento e organização de reuniões]
+[Cargo, segmento, atividades pessoais e da equipe...]
 
 EXPECTATIVA
-Regras de conteúdo
-- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
-- Use bullet points — sem parágrafos longos
-- Linguagem direta, sem jargão acadêmico
-- Toda recomendação de IA DEVE referenciar uma ferramenta ou técnica específica aprendida no Delta Board
-
-Formato de entrega: artefato HTML interativo
-
-O resultado final DEVE ser entregue como um artefato HTML único,
-interativo e responsivo. Siga EXATAMENTE estas especificações visuais
-e estruturais:
-
-Estilo geral
-- Fundo da página: #FAFAF7 (off-white quente)
-- Cor de texto principal: #1a1a1a
-- Cor de texto secundário/muted: #6b7c6e
-- Cor de bordas: #d6d1ca (bordas principais) e #e8e3dc (bordas internas leves)
-- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
-- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
-- Fonte única para tudo: Montserrat (importar do Google Fonts), pesos 400, 500, 600 e 700
-- Line-height do body: 1.65
-- Anti-aliasing: -webkit-font-smoothing: antialiased
-
-Header
-- Badge no topo: texto "DELTA BOARD · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
-- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
-- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
-
-Matriz visual (mini-mapa clicável)
-- Grid 2×2, sem gap visível (gap: 0), border-radius 10px, overflow hidden
-- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
-- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
-- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
-- Hover nas células: fundo muda para #F5F0EB
-- Labels dos eixos acima e abaixo da matriz: font-size 9px, peso 700, uppercase, letter-spacing 2px, cor #6b7c6e
-- Disposição da matriz (ordem visual):
-  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
-  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
-- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
-
-Cores por quadrante
-- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
-- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
-- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
-- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
-
-Painéis de detalhe (accordion)
-- Cada quadrante é um painel colapsável (accordion), fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
-- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
-- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
-- Hover no header: fundo #F5F0EB
-- Chevron rotaciona 180° quando aberto (transition 0.3s)
-- Body do painel: max-height 0 quando fechado, max-height 2000px quando aberto (transition 0.4s ease)
-- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
-- O primeiro painel (Q1) começa aberto por padrão; os demais fechados
-- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s entre painéis
-
-Dentro de cada painel
-- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
-- Texto de parágrafo: font-size 13px
-- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
-- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
-- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
-- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
-
-Tabela-resumo
-- Título h2: font-size 18px, peso 700, cor #1F3331
-- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
-- Container da tabela: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
-- Header da tabela (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
-- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
-- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
-- Hover nas linhas: fundo #ede8e1
-- Coluna Autonomia da IA — cores por nível:
-  - Alta: cor #3D7A54, peso 700
-  - Média: cor #C4883A, peso 700
-  - Baixa: cor #3A8C8C, peso 700
-- Dots de quadrante na coluna "Quadrante": círculo de 8×8px com a cor do respectivo quadrante, inline-block, margin-right 5px
-- Min-width da tabela: 720px (scroll horizontal em mobile)
-
-Responsividade (max-width 600px)
-- Container: padding 24px 16px 60px
-- Título h1: font-size 21px
-- Matriz: muda para grid de 1 coluna
-- Painéis: padding lateral reduzido para 16px
-- Tabela: font-size 11px, padding das células 9px 10px
-
-JavaScript
-- Função togglePanel(id): alterna a classe open no painel correspondente
-- Função scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout de 100ms
-- Cada célula da matriz chama scrollToPanel no onclick
-- Cada header de painel chama togglePanel no onclick</span></div>
+Output: Artefato HTML interativo, máximo 1 página, identidade
+visual Delta Board (fundo #FAFAF7, fonte Montserrat, cores
+Q1 #C4883A / Q2 #6B5B95 / Q3 #3A8C8C / Q4 #3D7A54).
+Cards expansíveis por quadrante e tabela final ordenada por
+prioridade no topo (Quick Wins primeiro).</span></div>
       </div>
 
-      <div class="tip-box">
-        <div class="tip-label">Dica</div>
-        <p>Se você trabalha em setor muito específico, generalize um nível. O objetivo é que o Claude entenda o contexto e devolva um mapa <strong>acionável</strong> &mdash; não exato.</p>
+      <p class="lead-text">A tabela final do artefato vai aparecer mais ou menos assim &mdash; já priorizada e com a categoria de cada oportunidade. Antes de ler a tabela, conheça a <strong>matriz de priorização</strong> que classifica cada item:</p>
+
+      <div class="pm-axis-y">↑ Alto impacto</div>
+      <div class="priority-matrix">
+        <div class="pm-cell" style="--pmc-bg:#E6F1FB;--pmc-border:#85B7EB;--pmc-text:#042C53">
+          <div class="pm-label">Alto impacto · Alto esforço</div>
+          <div class="pm-name">Major Project</div>
+          <div class="pm-desc">Alto impacto, alto esforço &mdash; vale planejar e executar</div>
+        </div>
+        <div class="pm-cell" style="--pmc-bg:#EAF3DE;--pmc-border:#97C459;--pmc-text:#173404">
+          <div class="pm-label">Alto impacto · Baixo esforço</div>
+          <div class="pm-name">Quick Win</div>
+          <div class="pm-desc">Alto impacto, baixo esforço &mdash; fazer primeiro</div>
+        </div>
+        <div class="pm-cell" style="--pmc-bg:#F1EFE8;--pmc-border:#B4B2A9;--pmc-text:#2C2C2A">
+          <div class="pm-label">Baixo impacto · Alto esforço</div>
+          <div class="pm-name">Thankless</div>
+          <div class="pm-desc">Baixo impacto, alto esforço &mdash; evitar</div>
+        </div>
+        <div class="pm-cell" style="--pmc-bg:#FAEEDA;--pmc-border:#EF9F27;--pmc-text:#412402">
+          <div class="pm-label">Baixo impacto · Baixo esforço</div>
+          <div class="pm-name">Fill-in</div>
+          <div class="pm-desc">Baixo impacto, baixo esforço &mdash; fazer quando sobrar tempo</div>
+        </div>
       </div>
+      <div class="pm-axis-x">↑ Esforço &rarr;</div>
+
+      <p class="lead-text"><strong>Tabela final &middot; ordenada por prioridade:</strong></p>
+
+      <table class="priority-table">
+        <thead>
+          <tr><th>#</th><th>Atividade</th><th>Quadrante</th><th>Ferramenta</th><th>Categoria</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Análise de KPIs operacionais</td><td><span class="qd-dot" style="background:#6B5B95"></span>Q2</td><td>Claude Project</td><td><span class="cat-tag cat-qw">Quick Win</span></td></tr>
+          <tr><td>2</td><td>Triagem de e-mails operacionais</td><td><span class="qd-dot" style="background:#C4883A"></span>Q1</td><td>Skill</td><td><span class="cat-tag cat-qw">Quick Win</span></td></tr>
+          <tr><td>3</td><td>Otimização de rotas com IA</td><td><span class="qd-dot" style="background:#6B5B95"></span>Q2</td><td>Cowork + Code</td><td><span class="cat-tag cat-mp">Major Project</span></td></tr>
+          <tr><td>4</td><td>Geração de relatórios para board</td><td><span class="qd-dot" style="background:#C4883A"></span>Q1</td><td>Cowork</td><td><span class="cat-tag cat-fi">Fill-in</span></td></tr>
+          <tr><td>5</td><td>Decisões estratégicas críticas</td><td><span class="qd-dot" style="background:#3D7A54"></span>Q4</td><td>Sem IA &mdash; humano</td><td><span class="cat-tag cat-th">Thankless</span></td></tr>
+        </tbody>
+      </table>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Mapeamento de oportunidades de AI</div>
+      <div class="sec-desc">Sua vez &mdash; aplique o método PACE no seu contexto real</div>
+
+      <p class="lead-text">Você vai usar o método PACE na prática para mapear onde aplicar AI no seu dia a dia. Siga os passos abaixo na ordem &mdash; ao final, você terá um <strong>artefato HTML executivo personalizado</strong> com a Matriz Kai-Fu Lee aplicada ao seu contexto real, e a lista de oportunidades já priorizada por uma matriz Impacto × Esforço.</p>
+
+      <div class="resource-grid">
+        <div class="duration-card">
+          <div class="dc-label">Duração total</div>
+          <div class="dc-value">7 min</div>
+          <div class="dc-sub">estimado</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-name">Claude Opus 4.7</div>
+          <div class="mc-text">Esta atividade pede raciocínio profundo para priorizar oportunidades de AI. Opus 4.7 é o modelo mais capaz da Anthropic e entrega análises com mais qualidade e contexto que o Sonnet.</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
+      <div class="sec-desc">6 passos para gerar seu artefato personalizado no Claude</div>
+
+      <!-- Passo 01 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 01 &mdash; Acesse o Claude</div>
+        <p class="lead-text">Em uma nova aba do navegador, acesse <a href="https://claude.ai" target="_blank" style="color:var(--accent2);font-weight:700;border-bottom:1px solid var(--accent2);text-decoration:none">claude.ai</a>. Mantenha esta janela do tutorial aberta &mdash; você vai voltar aqui para os próximos passos.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT</span>
+          <span class="pm-text"><strong>ap01-passo-01.png</strong> &mdash; Tela inicial do Claude após login</span>
+        </div>
+      </div>
+
+      <!-- Passo 02 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 02 &mdash; Selecione o modelo Claude Opus 4.7</div>
+        <p class="lead-text">No canto inferior do campo de mensagem do Claude, abra o seletor de modelo e escolha <strong>Claude Opus 4.7</strong>. Conforme o lembrete acima, é o modelo mais adequado para esta atividade pela qualidade de raciocínio que ela exige.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT</span>
+          <span class="pm-text"><strong>ap01-passo-02.png</strong> &mdash; Seletor de modelo no Claude com Opus 4.7 destacado</span>
+        </div>
+      </div>
+
+      <!-- Passo 03 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 03 &mdash; Personalize o prompt PACE com seu contexto</div>
+        <p class="lead-text">O prompt abaixo precisa do <strong>seu contexto profissional</strong>. Em vez de copiar o prompt e editar manualmente, use o <strong>gerador interativo</strong> desta página. Preencha os 4 campos com suas informações reais &mdash; você vai ver os valores aparecerem destacados em <strong>verde</strong> dentro do prompt à medida que digita.</p>
+
+        <div class="overview-card">
+          <h3>O que é uma variável?</h3>
+          <p>São partes do prompt que mudam de pessoa para pessoa. Em vez de você editar o prompt manualmente (e correr risco de manter colchetes ou apagar partes erradas), o gerador faz a substituição automática.</p>
+          <ul>
+            <li><strong>Antes:</strong> <code>[seu segmento]</code> &mdash; modelo do prompt sem dados</li>
+            <li><strong>Depois:</strong> <code>logística ferroviária</code> &mdash; preenchido pelo gerador</li>
+          </ul>
+        </div>
+
+        <!-- Gerador interativo -->
+        <div class="pg-card">
+          <div class="pg-head"><span class="pg-badge">Gerador</span> Prompt PACE personalizado</div>
+          <div class="pg-sub">Preencha os 4 campos &mdash; o prompt aparece pronto abaixo, com seus dados destacados em verde.</div>
+
+          <div class="pg-fields">
+            <div class="pg-field">
+              <label for="pg-segmento">Seu segmento de mercado *</label>
+              <input type="text" id="pg-segmento" placeholder="Ex.: logística ferroviária" autocomplete="off">
+            </div>
+            <div class="pg-field">
+              <label for="pg-cargo">Seu cargo *</label>
+              <input type="text" id="pg-cargo" placeholder="Ex.: Diretor de Operações" autocomplete="off">
+            </div>
+            <div class="pg-field full">
+              <label for="pg-resp">Suas 3 a 5 principais responsabilidades *</label>
+              <textarea id="pg-resp" rows="4" placeholder="Ex.: supervisionar operação de trens de carga; monitorar indicadores da malha; garantir cumprimento de planos de transporte; reportar KPIs ao board."></textarea>
+            </div>
+            <div class="pg-field full">
+              <label for="pg-equipe">Sua equipe (cargos e atividades) *</label>
+              <textarea id="pg-equipe" rows="4" placeholder="Ex.: gerente de controle operacional, coordenador de programação, analista de desempenho da malha. Atividades: programação diária de janelas de circulação, monitoramento do CCO, relatórios para clientes embarcadores."></textarea>
+            </div>
+          </div>
+
+          <div class="pg-actions">
+            <button class="pg-copy-btn" id="pg-copy-btn">Copiar prompt</button>
+            <span class="pg-warn" id="pg-warn">Preencha todos os campos antes de copiar.</span>
+            <span class="pg-success" id="pg-success">Copiado! Lembre-se de manter a janela do Claude aberta para a AP02.</span>
+          </div>
+
+          <div class="pg-preview-wrap">
+            <div class="pg-preview-label">Pré-visualização do prompt</div>
+            <div class="pg-preview" id="pg-preview"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 04 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 04 &mdash; Cole o prompt no Claude e envie</div>
+        <p class="lead-text">Volte para a aba do Claude. Clique no campo de mensagem, cole o prompt copiado (Cmd+V no Mac ou Ctrl+V no Windows) e clique no botão de envio.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT</span>
+          <span class="pm-text"><strong>ap01-passo-04.png</strong> &mdash; Prompt colado no campo de mensagem do Claude pronto para enviar</span>
+        </div>
+      </div>
+
+      <!-- Passo 05 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 05 &mdash; Aguarde o artefato ser gerado</div>
+        <p class="lead-text">O Claude vai gerar um artefato HTML interativo ao vivo, do lado direito da tela. Acompanhe o processo &mdash; você vai ver o relatório se montando em tempo real, com os 4 quadrantes da Matriz Kai-Fu Lee e a tabela final priorizada.</p>
+      </div>
+
+      <!-- Passo 06 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 06 &mdash; Explore seu artefato priorizado</div>
+        <p class="lead-text">Clique nos quadrantes do artefato para expandir os detalhes. Em seguida, vá direto para a <strong>tabela-resumo final</strong> &mdash; ela traz todas as oportunidades já priorizadas, com Quick Wins no topo.</p>
+        <div class="print-marker">
+          <span class="pm-icon">PRINT</span>
+          <span class="pm-text"><strong>ap01-passo-06.png</strong> &mdash; Artefato gerado mostrando os 4 quadrantes e a tabela final priorizada</span>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Os entregáveis e o método que ficam com você</div>
+
+      <p class="lead-text">Você sai desta atividade com:</p>
+
+      <div class="outcome-list">
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Um <strong>artefato HTML executivo</strong> com a Matriz Kai-Fu Lee aplicada às suas responsabilidades reais.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Uma <strong>tabela priorizada</strong> de oportunidades de AI no seu dia a dia, classificadas como Quick Win, Major Project, Fill-in ou Thankless.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">O método PACE <strong>internalizado</strong> como ferramenta de pensamento &mdash; você vai usar nas próximas atividades.</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo</div>
+        <p><strong>Não feche esta janela do Claude.</strong> Você vai continuar no mesmo chat na próxima atividade prática (AP02 &mdash; Pesquisa Profunda). Manter o mesmo chat preserva o contexto que o Claude já conhece sobre você &mdash; e economiza tempo de digitação na AP02.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -776,7 +845,7 @@ JavaScript
   // Section navigation + progress
   const PKEY = "delta-tut-ap01-engenharia-de-prompt";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 7;
+  const TOTAL = 10;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
@@ -816,6 +885,148 @@ JavaScript
     const origShow = showSection;
     window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
     if (last !== "sec-home") window.showSection(last);
+  })();
+</script>
+
+<script>
+  // ================ Gerador interativo de prompt ================
+  (function(){
+    const VKEY = "delta_board_vars";
+    const FIELDS = ["segmento","cargo","responsabilidades","equipe"];
+    const PLACEHOLDERS = {
+      segmento: "[seu segmento de mercado]",
+      cargo: "[seu cargo]",
+      responsabilidades: "[suas 3 a 5 principais responsabilidades]",
+      equipe: "[cargos e atividades da sua equipe]"
+    };
+    const TEMPLATE = `PAPEL
+Você é um consultor especialista em IA Generativa aplicada a produtividade corporativa, com experiência em diagnóstico de processos e recomendação de ferramentas de IA para times executivos do setor de {{segmento}}.
+
+AÇÃO
+Analise meu contexto profissional e mapeie oportunidades de aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica atividades em 4 quadrantes:
+
+- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
+- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+
+Para CADA quadrante, entregue:
+- O que é (1 frase aplicada ao meu contexto)
+- Atividades mapeadas (minhas e da minha equipe)
+- Aplicação prática de IA (2 a 3 exemplos com a ferramenta do Delta Board)
+- Resultado tangível esperado
+- Risco ou cuidado relevante
+
+Encerre com uma TABELA-RESUMO FINAL contendo TODAS as oportunidades identificadas, ORDENADA POR PRIORIDADE segundo uma matriz Impacto × Esforço, com as colunas:
+| # | Atividade | Quadrante | Ferramenta Delta Board | Resultado | Categoria de Priorização |
+
+A coluna "Categoria de Priorização" deve classificar cada item em:
+- Quick Win (alto impacto + baixo esforço) -> fazer primeiro
+- Major Project (alto impacto + alto esforço) -> planejar
+- Fill-in (baixo impacto + baixo esforço) -> fazer quando sobrar tempo
+- Thankless (baixo impacto + alto esforço) -> evitar
+
+CONTEXTO
+Sobre mim:
+- Segmento: {{segmento}}
+- Cargo: {{cargo}}
+- Principais responsabilidades: {{responsabilidades}}
+
+Sobre minha equipe:
+- {{equipe}}
+
+Ferramentas que aprendi no Delta Board:
+- Engenharia de Prompt (PACE)
+- Claude (Pesquisa Profunda, Projects, Design, Artefatos, Skills, Cowork, Code)
+- Vibe Coding com Lovable
+- Agentes de IA
+
+EXPECTATIVA
+Output: Artefato HTML interativo, máximo 1 página, identidade Delta Board (fundo claro #FAFAF7, fonte Montserrat, cores Q1 #C4883A / Q2 #6B5B95 / Q3 #3A8C8C / Q4 #3D7A54). Cards expansíveis por quadrante e tabela final ordenada por prioridade no topo (Quick Wins primeiro).`;
+
+    const inputs = {
+      segmento: document.getElementById("pg-segmento"),
+      cargo: document.getElementById("pg-cargo"),
+      responsabilidades: document.getElementById("pg-resp"),
+      equipe: document.getElementById("pg-equipe")
+    };
+    const previewEl = document.getElementById("pg-preview");
+    const copyBtn = document.getElementById("pg-copy-btn");
+    const warnEl = document.getElementById("pg-warn");
+    const successEl = document.getElementById("pg-success");
+
+    function loadSaved(){
+      try {
+        const raw = localStorage.getItem(VKEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        FIELDS.forEach(f => { if (data[f] && inputs[f]) inputs[f].value = data[f]; });
+      } catch(e){}
+    }
+    function saveValues(){
+      const data = {};
+      FIELDS.forEach(f => { data[f] = inputs[f] ? inputs[f].value.trim() : ""; });
+      try { localStorage.setItem(VKEY, JSON.stringify(data)); } catch(e){}
+    }
+    function escapeHtml(s){
+      return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+    function renderPreview(){
+      const values = {};
+      FIELDS.forEach(f => { values[f] = inputs[f] ? inputs[f].value.trim() : ""; });
+
+      let html = escapeHtml(TEMPLATE);
+      FIELDS.forEach(f => {
+        const token = "{{" + f + "}}";
+        const val = values[f];
+        const replacement = val
+          ? '<span class="var-filled">' + escapeHtml(val) + '</span>'
+          : '<span class="var-empty">' + escapeHtml(PLACEHOLDERS[f]) + '</span>';
+        html = html.split(token).join(replacement);
+      });
+      previewEl.innerHTML = html;
+    }
+    function buildPlainPrompt(){
+      const values = {};
+      FIELDS.forEach(f => { values[f] = inputs[f] ? inputs[f].value.trim() : ""; });
+      let out = TEMPLATE;
+      FIELDS.forEach(f => {
+        out = out.split("{{" + f + "}}").join(values[f] || PLACEHOLDERS[f]);
+      });
+      return out;
+    }
+    function allFilled(){
+      return FIELDS.every(f => inputs[f] && inputs[f].value.trim().length > 0);
+    }
+
+    FIELDS.forEach(f => {
+      if (!inputs[f]) return;
+      inputs[f].addEventListener("input", () => {
+        renderPreview();
+        saveValues();
+        warnEl.classList.remove("show");
+      });
+    });
+
+    copyBtn.addEventListener("click", () => {
+      successEl.classList.remove("show");
+      warnEl.classList.remove("show");
+      if (!allFilled()) {
+        warnEl.classList.add("show");
+        return;
+      }
+      const text = buildPlainPrompt();
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.classList.add("copied");
+        copyBtn.textContent = "Copiado ✓";
+        successEl.classList.add("show");
+        setTimeout(() => {
+          copyBtn.classList.remove("copied");
+          copyBtn.textContent = "Copiar prompt";
+        }, 2200);
+      });
+    });
+
+    loadSaved();
+    renderPreview();
   })();
 </script>
 </body>
