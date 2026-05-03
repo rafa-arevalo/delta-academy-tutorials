@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AP04. Claude Design &middot; DELTA BOARD</title>
+<title>AP04. Design &middot; DELTA BOARD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -89,6 +89,25 @@
     --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
   }
 
+  /* ================ Palette switch ================ */
+  .palette-switch {
+    position: fixed; top: 12px; right: 12px; z-index: 100;
+    display: inline-flex; gap: 3px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px;
+    box-shadow: var(--shadow-sm);
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .palette-switch button {
+    font: inherit; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 5px 10px; border-radius: 999px;
+    border: none; background: transparent; color: var(--text3);
+    cursor: pointer; transition: all 160ms ease;
+  }
+  .palette-switch button:hover { color: var(--text); }
+  .palette-switch button.is-active { background: var(--accent2); color: var(--bg); }
+
   /* ================ Page ================ */
   body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
   .layout{display:flex;min-height:100vh}
@@ -113,7 +132,7 @@
   .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
   .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
   .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
-  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .main{flex:1;padding:20px 36px 40px;max-width:820px}
   .section{display:none;animation:fadeIn 0.25s ease}
   .section.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
@@ -136,78 +155,171 @@
   .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
   .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .overview-card ul li strong{color:var(--accent2);font-weight:700}
-  .overview-card a{color:var(--accent2);font-weight:700;text-decoration:underline}
   .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
   .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
   .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
   .ficha-table tr:last-child td{border-bottom:none}
   .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
-  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
-  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
-  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
-  .inst-text strong{font-weight:700;color:var(--accent2)}
-  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
-  .inst-text a{color:var(--accent2);font-weight:700;text-decoration:underline}
   .copy-wrap{margin:14px 0 16px}
   .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
   .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
   [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
   .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
   .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .copy-btn.is-copied{background:#27500A;color:#F5F0EB;border-color:#27500A}
+  .copy-confirm{display:block;margin-top:8px;font-size:0.7rem;color:var(--text3);font-style:italic}
+  .copy-confirm strong{color:var(--accent2);font-weight:700;font-style:normal}
   .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
   .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
   .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
   .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
-  .warning-box a{color:var(--warn-label);font-weight:700;text-decoration:underline}
+  .warning-box.strong{background:#FCEBEB;border:1px solid #A32D2D;border-left:4px solid #A32D2D}
+  .warning-box.strong .warning-label{color:#A32D2D}
+  .warning-box.strong p{color:#5A1818}
+  .warning-box.strong p strong{color:#A32D2D;font-weight:700}
   .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
   .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
   .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
   .insight-box p strong{color:var(--insight-strong);font-weight:800}
-  .tool-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-  .tool-link{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-decoration:none;transition:all 0.15s;box-shadow:var(--shadow-xs)}
-  .tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
-  .tool-link .tl-name{font-size:0.78rem;font-weight:700;color:var(--accent2)}
-  .tool-link .tl-url{font-size:0.64rem;color:var(--text3);margin-top:1px}
   .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
   .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
   .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
   .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
   .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
-  .observation-list{list-style:none;margin:12px 0}
-  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
-  .observation-list li strong{color:var(--blue-text);font-weight:700}
-  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}.tool-links{grid-template-columns:1fr}}
+
+  /* ================ Componentes específicos da AP04 ================ */
+
+  /* Banner do entregável (Design System) — fundo dourado claro */
+  .design-banner{background:linear-gradient(135deg,#FFF8E5 0%,#F5E4B8 100%);border:1px solid #D1AA53;border-left:4px solid #C9A961;border-radius:14px;padding:22px;margin:14px 0 18px;box-shadow:0 6px 20px rgba(201,169,97,0.14)}
+  .design-banner .db-label{font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#8A6E2C;margin-bottom:6px}
+  .design-banner .db-title{font-size:0.95rem;font-weight:800;color:#1F3331;margin-bottom:14px;line-height:1.35}
+  .design-preview{background:#FFFFFF;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.04)}
+  .dp-section{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px dashed #EDE8E2}
+  .dp-section:last-child{border-bottom:none}
+  .dp-section .dp-icon{flex-shrink:0;width:26px;height:26px;border-radius:6px;background:#1F3331;color:#C9A961;font-size:0.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:0.04em;text-transform:uppercase}
+  .dp-section .dp-body{flex:1;min-width:0}
+  .dp-section .dp-key{font-size:0.58rem;font-weight:800;color:#8A6E2C;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px}
+  .dp-section .dp-val{font-size:0.74rem;color:#1A1A1A;font-weight:600;line-height:1.4}
+  .dp-section .dp-swatches{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+  .dp-section .dp-swatch{display:inline-flex;align-items:center;gap:5px;background:#F8F6EE;border:1px solid #E5E0D2;border-radius:5px;padding:2px 6px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.62rem;color:#1F3331;font-weight:600}
+  .dp-section .dp-swatch::before{content:'';width:9px;height:9px;border-radius:2px;display:inline-block;background:var(--sw-color,#1F3331);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1)}
+  .design-banner .db-caption{font-size:0.72rem;color:#5A4414;line-height:1.55;margin-top:14px;font-style:italic}
+  .design-banner .db-caption strong{font-weight:700;color:#1F3331;font-style:normal}
+
+  /* Definição visual de Design System (item 03) */
+  .definition-list{display:flex;flex-direction:column;gap:8px;margin:14px 0 16px}
+  .definition-item{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:13px 16px;box-shadow:var(--shadow-xs)}
+  .definition-item .di-num{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:var(--accent2);color:var(--gold);font-size:0.72rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .definition-item .di-body{flex:1;min-width:0}
+  .definition-item .di-title{font-size:0.8rem;font-weight:800;color:var(--accent2);margin-bottom:2px;line-height:1.3}
+  .definition-item .di-desc{font-size:0.74rem;color:var(--text2);line-height:1.5}
+  .definition-item .di-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.7rem;background:var(--accent-lighter);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Card de duração + Card de modelo recomendado */
+  .resource-grid{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:14px 0}
+  .duration-card{background:linear-gradient(135deg,#1F3331 0%,#0E1A19 100%);border:1px solid #C9A961;border-radius:12px;padding:16px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .duration-card .dc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9A961;margin-bottom:4px}
+  .duration-card .dc-value{font-size:1.6rem;font-weight:800;color:#F5F0EB;line-height:1}
+  .duration-card .dc-sub{font-size:0.62rem;color:#C9A961;margin-top:2px;font-weight:600}
+  .model-card{background:#EEEDFE;border:1px solid #6B5B95;border-radius:12px;padding:14px 16px}
+  .model-card .mc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#3C3489;margin-bottom:6px}
+  .model-card .mc-fases{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+  .model-card .mc-fase{display:flex;align-items:baseline;gap:8px;font-size:0.74rem;color:#3C3489;line-height:1.3}
+  .model-card .mc-fase .mc-fase-tag{font-size:0.55rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#1F3331;background:#C9A961;padding:2px 7px;border-radius:4px;flex-shrink:0}
+  .model-card .mc-fase strong{font-weight:800;color:#3C3489}
+  .model-card .mc-text{font-size:0.7rem;color:#3C3489;line-height:1.55;opacity:0.92}
+
+  /* Por que duas fases (insight didático) */
+  .context-insight{background:#FFF8E5;border:1px solid #F0D77E;border-left:4px solid #C9A961;border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0}
+  .context-insight .ci-label{font-size:0.6rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#8A6E2C;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .context-insight .ci-title{font-size:0.84rem;font-weight:700;color:#1F3331;margin-bottom:6px;line-height:1.35}
+  .context-insight p{font-size:0.76rem;color:#4A4538;line-height:1.6}
+  .context-insight p strong{color:#1F3331;font-weight:700}
+
+  /* Lista de observações (item 05) */
+  .observation-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .observation-list .obs-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:11px 14px;box-shadow:var(--shadow-xs)}
+  .observation-list .obs-bullet{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .observation-list .obs-text{font-size:0.76rem;color:var(--text);line-height:1.55;flex:1}
+  .observation-list .obs-text strong{color:var(--accent2);font-weight:700}
+
+  /* Pílulas de passo + separador de Fase */
+  .passo-pill{display:inline-block;background:#EAF3DE;color:#173404;border:1px solid #173404;border-radius:999px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;margin:18px 0 10px}
+  .passo-block{margin-bottom:6px}
+  .fase-divider{display:flex;align-items:center;gap:12px;margin:26px 0 14px}
+  .fase-divider .fd-tag{font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#F5F0EB;background:linear-gradient(135deg,#1F3331 0%,#2A4441 100%);padding:6px 14px;border-radius:6px;border:1px solid #C9A961;box-shadow:var(--shadow-xs);flex-shrink:0}
+  .fase-divider .fd-tag .fd-num{color:#C9A961;margin-right:6px;font-weight:800}
+  .fase-divider .fd-line{flex:1;height:1px;background:linear-gradient(to right,#C9A961 0%,transparent 100%)}
+  .fase-divider .fd-text{font-size:0.74rem;font-weight:700;color:var(--accent2);line-height:1.35;flex-shrink:0;max-width:60%;text-align:right}
+  [data-palette="dusk"] .fase-divider .fd-text{color:var(--text)}
+
+  /* Print figure (quando existir o print) */
+  .print-figure{margin:14px 0;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow-xs)}
+  .print-figure img{display:block;width:100%;height:auto}
+  .print-figure figcaption{display:flex;gap:10px;align-items:center;font-size:0.7rem;padding:9px 12px;color:var(--text2);background:var(--accent-lighter);border-top:1px solid var(--border2)}
+  .print-figure figcaption .pf-tag{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
+  .print-figure figcaption strong{color:var(--accent2);font-weight:700}
+
+  /* Placeholder de print (enquanto os prints ainda não foram capturados) */
+  .placeholder-figure{margin:14px 0;border:1px dashed var(--border2);border-radius:10px;padding:18px 16px;background:var(--accent-lighter);display:flex;gap:10px;align-items:center}
+  .placeholder-figure .ph-tag{font-size:0.6rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:4px 9px;flex-shrink:0}
+  .placeholder-figure .ph-text{font-size:0.74rem;color:var(--text2);line-height:1.5;font-style:italic}
+  .placeholder-figure .ph-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.7rem;background:var(--panel);padding:1px 5px;border-radius:3px;color:var(--accent2);font-style:normal}
+  .placeholder-figure .ph-text strong{color:var(--accent2);font-weight:700;font-style:normal}
+
+  /* Outcome list (item 09) */
+  .outcome-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .outcome-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .outcome-item .oi-check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .outcome-item .oi-text{font-size:0.78rem;color:var(--text);line-height:1.55}
+  .outcome-item .oi-text strong{color:var(--accent2);font-weight:700}
+  .outcome-item .oi-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.72rem;background:var(--accent-lighter);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  @media (max-width:768px){
+    .sidebar{display:none}
+    .main{padding:20px 16px 40px;max-width:100%}
+    .resource-grid{grid-template-columns:1fr}
+    .fase-divider{flex-direction:column;align-items:flex-start;gap:6px}
+    .fase-divider .fd-text{text-align:left;max-width:100%}
+    .fase-divider .fd-line{display:none}
+  }
 </style>
 </head>
 <body>
+
+<div class="palette-switch" role="tablist" aria-label="Trocar paleta">
+  <button data-palette="forest" class="is-active" type="button">Forest</button>
+  <button data-palette="dusk" type="button">Dusk</button>
+  <button data-palette="cream" type="button">Cream</button>
+</div>
 
 <div class="layout">
 
   <nav class="sidebar">
     <div class="sidebar-header">
       <a class="back-link" href="index.html">&#8592; Índice do Curso</a>
-      <h2>Claude Design</h2>
+      <h2>Design</h2>
       <p>AP04 &middot; DELTA BOARD</p>
     </div>
     <div class="nav-group"><div class="nav-group-title">Início</div>
       <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Visão Geral<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title intro">Introdução</div>
-      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Conceito &mdash; Claude Design<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Objetivo de aprendizagem<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Conceito &mdash; Claude Design e Design System<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title demo">Demonstração</div>
-      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que observar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que observar<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title pratica">Atividade Prática</div>
-      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Antes de começar &mdash; prepare os prints<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Passo a passo<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que fazer com o resultado<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Antes de começar &mdash; prepare os prints<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Identidade visual da sua empresa<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -219,21 +331,22 @@
 
     <!-- 00 -->
     <div class="section active" id="sec-home">
-      <div class="breadcrumb">Delta Board &rsaquo; DELTA BOARD &rsaquo; <a href="index.html">Índice</a> &rsaquo; AP04. Claude Design</div>
+      <div class="breadcrumb">Delta Board &rsaquo; DELTA BOARD &rsaquo; <a href="index.html">Índice</a> &rsaquo; AP04. Design</div>
       <div class="sec-title"><span class="snum">00.</span> Visão Geral</div>
-      <div class="sec-desc">AP04 &mdash; Claude Design</div>
+      <div class="sec-desc">AP04 &mdash; Design</div>
 
-      <p class="lead-text">Quarta atividade prática do <strong>DELTA BOARD</strong>. Você vai criar a <strong>identidade visual da sua empresa</strong> no Claude Design a partir de prints do site e salvá-la dentro do seu Project &mdash; para que todos os materiais das próximas atividades saiam com as cores e o estilo da sua empresa.</p>
+      <p class="lead-text">Quarta atividade prática do <strong>DELTA BOARD</strong>. Você vai criar a <strong>identidade visual da sua empresa</strong> no Claude Design a partir de prints do site e integrá-la ao seu Project &mdash; para que todo artefato gerado pelo seu Assistente Executivo (apresentações, dashboards, relatórios) saia automaticamente com as cores, fontes e estilo da sua marca.</p>
 
       <div class="overview-card">
         <h3>Ficha técnica</h3>
         <table class="ficha-table"><tbody>
           <tr><td>Tipo</td><td>Demonstração + Atividade Prática</td></tr>
-          <tr><td>Duração</td><td>8 minutos</td></tr>
+          <tr><td>Duração da prática</td><td>10 minutos</td></tr>
           <tr><td>Bloco</td><td>04 &mdash; Como usar AI &middot; Quarta atividade</td></tr>
           <tr><td>Técnica de AI</td><td>Claude Design (extração de Design System a partir de imagens)</td></tr>
-          <tr><td>Ferramentas</td><td>Claude Design (claude.ai/design) + Project da AP03</td></tr>
-          <tr><td>Pré-requisito</td><td>Project criado na AP03</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Design (<a href="https://claude.ai/design" target="_blank">claude.ai/design</a>) + Project da AP03</td></tr>
+          <tr><td>Pré-requisito</td><td>Ter completado AP03 e ter o Project &ldquo;Assistente Executivo&rdquo; criado</td></tr>
+          <tr><td>Entregável</td><td>Arquivo <code>identidade-visual.md</code> salvo como 5&ordm; arquivo de contexto no Project da AP03</td></tr>
         </tbody></table>
       </div>
 
@@ -246,10 +359,52 @@
     <!-- 01 -->
     <div class="section" id="sec-step1">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">01.</span> Objetivo de aprendizagem</div>
-      <div class="sec-desc">Dar à AI os olhos da sua marca</div>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">Antes de começar, veja o que você vai conquistar ao final desta atividade prática</div>
 
-      <p class="lead-text">Criar a <strong>identidade visual da sua empresa</strong> usando o Claude Design e salvá-la dentro do seu Project &mdash; para que <strong>todos os materiais</strong> que você gerar nas próximas atividades saiam com as <strong>cores, fontes e estilo</strong> da sua empresa.</p>
+      <p class="lead-text"><strong>Entregável final:</strong> Identidade visual da sua empresa salva no seu Project &mdash; para que todo artefato criado pelo seu Assistente Executivo saia com as cores, fontes e estilo da sua marca.</p>
+
+      <div class="design-banner">
+        <div class="db-label">Prévia do Design System</div>
+        <div class="db-title">Identidade visual extraída automaticamente dos prints do site</div>
+        <div class="design-preview">
+          <div class="dp-section">
+            <span class="dp-icon">01</span>
+            <div class="dp-body">
+              <div class="dp-key">Brand Colors</div>
+              <div class="dp-val">Paleta com 4 a 6 cores extraídas do site, cada uma com código hex</div>
+              <div class="dp-swatches">
+                <span class="dp-swatch" style="--sw-color:#1F3331">#1F3331</span>
+                <span class="dp-swatch" style="--sw-color:#5C6C51">#5C6C51</span>
+                <span class="dp-swatch" style="--sw-color:#C8A968">#C8A968</span>
+                <span class="dp-swatch" style="--sw-color:#F5F0EB">#F5F0EB</span>
+              </div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <span class="dp-icon">02</span>
+            <div class="dp-body">
+              <div class="dp-key">Typography</div>
+              <div class="dp-val">Fonte principal, fonte de títulos e tamanhos identificados</div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <span class="dp-icon">03</span>
+            <div class="dp-body">
+              <div class="dp-key">Brand Voice</div>
+              <div class="dp-val">3 adjetivos descrevendo o tom da marca</div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <span class="dp-icon">04</span>
+            <div class="dp-body">
+              <div class="dp-key">Visual Style</div>
+              <div class="dp-val">Estilo visual em palavras-chave (clean, corporativo, tech, etc.)</div>
+            </div>
+          </div>
+        </div>
+        <p class="db-caption">A partir desta AP, todo artefato gerado pelo seu Assistente Executivo (apresentações, dashboards, relatórios) vai automaticamente respeitar a <strong>identidade visual da sua empresa</strong>.</p>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
@@ -260,17 +415,10 @@
     <!-- 02 -->
     <div class="section" id="sec-step2">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">02.</span> Conceito &mdash; Claude Design</div>
-      <div class="sec-desc">Identidade visual sem precisar saber design</div>
+      <div class="sec-title"><span class="snum">02.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">O que você vai aprender e produzir nesta atividade</div>
 
-      <p class="lead-text">Toda empresa tem uma identidade visual: <strong>cores, fontes, estilo de comunicação</strong>. Quando você pede para o Claude criar uma apresentação ou um dashboard <strong>sem passar esse contexto</strong>, ele inventa uma estética genérica que não representa ninguém.</p>
-
-      <p class="lead-text">O <strong>Claude Design</strong> resolve isso. Você envia <strong>prints do site</strong> da sua empresa e o Claude analisa as imagens, identifica as cores, a tipografia e o estilo visual, e monta um <strong>Design System completo</strong> &mdash; sem você precisar saber o nome técnico de nada.</p>
-
-      <div class="insight-box">
-        <div class="insight-label">A virada</div>
-        <p>Depois você salva essa identidade dentro do seu <strong>Project</strong>. A partir dali, toda vez que você pedir ao Claude para criar um artefato, uma apresentação ou um dashboard, <strong>ele já sabe como a sua empresa se parece</strong>.</p>
-      </div>
+      <p class="lead-text">Criar a <strong>identidade visual da sua empresa</strong> usando o Claude Design e integrá-la ao seu Project criado na AP03 &mdash; para que todos os materiais gerados pelo seu Assistente Executivo (artefatos, apresentações, dashboards) saiam <strong>automaticamente</strong> com as cores, fontes e estilo da sua marca, sem você precisar especificar nada a cada interação.</p>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
@@ -280,13 +428,48 @@
 
     <!-- 03 -->
     <div class="section" id="sec-step3">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">03.</span> O que você vai ver</div>
-      <div class="sec-desc">Design System de uma empresa de logística criado ao vivo</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Conceito &mdash; Claude Design e Design System</div>
+      <div class="sec-desc">Identidade visual sem precisar saber o nome técnico de nada</div>
 
-      <p class="lead-text">Criação do <strong>Design System de uma empresa de logística</strong> no Claude Design usando prints do site. O Claude analisa as imagens, extrai <strong>paleta de cores com códigos hex</strong>, tipografia e padrões visuais, e apresenta o resultado para revisão.</p>
+      <p class="lead-text">Toda empresa tem uma identidade visual: <strong>cores, fontes, estilo de comunicação</strong>. Quando você pede para o Claude criar uma apresentação ou um dashboard <strong>sem passar esse contexto</strong>, ele inventa uma estética genérica que não representa ninguém.</p>
 
-      <p class="lead-text">Em seguida, as informações extraídas são <strong>salvas no Project</strong> da aula como documento de identidade visual.</p>
+      <p class="lead-text">O <strong>Claude Design</strong> resolve isso. Você envia <strong>prints do site</strong> da sua empresa e o Claude analisa as imagens, identifica as cores, a tipografia e o estilo visual, e monta um <strong>Design System completo</strong> &mdash; sem você precisar saber o nome técnico de nada.</p>
+
+      <p class="lead-text"><strong>O que é um Design System?</strong> É um documento que descreve a identidade visual de uma marca em formato técnico:</p>
+
+      <div class="definition-list">
+        <div class="definition-item">
+          <div class="di-num">01</div>
+          <div class="di-body">
+            <div class="di-title">Cores com códigos hex</div>
+            <div class="di-desc">Códigos exatos como <code>#1F3331</code> que reproduzem fielmente as cores da marca em qualquer tela.</div>
+          </div>
+        </div>
+        <div class="definition-item">
+          <div class="di-num">02</div>
+          <div class="di-body">
+            <div class="di-title">Tipografia</div>
+            <div class="di-desc">Fontes para títulos e para corpo de texto &mdash; com fallbacks sugeridos quando a fonte original não está disponível.</div>
+          </div>
+        </div>
+        <div class="definition-item">
+          <div class="di-num">03</div>
+          <div class="di-body">
+            <div class="di-title">Tom de voz</div>
+            <div class="di-desc">Como a marca se comunica: formal, descontraído, técnico, próximo, etc.</div>
+          </div>
+        </div>
+        <div class="definition-item">
+          <div class="di-num">04</div>
+          <div class="di-body">
+            <div class="di-title">Estilo visual</div>
+            <div class="di-desc">Linguagem visual em palavras-chave: clean, premium, corporativo, criativo, etc.</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="lead-text">Designers e desenvolvedores usam Design Systems como referência para manter consistência visual em tudo que produzem. Nesta atividade, você vai gerar o Design System da sua empresa <strong>automaticamente</strong> &mdash; e depois integrá-lo ao seu Assistente Executivo (Project da AP03).</p>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
@@ -297,15 +480,25 @@
     <!-- 04 -->
     <div class="section" id="sec-step4">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">04.</span> O que observar</div>
-      <div class="sec-desc">4 detalhes do Claude Design na prática</div>
+      <div class="sec-title demo"><span class="snum">04.</span> O que você vai ver</div>
+      <div class="sec-desc">Fluxo completo em duas fases &mdash; geração no Claude Design e integração no Project</div>
 
-      <ul class="observation-list">
-        <li><strong>Códigos hex exatos.</strong> O Claude extrai os códigos de cor exatos diretamente dos prints &mdash; você não precisa saber os números.</li>
-        <li><strong>Organização em seções.</strong> O resultado vem organizado em <strong>Brand Colors, Type, UI Kit</strong> &mdash; com botões <strong>"Looks good"</strong> e <strong>"Needs work..."</strong> para revisar cada item.</li>
-        <li><strong>Honestidade sobre limitações.</strong> Se não conseguiu extrair a fonte exata, o Claude informa e sugere <strong>alternativas próximas</strong>.</li>
-        <li><strong>Chat no painel esquerdo.</strong> Você pede ajustes em linguagem natural diretamente ali, sem refazer o upload.</li>
-      </ul>
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo completo em duas fases:</p>
+
+      <div class="overview-card">
+        <h3>Fase 01 &mdash; Geração no Claude Design</h3>
+        <p>O professor acessa <a href="https://claude.ai/design" target="_blank">claude.ai/design</a>, tira prints da primeira página de um site exemplo (logística ferroviária) &mdash; <strong>uma captura de tela para cada dobra</strong> do site, até cobrir toda a página inicial de cima a baixo. Em seguida, faz upload de todos os prints e clica em <strong>"Continue to generation"</strong>. O Claude analisa as imagens por <strong>~5 minutos</strong> e entrega um Design System completo: paleta de cores com hex, tipografia identificada e UI Kit.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Fase 02 &mdash; Integração no Project da AP03</h3>
+        <p>O professor pede ao Claude Design (no chat lateral) para resumir o Design System como texto simples para salvar como arquivo de contexto. Em seguida, salva o resumo como <code>identidade-visual.md</code> e adiciona como o <strong>5&ordm; arquivo de contexto</strong> do Project criado na AP03. A partir daí, qualquer artefato que o assistente executivo gerar vai respeitar essa identidade visual.</p>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
@@ -315,24 +508,31 @@
 
     <!-- 05 -->
     <div class="section" id="sec-step5">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">05.</span> Antes de começar &mdash; prepare os prints do site</div>
-      <div class="sec-desc">2 a 3 prints do site da sua empresa</div>
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">5 sinais que mostram como o Claude Design opera na prática</div>
 
-      <p class="lead-text">Antes de acessar o Claude Design, tire <strong>2 a 3 prints</strong> do site da sua empresa no celular ou computador:</p>
-
-      <div class="overview-card">
-        <h3>Prints necessários</h3>
-        <ul>
-          <li><strong>Print 1 &mdash; Topo da página inicial.</strong> Onde fica o logo e o menu principal.</li>
-          <li><strong>Print 2 &mdash; Primeira seção de conteúdo.</strong> A área principal com cores e textos.</li>
-          <li><strong>Print 3 &mdash; Qualquer página interna (opcional).</strong> Sobre, serviços ou produtos.</li>
-        </ul>
-      </div>
-
-      <div class="warning-box">
-        <div class="warning-label">&#9888; Atenção ao nome dos arquivos</div>
-        <p>O Claude Design <strong>não aceita arquivos com acentos, espaços ou caracteres especiais</strong> no nome. Antes do upload, renomeie para nomes simples como <strong>print01.png</strong>, <strong>print02.png</strong>, <strong>print03.png</strong>. No Mac, prints automáticos vêm com nomes tipo <em>"Captura de Tela 2026-04-22 às 19.59.28.png"</em> &mdash; renomeie antes de subir.</p>
+      <div class="observation-list">
+        <div class="obs-item">
+          <div class="obs-bullet">1</div>
+          <div class="obs-text">O Claude <strong>extrai os códigos hex exatos</strong> diretamente dos prints &mdash; você não precisa saber nada de design.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">2</div>
+          <div class="obs-text">O resultado vem organizado em seções: <strong>Brand Colors, Typography, UI Kit</strong> &mdash; com botões <strong>"Looks good"</strong> e <strong>"Needs work..."</strong> para revisar cada item.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">3</div>
+          <div class="obs-text">O Claude é <strong>honesto sobre as limitações</strong>: se não conseguiu identificar a fonte exata, ele informa e sugere uma alternativa próxima.</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">4</div>
+          <div class="obs-text">O painel esquerdo é o <strong>chat conversacional</strong> &mdash; você pode pedir ajustes em linguagem natural (ex: <em>"a cor principal é verde, não azul"</em>).</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-bullet">5</div>
+          <div class="obs-text">A integração com o Project da AP03 transforma o Design System em <strong>contexto permanente</strong> do seu Assistente Executivo.</div>
+        </div>
       </div>
 
       <div class="nav-buttons">
@@ -344,62 +544,21 @@
     <!-- 06 -->
     <div class="section" id="sec-step6">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">06.</span> Passo a passo</div>
-      <div class="sec-desc">5 passos + 2 prompts (um para rodar no Project enquanto processa, outro para extrair o Design System)</div>
+      <div class="sec-title pratica"><span class="snum">06.</span> Antes de começar &mdash; prepare os prints do site</div>
+      <div class="sec-desc">1 print para cada dobra da primeira página do site da sua empresa</div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Acesse o Claude Design.</strong> <span class="time">(30 seg)</span><br>Acesse <a href="https://claude.ai/design" target="_blank">claude.ai/design</a>. Na parte superior da tela, clique na aba <strong>"Design systems"</strong>.</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Crie o Design System.</strong> <span class="time">(1 min)</span><br>Clique no botão <strong>"Create"</strong> ao lado de <em>"Create new design system &mdash; Teach Claude your brand and product"</em>. Faça upload dos prints em <strong>"Add fonts, logos and assets"</strong> e clique em <strong>"Continue to generation"</strong>. Enquanto processa (~5 min), rode o <strong>Prompt A</strong> abaixo no seu Project para aproveitar o tempo.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Revise o Design System gerado.</strong> <span class="time">(1 min)</span><br>Quando terminar, o Claude apresenta o resultado em dois painéis &mdash; <strong>Chat (esquerda)</strong> e <strong>Design System (direita)</strong>. Leia as limitações no chat e corrija em linguagem natural se algo estiver errado (ex.: <em>"A cor principal da nossa marca é verde, não azul."</em>). No painel direito, marque <strong>"Looks good"</strong> ou <strong>"Needs work..."</strong> em cada item.</div></div>
-        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Publique o Design System.</strong> <span class="time">(15 seg)</span><br>No topo do painel direito, localize a mensagem <em>"Your design system is ready, but your feedback will improve it!"</em>. Logo abaixo há um <strong>checkbox "Published"</strong> &mdash; clique para marcar (fica azul). Isso ativa o Design System para todos os projetos futuros no Claude Design. Em seguida, rode o <strong>Prompt B</strong> abaixo no chat do Claude Design para extrair o Design System em texto.</div></div>
-        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Salve no seu Project.</strong> <span class="time">(1 min)</span><br>Abra o seu Project (AP03). Em <strong>"Adicionar conteúdo"</strong>, preencha:<br>&bull; <strong>Título:</strong> <em>Identidade Visual — [nome da empresa]</em><br>&bull; <strong>Conteúdo:</strong> cole o texto extraído no Passo 4.<br>Clique em <strong>"Adicionar conteúdo"</strong> para salvar.</div></div>
-      </div>
+      <p class="lead-text">Antes de acessar o Claude Design, capture <strong>prints da primeira página completa do site da sua empresa</strong>. A regra é simples:</p>
 
-      <div class="tool-links">
-        <a class="tool-link" href="https://claude.ai/design" target="_blank"><div><div class="tl-name">Claude Design</div><div class="tl-url">claude.ai/design</div></div></a>
-        <a class="tool-link" href="https://claude.ai" target="_blank"><div><div class="tl-name">Claude Projects</div><div class="tl-url">claude.ai</div></div></a>
-      </div>
-
-      <div class="copy-wrap" style="margin-top:22px">
-        <span class="copy-label">Prompt A &mdash; para rodar no Project enquanto o Design System processa</span>
-        <div class="copy-block" id="prompt-a">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-a-text').textContent)">Copiar</button>
-<span id="prompt-a-text">Com base nos documentos deste Project — meu contexto
-profissional, as oportunidades de AI mapeadas na Matrix
-Kai-Fu Lee e o que as empresas do meu setor já estão
-fazendo com AI — mapeie as 3 situações concretas do meu
-trabalho na próxima semana onde eu posso aplicar o Claude.
-
-Para cada situação:
-- Qual funcionalidade do Claude usar:
-  Pesquisa Profunda, Project, Artefato, Skill, Cowork
-  ou Claude Code
-- O que fazer com o Claude nesta situação (1 frase de ação)
-- Qual resultado o Claude vai me entregar
-
-Seja direto. Máximo 1 linha por item.</span></div>
-      </div>
-
-      <div class="copy-wrap" style="margin-top:22px">
-        <span class="copy-label">Prompt B &mdash; para extrair o Design System (use no chat do Claude Design)</span>
-        <div class="copy-block" id="prompt-b">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-b-text').textContent)">Copiar</button>
-<span id="prompt-b-text">Resuma o Design System que você criou em formato de texto
-estruturado para eu salvar como documento de referência.
-Inclua:
-- Nome das cores principais com código hex
-- Fontes identificadas (ou substitutas sugeridas)
-- Tom de voz e personalidade da marca
-- Estilo visual em 3 adjetivos
-
-Formato: texto corrido organizado em tópicos,
-sem código, sem markdown técnico.
-Máximo 1 página.</span></div>
-      </div>
+      <p class="lead-text"><strong>1 print para cada dobra do site</strong>, até cobrir toda a primeira página de cima a baixo.</p>
 
       <div class="tip-box">
-        <div class="tip-label">Detalhe do Claude Design</div>
-        <p>Não existe botão de exportar &mdash; o Prompt B é o jeito de transformar o Design System em texto copiável para o seu Project.</p>
+        <div class="tip-label">&#128161; O que é uma "dobra"?</div>
+        <p>Cada vez que você faz scroll na página, surge uma nova "dobra" (uma nova tela visível). Capture um print de cada uma dessas telas: <strong>Print 01</strong> &mdash; topo da página inicial (logo, menu, banner principal); <strong>Print 02</strong> &mdash; primeira dobra após o topo; <strong>Print 03</strong> &mdash; segunda dobra; e assim por diante até chegar ao rodapé. Geralmente são entre <strong>4 e 8 prints</strong>, dependendo do tamanho do site. Quanto mais variedade de elementos visuais o Claude vir (cores de fundo, botões, cards, ícones, tipografia em diferentes tamanhos), melhor o Design System gerado.</p>
+      </div>
+
+      <div class="warning-box strong">
+        <div class="warning-label">&#9888; Atenção ao nome dos arquivos</div>
+        <p>O Claude Design <strong>não aceita arquivos com acentos, espaços ou caracteres especiais</strong> no nome. Antes de fazer o upload, renomeie os arquivos para nomes simples como <strong>print01.png</strong>, <strong>print02.png</strong>, <strong>print03.png</strong>, e assim por diante. No Mac, prints automáticos vêm com nomes como <em>"Captura de Tela 2026-04-22 às 19.59.28.png"</em> &mdash; renomeie todos antes de subir.</p>
       </div>
 
       <div class="nav-buttons">
@@ -411,14 +570,38 @@ Máximo 1 página.</span></div>
     <!-- 07 -->
     <div class="section" id="sec-step7">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">07.</span> O que fazer com o resultado do Project</div>
-      <div class="sec-desc">Não descarte o mapeamento das 3 situações</div>
+      <div class="sec-title pratica"><span class="snum">07.</span> Identidade visual da sua empresa</div>
+      <div class="sec-desc">Sua vez &mdash; gerar o Design System e integrá-lo ao Project da AP03</div>
 
-      <p class="lead-text">Leia o mapeamento gerado pelo Claude no <strong>Passo 2</strong> (Prompt A). Você tem agora <strong>3 situações concretas da sua semana</strong> onde pode aplicar o Claude.</p>
+      <p class="lead-text">Você vai gerar o Design System da sua empresa e integrá-lo ao seu Assistente Executivo (Project criado na AP03). <strong>Esta atividade tem duas fases:</strong></p>
 
-      <div class="warning-box">
-        <div class="warning-label">&#9888; Guarde este mapeamento</div>
-        <p>Você vai usar as 3 situações na <strong>última atividade prática</strong> da aula.</p>
+      <div class="overview-card">
+        <ul>
+          <li><strong>Fase 01</strong> &mdash; gerar o Design System no Claude Design a partir dos prints do seu site</li>
+          <li><strong>Fase 02</strong> &mdash; extrair o Design System como arquivo <code>.md</code> e adicionar como arquivo de contexto no Project da AP03</li>
+        </ul>
+      </div>
+
+      <div class="resource-grid">
+        <div class="duration-card">
+          <div class="dc-label">Duração total</div>
+          <div class="dc-value">10 min</div>
+          <div class="dc-sub">estimado</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-fases">
+            <div class="mc-fase"><span class="mc-fase-tag">Fase 01</span><span><strong>Claude Design</strong> &mdash; ferramenta especializada</span></div>
+            <div class="mc-fase"><span class="mc-fase-tag">Fase 02</span><span>Qualquer modelo no Project (Sonnet 4.6 recomendado)</span></div>
+          </div>
+          <div class="mc-text">O <strong>Claude Design</strong> é uma ferramenta especializada em identidade visual &mdash; você não escolhe modelo manualmente, a Anthropic configura internamente o melhor modelo para análise de imagens. Na Fase 02, quando salvar o Design System no seu Project, qualquer modelo serve.</div>
+        </div>
+      </div>
+
+      <div class="context-insight">
+        <div class="ci-label">&#128161; Por que duas fases</div>
+        <div class="ci-title">O Claude Design cria o Design System; o Project transforma em contexto permanente</div>
+        <p>O Claude Design é uma ferramenta especializada &mdash; ela cria o Design System mas <strong>não conversa com o seu Project automaticamente</strong>. Na Fase 02, você transforma o resultado em um arquivo de contexto que vira parte permanente do seu Assistente Executivo, garantindo que toda a comunicação visual gerada por ele respeite a identidade visual da sua empresa.</p>
       </div>
 
       <div class="nav-buttons">
@@ -430,25 +613,216 @@ Máximo 1 página.</span></div>
     <!-- 08 -->
     <div class="section" id="sec-step8">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">08.</span> O que você tem ao final desta atividade</div>
-      <div class="sec-desc">3 entregas que viram insumo das próximas APs</div>
+      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
+      <div class="sec-desc">12 passos divididos em 2 fases &mdash; geração no Claude Design e integração no Project</div>
 
-      <div class="overview-card">
-        <h3>Ao final desta atividade você tem:</h3>
-        <ul>
-          <li><strong>Design System da sua empresa</strong> criado e publicado no Claude Design</li>
-          <li><strong>Identidade visual</strong> (cores com códigos hex e tipografia) salva como documento no seu Project</li>
-          <li><strong>Mapeamento de 3 aplicações</strong> do Claude na sua semana guardado</li>
-        </ul>
+      <!-- ===== FASE 01 ===== -->
+      <div class="fase-divider">
+        <div class="fd-tag"><span class="fd-num">FASE 01</span> Geração</div>
+        <div class="fd-line"></div>
+        <div class="fd-text">Gere o Design System no Claude Design</div>
       </div>
 
-      <div class="insight-box">
-        <div class="insight-label">A partir daqui</div>
-        <p>Todos os materiais que você criar com o Claude vão usar <strong>automaticamente</strong> as cores e o estilo da sua empresa.</p>
+      <!-- Passo 01 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 01 &mdash; Acesse o Claude Design</div>
+        <p class="lead-text">Em uma nova aba do navegador, acesse <a href="https://claude.ai/design" target="_blank">claude.ai/design</a>. Na parte superior da tela, clique na aba <strong>Design systems</strong>.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-01.png</code> &mdash; <strong>Tela inicial do Claude Design</strong> com a aba <em>Design systems</em> destacada</span>
+        </div>
+      </div>
+
+      <!-- Passo 02 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 02 &mdash; Crie um novo Design System</div>
+        <p class="lead-text">Clique no botão <strong>Create</strong> ao lado de <em>"Create new design system &mdash; Teach Claude your brand and product"</em>.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-02.png</code> &mdash; <strong>Botão Create destacado</strong> na seção de criação de Design System</span>
+        </div>
+      </div>
+
+      <!-- Passo 03 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 03 &mdash; Faça upload dos prints do site</div>
+        <p class="lead-text">Na seção <strong>Add fonts, logos and assets</strong>, faça upload de <strong>todos os prints</strong> que você capturou no item 06 (uma captura para cada dobra da primeira página do site). Confirme que os nomes dos arquivos não têm acentos nem espaços.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-03.png</code> &mdash; <strong>Os prints do site carregados</strong> na área de upload</span>
+        </div>
+      </div>
+
+      <!-- Passo 04 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 04 &mdash; Inicie a geração</div>
+        <p class="lead-text">Clique em <strong>Continue to generation</strong> para o Claude começar a processar os prints e gerar o Design System.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-04.png</code> &mdash; <strong>Botão Continue to generation destacado</strong></span>
+        </div>
+      </div>
+
+      <!-- Passo 05 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 05 &mdash; Aguarde o processamento</div>
+        <p class="lead-text">O Claude Design vai analisar as imagens e gerar o Design System. <strong>O processamento leva cerca de 5 minutos.</strong> Aguarde até a tela mostrar o Design System pronto, com paleta de cores, tipografia e UI Kit.</p>
+        <div class="tip-box">
+          <div class="tip-label">&#9201; Observação</div>
+          <p>O processamento é mais lento que outras atividades porque envolve análise de imagens. <strong>Não feche a aba</strong> &mdash; espere o resultado aparecer.</p>
+        </div>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-05.png</code> &mdash; <strong>Tela de processamento</strong> com indicador de progresso</span>
+        </div>
+      </div>
+
+      <!-- Passo 06 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 06 &mdash; Revise o Design System gerado</div>
+        <p class="lead-text">Quando o processamento terminar, o Claude apresenta o resultado em duas áreas:</p>
+        <div class="overview-card">
+          <ul>
+            <li><strong>Painel esquerdo (Chat).</strong> O Claude lista o que gerou e aponta limitações. Leia com atenção &mdash; se alguma cor ou fonte estiver errada, corrija em linguagem natural diretamente no chat. Exemplo: <em>"A cor principal da nossa marca é verde, não azul."</em></li>
+            <li><strong>Painel direito (Design System).</strong> Você vê a <strong>paleta de cores</strong> com códigos hex, <strong>Typography</strong> identificada e o <strong>UI Kit</strong>. Para cada item, clique em <strong>Looks good</strong> se estiver correto ou <strong>Needs work...</strong> se precisar de ajuste.</li>
+          </ul>
+        </div>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-06.png</code> &mdash; <strong>Tela do Design System gerado</strong> com painel esquerdo (chat) e painel direito (Design System)</span>
+        </div>
+      </div>
+
+      <!-- Passo 07 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 07 &mdash; Publique o Design System</div>
+        <p class="lead-text">No painel direito, localize a caixa de texto no topo com a mensagem <em>"Your design system is ready, but your feedback will improve it!"</em>. Logo abaixo dessa mensagem há um <strong>checkbox</strong> com a palavra <strong>Published</strong> ao lado. Clique nesse checkbox para marcar &mdash; ele ficará azul quando ativado.</p>
+        <p class="lead-text">Isso ativa o Design System para todos os projetos que você criar no Claude Design a partir de agora.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-07.png</code> &mdash; <strong>Checkbox Published marcado</strong> no topo do Design System</span>
+        </div>
+      </div>
+
+      <!-- ===== FASE 02 ===== -->
+      <div class="fase-divider">
+        <div class="fd-tag"><span class="fd-num">FASE 02</span> Integração</div>
+        <div class="fd-line"></div>
+        <div class="fd-text">Adicione a identidade visual no Project da AP03</div>
+      </div>
+
+      <!-- Passo 08 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 08 &mdash; Copie o prompt de extração</div>
+        <p class="lead-text">O Claude Design não tem botão de exportar. Para extrair o Design System em formato salvável no seu Project, use o <strong>chat do painel esquerdo</strong>. Use o botão <strong>Copiar prompt</strong> no bloco abaixo:</p>
+
+        <div class="copy-wrap">
+          <span class="copy-label">Prompt &mdash; Extração do Design System</span>
+          <div class="copy-block" id="prompt-extracao">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-extracao-text').textContent)">Copiar prompt</button>
+<span id="prompt-extracao-text">Resuma o Design System que você criou em formato Markdown para eu salvar como arquivo de contexto em um Claude Project. Inclua:
+
+- Nome da marca (se identificada nos prints)
+- Cores principais com nome descritivo e código hex
+- Tipografia (fonte principal e fonte secundária, com fallbacks sugeridos)
+- Tom de voz e personalidade da marca (3 adjetivos)
+- Estilo visual em palavras-chave (clean, corporativo, tech, etc.)
+- Diretrizes de uso para um assistente de AI (como aplicar essa identidade ao gerar artefatos)
+
+Entregue como ARTEFATO Markdown (.md) para eu poder baixar como arquivo "identidade-visual.md".</span></div>
+          <span class="copy-confirm"><strong>Prompt copiado.</strong> Cole no chat do painel esquerdo do Claude Design.</span>
+        </div>
+      </div>
+
+      <!-- Passo 09 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 09 &mdash; Cole o prompt no chat do Claude Design</div>
+        <p class="lead-text">No painel esquerdo do Claude Design, localize o campo <strong>Describe what you want to create...</strong>. Cole o prompt copiado no Passo 08 (Cmd+V no Mac ou Ctrl+V no Windows) e clique em <strong>Send</strong>.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-09.png</code> &mdash; <strong>Prompt colado no campo</strong> <em>Describe what you want to create</em></span>
+        </div>
+      </div>
+
+      <!-- Passo 10 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 10 &mdash; Baixe o arquivo <code>identidade-visual.md</code></div>
+        <p class="lead-text">Quando o Claude Design responder, ele vai entregar um <strong>artefato Markdown</strong> com o resumo do Design System. Localize o artefato e clique em <strong>Baixar</strong>. O arquivo será salvo no seu computador como <code>identidade-visual.md</code>.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-10.png</code> &mdash; <strong>Artefato Markdown</strong> com botão de Download destacado</span>
+        </div>
+      </div>
+
+      <!-- Passo 11 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 11 &mdash; Adicione o arquivo no seu Project da AP03</div>
+        <p class="lead-text">Volte para o seu <strong>Assistente Executivo</strong> (Project criado na AP03). Na seção <strong>Arquivos</strong> do Project, clique no ícone <strong>+</strong> e selecione <strong>Carregar do aparelho</strong>. Faça upload do arquivo <code>identidade-visual.md</code> que você acabou de baixar.</p>
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-11.png</code> &mdash; <strong>Arquivo <code>identidade-visual.md</code> adicionado</strong> à seção Arquivos do Project</span>
+        </div>
+      </div>
+
+      <!-- Passo 12 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 12 &mdash; Teste o Project com a identidade visual ativa</div>
+        <p class="lead-text">Abra um novo chat <strong>dentro do Project</strong> e use o prompt abaixo para validar que o Assistente Executivo agora respeita a identidade visual da sua empresa:</p>
+
+        <div class="copy-wrap">
+          <span class="copy-label">Prompt de teste &mdash; valida a identidade visual no Project</span>
+          <div class="copy-block" id="prompt-teste">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-teste-text').textContent)">Copiar prompt</button>
+<span id="prompt-teste-text">Crie um artefato HTML simples — um card executivo apresentando os 3 principais resultados que minha empresa precisa entregar este trimestre. Use a identidade visual da minha empresa (arquivo identidade-visual.md): cores, fontes e estilo descritos lá.</span></div>
+          <span class="copy-confirm"><strong>Prompt copiado.</strong> Cole no chat dentro do Project da AP03.</span>
+        </div>
+
+        <div class="placeholder-figure">
+          <span class="ph-tag">Print pendente</span>
+          <span class="ph-text"><code>ap04-passo-12.png</code> &mdash; <strong>Artefato gerado pelo Project</strong> usando as cores e estilo da empresa do aluno</span>
+        </div>
       </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Os entregáveis que ficam com você e ampliam seu Assistente Executivo</div>
+
+      <p class="lead-text">Você sai desta atividade com:</p>
+
+      <div class="outcome-list">
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text"><strong>Design System completo</strong> da sua empresa publicado no Claude Design (cores, tipografia, UI Kit).</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Arquivo <code>identidade-visual.md</code> salvo como arquivo de contexto no seu <strong>Project da AP03</strong>.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text"><strong>Assistente Executivo atualizado</strong> &mdash; agora ele tem 5 elementos de contexto: 3 textos simples (Nome, Descrição, Instruções) + 3 arquivos <code>.md</code> (mapeamento Kai-Fu Lee, inteligência competitiva, identidade visual).</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Garantia de que <strong>todo artefato gerado nas próximas APs</strong> (Artefatos, Skills, Cowork, Code) vai respeitar automaticamente a identidade visual da sua marca.</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo</div>
+        <p>A partir daqui, sempre que você pedir ao seu Assistente Executivo para criar um <strong>relatório, dashboard, apresentação</strong> ou qualquer artefato visual, ele vai automaticamente aplicar as cores e fontes da sua empresa. Você não precisa mais especificar isso a cada interação &mdash; está no contexto permanente do Project.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -457,10 +831,26 @@ Máximo 1 página.</span></div>
 </div>
 
 <script>
+  // Palette switcher
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"forest";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+</script>
+
+<script>
   // Section navigation + progress
-  const PKEY = "delta-tut-ap04-claude-design";
+  const PKEY = "delta-tut-ap04-design";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 9;
+  const TOTAL = 10;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
@@ -489,7 +879,11 @@ Máximo 1 página.</span></div>
     navigator.clipboard.writeText(text).then(() => {
       const old = btn.textContent;
       btn.textContent = "Copiado ✓";
-      setTimeout(() => btn.textContent = old, 1600);
+      btn.classList.add("is-copied");
+      setTimeout(() => {
+        btn.textContent = old;
+        btn.classList.remove("is-copied");
+      }, 2000);
     });
   }
 
