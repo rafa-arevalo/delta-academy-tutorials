@@ -272,6 +272,13 @@
   .print-marker .pm-icon{font-size:0.72rem;font-weight:800;color:var(--accent);letter-spacing:0.1em;flex-shrink:0}
   .print-marker .pm-text strong{color:var(--accent2);font-weight:700}
 
+  /* Print figure (real screenshot from Scribehow) */
+  .print-figure{margin:14px 0;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow-xs)}
+  .print-figure img{display:block;width:100%;height:auto}
+  .print-figure figcaption{display:flex;gap:10px;align-items:center;font-size:0.7rem;padding:9px 12px;color:var(--text2);background:var(--accent-lighter);border-top:1px solid var(--border2)}
+  .print-figure figcaption .pf-tag{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
+  .print-figure figcaption strong{color:var(--accent2);font-weight:700}
+
   /* Gerador interativo */
   .pg-card{background:var(--panel);border:1.5px solid var(--accent);border-radius:12px;padding:18px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
   .pg-card .pg-head{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:4px;display:flex;align-items:center;gap:8px}
@@ -705,20 +712,20 @@ prioridade no topo (Quick Wins primeiro).</span></div>
       <div class="passo-block">
         <div class="passo-pill">Passo 01 &mdash; Acesse o Claude</div>
         <p class="lead-text">Em uma nova aba do navegador, acesse <a href="https://claude.ai" target="_blank" style="color:var(--accent2);font-weight:700;border-bottom:1px solid var(--accent2);text-decoration:none">claude.ai</a>. Mantenha esta janela do tutorial aberta &mdash; você vai voltar aqui para os próximos passos.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT</span>
-          <span class="pm-text"><strong>ap01-passo-01.png</strong> &mdash; Tela inicial do Claude após login</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap01-passo-01.png" alt="Tela inicial do Claude após login" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 01</span><span><strong>claude.ai aberto</strong> &mdash; tela inicial do Claude após login, modelo Opus 4.7 já selecionado</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 02 -->
       <div class="passo-block">
         <div class="passo-pill">Passo 02 &mdash; Selecione o modelo Claude Opus 4.7</div>
         <p class="lead-text">No canto inferior do campo de mensagem do Claude, abra o seletor de modelo e escolha <strong>Claude Opus 4.7</strong>. Conforme o lembrete acima, é o modelo mais adequado para esta atividade pela qualidade de raciocínio que ela exige.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT</span>
-          <span class="pm-text"><strong>ap01-passo-02.png</strong> &mdash; Seletor de modelo no Claude com Opus 4.7 destacado</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap01-passo-02.webp" alt="Seletor de modelo no Claude com Opus 4.7 destacado" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 02</span><span><strong>Selecione Opus 4.7</strong> &mdash; seletor de modelo no Claude</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 03 -->
@@ -776,10 +783,10 @@ prioridade no topo (Quick Wins primeiro).</span></div>
       <div class="passo-block">
         <div class="passo-pill">Passo 04 &mdash; Cole o prompt no Claude e envie</div>
         <p class="lead-text">Volte para a aba do Claude. Clique no campo de mensagem, cole o prompt copiado (Cmd+V no Mac ou Ctrl+V no Windows) e clique no botão de envio.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT</span>
-          <span class="pm-text"><strong>ap01-passo-04.png</strong> &mdash; Prompt colado no campo de mensagem do Claude pronto para enviar</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap01-passo-04.webp" alt="Prompt colado no campo de mensagem do Claude pronto para enviar" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 04</span><span><strong>Cole e envie</strong> &mdash; prompt colado no campo de mensagem do Claude</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 05 -->
@@ -792,10 +799,10 @@ prioridade no topo (Quick Wins primeiro).</span></div>
       <div class="passo-block">
         <div class="passo-pill">Passo 06 &mdash; Explore seu artefato priorizado</div>
         <p class="lead-text">Clique nos quadrantes do artefato para expandir os detalhes. Em seguida, vá direto para a <strong>tabela-resumo final</strong> &mdash; ela traz todas as oportunidades já priorizadas, com Quick Wins no topo.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT</span>
-          <span class="pm-text"><strong>ap01-passo-06.png</strong> &mdash; Artefato gerado mostrando os 4 quadrantes e a tabela final priorizada</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap01-passo-06.jpeg" alt="Artefato gerado mostrando os 4 quadrantes e a tabela final priorizada" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 06</span><span><strong>Explore o artefato</strong> &mdash; 4 quadrantes da Matriz Kai-Fu Lee e tabela final priorizada</span></figcaption>
+        </figure>
       </div>
 
       <div class="nav-buttons">
