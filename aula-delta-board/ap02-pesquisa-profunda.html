@@ -244,11 +244,12 @@
   .passo-pill{display:inline-block;background:#EAF3DE;color:#173404;border:1px solid #173404;border-radius:999px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;margin:18px 0 10px}
   .passo-block{margin-bottom:6px}
 
-  /* Print necessário (placeholder para prints ainda não capturados) */
-  .print-marker{display:flex;gap:10px;align-items:flex-start;background:var(--accent-lighter);border:1px dashed var(--accent-border);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:0.72rem;color:var(--text2)}
-  .print-marker .pm-icon{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
-  .print-marker .pm-text strong{color:var(--accent2);font-weight:700}
-  .print-marker .pm-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.68rem;background:var(--accent-light);color:var(--accent2);padding:1px 6px;border-radius:4px;border:1px solid var(--accent-border)}
+  /* Print figure (real screenshot do Scribehow / chat AP01) */
+  .print-figure{margin:14px 0;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow-xs)}
+  .print-figure img{display:block;width:100%;height:auto}
+  .print-figure figcaption{display:flex;gap:10px;align-items:center;font-size:0.7rem;padding:9px 12px;color:var(--text2);background:var(--accent-lighter);border-top:1px solid var(--border2)}
+  .print-figure figcaption .pf-tag{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
+  .print-figure figcaption strong{color:var(--accent2);font-weight:700}
 
   /* Outcome list (item 09) */
   .outcome-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
@@ -577,26 +578,30 @@ Seja objetivo e direto &mdash; máximo 1 página.</span></div>
       <div class="passo-block">
         <div class="passo-pill">Passo 01 &mdash; Volte para o chat da AP01</div>
         <p class="lead-text">Abra a janela do navegador onde está o chat do Claude usado na AP01. <strong>Não abra um novo chat</strong> &mdash; você vai continuar exatamente onde parou. Isso preserva a janela de contexto e o Claude já sabe do seu segmento e responsabilidades.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT 01</span>
-          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-01.png</code> &mdash; Chat do Claude da AP01 com a resposta anterior visível.</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap02-passo-01.png" alt="Chat do Claude da AP01 com o artefato Matriz Kai-Fu Lee visível" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 01</span><span><strong>Chat da AP01 aberto</strong> &mdash; volte para a janela onde o Claude entregou o artefato da Matriz Kai-Fu Lee na AP01</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 02 -->
       <div class="passo-block">
         <div class="passo-pill">Passo 02 &mdash; Ative o modo Deep Research</div>
-        <p class="lead-text">No campo de mensagem do Claude, localize e ative o modo <strong>Deep Research</strong> (ícone com forma de lupa ou texto "Pesquisa Profunda" dependendo da versão da interface).</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT 02</span>
-          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-02.png</code> &mdash; Modo Deep Research ativado no campo de mensagem.</span>
-        </div>
+        <p class="lead-text">No campo de mensagem do Claude, clique no <strong>ícone de "+"</strong> para abrir o menu de ferramentas e selecione <strong>Pesquisa</strong> para ativar o modo Deep Research.</p>
+        <figure class="print-figure">
+          <img src="prints/ap02-passo-02a.jpeg" alt="Clique no ícone + no campo de mensagem do Claude para abrir o menu de ferramentas" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 02a</span><span><strong>Abra o menu de ferramentas</strong> &mdash; clique no ícone "+" no canto inferior esquerdo do campo de mensagem</span></figcaption>
+        </figure>
+        <figure class="print-figure">
+          <img src="prints/ap02-passo-02b.jpeg" alt="Selecione Pesquisa no menu para ativar o modo Deep Research" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 02b</span><span><strong>Selecione "Pesquisa"</strong> &mdash; ativa o modo Deep Research no Claude</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 03 -->
       <div class="passo-block">
         <div class="passo-pill">Passo 03 &mdash; Copie o prompt abaixo</div>
-        <p class="lead-text">Use o botão <strong>Copiar</strong> no bloco abaixo. O prompt foi simplificado especialmente para esta atividade: como você está continuando o chat da AP01, o Claude já sabe seu segmento &mdash; você não precisa preencher nada.</p>
+        <p class="lead-text">Use o botão <strong>Copiar prompt</strong> no bloco abaixo. O prompt foi simplificado especialmente para esta atividade: como você está continuando o chat da AP01, o Claude já sabe seu segmento &mdash; você não precisa preencher nada.</p>
 
         <div class="copy-wrap">
           <span class="copy-label">Prompt para Deep Research</span>
@@ -621,10 +626,14 @@ Seja objetivo e direto &mdash; máximo 1 página.</span></div>
       <div class="passo-block">
         <div class="passo-pill">Passo 04 &mdash; Cole o prompt no Claude e envie</div>
         <p class="lead-text">Volte para o chat do Claude. Cole o prompt copiado (Cmd+V no Mac ou Ctrl+V no Windows) e clique no botão de envio. Confirme que o modo Deep Research continua ativado.</p>
-        <div class="print-marker">
-          <span class="pm-icon">PRINT 04</span>
-          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-04.png</code> &mdash; Prompt colado no Claude com Deep Research ativo, pronto para enviar.</span>
-        </div>
+        <figure class="print-figure">
+          <img src="prints/ap02-passo-04a.png" alt="Campo de mensagem do Claude destacado, pronto para receber o prompt colado" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 04a</span><span><strong>Cole o prompt</strong> &mdash; Cmd+V (Mac) ou Ctrl+V (Windows) no campo de mensagem do Claude</span></figcaption>
+        </figure>
+        <figure class="print-figure">
+          <img src="prints/ap02-passo-04b.jpeg" alt="Botão de envio do Claude destacado, pronto para iniciar Deep Research" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 04b</span><span><strong>Clique no ícone de enviar</strong> &mdash; o Claude inicia o processo de Deep Research</span></figcaption>
+        </figure>
       </div>
 
       <!-- Passo 05 -->
@@ -635,11 +644,6 @@ Seja objetivo e direto &mdash; máximo 1 página.</span></div>
         <div class="warning-box">
           <div class="warning-label">Observação sobre o tempo</div>
           <p>Segundo a documentação oficial do Claude, uma pesquisa profunda pode durar de <strong>1 a 45 minutos</strong>, dependendo da complexidade e do volume da pesquisa. Nesta atividade, a pesquisa deve levar em média <strong>de 3 a 5 minutos</strong> porque pedimos apenas 2 concorrentes. Se depois da aula você quiser fazer uma pesquisa com mais concorrentes (5, 10), basta alterar a quantidade no prompt &mdash; só leve em conta que o tempo de processamento será proporcionalmente maior.</p>
-        </div>
-
-        <div class="print-marker">
-          <span class="pm-icon">PRINT 05</span>
-          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-05.png</code> &mdash; Claude executando Deep Research mostrando as fontes sendo consultadas.</span>
         </div>
       </div>
 
@@ -660,11 +664,6 @@ Seja objetivo e direto &mdash; máximo 1 página.</span></div>
         <div class="tip-box">
           <div class="tip-label">Não precisa salvar agora</div>
           <p>Você não precisa baixar nem salvar o relatório agora &mdash; na <strong>AP03</strong> você vai usar o próprio chat para gerar um resumo aproveitável como insumo do seu Project personalizado.</p>
-        </div>
-
-        <div class="print-marker">
-          <span class="pm-icon">PRINT 06</span>
-          <span class="pm-text"><strong>Print necessário:</strong> <code>ap02-passo-06.png</code> &mdash; Relatório final do Deep Research com 2 empresas analisadas e padrão identificado.</span>
         </div>
       </div>
 
