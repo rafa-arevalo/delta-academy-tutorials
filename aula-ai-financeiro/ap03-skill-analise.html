@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03. Skill de Análise Narrativa Lumina &middot; AI no Financeiro &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica{background:var(--accent2);color:var(--bg)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ol{list-style:none;counter-reset:ovc;margin-top:8px}
+  .overview-card ol li{padding:5px 0 5px 26px;counter-increment:ovc;position:relative}
+  .overview-card ol li::before{content:counter(ovc);position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:0.6rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+
+  /* ====== Componentes específicos da AP03 ====== */
+
+  /* Banner do entregável (item 01) com Executive Summary preview */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:8px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .entregavel-banner .eb-sub{font-size:0.7rem;font-weight:600;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em}
+
+  .exec-summary{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-top:6px;display:flex;flex-direction:column;gap:10px}
+  .es-row{display:flex;flex-direction:column;gap:3px;padding-left:10px;border-left:2px solid var(--gold)}
+  .es-row .es-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold)}
+  .es-row p{font-size:0.74rem;color:var(--text2);line-height:1.55;font-weight:500}
+  .es-row p strong{color:var(--accent2);font-weight:700}
+  .es-footer{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.62rem;color:var(--text3);font-style:italic;text-align:center}
+
+  /* Cards de duração + modelo (antes do step 07) */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Bloco de download de materiais (entre item 07 e 08) */
+  .materials-block{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-xs)}
+  .materials-block .mb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .materials-block .mb-title{font-size:0.86rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .materials-block p{font-size:0.74rem;color:var(--text2);line-height:1.55;margin-bottom:10px}
+  .material-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:640px){.material-grid{grid-template-columns:1fr}}
+  .material-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:inherit;transition:all 0.15s}
+  .material-item:hover{background:var(--accent-lighter);border-color:var(--accent);transform:translateY(-1px)}
+  .material-item .mi-icon{flex-shrink:0;width:32px;height:32px;border-radius:6px;background:var(--accent2);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:800;letter-spacing:0.04em}
+  .material-item .mi-icon.md{background:var(--blue)}
+  .material-item .mi-info{flex:1;min-width:0}
+  .material-item .mi-name{font-size:0.7rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;word-break:break-all;line-height:1.3;margin-bottom:2px}
+  .material-item .mi-desc{font-size:0.62rem;color:var(--text3);line-height:1.4}
+
+  /* Phase headers no passo a passo (item 08) */
+  .phase-header{display:flex;align-items:center;gap:10px;margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+  .phase-header .phase-num{font-size:0.62rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
+  .phase-header .phase-title{font-size:0.86rem;font-weight:700;color:var(--accent2);flex:1}
+  .phase-header .phase-badge{font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:3px 8px;border-radius:4px;background:var(--accent2);color:var(--bg)}
+
+  /* Card do "Desafio na sua empresa" (item 10) */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:6px 0 6px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+
+  /* Lista de checkmarks no item 09 */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+
+  /* Lista de planos de conta (passo 01) */
+  .account-tier-list{list-style:none;margin:12px 0 6px}
+  .account-tier-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;box-shadow:var(--shadow-xs)}
+  .account-tier-list .atl-label{display:block;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .account-tier-list .atl-text{font-size:0.82rem;color:var(--text);line-height:1.55}
+  .account-tier-list .atl-text strong{color:var(--accent2);font-weight:700}
+  .account-tier-list .atl-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Step-cards (item 08) — text-only por enquanto, prints virão depois */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.92rem;color:var(--text);line-height:1.55;margin:0 0 14px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-img-wrap{background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)}
+  .step-card-img-wrap img{width:100%;display:block;border-radius:4px}
+  .step-card-caption{font-size:0.78rem;color:var(--text3);font-style:italic;margin:8px 0 0;text-align:center}
+  .step-card-textonly .step-card-body{padding-bottom:16px}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Skill de Análise Narrativa Lumina</h2>
+      <p>Atividade 03 &middot; AI no Financeiro</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Objetivo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> DRE vs análise narrativa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Prompt para acionar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Skill pronta p/ operar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> Desafio na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Financeiro &rsaquo; <a href="index.html">Índice</a> &rsaquo; 03. Skill de Análise Narrativa Lumina</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP03 e como ele se conecta ao destino final da A10</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática</td></tr>
+          <tr><td>Duração</td><td>14 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Skills (acionada dentro do Project Financeiro Lumina)</td></tr>
+          <tr><td>Pré-requisitos</td><td>AP01 e AP02 concluídas (Project Financeiro Lumina configurado e Skill <code>gerar-dre-lumina</code> instalada) &middot; Code Execution and File Creation habilitado em Settings &gt; Capabilities &middot; DRE de outubro/2025 já gerado na conversa da AP02</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Pré-requisito crítico</div>
+        <p>Esta AP <strong>não inicia uma conversa nova</strong> &mdash; ela continua na mesma conversa onde você gerou o DRE de outubro/2025 na AP02. Sem essa conversa, o Claude não tem o DRE no contexto e a análise não funciona.</p>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A10.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP03:</strong> uma Skill chamada <em>"analisar-dre-lumina"</em> instalada na sua conta Claude &mdash; capaz de pegar o DRE estruturado da AP02 e devolver uma análise narrativa executiva (formato Executive Summary CFO-ready) comparando com o mês anterior, identificando root causes das variações e propondo ações acionáveis.</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP03</div>
+        <div class="eb-title">Análise Narrativa &mdash; Lumina &middot; Outubro/2025</div>
+        <div class="eb-sub">Prévia do Executive Summary</div>
+        <div class="exec-summary">
+          <div class="es-row">
+            <span class="es-label">Como fomos</span>
+            <p>Receita Líquida cresceu <strong>4,4%</strong>, mas Margem Bruta caiu <strong>1,2pp</strong> por aumento de descontos pré-Black Friday e maior peso de revenda no mix.</p>
+          </div>
+          <div class="es-row">
+            <span class="es-label">O que se preocupar</span>
+            <p>Compressão progressiva da margem bruta, aumento de <strong>19%</strong> nas despesas com marketing, despesas financeiras <strong>19%</strong> acima do mês anterior.</p>
+          </div>
+          <div class="es-row">
+            <span class="es-label">O que fazer</span>
+            <p>Revisar política de descontos com o comercial antes da Black Friday, validar com marketing o ROI do investimento incremental, avaliar com tesouraria custo da antecipação de recebíveis.</p>
+          </div>
+        </div>
+        <div class="es-footer">Análise das 3 margens &middot; Movimentos materiais &middot; Olhar prospectivo &middot; Pontos de atenção para o CFO</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP se conecta com o destino final da A10</div>
+        <p>A análise narrativa é o <strong>segundo componente do Painel Financeiro Lumina</strong> que você vai entregar ao final da aula. Sem análise narrativa, o painel é só uma tabela de números &mdash; com ela, vira um produto executivo que CFO e diretoria conseguem ler em 30 segundos e saber o que precisam decidir.</p>
+        <p>Na AP04 você vai criar a Skill que combina o DRE estruturado (AP02) + análise narrativa (AP03) num único arquivo HTML autocontido &mdash; esse será o painel final pronto para apresentar à liderança.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Objetivo de aprendizagem</div>
+      <div class="sec-desc">O que você sai sabendo ao final desta atividade</div>
+
+      <p class="lead-text">Instalar na sua conta Claude uma <strong>Skill chamada "analisar-dre-lumina"</strong> que recebe o DRE estruturado da rede + DRE do mês anterior carregado como referência no Project, e devolve uma análise narrativa executiva no padrão de FP&amp;A de empresas grandes.</p>
+
+      <p class="lead-text">A análise começa pelo <strong>Executive Summary</strong> (3 frases respondendo "como fomos / o que se preocupar / o que fazer"), seguido de análise das margens com root causes e recomendações, movimentos materiais nas linhas do DRE, olhar prospectivo para o próximo mês, e pontos de atenção específicos para o CFO investigar.</p>
+
+      <div class="overview-card">
+        <h3>Estrutura do output em 5 blocos</h3>
+        <ol>
+          <li><strong>Executive Summary</strong> &mdash; 3 frases respondendo em 30 segundos: como fomos, o que se preocupar, o que fazer</li>
+          <li><strong>Análise das 3 margens</strong> &mdash; bruta, operacional, líquida, com root causes e recomendações</li>
+          <li><strong>Movimentos materiais nas linhas do DRE</strong> &mdash; variações relevantes (acima de threshold de materialidade) explicadas</li>
+          <li><strong>Olhar prospectivo</strong> &mdash; o que esperar do próximo mês considerando sazonalidade e tendências</li>
+          <li><strong>Pontos de atenção para o CFO</strong> &mdash; lista priorizada de itens que merecem investigação adicional</li>
+        </ol>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Conceito &mdash; A diferença entre DRE estruturado e análise narrativa</div>
+      <div class="sec-desc">Por que números sozinhos não tomam decisão &mdash; e o que a análise narrativa preenche</div>
+
+      <p class="lead-text">Quando você gera um DRE com a Skill da AP02, você tem os <strong>números organizados</strong> &mdash; Receita Bruta, CMV, margens calculadas, tudo certo. Mas números sozinhos não tomam decisão.</p>
+
+      <p class="lead-text">Uma margem operacional de <strong>11,4%</strong> é boa ou ruim? Depende de várias coisas que o número não conta:</p>
+
+      <div class="overview-card">
+        <h3>Perguntas que o DRE estruturado não responde</h3>
+        <ul>
+          <li>Como foi o mês anterior?</li>
+          <li>A variação está dentro da faixa-alvo da empresa?</li>
+          <li>Por que a variação aconteceu?</li>
+          <li>O que isso significa para o próximo mês?</li>
+          <li>O que o CFO deveria fazer com essa informação?</li>
+        </ul>
+      </div>
+
+      <p class="lead-text">A <strong>análise narrativa</strong> preenche exatamente esse vão. Ela transforma números em <strong>insight executivo</strong>, transforma variação em <strong>root cause</strong>, transforma observação em <strong>recomendação acionável</strong>.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Analogia</div>
+        <p>O DRE estruturado é o <strong>raio-X</strong>: mostra o que está lá. A análise narrativa é o <strong>diagnóstico médico</strong>: explica o que isso significa para o paciente, o que se preocupar agora e o que fazer na semana que vem.</p>
+        <p>CFOs e diretores não querem raio-X &mdash; querem diagnóstico. A Skill desta AP é o que entrega o diagnóstico.</p>
+      </div>
+
+      <p class="lead-text">A estrutura da análise narrativa segue <strong>padrão consagrado de FP&amp;A executivo</strong>: Executive Summary &rarr; Análise das margens &rarr; Movimentos materiais &rarr; Olhar prospectivo &rarr; Pontos de atenção para o CFO.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que Executive Summary é o bloco mais importante</div>
+        <p>CFOs e diretores são bombardeados com relatórios. Se a análise não capturar a atenção em 30 segundos com 3 frases claras, o resto não vai ser lido. <strong>A regra do Executive Summary é: se o leitor parar aqui, ele já sabe o essencial do mês.</strong></p>
+        <p>Os blocos seguintes existem para quem quiser ir mais fundo &mdash; mas o Executive Summary precisa ser auto-suficiente.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">04.</span> O que você vai ver</div>
+      <div class="sec-desc">As duas fases que o professor vai demonstrar</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo completo de instalação e uso da Skill de Análise Narrativa em duas fases.</p>
+
+      <div class="overview-card">
+        <h3>Fase 01 &mdash; Instalação da Skill na conta + upload do DRE de referência no Project</h3>
+        <p>O professor faz duas coisas em sequência:</p>
+        <ul>
+          <li>Abre <code>claude.ai/customize/skills</code> e faz upload do <code>analisar-dre-lumina.zip</code> &mdash; a Skill aparece ativa na lista</li>
+          <li>Abre o Project Financeiro Lumina, vai na seção <strong>Arquivos</strong> e faz upload do <code>dre-lumina-setembro-2025.md</code> &mdash; esse arquivo é o <strong>DRE de referência</strong> que a Skill vai consultar para fazer comparação com o mês atual</li>
+        </ul>
+      </div>
+
+      <div class="overview-card">
+        <h3>Fase 02 &mdash; Acionamento na mesma conversa da AP02</h3>
+        <p>O professor <strong>continua a conversa onde gerou o DRE de outubro/2025 na AP02</strong> &mdash; não abre nova conversa. Digita um prompt curto pedindo para acionar a Skill de análise. O Claude:</p>
+        <ul>
+          <li>Lê o DRE de outubro que está no histórico do chat</li>
+          <li>Consulta o <code>dre-lumina-setembro-2025.md</code> carregado no Project como referência</li>
+          <li>Aplica as regras da Skill (materiality threshold, faixas-alvo das margens, formato Executive Summary)</li>
+          <li>Devolve a análise narrativa completa em 5 blocos</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que continuar na mesma conversa</div>
+        <p>Continuar a conversa onde o DRE foi gerado tem 3 vantagens:</p>
+        <p><strong>Sem retrabalho:</strong> o Claude já tem o DRE de outubro no contexto, sem precisar colar de novo. <strong>Coerência total:</strong> as duas Skills (DRE + Análise) operam sobre os mesmos números, sem risco de divergência. <strong>Pipeline didático:</strong> o aluno vê na prática como Skills se encadeiam dentro de uma operação financeira mensal.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Skill é da conta, mas o DRE de referência fica no Project</div>
+        <p>A <strong>Skill</strong> é genérica &mdash; pode ser reaproveitada para qualquer mês da Lumina. Por isso fica na conta, sempre disponível.</p>
+        <p>O <strong>DRE de referência</strong> muda a cada análise &mdash; para a análise de outubro o referencial é setembro, para a de novembro é outubro, e assim por diante. Por isso fica no Project, onde pode ser substituído mês a mês.</p>
+        <p>Essa separação entre <strong>"instrução reutilizável"</strong> (Skill) e <strong>"dado de contexto variável"</strong> (arquivo no Project) é o padrão correto de arquitetura para pipelines financeiros recorrentes.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> Prompt para acionar a Skill</div>
+      <div class="sec-desc">O prompt que você envia na mesma conversa onde gerou o DRE da AP02</div>
+
+      <p class="lead-text">Após a Skill estar instalada e o DRE de referência carregado no Project, este é o prompt que você envia na <strong>mesma conversa</strong> onde gerou o DRE da AP02. <strong>Você vai usar exatamente este mesmo prompt na sua atividade prática.</strong></p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt da AP03 &mdash; acionamento da Skill de Análise</span>
+        <div class="copy-block" id="prompt-ap03">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap03-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap03-text">Use a skill "analisar-dre-lumina" para gerar a análise narrativa executiva do DRE de outubro/2025 que produzimos acima, comparando com o DRE de setembro/2025 carregado nos arquivos do Project.
+
+Siga rigorosamente a estrutura em 5 blocos da Skill: Executive Summary, Análise das 3 margens, Movimentos materiais nas linhas do DRE, O que esperar do próximo mês, e Pontos de atenção para o CFO.</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que mencionar a Skill explicitamente no prompt</div>
+        <p>No Claude.ai, Skills são acionadas automaticamente &mdash; o Claude lê a descrição e decide se usa. Mas mencionar o nome da Skill no prompt (<em>"use a skill analisar-dre-lumina"</em>) <strong>garante o acionamento</strong> e evita ambiguidade quando você tem várias Skills instaladas que poderiam parecer relevantes.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">4 sinais que diferenciam uma análise narrativa de qualidade executiva de um comentário genérico</div>
+
+      <ul class="observation-list">
+        <li><strong>Executive Summary primeiro.</strong> A análise abre com 3 frases respondendo "como fomos / o que se preocupar / o que fazer" &mdash; em 30 segundos o CFO já tem o panorama. O resto é detalhamento opcional.</li>
+        <li><strong>Root cause em vez de descrição.</strong> A análise não diz só "margem bruta caiu 1,2pp"; ela explica <strong>por que</strong> caiu (mix com mais revenda + descontos pré-Black Friday). Análise sem root cause é desperdício de tempo do leitor.</li>
+        <li><strong>Recomendações acionáveis.</strong> Cada margem em atenção ou alerta vem com uma ação específica &mdash; <em>"revisar política de descontos com o comercial"</em>, <em>"validar ROI do marketing incremental"</em>. Não é genérico, é específico ao contexto da Lumina.</li>
+        <li><strong>Olhar prospectivo.</strong> A análise não fica só no retrovisor &mdash; antecipa o que esperar do próximo mês considerando sazonalidade do setor de cosméticos (Black Friday, Natal, etc), antecipando perguntas que a diretoria vai fazer.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">07.</span> Sua Skill de Análise pronta para operar</div>
+      <div class="sec-desc">Agora é a sua vez &mdash; em duas fases, instalar a Skill e acionar na conversa da AP02</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">14 min</div>
+          <div class="mc-detail">Fase 01 (instalar + carregar referência) + Fase 02 (acionar)</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.5</div>
+          <div class="mc-detail">Disponível nos planos gratuito e pago. Produz análise narrativa executiva com qualidade adequada, considerando o contexto carregado no Project.</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai instalar agora a <strong>Skill "analisar-dre-lumina"</strong> na sua conta Claude, carregar o DRE de referência de setembro/2025 no Project, e acionar a Skill <strong>na mesma conversa</strong> onde gerou o DRE de outubro/2025 na AP02. Esta AP tem <strong>duas fases</strong>:</p>
+
+      <div class="overview-card">
+        <h3>Estrutura da atividade</h3>
+        <ul>
+          <li><strong>Fase 01</strong> &mdash; instalar a Skill na conta via <code>Customize &gt; Skills</code> e carregar o DRE de referência nos arquivos do Project (sem envolver o chat).</li>
+          <li><strong>Fase 02</strong> &mdash; acionar a Skill na mesma conversa da AP02 &mdash; o Claude já tem o DRE de outubro no contexto.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que duas fases</div>
+        <p>A Fase 01 é preparação: instala a Skill na conta + carrega o DRE de referência no Project. A Fase 02 é o uso real, no chat. Separar essas duas fases torna o processo claro e mostra que <strong>o aluno só precisa enviar uma mensagem ao Claude para gerar a análise narrativa completa</strong>.</p>
+      </div>
+
+      <div class="materials-block">
+        <div class="mb-label">Materiais da AP03</div>
+        <div class="mb-title">Baixe antes de começar</div>
+        <p>O ZIP contém a pasta da Skill com o <code>SKILL.md</code> dentro &mdash; pronto para upload em <code>Customize &gt; Skills</code>. O DRE de referência é o documento do mês anterior (setembro/2025) que a Skill vai consultar para gerar a comparação. Você vai carregá-lo nos Arquivos do Project Financeiro Lumina.</p>
+        <div class="material-grid">
+          <a class="material-item" href="./assets/analisar-dre-lumina.zip" download>
+            <span class="mi-icon">ZIP</span>
+            <div class="mi-info">
+              <div class="mi-name">analisar-dre-lumina.zip</div>
+              <div class="mi-desc">Pacote da Skill, pronto para upload em <code>Customize &gt; Skills</code></div>
+            </div>
+          </a>
+          <a class="material-item" href="./assets/dre-lumina-setembro-2025.md" download>
+            <span class="mi-icon md">MD</span>
+            <div class="mi-info">
+              <div class="mi-name">dre-lumina-setembro-2025.md</div>
+              <div class="mi-desc">DRE de referência da Lumina &middot; setembro/2025</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
+      <div class="sec-desc">6 passos em 2 fases &mdash; Fase 01 (instalação da Skill + DRE de referência) com 4 passos e Fase 02 (acionamento na conversa da AP02) com 2 passos</div>
+
+      <div class="phase-header">
+        <span class="phase-num">Fase 01</span>
+        <span class="phase-title">Instalação da Skill e upload do DRE de referência</span>
+        <span class="phase-badge">Customize &gt; Skills + Arquivos do Project</span>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Confirme que Code Execution está habilitado</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Skills no Claude exigem que <strong>Code execution and file creation</strong> esteja ativo. Você já habilitou isso na AP02 &mdash; aqui é só confirmar que continua ligado. O caminho varia conforme seu plano:</p>
+          <ul class="account-tier-list">
+            <li>
+              <span class="atl-label">Conta individual &mdash; Free, Pro ou Max</span>
+              <div class="atl-text">Acesse <code>claude.ai/settings/capabilities</code> e confirme que o toggle <strong>"Code execution and file creation"</strong> está ligado.</div>
+            </li>
+            <li>
+              <span class="atl-label">Conta corporativa &mdash; Team</span>
+              <div class="atl-text">Já vem habilitado por padrão no nível da organização. Siga para o próximo passo.</div>
+            </li>
+            <li>
+              <span class="atl-label">Conta corporativa &mdash; Enterprise</span>
+              <div class="atl-text">Confirme com o admin da sua organização que os toggles <strong>"Code execution and file creation"</strong> e <strong>"Skills"</strong> estão habilitados em <em>Organization settings &gt; Skills</em>.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Baixe os materiais da AP03</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique nos botões de download dos materiais no item <strong>07</strong> desta página e salve no seu computador:</p>
+          <p class="step-card-desc"><code>analisar-dre-lumina.zip</code> (pacote da Skill, pronto para upload) &middot; <code>dre-lumina-setembro-2025.md</code> (DRE de referência do mês anterior).</p>
+          <p class="step-card-desc"><strong>Não descompacte o arquivo <code>.zip</code></strong> &mdash; o Claude precisa do ZIP intacto para fazer upload.</p>
+        </div>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Faça upload da Skill em Customize &gt; Skills</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No Claude, vá no menu lateral em <strong>Customize &rarr; Skills</strong> (ou abra direto: <code>claude.ai/customize/skills</code>). Clique no botão <strong>"+"</strong> no topo da página &rarr; <strong>"+ Create skill"</strong> &rarr; selecione <strong>"Upload a skill"</strong> e faça upload do arquivo <code>analisar-dre-lumina.zip</code>.</p>
+          <p class="step-card-desc">Após o upload, confirme que a Skill <strong>"analisar-dre-lumina"</strong> aparece na lista das suas Skills com o <strong>toggle ativado</strong>. Ela deve aparecer agora junto com a <code>gerar-dre-lumina</code> instalada na AP02.</p>
+        </div>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Carregue o DRE de referência nos Arquivos do Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Abra o Project <strong>Financeiro Lumina</strong> criado na AP01. Na seção <strong>Arquivos</strong>, clique no ícone <strong>+</strong> e selecione <strong>Carregar do aparelho</strong>. Faça upload do arquivo <code>dre-lumina-setembro-2025.md</code>.</p>
+          <p class="step-card-desc"><strong>Validação visual:</strong> após o upload, confirme que o arquivo aparece listado na seção Arquivos do Project, junto com os 4 arquivos de contexto carregados na AP01. Agora o Project tem <strong>5 arquivos no total</strong>.</p>
+        </div>
+      </div>
+
+      <div class="phase-header">
+        <span class="phase-num">Fase 02</span>
+        <span class="phase-title">Acionamento da Skill na mesma conversa da AP02</span>
+        <span class="phase-badge">dentro do Financeiro &mdash; Lumina</span>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Volte para a conversa da AP02</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, dentro do Project <strong>Financeiro Lumina</strong>, encontre a conversa onde você gerou o DRE de outubro/2025 na AP02 e clique nela para abrir. <strong>Não inicie uma conversa nova</strong> &mdash; você precisa do histórico da AP02 para que o Claude tenha acesso direto ao DRE de outubro.</p>
+          <p class="step-card-desc">Confirme visualmente que a resposta com o DRE estruturado de outubro/2025 está visível no histórico da conversa.</p>
+        </div>
+      </div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Cole o prompt abaixo e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Use o botão <strong>"Copiar prompt"</strong> abaixo para copiar o prompt de acionamento da Skill. Cole no campo de mensagem do chat (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em enviar.</p>
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP03 &mdash; acionamento da Skill de Análise</span>
+            <div class="copy-block" id="prompt-ap03-step06">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap03-step06-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap03-step06-text">Use a skill "analisar-dre-lumina" para gerar a análise narrativa executiva do DRE de outubro/2025 que produzimos acima, comparando com o DRE de setembro/2025 carregado nos arquivos do Project.
+
+Siga rigorosamente a estrutura em 5 blocos da Skill: Executive Summary, Análise das 3 margens, Movimentos materiais nas linhas do DRE, O que esperar do próximo mês, e Pontos de atenção para o CFO.</span></div>
+          </div>
+          <p class="step-card-desc">O Claude vai reconhecer o pedido, acionar automaticamente a Skill <code>analisar-dre-lumina</code>, ler o DRE de outubro do histórico da conversa, consultar o <code>dre-lumina-setembro-2025.md</code> carregado no Project, e devolver a análise narrativa completa em 5 blocos.</p>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Tempo de resposta esperado</div>
+        <p>Cerca de <strong>60 a 90 segundos</strong> para o Claude comparar os dois DREs, identificar variações relevantes, formular root causes e produzir a análise estruturada.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Validação visual</div>
+        <p>Confirme que a resposta começa com o <strong>Executive Summary</strong> (com as 3 frases sobre como fomos / o que se preocupar / o que fazer) e que tem os 5 blocos completos &mdash; análise das 3 margens com root causes, movimentos materiais nas linhas do DRE, olhar prospectivo para novembro, e pontos de atenção para o CFO.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">A segunda Skill instalada e a análise narrativa de outubro/2025 da Lumina pronta para a AP04</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>Uma <strong>Skill chamada "analisar-dre-lumina"</strong> instalada na sua conta Claude e ativa, ao lado da Skill de DRE da AP02.</li>
+          <li>O <strong>DRE de referência de setembro/2025</strong> carregado nos Arquivos do Project Financeiro Lumina &mdash; vai servir de base de comparação para a análise.</li>
+          <li>A <strong>análise narrativa executiva de outubro/2025 da Lumina</strong> gerada durante a aula &mdash; segundo componente do Painel Financeiro que você vai entregar ao final da A10.</li>
+          <li>Um <strong>fluxo replicável</strong> para qualquer mês fechado: gerar DRE com a Skill da AP02 &rarr; atualizar o DRE de referência no Project &rarr; acionar a Skill de análise &rarr; análise pronta em segundos no padrão executivo.</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP04</div>
+        <p>Na próxima atividade prática você vai instalar a <strong>terceira e última Skill: a Skill de Painel Financeiro HTML</strong>. Ela combina o DRE estruturado (AP02) + análise narrativa (AP03) num único arquivo HTML autocontido &mdash; dentro da identidade visual minimalista oriental da Lumina, baixável e compartilhável por e-mail, Slack ou WhatsApp.</p>
+        <p>Esse será o <strong>entregável final da aula A10</strong> &mdash; o produto pronto para apresentar à liderança.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> Desafio na sua empresa</div>
+      <div class="sec-desc">Replique o mesmo processo &mdash; agora com o contexto real da sua empresa</div>
+
+      <p class="lead-text">Agora que você dominou a criação de uma Skill de análise narrativa com o caso da Lumina, replique o mesmo processo para a <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Crie a Skill de Análise Narrativa real da sua empresa</div>
+        <p>Aplique o mesmo fluxo da AP03 &mdash; trocando referências da Lumina pelo contexto real da sua empresa:</p>
+        <ol>
+          <li><strong>Adapte o <code>SKILL.md</code></strong> trocando referências da Lumina pelo contexto real: nome da Skill (<em>"analisar-dre-[nome-curto-da-empresa]"</em>), descrição com triggers da sua empresa e setor, <strong>faixas-alvo das margens</strong> específicas do seu setor (margens de varejo são diferentes de SaaS, indústria, serviços, etc.), <strong>materiality threshold</strong> ajustado ao porte da empresa, sazonalidade e datas relevantes do seu setor, e tom de comunicação alinhado à cultura da liderança.</li>
+          <li><strong>Empacote o <code>SKILL.md</code> em uma pasta</strong> com o nome da Skill e compacte como <code>.zip</code>.</li>
+          <li><strong>Faça upload da Skill na sua conta Claude</strong> via <code>Customize &gt; Skills</code>.</li>
+          <li><strong>Gere o DRE de referência</strong> do mês anterior usando a Skill da AP02 e salve como <code>.md</code> no Project Financeiro real da sua empresa.</li>
+          <li><strong>Acione a Skill de análise</strong> na conversa onde você gerou o DRE do mês atual.</li>
+          <li><strong>Compare a análise gerada</strong> com a análise feita manualmente pelo time financeiro no fechamento anterior. Refine o <code>SKILL.md</code> se houver aspectos importantes que ficaram de fora ou se o tom precisar de ajuste.</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> você terá uma Skill de análise narrativa funcional no contexto real da sua empresa, capaz de produzir em segundos uma análise executiva que normalmente leva horas &mdash; repetível todo mês, instalada permanentemente na sua conta. <strong>Tempo estimado:</strong> 45 a 60 minutos (a maior parte é calibrar as faixas-alvo das margens e o materiality threshold ao porte da empresa, e validar o tom da análise gerada com pelo menos um stakeholder da liderança financeira).</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Por que esse desafio é o passo 3 da sua jornada de implementação</div>
+        <p>Com a AP01 você criou o ambiente. Com a AP02, a primeira ferramenta (DRE em segundos). Com a AP03, a segunda ferramenta (análise narrativa em segundos). <strong>Em 3 semanas você já tem 80% do pipeline financeiro automatizado</strong> &mdash; o que antes era trabalho de horas vira trabalho de minutos.</p>
+        <p>A AP04 vai colocar tudo isso num formato visual pronto para apresentar. <strong>Faça o desafio desta semana antes da próxima aula</strong> &mdash; assim você chega na AP04 com DRE real + análise narrativa real prontos para virarem painel.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap03-skill-analise";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 10;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
