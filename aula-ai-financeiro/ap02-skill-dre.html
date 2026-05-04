@@ -681,9 +681,17 @@ Aplique também o plano de contas e a política de classificação carregados no
       </div>
 
       <div class="step-card step-card-textonly">
-        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Cole o prompt da seção Demonstração e envie</span></div>
+        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Cole o prompt abaixo e envie</span></div>
         <div class="step-card-body">
-          <p class="step-card-desc">Volte à seção Demonstração desta página, use o botão <strong>Copiar prompt</strong> no item 05 para copiar o prompt de acionamento. Cole no campo de mensagem do chat (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em enviar.</p>
+          <p class="step-card-desc">Use o botão <strong>Copiar prompt</strong> abaixo para copiar o prompt de acionamento da Skill. Cole no campo de mensagem do chat (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em enviar.</p>
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP02 &mdash; acionamento da Skill</span>
+            <div class="copy-block" id="prompt-ap02-step08">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap02-step08-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap02-step08-text">Use a skill "gerar-dre-lumina" para processar a planilha de lançamentos anexada e devolver o DRE estruturado de outubro/2025 da rede.
+
+Aplique também o plano de contas e a política de classificação carregados no Project. O output deve seguir o formato tabular padrão definido na Skill.</span></div>
+          </div>
           <p class="step-card-desc">O Claude vai reconhecer o pedido, acionar automaticamente a Skill <code>gerar-dre-lumina</code>, processar a planilha aplicando também as regras do Project, e devolver o DRE estruturado de outubro/2025 da Lumina.</p>
         </div>
       </div>
