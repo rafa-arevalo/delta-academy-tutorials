@@ -226,6 +226,20 @@
   .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
   .check-list li strong{color:var(--accent2);font-weight:700}
 
+  /* Step-cards Scribehow (item 08) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.92rem;color:var(--text);line-height:1.55;margin:0 0 14px}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-img-wrap{background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)}
+  .step-card-img-wrap img{width:100%;display:block;border-radius:4px}
+  .step-card-caption{font-size:0.78rem;color:var(--text3);font-style:italic;margin:8px 0 0;text-align:center}
+  .step-card-textonly .step-card-body{padding-bottom:16px}
+
   @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
 </style>
 </head>
@@ -625,7 +639,7 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
     <div class="section" id="sec-step8">
       <span class="section-badge badge-pratica">Atividade Prática</span>
       <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
-      <div class="sec-desc">10 passos em 2 fases &mdash; Fase 01 consome 1 mensagem, Fase 02 consome zero</div>
+      <div class="sec-desc">16 passos em 2 fases &mdash; Fase 01 consome 1 mensagem, Fase 02 consome zero</div>
 
       <div class="phase-header">
         <span class="phase-num">Fase 01</span>
@@ -633,11 +647,49 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
         <span class="phase-badge">consome 1 mensagem</span>
       </div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Abra um chat novo no Claude.</strong><br>Acesse <code>claude.ai/new</code> no navegador e faça login se necessário. Confirme que o modelo selecionado é <strong>Claude Sonnet 4.5</strong> &mdash; disponível tanto no plano gratuito quanto no pago.</div></div>
-        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Copie o prompt da seção Demonstração.</strong><br>Volte à seção 05 desta página e use o botão <strong>Copiar prompt</strong> no bloco para copiar o prompt completo da AP01.</div></div>
-        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Cole o prompt no Claude e envie.</strong> <span class="time">(mensagem 1 de 1)</span><br>Cole no campo de mensagem (Cmd+V no Mac ou Ctrl+V no Windows) e clique em enviar. <strong>Esta é a única mensagem que você vai usar nesta AP.</strong> O Claude vai gerar os 4 elementos em sequência: 3 blocos de texto + 4 artefatos <code>.md</code>.</div></div>
-        <div class="inst"><div class="inst-num">4</div><div class="inst-text"><strong>Baixe os 4 arquivos <code>.md</code>.</strong><br>Localize os quatro artefatos <code>.md</code> na resposta do Claude e clique em <strong>Baixar</strong> em cada um: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-receitas-despesas.md</code>, <code>identidade-visual-lumina.md</code>, <code>historico-financeiro-referencia.md</code>.</div></div>
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Abra o Claude</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Abra uma aba nova no navegador e acesse <strong>claude.ai/new</strong>. Faça login se necessário. Confirme que o modelo selecionado é <strong>Claude Sonnet 4.5</strong> (ou Sonnet 4.6 se disponível) &mdash; ambos estão tanto no plano gratuito quanto no pago. Mantenha esta aba aberta &mdash; você vai voltar para ela no Passo 04.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-01.jpeg" alt="Passo 01 — Abra o Claude" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 01 &mdash; Abra o Claude</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Acesse a seção "05 Prompt da AP01"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Aqui mesmo nesta página da AP01, no menu lateral à esquerda, clique em <strong>"05 Prompt da AP01"</strong> para chegar na seção que tem o prompt completo.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-02.jpeg" alt="Passo 02 — Acesse a seção 05 Prompt da AP01" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 02 &mdash; Acesse a seção "05 Prompt da AP01"</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Copie o prompt</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Dentro do bloco do prompt, clique no botão <strong>"Copiar prompt"</strong> no canto superior direito. O texto inteiro vai para a área de transferência (você vê <em>"Copiado &check;"</em> por 2 segundos).</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-03.jpeg" alt="Passo 03 — Copie o prompt" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 03 &mdash; Copie o prompt</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Cole o prompt no Claude e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte para a aba do Claude. Cole o prompt no campo de mensagem (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique no ícone de envio. <strong>Esta é a única mensagem que você vai usar nesta AP.</strong></p>
+          <div class="step-card-img-wrap"><img src="./assets/step-04.webp" alt="Passo 04 — Cole o prompt no Claude e envie" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 04 &mdash; Cole o prompt no Claude e envie</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Baixe os 4 arquivos gerados</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Aguarde 60-90 segundos para o Claude gerar todos os 4 elementos. Quando terminar, clique no botão <strong>"Baixar tudo"</strong> acima dos artefatos para baixar os 4 arquivos <code>.md</code> de uma vez: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-receitas-despesas.md</code>, <code>identidade-visual-lumina.md</code>, <code>historico-financeiro-referencia.md</code>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-05.jpeg" alt="Passo 05 — Baixe os 4 arquivos gerados" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 05 &mdash; Baixe os 4 arquivos gerados</p>
+        </div>
       </div>
 
       <div class="tip-box">
@@ -656,13 +708,103 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
         <p>Você não envia mais mensagens ao Claude nesta AP. <strong>Tudo é configuração via interface</strong> &mdash; clicar, colar, fazer upload.</p>
       </div>
 
-      <div class="instructions">
-        <div class="inst"><div class="inst-num">5</div><div class="inst-text"><strong>Acesse a área de Projects.</strong><br>No menu lateral do Claude, clique em <strong>Projetos</strong> (ou <strong>Projects</strong> dependendo do idioma da interface).</div></div>
-        <div class="inst"><div class="inst-num">6</div><div class="inst-text"><strong>Crie um novo Project.</strong><br>Na área de Projects, clique no botão <strong>+ Novo projeto</strong> (ou <strong>+ New project</strong>) para abrir o formulário de criação.</div></div>
-        <div class="inst"><div class="inst-num">7</div><div class="inst-text"><strong>Cole o Nome no Campo 1.</strong><br>Volte ao chat da Fase 01 e copie o <strong>Elemento 1 &mdash; Nome do Project</strong>. Cole no campo <em>"No que você está trabalhando?"</em> do formulário.</div></div>
-        <div class="inst"><div class="inst-num">8</div><div class="inst-text"><strong>Cole a Descrição no Campo 2.</strong><br>Copie o <strong>Elemento 2 &mdash; Descrição do Project</strong> e cole no campo <em>"O que você quer realizar?"</em>. Em seguida, clique em <strong>Criar projeto</strong> para finalizar a configuração inicial.</div></div>
-        <div class="inst"><div class="inst-num">9</div><div class="inst-text"><strong>Cole as Instruções no Campo 3.</strong><br>No Project recém-criado, localize a seção <strong>Instruções</strong> e clique em <strong>Editar Instruções</strong>. Copie o <strong>Elemento 3 &mdash; Instruções do Project</strong> e cole no editor. Clique em <strong>Salvar instruções</strong>.</div></div>
-        <div class="inst"><div class="inst-num">10</div><div class="inst-text"><strong>Faça upload dos 4 arquivos no Campo 4.</strong><br>Na seção <strong>Arquivos</strong> do Project, clique no ícone <strong>+</strong> e selecione <strong>Carregar do aparelho</strong>. Faça upload dos 4 arquivos <code>.md</code> que você baixou no Passo 4.<br><br><strong>Validação visual:</strong> após o upload, confirme que os 4 arquivos aparecem listados na seção <strong>Arquivos</strong> do Project. Se os 4 estiverem visíveis, o Project está pronto.</div></div>
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Acesse a área de Projetos</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, clique em <strong>"Projetos"</strong> (ou <strong>"Projects"</strong> dependendo do idioma da interface) para entrar na área de projetos.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-06.jpeg" alt="Passo 06 — Acesse a área de Projetos" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 06 &mdash; Acesse a área de Projetos</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 07</span><span class="step-card-title">Clique em "Novo projeto"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na área de Projetos, clique no botão <strong>"+ Novo projeto"</strong> (ou <strong>"+ New project"</strong>) para abrir o formulário de criação.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-07.jpeg" alt="Passo 07 — Clique em Novo projeto" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 07 &mdash; Clique em "Novo projeto"</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Cole o nome do Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte ao chat da Fase 01 e copie o conteúdo do <strong>Elemento 1 &mdash; Nome do Project</strong> (será algo como <em>"Financeiro &mdash; Lumina"</em>). Cole no campo <strong>"Dê um nome ao projeto"</strong> do formulário.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-08.webp" alt="Passo 08 — Cole o nome do Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 08 &mdash; Cole o nome do Project</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 09</span><span class="step-card-title">Cole a descrição do Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Copie o <strong>Elemento 2 &mdash; Descrição do Project</strong> do chat da Fase 01 e cole no campo <strong>"O que você quer realizar?"</strong>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-09.webp" alt="Passo 09 — Cole a descrição do Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 09 &mdash; Cole a descrição do Project</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 10</span><span class="step-card-title">Crie o Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique em <strong>"Criar projeto"</strong> para inicializar o ambiente. Você vai ser levado direto para a tela do Project recém-criado.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-10.jpeg" alt="Passo 10 — Crie o Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 10 &mdash; Crie o Project</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 11</span><span class="step-card-title">Adicione as Instruções</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na tela do Project, localize a seção <strong>"Instruções"</strong> e clique no ícone <strong>"+"</strong> (ou no link de edição) para abrir o editor de instruções.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-11.jpeg" alt="Passo 11 — Adicione as Instruções" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 11 &mdash; Adicione as Instruções</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 12</span><span class="step-card-title">Cole o System Prompt</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Copie o conteúdo completo do <strong>Elemento 3 &mdash; Instruções do Project</strong> (o System Prompt) do chat da Fase 01 e cole no editor de instruções.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-12.webp" alt="Passo 12 — Cole o System Prompt" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 12 &mdash; Cole o System Prompt</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 13</span><span class="step-card-title">Salve as Instruções</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique em <strong>"Salvar instruções"</strong> para confirmar o System Prompt do Project.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-13.jpeg" alt="Passo 13 — Salve as Instruções" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 13 &mdash; Salve as Instruções</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 14</span><span class="step-card-title">Adicione os arquivos de contexto</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na seção <strong>"Arquivos"</strong> do Project, clique no ícone <strong>"+"</strong> para abrir o menu de upload.</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-14.jpeg" alt="Passo 14 — Adicione os arquivos de contexto" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 14 &mdash; Adicione os arquivos de contexto</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 15</span><span class="step-card-title">Carregue os 4 arquivos do aparelho</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Escolha <strong>"Carregar do aparelho"</strong> para selecionar os 4 arquivos <code>.md</code> que você baixou no Passo 05. Você pode selecionar todos de uma vez (Cmd+clique no Mac, Ctrl+clique no Windows).</p>
+          <div class="step-card-img-wrap"><img src="./assets/step-15.jpeg" alt="Passo 15 — Carregue os 4 arquivos do aparelho" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 15 &mdash; Carregue os 4 arquivos do aparelho</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 16</span><span class="step-card-title">Confirme que os 4 arquivos foram carregados</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Após o upload, confirme que os <strong>4 arquivos</strong> aparecem listados na seção <strong>"Arquivos"</strong> do Project: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-receitas-despesas.md</code>, <code>identidade-visual-lumina.md</code>, <code>historico-financeiro-referencia.md</code>. <strong>Se os 4 estiverem visíveis, o Project está pronto para receber as Skills das próximas APs.</strong></p>
+          <div class="step-card-img-wrap"><img src="./assets/step-16.jpeg" alt="Passo 16 — Confirme que os 4 arquivos foram carregados" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 16 &mdash; Confirme que os 4 arquivos foram carregados</p>
+        </div>
       </div>
 
       <div class="nav-buttons">
