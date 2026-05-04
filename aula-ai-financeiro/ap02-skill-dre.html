@@ -244,6 +244,14 @@
   .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
   .check-list li strong{color:var(--accent2);font-weight:700}
 
+  /* Lista de planos de conta (passo 01) */
+  .account-tier-list{list-style:none;margin:12px 0 6px}
+  .account-tier-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;box-shadow:var(--shadow-xs)}
+  .account-tier-list .atl-label{display:block;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .account-tier-list .atl-text{font-size:0.82rem;color:var(--text);line-height:1.55}
+  .account-tier-list .atl-text strong{color:var(--accent2);font-weight:700}
+  .account-tier-list .atl-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
   /* Step-cards (item 08) — text-only por enquanto, prints virão depois */
   .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
   .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
@@ -598,7 +606,21 @@ Aplique também o plano de contas e a política de classificação carregados no
       <div class="step-card step-card-textonly">
         <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Verifique que Code Execution está habilitado</span></div>
         <div class="step-card-body">
-          <p class="step-card-desc">Skills no Claude exigem que <strong>Code execution and file creation</strong> esteja ativo. Acesse <code>claude.ai/settings/capabilities</code> e confirme que o toggle <strong>"Code execution and file creation"</strong> está ligado. Se não estiver, ative agora antes de prosseguir.</p>
+          <p class="step-card-desc">Skills no Claude exigem que <strong>Code execution and file creation</strong> esteja ativo. O caminho varia conforme seu plano:</p>
+          <ul class="account-tier-list">
+            <li>
+              <span class="atl-label">Conta individual &mdash; Free, Pro ou Max</span>
+              <div class="atl-text">Acesse <code>claude.ai/settings/capabilities</code> e ative o toggle <strong>"Code execution and file creation"</strong>.</div>
+            </li>
+            <li>
+              <span class="atl-label">Conta corporativa &mdash; Team</span>
+              <div class="atl-text">Já vem habilitado por padrão no nível da organização. Siga para o próximo passo.</div>
+            </li>
+            <li>
+              <span class="atl-label">Conta corporativa &mdash; Enterprise</span>
+              <div class="atl-text">Peça ao admin da sua organização para habilitar, em <em>Organization settings &gt; Skills</em>, os toggles <strong>"Code execution and file creation"</strong> e <strong>"Skills"</strong>.</div>
+            </li>
+          </ul>
         </div>
       </div>
 
