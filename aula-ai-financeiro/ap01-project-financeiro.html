@@ -17,6 +17,7 @@
     --accent-border: #DDD8D2; --accent-text: #1F3331;
     --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
     --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
     --gold: #C8A968;
     --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
     --border: #EDE8E2; --border2: #DDD8D2;
@@ -43,6 +44,7 @@
     --accent-border: #385652; --accent-text: #E3E6DE;
     --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
     --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
     --gold: #D1AA53;
     --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
     --border: #2A433F; --border2: #385652;
@@ -69,6 +71,7 @@
     --accent-border: #D8CFB7; --accent-text: #1F3331;
     --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
     --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
     --gold: #B8933E;
     --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
     --border: #E1D8C2; --border2: #D1C7AD;
@@ -126,11 +129,13 @@
   .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
   .breadcrumb a:hover{color:var(--accent)}
   .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
-  .badge-intro,.badge-demo,.badge-pratica{background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
   .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
   .sec-title .snum{color:var(--accent)}
   .sec-title.demo .snum{color:var(--blue)}
   .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
   .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
   .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
   .lead-text strong{font-weight:700;color:var(--accent2)}
@@ -145,12 +150,6 @@
   .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
   .ficha-table tr:last-child td{border-bottom:none}
   .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
-  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
-  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
-  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
-  .inst-text strong{font-weight:700;color:var(--accent2)}
-  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
   .copy-wrap{margin:14px 0 16px}
   .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
   .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
@@ -160,6 +159,7 @@
   .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
   .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
   .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
   .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
   .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
@@ -193,7 +193,36 @@
   .entregavel-banner .eb-files .eb-file{display:block;padding:3px 0;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.68rem;color:var(--accent2);font-weight:600}
   @media (max-width:640px){.entregavel-banner .eb-grid{grid-template-columns:1fr}}
 
-  /* Cards de duração + modelo (antes do step 07) */
+  /* Grid de 4 elementos (item 02) */
+  .elementos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 6px}
+  .elemento-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow-xs);position:relative;overflow:hidden}
+  .elemento-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
+  .elemento-card .ec-num{font-size:0.62rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px}
+  .elemento-card .ec-title{font-size:0.86rem;font-weight:700;color:var(--accent2);margin-bottom:6px;letter-spacing:-0.01em}
+  .elemento-card .ec-desc{font-size:0.74rem;color:var(--text2);line-height:1.55}
+  .elemento-card .ec-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  @media (max-width:640px){.elementos-grid{grid-template-columns:1fr}}
+
+  /* Comparativo lado a lado (item 03) */
+  .comparativo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .comp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:var(--shadow-xs);display:flex;flex-direction:column;gap:8px}
+  .comp-card.left{border-top:4px solid var(--green)}
+  .comp-card.right{border-top:4px solid var(--coral)}
+  .comp-card .cc-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+  .comp-card.left .cc-icon{background:var(--green-light);color:var(--green-text)}
+  .comp-card.right .cc-icon{background:var(--coral-light);color:var(--coral-text)}
+  .comp-card .cc-title{font-size:0.84rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.3}
+  .comp-card .cc-file{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.66rem;font-weight:600;padding:3px 8px;border-radius:4px;display:inline-block;width:fit-content}
+  .comp-card.left .cc-file{background:var(--green-light);color:var(--green-text);border:1px solid var(--green-border)}
+  .comp-card.right .cc-file{background:var(--coral-light);color:var(--coral-text);border:1px solid var(--coral-border)}
+  .comp-card .cc-desc{font-size:0.72rem;color:var(--text2);line-height:1.55}
+  .comp-card .cc-analogy{font-size:0.72rem;line-height:1.5;padding:8px 10px;border-radius:6px;font-style:italic;margin-top:auto}
+  .comp-card.left .cc-analogy{background:var(--green-light);color:var(--green-text);border-left:3px solid var(--green)}
+  .comp-card.right .cc-analogy{background:var(--coral-light);color:var(--coral-text);border-left:3px solid var(--coral)}
+  .comp-card .cc-analogy strong{font-weight:700;font-style:normal}
+  @media (max-width:640px){.comparativo-grid{grid-template-columns:1fr}}
+
+  /* Cards de duração + modelo */
   .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
   .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
   .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
@@ -202,14 +231,14 @@
   .meta-card .mc-detail strong{color:var(--text2)}
   @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
 
-  /* Phase headers no passo a passo (item 08) */
-  .phase-header{display:flex;align-items:center;gap:10px;margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-  .phase-header .phase-num{font-size:0.62rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
-  .phase-header .phase-title{font-size:0.86rem;font-weight:700;color:var(--accent2);flex:1}
-  .phase-header .phase-badge{font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:3px 8px;border-radius:4px;background:var(--accent2);color:var(--bg)}
-  .phase-header .phase-badge.zero{background:var(--green);color:#fff}
+  /* Fase divider — alta hierarquia visual entre Fase 01 e Fase 02 */
+  .fase-divider{display:flex;align-items:center;gap:10px;margin:22px 0 12px;padding:14px 18px;background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;box-shadow:var(--shadow-xs)}
+  .fase-divider .phase-num{font-size:0.62rem;font-weight:800;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase}
+  .fase-divider .phase-title{font-size:1.05rem;font-weight:800;color:var(--accent2);flex:1;letter-spacing:-0.01em}
+  .fase-divider .phase-badge{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 9px;border-radius:4px;background:var(--accent2);color:var(--bg)}
+  .fase-divider .phase-badge.zero{background:var(--green);color:#fff}
 
-  /* Card do "Desafio na sua empresa" (item 10) */
+  /* Card do Desafio */
   .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
   .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
   .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
@@ -220,19 +249,20 @@
   .desafio-card ol li strong{color:var(--gold);font-weight:700}
   .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
 
-  /* Lista de checkmarks no item 09 */
+  /* Lista de checkmarks */
   .check-list{list-style:none;margin:10px 0}
   .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
   .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
   .check-list li strong{color:var(--accent2);font-weight:700}
 
-  /* Step-cards Scribehow (item 08) */
+  /* Step-cards Scribehow (item 09) */
   .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
   .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
   .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
   .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600}
   .step-card-body{padding:16px 18px}
   .step-card-desc{font-size:0.92rem;color:var(--text);line-height:1.55;margin:0 0 14px}
+  .step-card-desc:last-child{margin-bottom:0}
   .step-card-desc strong{color:var(--accent2);font-weight:700}
   .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
   .step-card-img-wrap{background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)}
@@ -261,19 +291,22 @@
     </div>
     <div class="nav-group"><div class="nav-group-title">Introdução</div>
       <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Objetivo<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> 4 elementos do Project<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> 4 elementos do Project<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> 4 arquivos de contexto<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Chat comum vs Project<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title">Demonstração</div>
-      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> Prompt da AP01<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> O que observar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
-      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> Project pronto p/ operar<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Passo a passo<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
-      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> Desafio na sua empresa<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
     </div>
     <div class="sidebar-progress">
       <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
@@ -293,17 +326,17 @@
       <div class="overview-card">
         <h3>Ficha técnica</h3>
         <table class="ficha-table"><tbody>
-          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática</td></tr>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
           <tr><td>Duração</td><td>12 minutos</td></tr>
-          <tr><td>Ferramenta</td><td>Claude Projects (modelo Sonnet 4.5)</td></tr>
-          <tr><td>Mensagens consumidas</td><td>1 de 5 (orçamento total da aula)</td></tr>
-          <tr><td>Pré-requisito</td><td>Aulas A08 e A09 &mdash; introdução às features do Claude (Projects, Skills, Claude Design e Cowork)</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Projects (modelo Sonnet 4.6)</td></tr>
+          <tr><td>Pré-requisito</td><td>Aulas A08 e A09 &mdash; introdução às features do Claude (Projects, Skills e Cowork)</td></tr>
+          <tr><td>Entregável</td><td>Project "Financeiro &mdash; Lumina" configurado com 4 arquivos de contexto carregados</td></tr>
         </tbody></table>
       </div>
 
       <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A10.</p>
 
-      <p class="lead-text"><strong>Entregável final da AP01:</strong> um Claude Project chamado <em>"Financeiro &mdash; Lumina"</em> configurado com nome, descrição, instrução de sistema e quatro arquivos de contexto carregados &mdash; pronto para receber as Skills das próximas atividades práticas.</p>
+      <p class="lead-text"><strong>Entregável final da AP01:</strong> um Claude Project chamado <em>"Financeiro &mdash; Lumina"</em> configurado com nome, descrição, instruções e quatro arquivos de contexto carregados &mdash; pronto para receber as Skills das próximas atividades práticas.</p>
 
       <div class="entregavel-banner">
         <div class="eb-label">Entregável da AP01</div>
@@ -317,37 +350,37 @@
           <div class="eb-item">
             <div class="eb-num">2</div>
             <div class="eb-key">Descrição</div>
-            <div class="eb-val">Análise financeira mensal da rede Lumina &mdash; geração de DRE, análise narrativa e painel financeiro consolidado para as 90 filiais</div>
+            <div class="eb-val">Análise financeira mensal da Lumina &mdash; empresa de wellness com 3 produtos e 2 lojas físicas</div>
           </div>
           <div class="eb-item">
             <div class="eb-num">3</div>
             <div class="eb-key">Instruções</div>
-            <div class="eb-val">System Prompt customizado para análise financeira da rede</div>
+            <div class="eb-val">System Prompt customizado para análise financeira da Lumina</div>
           </div>
           <div class="eb-item">
             <div class="eb-num">4</div>
             <div class="eb-key">Arquivos de contexto</div>
-            <div class="eb-val">4 arquivos <code>.md</code> carregados</div>
+            <div class="eb-val">3 arquivos <code>.md</code> + 1 arquivo <code>.xlsx</code></div>
           </div>
         </div>
         <div class="eb-files">
-          <span class="eb-file">plano-de-contas-lumina.md</span>
-          <span class="eb-file">politica-classificacao-receitas-despesas.md</span>
-          <span class="eb-file">identidade-visual-lumina.md</span>
-          <span class="eb-file">historico-financeiro-referencia.md</span>
+          <span class="eb-file">&#128206; plano-de-contas-lumina.md</span>
+          <span class="eb-file">&#128206; politica-classificacao-lancamentos.md</span>
+          <span class="eb-file">&#128206; identidade-visual-lumina.md</span>
+          <span class="eb-file">&#128206; historico-financeiro-lumina.xlsx</span>
         </div>
       </div>
 
       <div class="insight-box">
         <div class="insight-label">Como esta AP se conecta com o destino final da A10</div>
-        <p>No fim da aula você vai sair com o <strong>Painel Financeiro Lumina</strong> &mdash; um arquivo HTML autocontido gerado pelo Claude que sintetiza DRE, indicadores e análise mensal numa única peça visual pronta para apresentar à liderança.</p>
-        <p>A AP01 é a fundação desse painel: o Project que você configura agora é o ambiente onde todas as Skills das próximas APs vão operar. <strong>Sem o Project, não há contexto. Sem contexto, não há painel.</strong></p>
+        <p>No fim da aula você vai sair com o <strong>Painel Financeiro Lumina</strong> rodando dentro de uma automação que dispara sozinha todo mês &mdash; peça visual única gerada pelo Claude que sintetiza DRE, indicadores e análise mensal num único arquivo HTML pronto para apresentar à liderança.</p>
+        <p>A AP01 é a fundação dessa automação: o Project que você configura agora é o ambiente onde todas as Skills das próximas APs vão operar. <strong>Sem o Project, não há contexto. Sem contexto, não há painel.</strong></p>
       </div>
 
       <div class="warning-box">
         <div class="warning-label">Para alunos do plano gratuito</div>
-        <p>O Claude Free permite cerca de 10 a 15 mensagens a cada 5 horas. Esta aula inteira foi otimizada para caber em <strong>5 mensagens totais</strong> &mdash; uma por atividade prática (AP01 até AP05).</p>
-        <p><strong>Recomendação:</strong> comece a aula sem ter usado o Claude nas últimas 5 horas para garantir o limite cheio. Nesta AP01 você vai usar <strong>1 mensagem</strong>.</p>
+        <p>O Claude Free permite cerca de 10 a 15 mensagens a cada 5 horas. Esta aula inteira foi otimizada para caber em <strong>6 mensagens totais</strong> &mdash; distribuídas ao longo das 5 atividades práticas (AP01 a AP05).</p>
+        <p><strong>Recomendação:</strong> comece a aula sem ter usado o Claude nas últimas 5 horas para garantir o limite cheio.</p>
       </div>
 
       <div class="nav-buttons">
@@ -359,12 +392,33 @@
     <!-- 02 -->
     <div class="section" id="sec-step2">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">02.</span> Objetivo de aprendizagem</div>
-      <div class="sec-desc">O que você sai sabendo ao final desta atividade</div>
+      <div class="sec-title"><span class="snum">02.</span> Os 4 elementos do Project</div>
+      <div class="sec-desc">Os 4 campos que você vai preencher para criar o Project Financeiro Lumina</div>
 
-      <p class="lead-text">Configurar o <strong>Project Financeiro Lumina</strong> no Claude Projects, carregando os quatro arquivos de contexto que vão dar identidade financeira ao ambiente &mdash; plano de contas, política de classificação, identidade visual e histórico de referência.</p>
+      <p class="lead-text">Para criar o Project Financeiro Lumina, você preenche <strong>4 elementos</strong>:</p>
 
-      <p class="lead-text">Você sai desta atividade com o Project pronto para receber as Skills de <strong>DRE</strong>, <strong>análise narrativa</strong> e <strong>painel</strong> das próximas APs.</p>
+      <div class="elementos-grid">
+        <div class="elemento-card">
+          <div class="ec-num">Card 1</div>
+          <div class="ec-title">Nome do Project</div>
+          <div class="ec-desc">Como o ambiente vai aparecer na sua lista de Projects (ex: <em>"Financeiro &mdash; Lumina"</em>).</div>
+        </div>
+        <div class="elemento-card">
+          <div class="ec-num">Card 2</div>
+          <div class="ec-title">Descrição do Project</div>
+          <div class="ec-desc">Texto curto explicando o objetivo do Project &mdash; análise financeira mensal da Lumina.</div>
+        </div>
+        <div class="elemento-card">
+          <div class="ec-num">Card 3</div>
+          <div class="ec-title">Instruções (System Prompt)</div>
+          <div class="ec-desc">Texto que define como o assistente financeiro deve se comportar &mdash; tom, formato dos outputs, prioridades de análise, indicadores-chave.</div>
+        </div>
+        <div class="elemento-card">
+          <div class="ec-num">Card 4</div>
+          <div class="ec-title">Arquivos de contexto</div>
+          <div class="ec-desc">Os quatro documentos que o Project consulta em toda conversa: plano de contas, política de classificação, identidade visual e histórico financeiro.</div>
+        </div>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
@@ -375,34 +429,59 @@
     <!-- 03 -->
     <div class="section" id="sec-step3">
       <span class="section-badge badge-intro">Introdução</span>
-      <div class="sec-title"><span class="snum">03.</span> Conceito &mdash; Os 4 elementos de um Project Financeiro</div>
-      <div class="sec-desc">Por que um Project resolve o problema do "começar do zero"</div>
+      <div class="sec-title"><span class="snum">03.</span> Os 4 arquivos de contexto explicados</div>
+      <div class="sec-desc">Quem faz o quê dentro do Project &mdash; e por que dois arquivos parecidos têm papéis bem diferentes</div>
 
-      <p class="lead-text">Quando você analisa uma planilha financeira no chat comum do Claude, <strong>toda conversa começa do zero</strong>. Você precisa explicar o que é o plano de contas da empresa, como classificar as despesas, qual é o padrão visual dos relatórios, qual foi o histórico do mês anterior. A cada nova análise, mesma explicação.</p>
+      <p class="lead-text">Os 3 primeiros elementos do Project são textos simples &mdash; fáceis de entender. <strong>O quarto elemento (arquivos de contexto) merece explicação maior</strong>, porque dois arquivos parecem similares mas têm papéis bem diferentes:</p>
 
-      <p class="lead-text">Um <strong>Project Financeiro</strong> resolve isso de forma permanente: você configura o contexto financeiro da empresa uma única vez, e o Claude carrega tudo automaticamente em cada nova conversa dentro do Project. Toda Skill que você criar dentro do Project &mdash; DRE, análise narrativa, painel &mdash; vai operar com esse contexto carregado, sem precisar redirecionar nada.</p>
-
-      <div class="tip-box">
-        <div class="tip-label">Analogia</div>
-        <p>É a diferença entre contratar um <strong>consultor financeiro novo a cada mês</strong> e ter um <strong>analista financeiro fixo</strong> que já conhece o plano de contas, a política de despesas, o padrão de relatório e o histórico da empresa.</p>
+      <div class="comparativo-grid">
+        <div class="comp-card left">
+          <div class="cc-icon">&#128193;</div>
+          <div class="cc-title">Plano de Contas</div>
+          <div class="cc-file">plano-de-contas-lumina.md</div>
+          <div class="cc-desc">É a <strong>lista estruturada de todas as contas</strong> que existem na operação financeira da Lumina, com hierarquia de grupos e subgrupos.</div>
+          <div class="cc-analogy">Pense como o <strong>mapa de gavetas</strong> de um arquivo financeiro. Mostra quais gavetas existem e como elas estão organizadas.</div>
+        </div>
+        <div class="comp-card right">
+          <div class="cc-icon">&#128214;</div>
+          <div class="cc-title">Política de Classificação</div>
+          <div class="cc-file">politica-classificacao-lancamentos.md</div>
+          <div class="cc-desc">É o <strong>manual de regras</strong> que diz como decidir em qual gaveta colocar cada lançamento quando há ambiguidade.</div>
+          <div class="cc-analogy">Pense como o <strong>livro de regras do arquivista</strong>. Mostra as decisões difíceis e como resolvê-las.</div>
+        </div>
       </div>
 
-      <p class="lead-text">Para criar o Project Financeiro Lumina, você preenche <strong>4 elementos</strong>:</p>
+      <div class="tip-box">
+        <div class="tip-label">Por que separar em dois arquivos</div>
+        <p>A Skill da AP02 (organizar lançamentos) consulta os dois ao mesmo tempo: o <strong>plano de contas</strong> dá os nomes corretos das categorias, e a <strong>política de classificação</strong> resolve as ambiguidades quando o lançamento poderia ir em mais de um lugar.</p>
+        <p>Sem o segundo, o Claude inventa critérios próprios &mdash; comprometendo a consistência mês a mês.</p>
+      </div>
+
+      <div class="comparativo-grid">
+        <div class="comp-card left">
+          <div class="cc-icon">&#127912;</div>
+          <div class="cc-title">Identidade Visual</div>
+          <div class="cc-file">identidade-visual-lumina.md</div>
+          <div class="cc-desc">Define a <strong>estética minimalismo wellness premium</strong> da Lumina: paleta de cores, tipografia, princípios de design.</div>
+          <div class="cc-analogy">Pense como a <strong>alma visual da marca</strong>. Garante que toda peça gerada pelo Claude (relatórios, painéis, gráficos) respeite o DNA visual &mdash; sem inventar cores ou fontes próprias.</div>
+        </div>
+        <div class="comp-card right">
+          <div class="cc-icon">&#128202;</div>
+          <div class="cc-title">Histórico Financeiro</div>
+          <div class="cc-file">historico-financeiro-lumina.xlsx</div>
+          <div class="cc-desc">Planilha com <strong>3 abas</strong> contendo o histórico dos últimos meses fechados &mdash; DRE, KPIs operacionais e eventos relevantes da empresa.</div>
+          <div class="cc-analogy">Pense como a <strong>memória da empresa</strong>. É o que permite ao Claude comparar mês a mês e identificar variações relevantes nas análises das próximas APs.</div>
+        </div>
+      </div>
 
       <div class="overview-card">
-        <h3>Os 4 elementos do Project</h3>
+        <h3>&#128202; As 3 abas do <code>historico-financeiro-lumina.xlsx</code></h3>
         <ul>
-          <li><strong>Nome do Project</strong> &mdash; como o ambiente vai aparecer na sua lista de Projects (ex: <em>"Financeiro &mdash; Lumina"</em>).</li>
-          <li><strong>Descrição do Project</strong> &mdash; texto curto explicando o objetivo do Project (análise financeira mensal da rede de 90 filiais).</li>
-          <li><strong>Instruções (System Prompt)</strong> &mdash; texto que define como o assistente financeiro deve se comportar &mdash; tom, formato dos outputs, prioridades de análise, indicadores-chave.</li>
-          <li><strong>Arquivos de contexto</strong> &mdash; os quatro documentos <code>.md</code> que o Project consulta em toda conversa: plano de contas, política de classificação, identidade visual e histórico financeiro.</li>
+          <li><strong>Aba 1 &mdash; DRE Histórico:</strong> DRE consolidado dos últimos 3 meses fechados (julho, agosto e setembro de 2025) lado a lado, com receita líquida, lucro bruto, resultado operacional, resultado líquido e margens.</li>
+          <li><strong>Aba 2 &mdash; KPIs Operacionais:</strong> ticket médio por canal, conversão e-commerce, % vendas por canal (online vs SP vs RJ), % vendas por produto (pré-treino, creatina, whey).</li>
+          <li><strong>Aba 3 &mdash; Eventos Relevantes:</strong> linha do tempo dos últimos 6 meses com lançamentos, aberturas de loja, parcerias com influenciadores.</li>
         </ul>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Por que esta AP usa a Lumina como caso</div>
-        <p>A Lumina é uma rede varejista fictícia de produtos de beleza com <strong>90 filiais espalhadas em todos os estados do Brasil</strong>. Atende público B2C nas lojas físicas e canal online próprio.</p>
-        <p>Esse perfil foi escolhido porque tem uma estrutura financeira didática e relevante: receita consolidada de uma rede de grande porte, mix de produtos com margens diferentes (maquiagem, skincare, perfumaria, cabelo, body care), distinção entre marca própria e revenda, sazonalidade marcada (Dia das Mães, Dia dos Namorados, Black Friday, Natal). CFOs e analistas reconhecem o padrão imediatamente &mdash; é o tipo de operação financeira que aparece em qualquer rede varejista de médio a grande porte no Brasil.</p>
+        <p style="margin-top:8px">Esse arquivo é a <strong>fonte de verdade histórica</strong> que as Skills da AP03 vão consultar para fazer análise comparativa entre meses.</p>
       </div>
 
       <div class="nav-buttons">
@@ -413,35 +492,18 @@
 
     <!-- 04 -->
     <div class="section" id="sec-step4">
-      <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">04.</span> O que você vai ver</div>
-      <div class="sec-desc">As duas fases que o professor vai demonstrar</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; A diferença entre chat comum e Project</div>
+      <div class="sec-desc">Por que um Project resolve o problema do "começar do zero"</div>
 
-      <div class="warning-box">
-        <div class="warning-label">Aviso</div>
-        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
-      </div>
+      <p class="lead-text">Quando você analisa uma planilha financeira no chat comum do Claude, <strong>toda conversa começa do zero</strong>. Você precisa explicar o que é o plano de contas da empresa, como classificar as despesas, qual é o padrão visual dos relatórios, qual foi o histórico do mês anterior. A cada nova análise, mesma explicação.</p>
 
-      <p class="lead-text">O professor demonstra o fluxo completo de criação do Project Financeiro Lumina em duas fases &mdash; usando os mesmos materiais que você vai receber para a sua atividade prática.</p>
-
-      <div class="overview-card">
-        <h3>Fase 01 &mdash; Geração dos 4 elementos no chat (1 mensagem)</h3>
-        <p>O professor abre um chat novo no Claude (modelo Sonnet 4.5) e cola o <strong>prompt da AP01</strong> &mdash; um único prompt que pede ao Claude para gerar todos os 4 elementos do Project de uma vez:</p>
-        <ul>
-          <li>3 textos simples (Nome, Descrição, Instruções)</li>
-          <li>4 arquivos <code>.md</code> de contexto (plano de contas, política, identidade visual, histórico)</li>
-        </ul>
-        <p style="margin-top:8px">Em <strong>uma única mensagem</strong>, o Claude entrega tudo pronto para uso.</p>
-      </div>
-
-      <div class="overview-card">
-        <h3>Fase 02 &mdash; Configuração do Project (zero mensagens)</h3>
-        <p>O professor cria um Project novo no Claude e preenche cada um dos 4 elementos com o conteúdo gerado na Fase 01. Faz upload dos 4 arquivos <code>.md</code> na seção de Arquivos do Project. Ao final, o Project aparece com todos os elementos configurados &mdash; <strong>sem precisar enviar nenhuma mensagem adicional</strong> ao Claude.</p>
-      </div>
+      <p class="lead-text">Um <strong>Project</strong> resolve isso de forma permanente: você configura o contexto financeiro da empresa uma única vez, e o Claude carrega tudo automaticamente em cada nova conversa dentro do Project. Toda Skill que você criar dentro do Project &mdash; organização de lançamentos, DRE, análise narrativa, painel &mdash; vai operar com esse contexto carregado, sem precisar redirecionar nada.</p>
 
       <div class="tip-box">
-        <div class="tip-label">Por que essa estrutura cabe em 1 mensagem</div>
-        <p>Pedir todos os elementos do Project num único prompt em vez de fazer várias perguntas separadas é uma técnica de <strong>engenharia de prompt eficiente</strong> que economiza limite no plano gratuito sem perder qualidade &mdash; e ainda garante consistência entre os 4 arquivos gerados.</p>
+        <div class="tip-label">Analogia</div>
+        <p>É a diferença entre contratar um <strong>consultor financeiro novo a cada mês</strong> e ter um <strong>analista financeiro fixo</strong> que já conhece o plano de contas, a política de despesas, o padrão de relatório e o histórico da empresa.</p>
+        <p>Toda vez que você "conversa" com o Project Financeiro Lumina, é como conversar com esse analista fixo &mdash; ele já tem todo o contexto na cabeça.</p>
       </div>
 
       <div class="nav-buttons">
@@ -453,105 +515,35 @@
     <!-- 05 -->
     <div class="section" id="sec-step5">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">05.</span> Prompt da AP01</div>
-      <div class="sec-desc">O prompt completo usado na demonstração &mdash; e o que você vai usar na sua atividade prática</div>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">As duas fases que o professor vai demonstrar</div>
 
-      <p class="lead-text">Este é o prompt completo usado na demonstração. <strong>Você vai usar exatamente este mesmo prompt na sua atividade prática.</strong></p>
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
 
-      <div class="copy-wrap">
-        <span class="copy-label">Prompt da AP01 &mdash; geração dos 4 elementos do Project</span>
-        <div class="copy-block" id="prompt-ap01">
-<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap01-text').textContent)">Copiar prompt</button>
-<span id="prompt-ap01-text">Vou criar um Project no Claude para análise financeira mensal da Lumina — uma rede varejista brasileira de produtos de beleza com 90 filiais espalhadas em todos os estados do Brasil. A empresa atua em varejo físico (90 lojas em shoppings, ruas comerciais e galerias em todas as 27 unidades federativas) e canal de venda online próprio. Mix de produtos: maquiagem, skincare, perfumaria, cabelo, body care e acessórios — com mistura de marca própria Lumina e revenda de marcas terceiras nacionais e importadas.
+      <p class="lead-text">O professor demonstra o fluxo completo de criação do Project Financeiro Lumina em duas fases &mdash; usando os mesmos materiais que você vai receber para a sua atividade prática.</p>
 
-Para criar esse Project, eu preciso preencher 4 campos:
+      <div class="overview-card">
+        <h3>Fase 01 &mdash; Geração dos 4 elementos no chat (1 mensagem)</h3>
+        <p>O professor abre um chat novo no Claude (modelo Sonnet 4.6) e cola o <strong>prompt da AP01</strong> &mdash; um único prompt que pede ao Claude para gerar todos os 4 elementos do Project de uma vez:</p>
+        <ul>
+          <li>3 textos simples (Nome, Descrição, Instruções)</li>
+          <li>3 arquivos <code>.md</code> de contexto (plano de contas, política de classificação, identidade visual)</li>
+          <li>1 arquivo <code>.xlsx</code> de contexto (histórico financeiro com 3 abas)</li>
+        </ul>
+        <p style="margin-top:8px">Em <strong>uma única mensagem</strong>, o Claude entrega tudo pronto para uso.</p>
+      </div>
 
-CAMPO 1 — Nome do Project (texto simples curto)
-CAMPO 2 — Descrição do Project (texto simples, 1 a 2 frases)
-CAMPO 3 — Instruções do Project (texto simples completo — o System Prompt do assistente)
-CAMPO 4 — Arquivos de contexto (4 arquivos .md, descritos abaixo)
+      <div class="overview-card">
+        <h3>Fase 02 &mdash; Configuração do Project (zero mensagens)</h3>
+        <p>O professor cria um Project novo no Claude e preenche cada um dos 4 elementos com o conteúdo gerado na Fase 01. Faz upload dos 4 arquivos de contexto na seção de Arquivos do Project. Ao final, o Project aparece com todos os elementos configurados &mdash; <strong>sem precisar enviar nenhuma mensagem adicional</strong> ao Claude.</p>
+      </div>
 
-Por favor, gere os 4 elementos abaixo, em blocos SEPARADOS, para que eu possa copiar/baixar individualmente:
-
-═══════════════════════════════════════════════════════
-ELEMENTO 1 — Nome do Project (texto simples)
-═══════════════════════════════════════════════════════
-Nome curto e profissional, no formato:
-"Financeiro — Lumina"
-
-═══════════════════════════════════════════════════════
-ELEMENTO 2 — Descrição do Project (texto simples, 1-2 frases)
-═══════════════════════════════════════════════════════
-Descreva o objetivo do Project em 1 ou 2 frases. Inclua que este Project serve para análise financeira mensal consolidada da rede de 90 filiais, geração de DRE, análise narrativa de indicadores e construção do painel financeiro mensal.
-
-═══════════════════════════════════════════════════════
-ELEMENTO 3 — Instruções do Project (texto simples — System Prompt)
-═══════════════════════════════════════════════════════
-Crie um System Prompt completo para configurar o assistente financeiro. Deve incluir:
-- Identidade do assistente (papel: analista financeiro sênior da Lumina; tom: direto, executivo e elegante, alinhado à identidade minimalista oriental da marca)
-- Contexto completo da empresa (rede varejista de cosméticos com 90 filiais em todos os estados, mix de produtos por categoria, marca própria vs revenda, sazonalidade típica do varejo de beleza no Brasil — picos no Dia das Mães, Dia dos Namorados, Black Friday e Natal; baixa em fevereiro e julho)
-- Diretrizes de análise: priorizar Receita Líquida, Margem Bruta, Margem Operacional e Margem Líquida; sempre comparar com mês anterior; destacar variações acima de 5%; considerar sazonalidade ao interpretar variações
-- Formato padrão de output: estrutura tabular para DRE, prosa estruturada para análise narrativa, sempre dentro da identidade visual carregada nos arquivos
-- Ferramentas e features do Claude que vão ser usadas dentro deste Project (Skills para DRE e análise, Skills para gerar painel HTML autocontido, Cowork com tarefas agendadas para automação mensal)
-
-═══════════════════════════════════════════════════════
-ELEMENTO 4A — Arquivo "plano-de-contas-lumina.md"
-═══════════════════════════════════════════════════════
-Plano de contas financeiro da Lumina em formato Markdown. Inclua:
-- Receitas consolidadas da rede (canal físico nas 90 lojas, canal online próprio, vendas de marca própria, revenda de marcas terceiras)
-- Deduções (impostos sobre vendas, devoluções, descontos comerciais, cancelamentos)
-- Custo das Mercadorias Vendidas (CMV) por categoria de produto: maquiagem, skincare, perfumaria, cabelo, body care, acessórios — distinguindo entre marca própria (margem maior) e revenda (margem menor)
-- Despesas Operacionais (aluguel das 90 lojas, folha de pagamento, marketing e mídia, logística e centro de distribuição, despesas administrativas da matriz)
-- Despesas Financeiras (juros sobre antecipação de recebíveis, IOF, tarifas bancárias, hedge cambial para produtos importados)
-
-Entregue como um ARTEFATO Markdown (.md) para download.
-
-═══════════════════════════════════════════════════════
-ELEMENTO 4B — Arquivo "politica-classificacao-receitas-despesas.md"
-═══════════════════════════════════════════════════════
-Política de classificação de receitas e despesas da Lumina em formato Markdown. Inclua:
-- Critérios de quando uma despesa é operacional vs. financeira
-- Como classificar fretes de transferência entre lojas (CMV ou despesa logística operacional)
-- Tratamento de devoluções de produtos cosméticos (regras específicas para perfumaria e maquiagem)
-- Política de provisão para perdas, validade vencida e estoque obsoleto (relevante em cosméticos)
-- Regra de rateio de despesas administrativas entre as 90 filiais (proporcional à receita ou ao espaço físico)
-
-Entregue como um ARTEFATO Markdown (.md) para download.
-
-═══════════════════════════════════════════════════════
-ELEMENTO 4C — Arquivo "identidade-visual-lumina.md"
-═══════════════════════════════════════════════════════
-Identidade visual da Lumina em formato Markdown. A marca tem inspiração minimalista oriental — princípios de wabi-sabi, kintsugi, espaço negativo generoso, elegância contida. Inclua:
-- Paleta de cores principal:
-  · Branco quente (papel arroz): #FAF7F2
-  · Preto suave (sumi/nanquim): #2D3640
-  · Dourado champagne: #C9A961
-  · Cinza pedra: #8A8479
-- Tipografia:
-  · Títulos: serifada elegante (estilo Cormorant Garamond ou similar)
-  · Corpo: sans-serif clean e neutra (estilo Inter ou Noto Sans JP)
-- Estilo dos relatórios: muito espaço negativo, gráficos sem grade visível, dados como protagonistas, linhas finas, ausência de ornamentos, alinhamento generoso
-- Princípios de design: menos é mais, dados em primeiro plano, hierarquia visual por espaçamento e não por borda
-- Logo descrito em texto para o Claude reproduzir como SVG inline quando gerar peças (símbolo minimalista — círculo dourado vazado sobre tipografia serifada da palavra "LUMINA")
-
-Entregue como um ARTEFATO Markdown (.md) para download.
-
-═══════════════════════════════════════════════════════
-ELEMENTO 4D — Arquivo "historico-financeiro-referencia.md"
-═══════════════════════════════════════════════════════
-Histórico financeiro de referência da Lumina em formato Markdown. Inclua:
-- Resumo dos últimos 3 meses fechados (julho, agosto e setembro de 2025) com receita líquida, lucro bruto, resultado operacional, resultado líquido — números fictícios coerentes com varejo de cosméticos de grande porte (faixa de R$ 80M–110M de receita líquida mensal)
-- Sazonalidade típica do setor de cosméticos:
-  · Picos: Dia das Mães (maio), Dia dos Namorados (junho), Black Friday (novembro), Natal (dezembro)
-  · Baixa: fevereiro (pós-Carnaval) e julho (mês de menor consumo)
-- Indicadores-chave de performance da rede: ticket médio (faixa de R$ 80–120), conversão por loja, % vendas por canal (físico vs online), % vendas por categoria, same-store sales growth (SSSG) — KPI clássico de varejo
-- Eventos relevantes recentes (ex: lançamento de coleção sazonal, abertura de 5 novas lojas no Norte e Nordeste no último trimestre, expansão do canal online)
-
-Entregue como um ARTEFATO Markdown (.md) para download.
-
-═══════════════════════════════════════════════════════
-
-IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em blocos copiáveis (não como artefatos), e os elementos 4A, 4B, 4C e 4D como ARTEFATOS Markdown separados (para que eu possa baixar como .md).</span></div>
+      <div class="tip-box">
+        <div class="tip-label">Por que essa estrutura cabe em 1 mensagem</div>
+        <p>Pedir todos os elementos do Project num único prompt em vez de fazer várias perguntas separadas é uma técnica de <strong>engenharia de prompt eficiente</strong> que economiza limite no plano gratuito sem perder qualidade &mdash; e ainda garante consistência entre os 4 arquivos gerados.</p>
       </div>
 
       <div class="nav-buttons">
@@ -563,15 +555,120 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
     <!-- 06 -->
     <div class="section" id="sec-step6">
       <span class="section-badge badge-demo">Demonstração</span>
-      <div class="sec-title demo"><span class="snum">06.</span> O que observar durante a demonstração</div>
-      <div class="sec-desc">4 sinais que diferenciam um Project Financeiro com contexto carregado de um chat genérico</div>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstração</div>
+      <div class="sec-desc">O prompt completo usado na demonstração &mdash; e que você vai usar na sua atividade prática</div>
 
-      <ul class="observation-list">
-        <li><strong>Blocos de texto copiáveis.</strong> O Claude entrega os elementos 1, 2 e 3 como blocos de texto prontos para copiar e colar nos campos correspondentes do Project.</li>
-        <li><strong>Artefatos <code>.md</code> separados.</strong> Os elementos 4A, 4B, 4C e 4D vêm como artefatos <code>.md</code> separados, com botão de download para cada um.</li>
-        <li><strong>Customização total.</strong> Os textos não são templates genéricos &mdash; vêm customizados com o contexto financeiro da Lumina (90 filiais em todos os estados, mix de cosméticos, sazonalidade do setor de beleza, identidade visual minimalista oriental).</li>
-        <li><strong>Tudo em uma única resposta.</strong> Confirma que uma só mensagem foi suficiente para gerar todo o material da AP.</li>
-      </ul>
+      <p class="lead-text">Este é o prompt que o professor usa na demonstração:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt da demonstração</span>
+        <div class="copy-block" id="prompt-demo">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-text').textContent)">Copiar prompt</button>
+<span id="prompt-demo-text">Vou criar um Project no Claude para análise financeira mensal da Lumina — uma empresa fictícia em grande crescimento no segmento de wellness. A Lumina vende balas de goma funcionais para pessoas que praticam exercícios. Tem 3 produtos no portfólio: bala de goma pré-treino, bala de goma com creatina e bala de goma com whey protein. Vende online (canal principal, via e-commerce próprio) e tem 2 lojas físicas próprias (uma em São Paulo e uma no Rio de Janeiro).
+
+Para criar esse Project, eu preciso preencher 4 campos:
+
+CAMPO 1 — Nome do Project (texto simples curto)
+CAMPO 2 — Descrição do Project (texto simples, 1 a 2 frases)
+CAMPO 3 — Instruções do Project (texto simples completo — o System Prompt do assistente)
+CAMPO 4 — Arquivos de contexto (3 arquivos .md + 1 arquivo .xlsx, descritos abaixo)
+
+Por favor, gere os elementos abaixo, em blocos SEPARADOS, para que eu possa copiar/baixar individualmente:
+
+═══════════════════════════════════════════════════════
+ELEMENTO 1 — Nome do Project (texto simples)
+═══════════════════════════════════════════════════════
+Nome curto e profissional, no formato:
+"Financeiro — Lumina"
+
+═══════════════════════════════════════════════════════
+ELEMENTO 2 — Descrição do Project (texto simples, 1-2 frases)
+═══════════════════════════════════════════════════════
+Descreva o objetivo do Project em 1 ou 2 frases. Inclua que este Project serve para análise financeira mensal da Lumina, organização de lançamentos no plano de contas, geração de DRE, análise narrativa e construção do painel financeiro mensal.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 3 — Instruções do Project (texto simples — System Prompt)
+═══════════════════════════════════════════════════════
+Crie um System Prompt completo para configurar o assistente financeiro. Deve incluir:
+- Identidade do assistente (papel: analista financeiro sênior da Lumina; tom: direto, claro e alinhado à energia wellness premium da marca)
+- Contexto completo da empresa (empresa de wellness em crescimento, 3 produtos de bala de goma funcional, canal online principal e 2 lojas físicas em SP e RJ, público fitness/wellness)
+- Diretrizes de análise: priorizar Receita Líquida, Margem Bruta, Margem Operacional e Margem Líquida; sempre comparar com mês anterior; destacar variações acima de 5%
+- Formato padrão de output: estrutura tabular para DRE, prosa estruturada para análise narrativa, sempre dentro da identidade visual carregada nos arquivos
+- Ferramentas e features do Claude que vão ser usadas dentro deste Project (Skills para organização de lançamentos, DRE, análise narrativa, painel HTML, e tarefas agendadas via Cowork para automação mensal)
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4A — Arquivo "plano-de-contas-lumina.md"
+═══════════════════════════════════════════════════════
+Plano de contas financeiro da Lumina em formato Markdown. É a LISTA ESTRUTURADA das contas que existem na operação. Inclua:
+- Receitas: vendas online (canal próprio) e vendas físicas (2 lojas: SP e RJ), separadas pelos 3 produtos (pré-treino, creatina, whey protein)
+- Deduções: impostos sobre vendas (Simples Nacional ou Lucro Presumido), devoluções, descontos comerciais
+- Custo dos Produtos Vendidos (CPV): custo de produção das balas de goma (matéria-prima, embalagem, terceirização de produção)
+- Despesas Operacionais: aluguel das 2 lojas, folha de pagamento, marketing digital (mídia paga, influenciadores), logística e fulfillment do e-commerce, despesas administrativas
+- Despesas Financeiras: juros sobre antecipação de recebíveis, IOF, tarifas bancárias, taxas de gateway de pagamento
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4B — Arquivo "politica-classificacao-lancamentos.md"
+═══════════════════════════════════════════════════════
+Política de classificação de lançamentos da Lumina em formato Markdown. É o MANUAL DE REGRAS que resolve ambiguidades de classificação. Inclua:
+- Critérios de quando uma despesa é operacional vs. financeira
+- Como classificar fretes (CPV ou despesa operacional dependendo do contexto — fulfillment de pedidos online vs. transferência entre lojas)
+- Tratamento de devoluções de produtos
+- Como classificar gastos com influenciadores e mídia paga (sempre operacional, dentro de marketing)
+- Regra de rateio de despesas administrativas entre os canais (online e lojas físicas)
+- Como classificar produtos enviados como permuta (sem nota fiscal mas com custo real)
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4C — Arquivo "identidade-visual-lumina.md"
+═══════════════════════════════════════════════════════
+Identidade visual da Lumina em formato Markdown. A marca tem estética minimalismo wellness premium — fresca, sofisticada, energética sem ser agressiva. Inclua:
+- Paleta de cores principal:
+  · Branco quente neutro: #FBF9F5
+  · Verde-musgo suave: #5C7A5A
+  · Coral terroso: #C97A5A
+  · Cinza-taupe quente: #8A857D
+  · Verde-claro pálido: #D4DDC9
+- Tipografia:
+  · Títulos: Fraunces (serifada moderna com toque artesanal/wellness)
+  · Corpo: Inter (sans-serif clean e neutra)
+- Estilo dos relatórios: muito espaço negativo, gráficos sem grade visível, dados como protagonistas, linhas finas, ausência de ornamentos pesados
+- Princípios de design: menos é mais, dados em primeiro plano, hierarquia visual por espaçamento, estética "wellness premium" inspirada em marcas como Athletic Greens, Loop, Olipop
+- Logo descrito em texto para o Claude reproduzir como SVG inline quando gerar peças (símbolo minimalista — pequeno círculo verde-musgo vazado sobre tipografia serifada Fraunces da palavra "lumina" em lowercase)
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4D — Arquivo "historico-financeiro-lumina.xlsx"
+═══════════════════════════════════════════════════════
+Use code execution para gerar uma planilha Excel (.xlsx) com 3 abas (sheets). Use openpyxl ou pandas para gerar o arquivo. Conteúdo:
+
+ABA 1 — "DRE Histórico"
+- Cabeçalho: linhas do DRE (Receita Bruta, Deduções, Receita Líquida, CPV, Lucro Bruto, Despesas Operacionais, Resultado Operacional, Despesas Financeiras, Resultado Líquido) + linhas de Margens (Bruta, Operacional, Líquida)
+- Colunas: Julho/2025, Agosto/2025, Setembro/2025
+- Números fictícios coerentes com empresa de wellness em crescimento (faixa de R$ 800K–R$ 1,2M de receita líquida mensal, margens razoáveis para o setor)
+- Setembro deve ser o mês mais recente e mais forte (próximo do verão)
+
+ABA 2 — "KPIs Operacionais"
+- Métricas: Ticket Médio E-commerce, Ticket Médio Lojas Físicas, Taxa Conversão E-commerce, % Vendas Online, % Vendas Loja SP, % Vendas Loja RJ, % Vendas Pré-treino, % Vendas Creatina, % Vendas Whey
+- Colunas: Julho/2025, Agosto/2025, Setembro/2025
+- Valores realistas (ticket médio ~R$ 80-150, conversão e-commerce 1-3%, mix de canal coerente)
+
+ABA 3 — "Eventos Relevantes"
+- Tabela cronológica dos últimos 6 meses (abril a setembro 2025)
+- Colunas: Data, Tipo de Evento, Descrição, Impacto Esperado
+- Eventos: lançamento do whey protein há 4 meses, abertura da loja do Rio há 6 meses, parcerias com influenciadores no último trimestre, campanhas relevantes
+
+Aplique formatação visual mínima: cabeçalhos em negrito, valores monetários formatados em R$, percentuais com símbolo %.
+
+Entregue como um ARTEFATO Excel (.xlsx) para download.
+
+═══════════════════════════════════════════════════════
+
+IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em blocos copiáveis (não como artefatos), os elementos 4A, 4B e 4C como ARTEFATOS Markdown separados, e o elemento 4D como ARTEFATO Excel (.xlsx) gerado via code execution.</span></div>
+      </div>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
@@ -581,37 +678,16 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
 
     <!-- 07 -->
     <div class="section" id="sec-step7">
-      <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">07.</span> Seu Project Financeiro pronto para operar</div>
-      <div class="sec-desc">Agora é a sua vez &mdash; em duas fases, com 1 mensagem ao Claude</div>
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">4 sinais que diferenciam um Project Financeiro com contexto carregado de um chat genérico</div>
 
-      <div class="meta-cards">
-        <div class="meta-card">
-          <div class="mc-label">Duração total</div>
-          <div class="mc-value">12 min</div>
-          <div class="mc-detail">Fase 01 (gerar) + Fase 02 (configurar)</div>
-        </div>
-        <div class="meta-card">
-          <div class="mc-label">Modelo recomendado</div>
-          <div class="mc-value">Sonnet 4.5</div>
-          <div class="mc-detail">Disponível no plano gratuito e pago. <strong>Mensagens consumidas: 1 de 5.</strong></div>
-        </div>
-      </div>
-
-      <p class="lead-text">Você vai criar agora o <strong>Project Financeiro Lumina</strong> &mdash; o ambiente que vai abrigar todas as Skills das próximas atividades práticas. Esta AP tem <strong>duas fases</strong>:</p>
-
-      <div class="overview-card">
-        <h3>Estrutura da atividade</h3>
-        <ul>
-          <li><strong>Fase 01</strong> &mdash; gerar os 4 elementos do Project com <strong>1 mensagem</strong> ao Claude (o prompt da AP01 que você viu na demonstração).</li>
-          <li><strong>Fase 02</strong> &mdash; criar o Project, preencher os 4 campos com o conteúdo gerado e fazer upload dos arquivos (<strong>sem enviar nenhuma mensagem adicional</strong>).</li>
-        </ul>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">Por que duas fases</div>
-        <p>Em vez de redigitar manualmente o plano de contas, a política de classificação, a identidade visual e o histórico financeiro da Lumina, você pede ao Claude para gerar tudo de uma vez no chat. Isso elimina retrabalho, garante consistência entre os 4 arquivos, e demonstra na prática como <strong>um prompt bem estruturado economiza mensagens</strong> &mdash; algo essencial para quem usa o plano gratuito.</p>
-      </div>
+      <ul class="observation-list">
+        <li><strong>Blocos de texto copiáveis.</strong> O Claude entrega os elementos 1, 2 e 3 como blocos de texto prontos para copiar e colar nos campos correspondentes do Project.</li>
+        <li><strong>Artefatos separados.</strong> Os elementos 4A, 4B e 4C vêm como artefatos <code>.md</code> separados, e o 4D vem como artefato <code>.xlsx</code> gerado via code execution &mdash; todos com botão de download.</li>
+        <li><strong>Customização total.</strong> Os textos não são templates genéricos &mdash; vêm customizados com o contexto financeiro da Lumina (3 produtos de bala de goma funcional, canais online + 2 lojas, sazonalidade do setor wellness, identidade visual minimalismo wellness premium).</li>
+        <li><strong>Tudo em uma única resposta.</strong> Confirma que uma só mensagem foi suficiente para gerar todo o material da AP.</li>
+      </ul>
 
       <div class="nav-buttons">
         <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
@@ -622,173 +698,35 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
     <!-- 08 -->
     <div class="section" id="sec-step8">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">08.</span> Passo a passo</div>
-      <div class="sec-desc">16 passos em 2 fases &mdash; Fase 01 consome 1 mensagem, Fase 02 consome zero</div>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">Agora é a sua vez &mdash; em duas fases, com 1 mensagem ao Claude</div>
 
-      <div class="phase-header">
-        <span class="phase-num">Fase 01</span>
-        <span class="phase-title">Geração dos 4 elementos</span>
-        <span class="phase-badge">consome 1 mensagem</span>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Abra o Claude</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Abra uma aba nova no navegador e acesse <strong>claude.ai/new</strong>. Faça login se necessário. Confirme que o modelo selecionado é <strong>Claude Sonnet 4.5</strong> (ou Sonnet 4.6 se disponível) &mdash; ambos estão tanto no plano gratuito quanto no pago. Mantenha esta aba aberta &mdash; você vai voltar para ela no Passo 04.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-01.jpeg" alt="Passo 01 — Abra o Claude" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 01 &mdash; Abra o Claude</p>
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">12 min</div>
+          <div class="mc-detail">Fase 01 (gerar) + Fase 02 (configurar)</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.6</div>
+          <div class="mc-detail">Disponível tanto no plano gratuito quanto no pago. <strong>&#128142; Plano pago:</strong> use Opus 4.7 para System Prompts ainda mais sofisticados.</div>
         </div>
       </div>
 
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Acesse a seção "05 Prompt da AP01"</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Aqui mesmo nesta página da AP01, no menu lateral à esquerda, clique em <strong>"05 Prompt da AP01"</strong> para chegar na seção que tem o prompt completo.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-02.jpeg" alt="Passo 02 — Acesse a seção 05 Prompt da AP01" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 02 &mdash; Acesse a seção "05 Prompt da AP01"</p>
-        </div>
-      </div>
+      <p class="lead-text">Você vai criar agora o <strong>Project Financeiro Lumina</strong> &mdash; o ambiente que vai abrigar todas as Skills das próximas atividades práticas. Esta AP tem <strong>duas fases</strong>:</p>
 
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Copie o prompt</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Dentro do bloco do prompt, clique no botão <strong>"Copiar prompt"</strong> no canto superior direito. O texto inteiro vai para a área de transferência (você vê <em>"Copiado &check;"</em> por 2 segundos).</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-03.jpeg" alt="Passo 03 — Copie o prompt" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 03 &mdash; Copie o prompt</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Cole o prompt no Claude e envie</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Volte para a aba do Claude. Cole o prompt no campo de mensagem (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique no ícone de envio. <strong>Esta é a única mensagem que você vai usar nesta AP.</strong></p>
-          <div class="step-card-img-wrap"><img src="./assets/step-04.webp" alt="Passo 04 — Cole o prompt no Claude e envie" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 04 &mdash; Cole o prompt no Claude e envie</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Baixe os 4 arquivos gerados</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Aguarde 60-90 segundos para o Claude gerar todos os 4 elementos. Quando terminar, clique no botão <strong>"Baixar tudo"</strong> acima dos artefatos para baixar os 4 arquivos <code>.md</code> de uma vez: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-receitas-despesas.md</code>, <code>identidade-visual-lumina.md</code>, <code>historico-financeiro-referencia.md</code>.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-05.jpeg" alt="Passo 05 — Baixe os 4 arquivos gerados" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 05 &mdash; Baixe os 4 arquivos gerados</p>
-        </div>
+      <div class="overview-card">
+        <h3>Estrutura da atividade</h3>
+        <ul>
+          <li><strong>Fase 01 &mdash; Geração</strong> &mdash; gerar os 4 elementos do Project com 1 mensagem ao Claude (o prompt da AP01 que você viu na demonstração).</li>
+          <li><strong>Fase 02 &mdash; Configuração</strong> &mdash; criar o Project, preencher os 4 campos com o conteúdo gerado e fazer upload dos arquivos (sem enviar nenhuma mensagem adicional).</li>
+        </ul>
       </div>
 
       <div class="tip-box">
-        <div class="tip-label">Tempo de resposta esperado</div>
-        <p>Cerca de <strong>60 a 90 segundos</strong> para o Claude gerar todos os 4 elementos.</p>
-      </div>
-
-      <div class="phase-header">
-        <span class="phase-num">Fase 02</span>
-        <span class="phase-title">Configuração do Project</span>
-        <span class="phase-badge zero">zero mensagens</span>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">A partir daqui</div>
-        <p>Você não envia mais mensagens ao Claude nesta AP. <strong>Tudo é configuração via interface</strong> &mdash; clicar, colar, fazer upload.</p>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Acesse a área de Projetos</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">No menu lateral do Claude, clique em <strong>"Projetos"</strong> (ou <strong>"Projects"</strong> dependendo do idioma da interface) para entrar na área de projetos.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-06.jpeg" alt="Passo 06 — Acesse a área de Projetos" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 06 &mdash; Acesse a área de Projetos</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 07</span><span class="step-card-title">Clique em "Novo projeto"</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Na área de Projetos, clique no botão <strong>"+ Novo projeto"</strong> (ou <strong>"+ New project"</strong>) para abrir o formulário de criação.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-07.jpeg" alt="Passo 07 — Clique em Novo projeto" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 07 &mdash; Clique em "Novo projeto"</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Cole o nome do Project</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Volte ao chat da Fase 01 e copie o conteúdo do <strong>Elemento 1 &mdash; Nome do Project</strong> (será algo como <em>"Financeiro &mdash; Lumina"</em>). Cole no campo <strong>"Dê um nome ao projeto"</strong> do formulário.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-08.webp" alt="Passo 08 — Cole o nome do Project" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 08 &mdash; Cole o nome do Project</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 09</span><span class="step-card-title">Cole a descrição do Project</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Copie o <strong>Elemento 2 &mdash; Descrição do Project</strong> do chat da Fase 01 e cole no campo <strong>"O que você quer realizar?"</strong>.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-09.webp" alt="Passo 09 — Cole a descrição do Project" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 09 &mdash; Cole a descrição do Project</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 10</span><span class="step-card-title">Crie o Project</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Clique em <strong>"Criar projeto"</strong> para inicializar o ambiente. Você vai ser levado direto para a tela do Project recém-criado.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-10.jpeg" alt="Passo 10 — Crie o Project" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 10 &mdash; Crie o Project</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 11</span><span class="step-card-title">Adicione as Instruções</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Na tela do Project, localize a seção <strong>"Instruções"</strong> e clique no ícone <strong>"+"</strong> (ou no link de edição) para abrir o editor de instruções.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-11.jpeg" alt="Passo 11 — Adicione as Instruções" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 11 &mdash; Adicione as Instruções</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 12</span><span class="step-card-title">Cole o System Prompt</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Copie o conteúdo completo do <strong>Elemento 3 &mdash; Instruções do Project</strong> (o System Prompt) do chat da Fase 01 e cole no editor de instruções.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-12.webp" alt="Passo 12 — Cole o System Prompt" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 12 &mdash; Cole o System Prompt</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 13</span><span class="step-card-title">Salve as Instruções</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Clique em <strong>"Salvar instruções"</strong> para confirmar o System Prompt do Project.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-13.jpeg" alt="Passo 13 — Salve as Instruções" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 13 &mdash; Salve as Instruções</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 14</span><span class="step-card-title">Adicione os arquivos de contexto</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Na seção <strong>"Arquivos"</strong> do Project, clique no ícone <strong>"+"</strong> para abrir o menu de upload.</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-14.jpeg" alt="Passo 14 — Adicione os arquivos de contexto" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 14 &mdash; Adicione os arquivos de contexto</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 15</span><span class="step-card-title">Carregue os 4 arquivos do aparelho</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Escolha <strong>"Carregar do aparelho"</strong> para selecionar os 4 arquivos <code>.md</code> que você baixou no Passo 05. Você pode selecionar todos de uma vez (Cmd+clique no Mac, Ctrl+clique no Windows).</p>
-          <div class="step-card-img-wrap"><img src="./assets/step-15.jpeg" alt="Passo 15 — Carregue os 4 arquivos do aparelho" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 15 &mdash; Carregue os 4 arquivos do aparelho</p>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-card-head"><span class="step-card-num">PASSO 16</span><span class="step-card-title">Confirme que os 4 arquivos foram carregados</span></div>
-        <div class="step-card-body">
-          <p class="step-card-desc">Após o upload, confirme que os <strong>4 arquivos</strong> aparecem listados na seção <strong>"Arquivos"</strong> do Project: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-receitas-despesas.md</code>, <code>identidade-visual-lumina.md</code>, <code>historico-financeiro-referencia.md</code>. <strong>Se os 4 estiverem visíveis, o Project está pronto para receber as Skills das próximas APs.</strong></p>
-          <div class="step-card-img-wrap"><img src="./assets/step-16.jpeg" alt="Passo 16 — Confirme que os 4 arquivos foram carregados" loading="lazy" /></div>
-          <p class="step-card-caption">Passo 16 &mdash; Confirme que os 4 arquivos foram carregados</p>
-        </div>
+        <div class="tip-label">Por que duas fases</div>
+        <p>Em vez de redigitar manualmente o plano de contas, a política de classificação, a identidade visual e o histórico financeiro da Lumina, você pede ao Claude para gerar tudo de uma vez no chat. Isso elimina retrabalho, garante consistência entre os arquivos, e demonstra na prática como <strong>um prompt bem estruturado economiza mensagens</strong> &mdash; algo essencial para quem usa o plano gratuito.</p>
       </div>
 
       <div class="nav-buttons">
@@ -800,26 +738,246 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
     <!-- 09 -->
     <div class="section" id="sec-step9">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">09.</span> O que você tem ao final desta atividade</div>
-      <div class="sec-desc">O Project Financeiro Lumina pronto para receber as Skills das próximas APs</div>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">11 passos em 2 fases &mdash; Fase 01 consome 1 mensagem, Fase 02 consome zero</div>
 
-      <div class="overview-card">
-        <h3>Você sai desta atividade com</h3>
-        <ul class="check-list">
-          <li>Um <strong>Claude Project chamado "Financeiro &mdash; Lumina"</strong> completamente configurado.</li>
-          <li><strong>Nome e Descrição</strong> customizados refletindo o caso da rede de 90 filiais.</li>
-          <li><strong>Instruções (System Prompt)</strong> posicionando o assistente como analista financeiro sênior da Lumina.</li>
-          <li><strong>4 arquivos de contexto</strong> (<code>.md</code>) &mdash; plano de contas, política de classificação, identidade visual minimalista oriental e histórico financeiro &mdash; que o Project consulta em toda resposta.</li>
-          <li>Um <strong>ambiente financeiro pronto para receber as Skills</strong> das próximas atividades práticas (DRE, análise narrativa e painel HTML).</li>
-          <li><strong>Saldo de mensagens preservado:</strong> apenas 1 mensagem consumida do limite gratuito (1 de 5 do orçamento total da aula).</li>
-        </ul>
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">VISÃO GERAL</span><span class="step-card-title">Antes de começar</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Você vai usar <strong>1 mensagem</strong> ao Claude (no Passo 03) para gerar os 4 elementos do Project. Os demais passos são configuração via interface &mdash; <strong>zero mensagens adicionais</strong>.</p>
+          <p class="step-card-desc">Mantenha esta página da AP01 e a aba do Claude abertas em paralelo &mdash; você vai voltar entre elas para copiar/colar conteúdo. <strong>Não feche o chat da Fase 01</strong>: ele tem os elementos 1, 2 e 3 que você ainda vai precisar.</p>
+        </div>
       </div>
 
-      <div class="insight-box">
-        <div class="insight-label">Próximo passo &mdash; AP02</div>
-        <p>Na próxima atividade prática você vai criar a <strong>primeira Skill dentro deste Project: a Skill de DRE Lumina</strong>. Ela vai receber a planilha bruta de lançamentos da rede e devolver o DRE estruturado no formato padrão da empresa &mdash; em segundos, em vez de horas.</p>
-        <p>O Project que você acabou de configurar é o ambiente onde essa Skill vai operar com toda a inteligência financeira da Lumina já carregada. Sem o Project, a Skill não saberia como classificar uma despesa de frete entre as 90 lojas, nem como tratar a sazonalidade do setor de cosméticos.</p>
-        <p><strong>A AP02 também vai consumir apenas 1 mensagem.</strong></p>
+      <div class="fase-divider">
+        <span class="phase-num">Fase 01</span>
+        <span class="phase-title">Geração dos 4 elementos</span>
+        <span class="phase-badge">consome 1 mensagem</span>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Selecione o modelo Sonnet 4.6</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Abra <strong>claude.ai/new</strong> no navegador (faça login se necessário). No seletor de modelo, escolha <strong>Claude Sonnet 4.6</strong> &mdash; disponível tanto no plano gratuito quanto no pago.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-01.jpeg" alt="Passo 01 — Selecione o modelo Sonnet 4.6" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 01 &mdash; Selecione o modelo Sonnet 4.6</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Copie o prompt da AP01 abaixo</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No bloco do <strong>Prompt da AP01</strong> abaixo, clique no botão <strong>"Copiar prompt"</strong> no canto superior direito. O texto inteiro vai para a área de transferência (você vê <em>"Copiado &check;"</em> por 2 segundos).</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-02.jpeg" alt="Passo 02 — Copie o prompt da AP01" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 02 &mdash; Copie o prompt da AP01</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP01</span>
+            <div class="copy-block" id="prompt-ap01">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap01-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap01-text">Vou criar um Project no Claude para análise financeira mensal da Lumina — uma empresa fictícia em grande crescimento no segmento de wellness. A Lumina vende balas de goma funcionais para pessoas que praticam exercícios. Tem 3 produtos no portfólio: bala de goma pré-treino, bala de goma com creatina e bala de goma com whey protein. Vende online (canal principal, via e-commerce próprio) e tem 2 lojas físicas próprias (uma em São Paulo e uma no Rio de Janeiro).
+
+Para criar esse Project, eu preciso preencher 4 campos:
+
+CAMPO 1 — Nome do Project (texto simples curto)
+CAMPO 2 — Descrição do Project (texto simples, 1 a 2 frases)
+CAMPO 3 — Instruções do Project (texto simples completo — o System Prompt do assistente)
+CAMPO 4 — Arquivos de contexto (3 arquivos .md + 1 arquivo .xlsx, descritos abaixo)
+
+Por favor, gere os elementos abaixo, em blocos SEPARADOS, para que eu possa copiar/baixar individualmente:
+
+═══════════════════════════════════════════════════════
+ELEMENTO 1 — Nome do Project (texto simples)
+═══════════════════════════════════════════════════════
+Nome curto e profissional, no formato:
+"Financeiro — Lumina"
+
+═══════════════════════════════════════════════════════
+ELEMENTO 2 — Descrição do Project (texto simples, 1-2 frases)
+═══════════════════════════════════════════════════════
+Descreva o objetivo do Project em 1 ou 2 frases. Inclua que este Project serve para análise financeira mensal da Lumina, organização de lançamentos no plano de contas, geração de DRE, análise narrativa e construção do painel financeiro mensal.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 3 — Instruções do Project (texto simples — System Prompt)
+═══════════════════════════════════════════════════════
+Crie um System Prompt completo para configurar o assistente financeiro. Deve incluir:
+- Identidade do assistente (papel: analista financeiro sênior da Lumina; tom: direto, claro e alinhado à energia wellness premium da marca)
+- Contexto completo da empresa (empresa de wellness em crescimento, 3 produtos de bala de goma funcional, canal online principal e 2 lojas físicas em SP e RJ, público fitness/wellness)
+- Diretrizes de análise: priorizar Receita Líquida, Margem Bruta, Margem Operacional e Margem Líquida; sempre comparar com mês anterior; destacar variações acima de 5%
+- Formato padrão de output: estrutura tabular para DRE, prosa estruturada para análise narrativa, sempre dentro da identidade visual carregada nos arquivos
+- Ferramentas e features do Claude que vão ser usadas dentro deste Project (Skills para organização de lançamentos, DRE, análise narrativa, painel HTML, e tarefas agendadas via Cowork para automação mensal)
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4A — Arquivo "plano-de-contas-lumina.md"
+═══════════════════════════════════════════════════════
+Plano de contas financeiro da Lumina em formato Markdown. É a LISTA ESTRUTURADA das contas que existem na operação. Inclua:
+- Receitas: vendas online (canal próprio) e vendas físicas (2 lojas: SP e RJ), separadas pelos 3 produtos (pré-treino, creatina, whey protein)
+- Deduções: impostos sobre vendas (Simples Nacional ou Lucro Presumido), devoluções, descontos comerciais
+- Custo dos Produtos Vendidos (CPV): custo de produção das balas de goma (matéria-prima, embalagem, terceirização de produção)
+- Despesas Operacionais: aluguel das 2 lojas, folha de pagamento, marketing digital (mídia paga, influenciadores), logística e fulfillment do e-commerce, despesas administrativas
+- Despesas Financeiras: juros sobre antecipação de recebíveis, IOF, tarifas bancárias, taxas de gateway de pagamento
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4B — Arquivo "politica-classificacao-lancamentos.md"
+═══════════════════════════════════════════════════════
+Política de classificação de lançamentos da Lumina em formato Markdown. É o MANUAL DE REGRAS que resolve ambiguidades de classificação. Inclua:
+- Critérios de quando uma despesa é operacional vs. financeira
+- Como classificar fretes (CPV ou despesa operacional dependendo do contexto — fulfillment de pedidos online vs. transferência entre lojas)
+- Tratamento de devoluções de produtos
+- Como classificar gastos com influenciadores e mídia paga (sempre operacional, dentro de marketing)
+- Regra de rateio de despesas administrativas entre os canais (online e lojas físicas)
+- Como classificar produtos enviados como permuta (sem nota fiscal mas com custo real)
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4C — Arquivo "identidade-visual-lumina.md"
+═══════════════════════════════════════════════════════
+Identidade visual da Lumina em formato Markdown. A marca tem estética minimalismo wellness premium — fresca, sofisticada, energética sem ser agressiva. Inclua:
+- Paleta de cores principal:
+  · Branco quente neutro: #FBF9F5
+  · Verde-musgo suave: #5C7A5A
+  · Coral terroso: #C97A5A
+  · Cinza-taupe quente: #8A857D
+  · Verde-claro pálido: #D4DDC9
+- Tipografia:
+  · Títulos: Fraunces (serifada moderna com toque artesanal/wellness)
+  · Corpo: Inter (sans-serif clean e neutra)
+- Estilo dos relatórios: muito espaço negativo, gráficos sem grade visível, dados como protagonistas, linhas finas, ausência de ornamentos pesados
+- Princípios de design: menos é mais, dados em primeiro plano, hierarquia visual por espaçamento, estética "wellness premium" inspirada em marcas como Athletic Greens, Loop, Olipop
+- Logo descrito em texto para o Claude reproduzir como SVG inline quando gerar peças (símbolo minimalista — pequeno círculo verde-musgo vazado sobre tipografia serifada Fraunces da palavra "lumina" em lowercase)
+
+Entregue como um ARTEFATO Markdown (.md) para download.
+
+═══════════════════════════════════════════════════════
+ELEMENTO 4D — Arquivo "historico-financeiro-lumina.xlsx"
+═══════════════════════════════════════════════════════
+Use code execution para gerar uma planilha Excel (.xlsx) com 3 abas (sheets). Use openpyxl ou pandas para gerar o arquivo. Conteúdo:
+
+ABA 1 — "DRE Histórico"
+- Cabeçalho: linhas do DRE (Receita Bruta, Deduções, Receita Líquida, CPV, Lucro Bruto, Despesas Operacionais, Resultado Operacional, Despesas Financeiras, Resultado Líquido) + linhas de Margens (Bruta, Operacional, Líquida)
+- Colunas: Julho/2025, Agosto/2025, Setembro/2025
+- Números fictícios coerentes com empresa de wellness em crescimento (faixa de R$ 800K–R$ 1,2M de receita líquida mensal, margens razoáveis para o setor)
+- Setembro deve ser o mês mais recente e mais forte (próximo do verão)
+
+ABA 2 — "KPIs Operacionais"
+- Métricas: Ticket Médio E-commerce, Ticket Médio Lojas Físicas, Taxa Conversão E-commerce, % Vendas Online, % Vendas Loja SP, % Vendas Loja RJ, % Vendas Pré-treino, % Vendas Creatina, % Vendas Whey
+- Colunas: Julho/2025, Agosto/2025, Setembro/2025
+- Valores realistas (ticket médio ~R$ 80-150, conversão e-commerce 1-3%, mix de canal coerente)
+
+ABA 3 — "Eventos Relevantes"
+- Tabela cronológica dos últimos 6 meses (abril a setembro 2025)
+- Colunas: Data, Tipo de Evento, Descrição, Impacto Esperado
+- Eventos: lançamento do whey protein há 4 meses, abertura da loja do Rio há 6 meses, parcerias com influenciadores no último trimestre, campanhas relevantes
+
+Aplique formatação visual mínima: cabeçalhos em negrito, valores monetários formatados em R$, percentuais com símbolo %.
+
+Entregue como um ARTEFATO Excel (.xlsx) para download.
+
+═══════════════════════════════════════════════════════
+
+IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em blocos copiáveis (não como artefatos), os elementos 4A, 4B e 4C como ARTEFATOS Markdown separados, e o elemento 4D como ARTEFATO Excel (.xlsx) gerado via code execution.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Cole o prompt no Claude e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte para a aba do Claude. Cole o prompt no campo de mensagem (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique no botão de envio. <strong>Esta é a única mensagem que você vai usar nesta AP.</strong></p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-03.jpeg" alt="Passo 03 — Cole o prompt no Claude e envie" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 03 &mdash; Cole o prompt no Claude e envie</p>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Tempo de resposta esperado</div>
+        <p>Cerca de <strong>90 a 120 segundos</strong> para o Claude gerar todos os elementos &mdash; incluindo a planilha <code>.xlsx</code> via code execution.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Baixe os 4 arquivos de contexto</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Quando o Claude terminar, clique no botão <strong>"Baixar tudo"</strong> acima dos artefatos para baixar os 4 arquivos de uma vez: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-lancamentos.md</code>, <code>identidade-visual-lumina.md</code> e <code>historico-financeiro-lumina.xlsx</code>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-04.jpeg" alt="Passo 04 — Baixe os 4 arquivos de contexto" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 04 &mdash; Baixe os 4 arquivos (3 .md + 1 .xlsx)</p>
+        </div>
+      </div>
+
+      <div class="fase-divider">
+        <span class="phase-num">Fase 02</span>
+        <span class="phase-title">Configuração do Project</span>
+        <span class="phase-badge zero">zero mensagens</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A partir daqui</div>
+        <p>Você não envia mais mensagens ao Claude nesta AP. <strong>Tudo é configuração via interface</strong> &mdash; clicar, colar, fazer upload.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Acesse a área de Projetos</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, clique em <strong>"Projetos"</strong> (ou <strong>"Projects"</strong> dependendo do idioma da interface) para entrar na área de projetos.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-05.jpeg" alt="Passo 05 — Acesse a área de Projetos" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 05 &mdash; Acesse a área de Projetos</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Clique em "Novo projeto"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na área de Projetos, clique no botão <strong>"+ Novo projeto"</strong> (ou <strong>"+ New project"</strong>) para abrir o formulário de criação.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-06.jpeg" alt="Passo 06 — Clique em Novo projeto" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 06 &mdash; Clique em "Novo projeto"</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 07</span><span class="step-card-title">Preencha Nome e Descrição e crie o Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte ao chat da Fase 01 e copie o <strong>Elemento 1 &mdash; Nome do Project</strong>. Cole no campo <strong>"No que você está trabalhando?"</strong>. Em seguida, copie o <strong>Elemento 2 &mdash; Descrição</strong> e cole no campo <strong>"O que você quer realizar?"</strong>. Por fim, clique em <strong>"Criar projeto"</strong>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-07.jpeg" alt="Passo 07 — Preencha Nome e Descrição e crie o Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 07 &mdash; Preencha os 2 campos e clique "Criar projeto"</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Adicione as Instruções do Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No Project recém-criado, localize a seção <strong>"Instruções"</strong> e clique no ícone <strong>"+"</strong> (ou no link de edição) para abrir o editor.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-08.jpeg" alt="Passo 08 — Adicione as Instruções do Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 08 &mdash; Abra o editor de Instruções</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 09</span><span class="step-card-title">Cole o System Prompt e salve</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte ao chat da Fase 01 e copie o conteúdo completo do <strong>Elemento 3 &mdash; Instruções do Project</strong> (o System Prompt). Cole no editor (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em <strong>"Salvar instruções"</strong>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-09.jpeg" alt="Passo 09 — Cole o System Prompt e salve" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 09 &mdash; Cole o System Prompt (cmd+v) e salve</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 10</span><span class="step-card-title">Carregue os 4 arquivos do aparelho</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na seção <strong>"Arquivos"</strong> do Project, clique no ícone <strong>"+"</strong> e selecione <strong>"Carregar do aparelho"</strong>. Selecione os 4 arquivos que você baixou no Passo 04 (3 <code>.md</code> + 1 <code>.xlsx</code>) &mdash; pode mandar todos de uma vez (<code>Cmd+clique</code> no Mac, <code>Ctrl+clique</code> no Windows).</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-10.jpeg" alt="Passo 10 — Carregue os 4 arquivos do aparelho" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 10 &mdash; Selecione "Carregar do aparelho" e mande os 4 arquivos</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 11</span><span class="step-card-title">Confirme que os 4 arquivos estão no Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc"><strong>Validação visual:</strong> após o upload, confirme que os <strong>4 arquivos</strong> aparecem listados na seção <strong>"Arquivos"</strong> do Project: <code>plano-de-contas-lumina.md</code>, <code>politica-classificacao-lancamentos.md</code>, <code>identidade-visual-lumina.md</code> e <code>historico-financeiro-lumina.xlsx</code>. <strong>Se os 4 estiverem visíveis, o Project está pronto.</strong></p>
+          <div class="step-card-img-wrap"><img src="./assets/ap01-passo-11.jpeg" alt="Passo 11 — Confirme que os 4 arquivos estão no Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 11 &mdash; 4 arquivos visíveis = Project pronto para receber as Skills</p>
+        </div>
       </div>
 
       <div class="nav-buttons">
@@ -831,7 +989,35 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
     <!-- 10 -->
     <div class="section" id="sec-step10">
       <span class="section-badge badge-pratica">Atividade Prática</span>
-      <div class="sec-title pratica"><span class="snum">10.</span> Desafio na sua empresa</div>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">O Project Financeiro Lumina pronto para receber as Skills das próximas APs</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>Um <strong>Claude Project chamado "Financeiro &mdash; Lumina"</strong> completamente configurado.</li>
+          <li><strong>Nome e Descrição</strong> customizados refletindo o caso da Lumina (empresa de wellness com 3 produtos e 2 lojas físicas).</li>
+          <li><strong>Instruções (System Prompt)</strong> posicionando o assistente como analista financeiro sênior da Lumina.</li>
+          <li><strong>4 arquivos de contexto</strong> carregados &mdash; plano de contas, política de classificação, identidade visual minimalismo wellness e histórico financeiro com 3 abas &mdash; que o Project consulta em toda resposta.</li>
+          <li>Um <strong>ambiente financeiro pronto para receber as Skills</strong> das próximas atividades práticas (organização de lançamentos, DRE, análise narrativa e painel).</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP02</div>
+        <p>Na próxima atividade prática você vai criar a <strong>primeira Skill dentro do contexto deste Project: a Skill de Organização de Lançamentos</strong>. Ela vai pegar uma planilha bruta de lançamentos da Lumina (com vendas online, vendas das 2 lojas, custos de produção e despesas operacionais) e devolver uma planilha estruturada com tudo classificado conforme o plano de contas que você acabou de configurar aqui.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
       <div class="sec-desc">Replique exatamente o mesmo processo &mdash; agora com o contexto real da sua empresa</div>
 
       <p class="lead-text">Agora que você dominou o conceito do Project Financeiro com o caso da Lumina, replique exatamente o mesmo processo para a <strong>realidade da sua empresa</strong>.</p>
@@ -839,28 +1025,27 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
       <div class="desafio-card">
         <div class="dc-label">Desafio na sua empresa</div>
         <div class="dc-title">Crie o Project Financeiro real da sua empresa</div>
-        <p>Aplique o mesmo fluxo da AP01 &mdash; trocando todas as menções à Lumina pelo perfil da sua empresa real:</p>
+        <p>O que fazer:</p>
         <ol>
-          <li><strong>Adapte o prompt da AP01</strong> trocando todas as menções à Lumina pelo perfil da sua empresa real: setor, porte (número de filiais ou estrutura real), mix de produtos/serviços, sazonalidade relevante e identidade visual da sua marca.</li>
+          <li><strong>Adapte o prompt da AP01</strong> trocando todas as menções à Lumina pelo perfil da sua empresa real: setor (wellness &rarr; setor da sua empresa), estrutura (3 produtos + 2 lojas físicas &rarr; estrutura real), mix de produtos/serviços, sazonalidade relevante e identidade visual da sua marca.</li>
           <li><strong>Envie o prompt adaptado</strong> ao Claude e gere os 4 elementos do Project para sua empresa.</li>
           <li><strong>Crie um novo Project</strong> chamado <em>"Financeiro &mdash; [Nome da sua empresa]"</em> e configure os 4 campos com o conteúdo gerado.</li>
-          <li><strong>Faça upload dos 4 arquivos de contexto</strong> customizados.</li>
+          <li><strong>Faça upload dos 4 arquivos de contexto</strong> customizados (3 <code>.md</code> + 1 <code>.xlsx</code>).</li>
         </ol>
         <div class="dc-meta"><strong>Resultado esperado:</strong> você terá um Project Financeiro real da sua empresa, pronto para receber as Skills das próximas APs aplicadas ao seu contexto. <strong>Tempo estimado:</strong> 20 a 30 minutos (a maior parte é revisar o conteúdo gerado para garantir que reflete fielmente a realidade da sua empresa).</div>
       </div>
 
       <div class="insight-box">
-        <div class="insight-label">Por que esse desafio é o passo 1 de uma jornada de 5 semanas</div>
-        <p>Cada AP desta aula tem um desafio na sua empresa. Em conjunto, esses 5 desafios formam um <strong>plano de implementação de 5 semanas</strong> do pipeline financeiro com IA na empresa real. Ao final da quinta semana, você terá:</p>
+        <div class="insight-label">Por que esse desafio é o passo 1 de uma jornada de 5 dias</div>
+        <p>Cada AP desta aula tem um desafio na sua empresa. Em conjunto, esses 5 desafios formam um <strong>plano de implementação de 5 dias</strong> do pipeline financeiro com IA na empresa real. Ao final do quinto dia, você terá:</p>
         <p>&bull; Project Financeiro real da empresa<br>
-        &bull; Skills de DRE, análise narrativa e painel rodando com dados reais<br>
-        &bull; Tarefa agendada de fechamento mensal automática<br>
-        &bull; Visão clara de como evoluir para Live Artifacts (operação sempre-fresca)</p>
-        <p><strong>Comece pela AP01 esta semana.</strong></p>
+        &bull; Skills de organização de lançamentos, DRE, análise narrativa e painel rodando com dados reais<br>
+        &bull; Tarefa agendada de fechamento mensal automática</p>
+        <p><strong>Comece pela AP01 ainda hoje &mdash; em 5 dias você tem o pipeline rodando com os dados reais da sua empresa.</strong></p>
       </div>
 
       <div class="nav-buttons">
-        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
         <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
       </div>
     </div>
@@ -886,7 +1071,7 @@ IMPORTANTE: entregue os elementos 1, 2 e 3 como TEXTO SIMPLES formatado em bloco
   // Section navigation + progress
   const PKEY = "delta-tut-ap01-project-financeiro";
   const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
-  const TOTAL = 10;
+  const TOTAL = 11;
 
   function renderProgress() {
     document.querySelectorAll(".nav-item").forEach(ni => {
