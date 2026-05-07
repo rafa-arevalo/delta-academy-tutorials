@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03. Geração e Análise do DRE &middot; AI no Financeiro &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+
+  /* ====== Componentes específicos da AP03 ====== */
+
+  /* Banner do entregável (item 01) — 3 outputs em grid */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:8px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .out-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+  .out-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+  .out-card .oc-icon{font-size:1.4rem;line-height:1}
+  .out-card .oc-title{font-size:0.78rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em}
+  .out-card .oc-desc{font-size:0.66rem;color:var(--text2);line-height:1.45}
+  @media (max-width:640px){.out-grid{grid-template-columns:1fr}}
+
+  /* Recap-card (item 02) — 4 etapas com status */
+  .recap-card{margin:14px 0 6px;display:flex;flex-direction:column;gap:6px}
+  .recap-row{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border-radius:8px;border:1px solid var(--border);background:var(--panel)}
+  .recap-row .rr-num{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;min-width:60px}
+  .recap-row .rr-body{flex:1}
+  .recap-row .rr-title{font-size:0.82rem;font-weight:700;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.01em}
+  .recap-row .rr-meta{font-size:0.72rem;color:var(--text3);font-style:italic}
+  .recap-row .rr-badge{font-size:0.58rem;font-weight:800;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;align-self:flex-start;margin-top:2px}
+  .recap-row.done{background:#EFF1EA;border-color:#B8CCA0}
+  [data-palette="dusk"] .recap-row.done{background:#1F3322;border-color:#3F5D35}
+  .recap-row.done .rr-num,.recap-row.done .rr-title{color:#33491F}
+  [data-palette="dusk"] .recap-row.done .rr-num,[data-palette="dusk"] .recap-row.done .rr-title{color:#A8C68C}
+  .recap-row.done .rr-meta{color:#5C7A5A}
+  .recap-row.done .rr-badge{background:#5C7A5A;color:#FFFFFF}
+  .recap-row.current{background:var(--coral-light);border-color:var(--coral-border);border-left:4px solid var(--coral)}
+  .recap-row.current .rr-num{color:var(--coral-text);font-weight:900}
+  .recap-row.current .rr-title{color:var(--coral-text);font-weight:800}
+  .recap-row.current .rr-meta{color:var(--coral-text)}
+  .recap-row.current .rr-badge{background:var(--coral);color:#FFFFFF}
+  .recap-row.future{opacity:0.55}
+  .recap-row.future .rr-badge{background:var(--text3);color:#FFFFFF}
+
+  /* Grid de 2 Skills (item 03) com seta de encadeamento */
+  .skills-chain{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;align-items:stretch;margin:14px 0}
+  .skill-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-xs)}
+  .skill-card.left{border-top:4px solid var(--green)}
+  .skill-card.right{border-top:4px solid var(--coral)}
+  .skill-card .sk-num{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em}
+  .skill-card.left .sk-num{color:var(--green-text)}
+  .skill-card.right .sk-num{color:var(--coral-text)}
+  .skill-card .sk-name{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.78rem;font-weight:700;color:var(--accent2);background:var(--ficha-td1-bg);padding:4px 8px;border-radius:4px;display:inline-block;width:fit-content}
+  .skill-card .sk-type{font-size:0.66rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em}
+  .skill-card .sk-desc{font-size:0.74rem;color:var(--text2);line-height:1.5}
+  .skill-card .sk-desc strong{color:var(--accent2);font-weight:700}
+  .chain-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;color:var(--gold)}
+  @media (max-width:640px){.skills-chain{grid-template-columns:1fr;gap:6px}.chain-arrow{transform:rotate(90deg)}}
+
+  /* Pipeline-flow (item 04) — 4 estágios */
+  .pipeline-flow{display:grid;grid-template-columns:1fr 18px 1fr 18px 1fr 18px 1fr;gap:6px;align-items:stretch;margin:14px 0}
+  .flow-stage{padding:12px 10px;border-radius:8px;text-align:center;display:flex;flex-direction:column;gap:4px;justify-content:center}
+  .flow-stage .fs-icon{font-size:1.2rem;line-height:1}
+  .flow-stage .fs-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em}
+  .flow-stage .fs-name{font-size:0.7rem;font-weight:700;line-height:1.3;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace}
+  .flow-stage.input{background:#E5EBF3;color:#1A3D5F;border:1px solid #B8C9DC}
+  [data-palette="dusk"] .flow-stage.input{background:#1E3147;color:#C4DBEF;border-color:#385D80}
+  .flow-stage.skill1{background:var(--green-light);color:var(--green-text);border:1px solid var(--green-border)}
+  .flow-stage.skill2{background:var(--coral-light);color:var(--coral-text);border:1px solid var(--coral-border)}
+  .flow-stage.output{background:var(--accent2);color:var(--bg);border:1px solid var(--accent2)}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--gold);font-weight:800}
+  @media (max-width:640px){.pipeline-flow{grid-template-columns:1fr;gap:4px}.flow-arrow{transform:rotate(90deg)}}
+
+  /* Threshold-card (item 07) — destaque visual escuro */
+  .threshold-card{background:linear-gradient(135deg,#1F3331 0%,#2A4441 100%);color:#F2ECE0;border-radius:10px;padding:18px 20px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .threshold-card .tc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:#D1AA53;margin-bottom:8px}
+  .threshold-card .tc-title{font-size:0.92rem;font-weight:700;color:#F2ECE0;margin-bottom:10px;letter-spacing:-0.01em}
+  .tc-grid{display:grid;grid-template-columns:1fr 36px 1fr;gap:8px;align-items:center;margin:10px 0}
+  .tc-pill{background:rgba(209,170,83,0.12);border:1px solid rgba(209,170,83,0.3);border-radius:8px;padding:14px;text-align:center}
+  .tc-pill .tcp-icon{font-size:1.1rem;margin-bottom:4px}
+  .tc-pill .tcp-value{font-size:1.4rem;font-weight:800;color:#D1AA53;letter-spacing:-0.02em;line-height:1}
+  .tc-pill .tcp-label{font-size:0.62rem;font-weight:700;color:#F2ECE0;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+  .tc-or{font-size:0.78rem;font-weight:800;color:#D1AA53;text-transform:uppercase;letter-spacing:0.16em;text-align:center}
+  .threshold-card .tc-foot{font-size:0.7rem;color:rgba(242,236,224,0.78);font-style:italic;line-height:1.55;margin-top:8px}
+  @media (max-width:640px){.tc-grid{grid-template-columns:1fr;gap:6px}}
+
+  /* Cards de duração + modelo */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Fase divider */
+  .fase-divider{display:flex;align-items:center;gap:10px;margin:22px 0 12px;padding:14px 18px;background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;box-shadow:var(--shadow-xs)}
+  .fase-divider .phase-num{font-size:0.62rem;font-weight:800;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase}
+  .fase-divider .phase-title{font-size:1.05rem;font-weight:800;color:var(--accent2);flex:1;letter-spacing:-0.01em}
+  .fase-divider .phase-badge{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 9px;border-radius:4px;background:var(--accent2);color:var(--bg)}
+
+  /* Bloco de download */
+  .materials-block{background:#EFF1EA;border:1px solid #B8CCA0;border-left:3px solid #5C7A5A;border-radius:8px;padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-xs)}
+  [data-palette="dusk"] .materials-block{background:#1F3322;border-color:#3F5D35}
+  .materials-block .mb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#33491F;margin-bottom:6px}
+  [data-palette="dusk"] .materials-block .mb-label{color:#A8C68C}
+  .materials-block .mb-title{font-size:0.86rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .material-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .material-grid.cols-2{grid-template-columns:1fr 1fr}
+  @media (max-width:640px){.material-grid,.material-grid.cols-2{grid-template-columns:1fr}}
+  .material-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--panel);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:inherit;transition:all 0.15s}
+  .material-item:hover{background:var(--accent-lighter);border-color:var(--accent);transform:translateY(-1px)}
+  .material-item .mi-icon{flex-shrink:0;width:34px;height:34px;border-radius:6px;background:var(--accent2);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:800;letter-spacing:0.04em}
+  .material-item .mi-icon.zip{background:var(--accent2)}
+  .material-item .mi-icon.md{background:var(--coral)}
+  .material-item .mi-info{flex:1;min-width:0}
+  .material-item .mi-name{font-size:0.7rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;word-break:break-all;line-height:1.3;margin-bottom:2px}
+  .material-item .mi-desc{font-size:0.62rem;color:var(--text3);line-height:1.4}
+
+  /* Card do Desafio */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:8px 0 8px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:8px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li ul{list-style:none;margin-top:4px}
+  .desafio-card ol li ul li{padding:2px 0 2px 12px;font-size:0.72rem;color:rgba(242,236,224,0.85)}
+  .desafio-card ol li ul li::before{content:'·';background:transparent;color:var(--gold);font-weight:800;width:auto;height:auto;top:0;font-size:1rem}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+
+  /* Lista de checkmarks */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+
+  /* Step-cards Scribehow (item 09) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.92rem;color:var(--text);line-height:1.55;margin:0 0 14px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-img-wrap{background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)}
+  .step-card-img-wrap img{width:100%;display:block;border-radius:4px}
+  .step-card-caption{font-size:0.78rem;color:var(--text3);font-style:italic;margin:8px 0 0;text-align:center}
+  .step-card-textonly .step-card-body{padding-bottom:16px}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Geração e Análise do DRE</h2>
+      <p>Atividade 03 &middot; AI no Financeiro</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Onde você está no fluxo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Por que separar em 2 Skills<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Encadeamento de Skills<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompts da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Financeiro &rsaquo; <a href="index.html">Índice</a> &rsaquo; 03. Geração e Análise do DRE</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP03 e como ele se conecta com o destino final da A10</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
+          <tr><td>Duração</td><td>18 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>2 Claude Skills encadeadas (<code>gerar-dre-lumina</code> + <code>analisar-dre-lumina</code>)</td></tr>
+          <tr><td>Pré-requisito</td><td>AP02 concluída &mdash; planilha estruturada de outubro/2025 baixada (<code>lancamentos-lumina-classificados-outubro-2025.xlsx</code>)</td></tr>
+          <tr><td>Entregável</td><td>DRE estruturado de outubro/2025 + análise narrativa em 5 blocos</td></tr>
+        </tbody></table>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A10.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP03:</strong> o DRE estruturado de outubro/2025 da Lumina + a análise narrativa executiva no padrão <em>Executive Summary</em> &mdash; o conteúdo que vai compor o Painel Financeiro Lumina (AP04).</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP03</div>
+        <div class="eb-title">DRE estruturado + Análise narrativa &mdash; outubro/2025</div>
+        <div class="out-grid">
+          <div class="out-card">
+            <div class="oc-icon">&#128202;</div>
+            <div class="oc-title">DRE estruturado</div>
+            <div class="oc-desc">Tabela CPC + 3 margens + comparativo lado a lado vs setembro/2025</div>
+          </div>
+          <div class="out-card">
+            <div class="oc-icon">&#128221;</div>
+            <div class="oc-title">Análise narrativa</div>
+            <div class="oc-desc">Executive Summary em 5 blocos com root causes e olhar prospectivo</div>
+          </div>
+          <div class="out-card">
+            <div class="oc-icon">&#128230;</div>
+            <div class="oc-title">Material p/ liderança</div>
+            <div class="oc-desc">Pronto para o painel HTML que você vai gerar na AP04</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP se conecta com o destino final da A10</div>
+        <p>O DRE + análise que você vai gerar aqui são o <strong>conteúdo bruto</strong> do Painel Financeiro Lumina &mdash; a peça visual única que sintetiza o mês inteiro num arquivo HTML pronto para apresentar.</p>
+        <p>Sem essa AP, a AP04 não tem o que renderizar. <strong>A AP03 é o miolo intelectual do pipeline financeiro.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Onde você está no fluxo do fechamento mensal</div>
+      <div class="sec-desc">As 4 etapas do fechamento e onde a AP03 se posiciona</div>
+
+      <p class="lead-text">Recapitulando as 4 etapas do fechamento mensal financeiro &mdash; e onde a AP03 se posiciona:</p>
+
+      <div class="recap-card">
+        <div class="recap-row done">
+          <div class="rr-num">Etapa 1</div>
+          <div class="rr-body">
+            <div class="rr-title">Coleta dos lançamentos + ambiente Project configurado</div>
+            <div class="rr-meta">Você fez na AP01</div>
+          </div>
+          <div class="rr-badge">&#10003; AP01</div>
+        </div>
+        <div class="recap-row done">
+          <div class="rr-num">Etapa 2</div>
+          <div class="rr-body">
+            <div class="rr-title">Classificação dos lançamentos no plano de contas</div>
+            <div class="rr-meta">Você fez na AP02</div>
+          </div>
+          <div class="rr-badge">&#10003; AP02</div>
+        </div>
+        <div class="recap-row current">
+          <div class="rr-num">Etapa 3</div>
+          <div class="rr-body">
+            <div class="rr-title">Geração do DRE + Análise narrativa</div>
+            <div class="rr-meta">Você está aqui agora</div>
+          </div>
+          <div class="rr-badge">&#11013; AP03</div>
+        </div>
+        <div class="recap-row future">
+          <div class="rr-num">Etapa 4</div>
+          <div class="rr-body">
+            <div class="rr-title">Painel visual e automação mensal</div>
+            <div class="rr-meta">Próximas APs</div>
+          </div>
+          <div class="rr-badge">AP04</div>
+        </div>
+      </div>
+
+      <p class="lead-text">A AP03 cobre <strong>50% da Etapa 4 (análise)</strong> também &mdash; porque a análise narrativa que você vai gerar aqui é o <strong>conteúdo intelectual</strong> que a AP04 vai apenas embelezar visualmente. <strong>O pensamento financeiro acontece nesta AP.</strong></p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Por que separar geração e análise em 2 Skills</div>
+      <div class="sec-desc">Cada Skill com uma única responsabilidade entrega outputs mais consistentes</div>
+
+      <p class="lead-text">A AP03 introduz uma escolha de design importante: <strong>2 Skills com responsabilidades diferentes</strong>, em vez de uma Skill grande que faz tudo.</p>
+
+      <div class="skills-chain">
+        <div class="skill-card left">
+          <div class="sk-num">Skill 1 &middot; Operação técnica</div>
+          <div class="sk-name">gerar-dre-lumina</div>
+          <div class="sk-type">Soma e estrutura</div>
+          <div class="sk-desc">Pega a planilha classificada e produz o DRE no formato tabular padrão CPC, com comparativo automático vs mês anterior. <strong>Output:</strong> tabela + 3 margens.</div>
+        </div>
+        <div class="chain-arrow">&rarr;</div>
+        <div class="skill-card right">
+          <div class="sk-num">Skill 2 &middot; Operação interpretativa</div>
+          <div class="sk-name">analisar-dre-lumina</div>
+          <div class="sk-type">Narra e recomenda</div>
+          <div class="sk-desc">Lê o DRE da Skill anterior na mesma conversa e produz análise em 5 blocos Executive Summary, com root causes e pontos de atenção para o CFO.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que separar em duas</div>
+        <p>Skills monolíticas erram mais. Uma Skill que faz tudo (gerar + analisar) <strong>confunde os dois passos</strong>: perde rigor estrutural na soma e fica superficial na análise.</p>
+        <p>Skills focadas em uma única responsabilidade entregam outputs mais consistentes e são mais fáceis de manter ao longo do tempo. <strong>Cada Skill faz uma coisa e faz bem feito.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; Encadeamento de Skills</div>
+      <div class="sec-desc">Output de uma Skill vira input da próxima, na mesma conversa</div>
+
+      <p class="lead-text">O <strong>encadeamento de Skills</strong> é quando o output de uma Skill vira o input da próxima, <strong>dentro da mesma conversa</strong>. O Claude carrega as duas Skills em sequência sem precisar de prompts longos entre elas.</p>
+
+      <div class="pipeline-flow">
+        <div class="flow-stage input">
+          <div class="fs-icon">&#128229;</div>
+          <div class="fs-label">Input</div>
+          <div class="fs-name">Planilha classificada (AP02)</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-stage skill1">
+          <div class="fs-icon">&#9881;</div>
+          <div class="fs-label">Skill 1</div>
+          <div class="fs-name">gerar-dre-lumina</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-stage skill2">
+          <div class="fs-icon">&#9881;</div>
+          <div class="fs-label">Skill 2</div>
+          <div class="fs-name">analisar-dre-lumina</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-stage output">
+          <div class="fs-icon">&#128228;</div>
+          <div class="fs-label">Output</div>
+          <div class="fs-name">DRE + Análise</div>
+        </div>
+      </div>
+
+      <p class="lead-text">A Skill 2 <strong>não precisa receber a planilha original de novo</strong> &mdash; ela lê o DRE que a Skill 1 acabou de produzir, no mesmo chat. Esse é o ganho do encadeamento: cada Skill <strong>parte de onde a anterior parou</strong>, sem retrabalho.</p>
+
+      <div class="insight-box">
+        <div class="insight-label">Analogia</div>
+        <p>Encadeamento de Skills é como <strong>uma equipe pequena especializada</strong>: o contador estrutura o DRE, o controller analisa o DRE, e ambos trabalham na mesma sala &mdash; não precisam reapresentar os dados um ao outro.</p>
+        <p>Você não está terceirizando o pensamento. Está organizando <strong>o trabalho cognitivo em estágios bem definidos</strong>, cada um com a ferramenta certa para ele.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">As duas fases do encadeamento — geração + análise</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo das 2 Skills encadeadas em duas fases:</p>
+
+      <div class="overview-card">
+        <h3>Fase 01 &mdash; Geração do DRE (1 mensagem)</h3>
+        <p>O professor abre o Project Financeiro Lumina, cria nova conversa, anexa a planilha estruturada de outubro/2025 (output da AP02) e aciona a Skill <code>gerar-dre-lumina</code>.</p>
+        <p style="margin-top:6px"><strong>Output esperado:</strong> DRE em tabela + comparativo lado a lado com setembro/2025 + bloco com as 3 margens + artefato <code>.md</code> para download.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Fase 02 &mdash; Análise narrativa (1 mensagem, mesma conversa)</h3>
+        <p>Sem fechar a conversa, o professor envia uma nova mensagem acionando a Skill <code>analisar-dre-lumina</code>. A Skill lê o DRE que acabou de aparecer no chat e produz a análise narrativa em 5 blocos Executive Summary.</p>
+        <p style="margin-top:6px"><strong>Output esperado:</strong> resumo executivo no chat + artefato <code>.md</code> com os 5 blocos completos.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Skill 2 não precisa da planilha</div>
+        <p>A Skill <code>analisar-dre-lumina</code> só precisa do <strong>DRE estruturado</strong> &mdash; que já está na conversa graças à Skill 1. Esse é o princípio do encadeamento: cada Skill consome o que a anterior produziu, sem retrabalho.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompts da demonstração</div>
+      <div class="sec-desc">2 prompts usados em sequência na mesma conversa</div>
+
+      <p class="lead-text">São <strong>2 prompts</strong> usados em sequência na mesma conversa:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt 1 &mdash; Skill gerar-dre-lumina</span>
+        <div class="copy-block" id="prompt-demo-1">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-1-text').textContent)">Copiar prompt</button>
+<span id="prompt-demo-1-text">Gere o DRE de outubro/2025 da Lumina a partir da planilha de lançamentos classificados em anexo.
+
+Use a Skill `gerar-dre-lumina` que está instalada na minha conta. Ela vai consultar o plano de contas e o histórico financeiro carregados nos arquivos deste Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo no chat (DRE em tabela + comparativo lado a lado vs setembro/2025 + bloco com as 3 margens)
+2. Artefato Markdown (.md) com o DRE estruturado para download</span></div>
+      </div>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt 2 &mdash; Skill analisar-dre-lumina</span>
+        <div class="copy-block" id="prompt-demo-2">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-2-text').textContent)">Copiar prompt</button>
+<span id="prompt-demo-2-text">Agora gere a análise narrativa executiva do DRE de outubro/2025 da Lumina.
+
+Use a Skill `analisar-dre-lumina` que está instalada na minha conta. Ela vai ler o DRE que você acabou de gerar acima nesta conversa e consultar o histórico Lumina + DRE de setembro carregados nos arquivos do Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo Executivo (Bloco 1) no chat
+2. Artefato Markdown (.md) com os 5 blocos completos da análise para download</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">5 sinais que diferenciam o output de 2 Skills bem encadeadas</div>
+
+      <ul class="observation-list">
+        <li><strong>O DRE da Skill 1 vem em formato tabular padrão CPC</strong> &mdash; Receita Bruta &rarr; Deduções &rarr; Receita Líquida &rarr; CPV &rarr; Lucro Bruto &rarr; Despesas Op &rarr; Resultado Operacional &rarr; Despesas Financeiras &rarr; Resultado Líquido. Sem inventar linhas.</li>
+        <li><strong>O comparativo lado a lado set/25 vs out/25</strong> aparece automaticamente &mdash; a Skill consultou o histórico carregado no Project sem precisar de prompt explícito.</li>
+        <li><strong>A Skill 2 começa lendo o DRE da Skill 1</strong> &mdash; observe como ela referencia os números do DRE no Resumo Executivo logo nas primeiras frases.</li>
+        <li><strong>O threshold de materialidade está aplicado</strong> &mdash; a análise cita 3 a 6 movimentos materiais, não dezenas. Variações pequenas (abaixo de R$ 100K e 5%) são propositalmente ignoradas.</li>
+        <li><strong>Os 5 blocos da análise têm estrutura rigorosa</strong> &mdash; Resumo Executivo + Análise das 3 Margens + Movimentos Materiais + Olhar Prospectivo + Pontos de Atenção CFO. Sempre na mesma ordem.</li>
+      </ul>
+
+      <div class="threshold-card">
+        <div class="tc-label">Threshold de materialidade Lumina</div>
+        <div class="tc-title">&#127919; Critérios para um movimento entrar na análise</div>
+        <div class="tc-grid">
+          <div class="tc-pill">
+            <div class="tcp-icon">&#128176;</div>
+            <div class="tcp-value">R$ 100K</div>
+            <div class="tcp-label">Valor absoluto</div>
+          </div>
+          <div class="tc-or">OU</div>
+          <div class="tc-pill">
+            <div class="tcp-icon">&#128200;</div>
+            <div class="tcp-value">5%</div>
+            <div class="tcp-label">Variação relativa</div>
+          </div>
+        </div>
+        <div class="tc-foot">Variações abaixo desse threshold são consideradas ruído operacional e não entram na análise. Variações em margens sempre comentadas se &ge; 1 ponto percentual.</div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">Instale 2 Skills encadeadas e gere o DRE + análise narrativa de outubro/2025</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">18 min</div>
+          <div class="mc-detail">Fase 01 (10 min) + Fase 02 (8 min)</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.6</div>
+          <div class="mc-detail">Disponível tanto no plano gratuito quanto no pago. <strong>&#128142; Plano pago:</strong> use Opus 4.7 para root causes mais profundos no Bloco 5 (Pontos de Atenção CFO).</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai instalar agora <strong>2 Skills encadeadas</strong> na sua conta Claude e gerar o DRE + análise narrativa de <strong>outubro/2025</strong> da Lumina. Esta AP tem <strong>duas fases</strong>:</p>
+
+      <div class="overview-card">
+        <h3>Estrutura da atividade</h3>
+        <ul>
+          <li><strong>FASE 01 (10 min):</strong> instalar as 2 Skills, carregar o DRE de setembro de referência no Project, anexar a planilha estruturada e acionar a Skill <code>gerar-dre-lumina</code>.</li>
+          <li><strong>FASE 02 (8 min):</strong> na mesma conversa, acionar a Skill <code>analisar-dre-lumina</code> e revisar a análise narrativa em 5 blocos.</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Esta AP consome 2 mensagens &mdash; a maior da aula</div>
+        <p>É o único momento da aula em que você vai usar 2 mensagens em uma única AP. As 2 mensagens são intencionais &mdash; é como você experimenta o <strong>encadeamento de Skills</strong> na prática.</p>
+        <p>Total da aula até aqui: <strong>4 mensagens</strong> (de 6 totais previstos).</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">10 passos em 2 fases &mdash; Fase 01 gera o DRE, Fase 02 produz a análise narrativa na mesma conversa</div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">VISÃO GERAL</span><span class="step-card-title">Antes de começar</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Você vai precisar de <strong>3 arquivos baixados</strong> antes de interagir com o Claude. Depois você instala as 2 Skills encadeadas, carrega o DRE de setembro narrativo no Project, anexa a planilha classificada da AP02 e aciona a primeira Skill.</p>
+          <p class="step-card-desc"><strong>Pré-requisito:</strong> a planilha <code>lancamentos-lumina-classificados-outubro-2025.xlsx</code> baixada no final da AP02 deve estar acessível no seu computador. Se não baixou, volte rapidinho e faça o download antes de continuar.</p>
+        </div>
+      </div>
+
+      <div class="materials-block">
+        <div class="mb-label">&#128229; Materiais da AP03</div>
+        <div class="mb-title">Baixe os 3 arquivos antes de começar</div>
+        <div class="material-grid">
+          <a class="material-item" href="./assets/gerar-dre-lumina.zip" download>
+            <div class="mi-icon zip">ZIP</div>
+            <div class="mi-info">
+              <div class="mi-name">gerar-dre-lumina.zip</div>
+              <div class="mi-desc">Skill 1 do encadeamento</div>
+            </div>
+          </a>
+          <a class="material-item" href="./assets/analisar-dre-lumina.zip" download>
+            <div class="mi-icon zip">ZIP</div>
+            <div class="mi-info">
+              <div class="mi-name">analisar-dre-lumina.zip</div>
+              <div class="mi-desc">Skill 2 do encadeamento</div>
+            </div>
+          </a>
+          <a class="material-item" href="./assets/dre-lumina-setembro-2025.md" download>
+            <div class="mi-icon md">MD</div>
+            <div class="mi-info">
+              <div class="mi-name">dre-lumina-setembro-2025.md</div>
+              <div class="mi-desc">DRE de setembro narrativo</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="fase-divider">
+        <span class="phase-num">Fase 01</span>
+        <span class="phase-title">Geração do DRE</span>
+        <span class="phase-badge">consome 1 mensagem</span>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Baixe os 3 arquivos da AP03</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique nos 3 cards do bloco <em>Materiais da AP03</em> acima para baixar os arquivos no seu computador: <code>gerar-dre-lumina.zip</code> (Skill 1), <code>analisar-dre-lumina.zip</code> (Skill 2) e <code>dre-lumina-setembro-2025.md</code> (DRE narrativo de referência). <strong>Não descompacte os ZIPs</strong> &mdash; o Claude precisa deles intactos.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-01.jpeg" alt="Passo 01 — Baixe os 3 arquivos da AP03" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 01 &mdash; Baixe os 3 arquivos (2 ZIPs + 1 MD)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Acesse Skills e clique "Fazer upload de uma habilidade"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu <strong>Personalizar &gt; Habilidades</strong> da sua conta Claude, clique no botão <strong>"Fazer upload de uma habilidade"</strong>. Você vai instalar as 2 Skills uma de cada vez.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-02.jpeg" alt="Passo 02 — Clique em Fazer upload de uma habilidade" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 02 &mdash; Acesse a página de Skills e abra o uploader</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Faça upload de gerar-dre-lumina.zip</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique na área de upload e selecione o arquivo <code>gerar-dre-lumina.zip</code> baixado no Passo 01. Confirme que a Skill <strong>gerar-dre-lumina</strong> aparece na lista com status <em>Instalada / Ativada</em>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-03.jpeg" alt="Passo 03 — Selecione gerar-dre-lumina.zip" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 03 &mdash; Suba a Skill 1 (gerar-dre-lumina)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Faça upload de analisar-dre-lumina.zip</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Repita o processo: clique em <strong>"Fazer upload de uma habilidade"</strong> novamente e selecione <code>analisar-dre-lumina.zip</code>. Confirme que agora você tem as <strong>2 Skills</strong> instaladas e ativadas: <code>gerar-dre-lumina</code> e <code>analisar-dre-lumina</code>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-04.jpeg" alt="Passo 04 — Suba analisar-dre-lumina.zip" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 04 &mdash; Suba a Skill 2 (analisar-dre-lumina)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Carregue o DRE de setembro nos arquivos do Project</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Abra o <strong>Project Financeiro Lumina</strong> (criado na AP01). Na seção <strong>Arquivos</strong>, clique no ícone <strong>+</strong> e faça upload do arquivo <code>dre-lumina-setembro-2025.md</code> baixado no Passo 01. <strong>Resultado:</strong> 5 arquivos no total na seção Arquivos do Project.</p>
+          <div class="tip-box" style="margin:6px 0">
+            <div class="tip-label">Por que esse arquivo extra</div>
+            <p>Você já tem o DRE de setembro na Aba 1 do <code>historico-financeiro-lumina.xlsx</code> carregado na AP01. Esse <code>.md</code> é uma versão <strong>mais detalhada e narrativa</strong> do mesmo mês &mdash; com eventos relevantes e drivers de variação. A Skill <code>analisar-dre-lumina</code> consome esse <code>.md</code> para produzir comparativos mais ricos.</p>
+          </div>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-05.jpeg" alt="Passo 05 — Carregue dre-lumina-setembro-2025.md no Project" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 05 &mdash; Adicione o DRE de setembro narrativo à seção Arquivos</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Nova conversa, anexe a planilha e envie o Prompt 1</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Ainda no Project Financeiro Lumina, clique em <strong>+ Nova conversa</strong>. Anexe o arquivo <code>lancamentos-lumina-classificados-outubro-2025.xlsx</code> (output da AP02) clicando no ícone de clipe &#128206;. Cole o <strong>Prompt 1</strong> abaixo e clique em enviar.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-06.jpeg" alt="Passo 06 — Anexe a planilha e envie o Prompt 1" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 06 &mdash; Planilha anexada + Prompt 1 enviado (1 mensagem)</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt 1 &mdash; Skill gerar-dre-lumina</span>
+            <div class="copy-block" id="prompt-ap03-1">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap03-1-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap03-1-text">Gere o DRE de outubro/2025 da Lumina a partir da planilha de lançamentos classificados em anexo.
+
+Use a Skill `gerar-dre-lumina` que está instalada na minha conta. Ela vai consultar o plano de contas e o histórico financeiro carregados nos arquivos deste Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo no chat (DRE em tabela + comparativo lado a lado vs setembro/2025 + bloco com as 3 margens)
+2. Artefato Markdown (.md) com o DRE estruturado para download</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Tempo de resposta esperado</div>
+        <p>Cerca de <strong>60 a 90 segundos</strong> para o Claude processar a planilha e gerar o DRE.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 07</span><span class="step-card-title">Confira o DRE e baixe o artefato</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No chat você deve ver: <strong>DRE consolidado em tabela</strong>, <strong>comparativo lado a lado set/out</strong> e <strong>bloco com as 3 margens</strong> calculadas. Confirme que o número total de lançamentos somados bate com a planilha (60). Depois clique em <strong>"Baixar"</strong> no artefato <code>dre-lumina-outubro-2025.md</code> para salvar.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-07.jpeg" alt="Passo 07 — Baixe o DRE gerado" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 07 &mdash; Baixe o DRE de outubro/2025 (.md)</p>
+        </div>
+      </div>
+
+      <div class="fase-divider">
+        <span class="phase-num">Fase 02</span>
+        <span class="phase-title">Análise narrativa</span>
+        <span class="phase-badge">consome 1 mensagem</span>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">A FASE 02 acontece na MESMA conversa</div>
+        <p><strong>Não abra um novo chat. Não inicie uma nova conversa no Project.</strong> Continue exatamente onde parou no Passo 07. A Skill <code>analisar-dre-lumina</code> precisa ler o DRE que acabou de aparecer no chat &mdash; esse é o princípio do encadeamento.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Copie o Prompt 2 abaixo</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique no botão <strong>"Copiar prompt"</strong> no Prompt 2 logo abaixo (acionamento da Skill <code>analisar-dre-lumina</code>). O prompt vai para a área de transferência.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-08.jpeg" alt="Passo 08 — Copie o Prompt 2 desta página" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 08 &mdash; Copie o Prompt 2 (acionamento da Skill 2)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 09</span><span class="step-card-title">Cole o Prompt 2 na MESMA conversa e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte para a conversa do Passo 06 (não abra nova). Cole o prompt no campo de mensagem (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em enviar. <strong>Você não precisa anexar a planilha de novo</strong> &mdash; a Skill 2 lê o DRE que já está no chat.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-09.jpeg" alt="Passo 09 — Cole o Prompt 2 na mesma conversa e envie" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 09 &mdash; Cole o Prompt 2 na mesma conversa (1 mensagem)</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt 2 &mdash; Skill analisar-dre-lumina</span>
+            <div class="copy-block" id="prompt-ap03-2">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap03-2-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap03-2-text">Agora gere a análise narrativa executiva do DRE de outubro/2025 da Lumina.
+
+Use a Skill `analisar-dre-lumina` que está instalada na minha conta. Ela vai ler o DRE que você acabou de gerar acima nesta conversa e consultar o histórico Lumina + DRE de setembro carregados nos arquivos do Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo Executivo (Bloco 1) no chat
+2. Artefato Markdown (.md) com os 5 blocos completos da análise para download</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Tempo de resposta esperado</div>
+        <p>Cerca de <strong>60 a 120 segundos</strong> para o Claude processar o DRE e gerar a análise narrativa em 5 blocos.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 10</span><span class="step-card-title">Revise os 5 blocos e baixe a análise narrativa</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No chat você verá apenas o <strong>Bloco 1 &mdash; Resumo Executivo</strong> (3-4 frases densas). Clique no artefato <code>analise-dre-lumina-outubro-2025.md</code> para abrir e revisar os 5 blocos completos:</p>
+          <ul style="margin:8px 0 14px 0;list-style:none">
+            <li style="padding:3px 0 3px 16px;position:relative;font-size:0.86rem;color:var(--text)"><span style="position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);display:block"></span><strong>Bloco 1:</strong> Resumo Executivo (15 segundos de leitura)</li>
+            <li style="padding:3px 0 3px 16px;position:relative;font-size:0.86rem;color:var(--text)"><span style="position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);display:block"></span><strong>Bloco 2:</strong> Análise das 3 Margens com root causes</li>
+            <li style="padding:3px 0 3px 16px;position:relative;font-size:0.86rem;color:var(--text)"><span style="position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);display:block"></span><strong>Bloco 3:</strong> Movimentos materiais (3-6 itens com threshold aplicado)</li>
+            <li style="padding:3px 0 3px 16px;position:relative;font-size:0.86rem;color:var(--text)"><span style="position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);display:block"></span><strong>Bloco 4:</strong> Olhar prospectivo (ventos favoráveis/contrários/decisões pendentes)</li>
+            <li style="padding:3px 0 3px 16px;position:relative;font-size:0.86rem;color:var(--text)"><span style="position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);display:block"></span><strong>Bloco 5:</strong> Pontos de Atenção para o CFO (3-5 itens com prioridade Alta/Média/Baixa)</li>
+          </ul>
+          <p class="step-card-desc">Clique em <strong>"Baixar"</strong> para salvar o arquivo no seu computador.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap03-passo-10.jpeg" alt="Passo 10 — Baixe a análise narrativa" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 10 &mdash; Baixe a análise narrativa em 5 blocos</p>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">2 Skills instaladas + DRE estruturado + análise narrativa em 5 blocos</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li><strong>2 Skills instaladas permanentemente</strong> na sua conta Claude (<code>gerar-dre-lumina</code> + <code>analisar-dre-lumina</code>) &mdash; prontas para ser acionadas em qualquer mês futuro.</li>
+          <li>Um <strong>DRE estruturado de outubro/2025</strong> em formato tabular CPC, com comparativo lado a lado vs setembro/2025 e as 3 margens calculadas.</li>
+          <li>Uma <strong>análise narrativa executiva em 5 blocos</strong> &mdash; material rico que a liderança lê em 3-5 minutos, com root causes e pontos de atenção.</li>
+          <li><strong>Visibilidade interpretativa</strong> da operação financeira da Lumina em outubro: o que cresceu, por que cresceu, o que merece atenção.</li>
+          <li><strong>Material pronto para a AP04</strong> &mdash; onde a Skill <code>gerar-painel-lumina</code> vai pegar o DRE + análise e produzir o painel HTML executivo final.</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP04</div>
+        <p>Na próxima atividade prática você vai usar uma <strong>terceira Skill</strong> que pega o DRE + análise que você acabou de gerar e produz o <strong>Painel Financeiro Lumina</strong> &mdash; peça visual única em HTML autocontido, com identidade visual minimalismo wellness, pronta para apresentar à liderança ou enviar para o conselho.</p>
+        <p><strong>É o ápice visual do pipeline financeiro.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">2 Skills encadeadas customizadas para a realidade da sua empresa</div>
+
+      <p class="lead-text">Agora que você dominou o encadeamento de Skills com o caso da Lumina, replique o mesmo processo para a <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Crie 2 Skills encadeadas customizadas: <code>gerar-dre-[empresa]</code> + <code>analisar-dre-[empresa]</code></div>
+        <p>O que fazer:</p>
+        <ol>
+          <li><strong>Baixe os 2 prompts de geração das Skills</strong> (disponíveis abaixo) &mdash; são os prompts que criam as Skills da Lumina, e que você vai customizar para a sua empresa.</li>
+          <li><strong>Adapte cada prompt</strong> trocando todas as menções à Lumina pelo perfil real da sua empresa:
+            <ul>
+              <li><strong>Setor e estrutura</strong> (wellness com 3 produtos + e-commerce + 2 lojas &rarr; realidade da sua operação)</li>
+              <li><strong>Estrutura do DRE</strong> (linhas que fazem sentido para o seu negócio &mdash; empresa de serviços tem CPV diferente de empresa de produtos)</li>
+              <li><strong>Threshold de materialidade</strong> (R$ 100K + 5% da Lumina &rarr; calibre para o porte da sua empresa: menor pode usar R$ 20K + 3%; maior pode usar R$ 500K + 5%)</li>
+              <li><strong>Tons e estilo</strong> (alinhar à identidade da sua marca)</li>
+            </ul>
+          </li>
+          <li><strong>Envie cada prompt adaptado</strong> ao Claude (em conversas separadas) e gere as 2 Skills <code>gerar-dre-[empresa]</code> e <code>analisar-dre-[empresa]</code>.</li>
+          <li><strong>Faça upload dos 2 <code>.zip</code> gerados</strong> em <em>Customize &gt; Skills</em> na sua conta.</li>
+          <li><strong>Garanta que o Project Financeiro da sua empresa</strong> tem o histórico financeiro e (idealmente) um DRE narrativo do mês anterior carregados.</li>
+          <li><strong>Acione as 2 Skills em sequência</strong> com a planilha real classificada da sua empresa (output do Desafio da AP02) e valide o output das duas.</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> 2 Skills encadeadas específicas para a realidade financeira da sua empresa, instaladas permanentemente, prontas para ser acionadas todo mês no fechamento. <strong>Tempo estimado:</strong> 60 a 90 minutos (a maior parte é calibrar o threshold de materialidade para o porte da empresa e definir os 5 blocos da análise no contexto do seu setor).</div>
+      </div>
+
+      <div class="materials-block">
+        <div class="mb-label">&#128229; Material do Desafio</div>
+        <div class="mb-title">Prompts de referência para gerar as 2 Skills customizadas</div>
+        <div class="material-grid cols-2">
+          <a class="material-item" href="./assets/prompt-gerar-skill-gerar-dre.md" download>
+            <div class="mi-icon md">MD</div>
+            <div class="mi-info">
+              <div class="mi-name">prompt-gerar-skill-gerar-dre.md</div>
+              <div class="mi-desc">Prompt da Skill 1 (geração do DRE) com instruções de customização</div>
+            </div>
+          </a>
+          <a class="material-item" href="./assets/prompt-gerar-skill-analisar-dre.md" download>
+            <div class="mi-icon md">MD</div>
+            <div class="mi-info">
+              <div class="mi-name">prompt-gerar-skill-analisar-dre.md</div>
+              <div class="mi-desc">Prompt da Skill 2 (análise narrativa) com calibração de threshold</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Por que esse desafio é o passo 3 da jornada de 5 dias</div>
+        <p>Você já configurou o ambiente (AP01), eliminou o gargalo da classificação (AP02), e agora tem o miolo do pipeline financeiro funcionando (AP03). Em 3 dias, você cobriu <strong>60% do pipeline financeiro completo</strong> da sua empresa.</p>
+        <p><strong>Faça este desafio depois de amanhã &mdash; em 5 dias você tem o pipeline rodando com os dados reais da sua empresa.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap03-dre-analise";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 11;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
