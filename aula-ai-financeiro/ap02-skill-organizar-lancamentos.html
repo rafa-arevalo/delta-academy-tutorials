@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02. Skill de Organização de Lançamentos &middot; AI no Financeiro &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+
+  /* ====== Componentes específicos da AP02 ====== */
+
+  /* Banner do entregável (item 01) — layout antes/depois */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:8px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .ba-grid{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;align-items:stretch;margin-top:10px}
+  .ba-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+  .ba-card.before{border-left:3px solid var(--coral)}
+  .ba-card.after{border-left:3px solid var(--green)}
+  .ba-card .ba-tag{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);display:flex;align-items:center;gap:6px}
+  .ba-card.before .ba-tag{color:var(--coral-text)}
+  .ba-card.after .ba-tag{color:var(--green-text)}
+  .ba-card .ba-list{list-style:none;font-size:0.72rem;color:var(--text2);line-height:1.55}
+  .ba-card .ba-list li{padding:2px 0 2px 14px;position:relative}
+  .ba-card .ba-list li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%}
+  .ba-card.before .ba-list li::before{background:var(--coral)}
+  .ba-card.after .ba-list li::before{background:var(--green)}
+  .ba-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--coral);font-weight:700}
+  @media (max-width:640px){.ba-grid{grid-template-columns:1fr;gap:6px}.ba-arrow{transform:rotate(90deg)}}
+
+  /* Grid de 3 cards das características da Skill (item 02) */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 6px}
+  .feat-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:var(--shadow-xs);text-align:center}
+  .feat-card .fc-icon{width:42px;height:42px;border-radius:50%;background:var(--accent-lighter);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 8px}
+  .feat-card .fc-title{font-size:0.82rem;font-weight:800;color:var(--accent2);margin-bottom:4px;letter-spacing:-0.01em}
+  .feat-card .fc-desc{font-size:0.72rem;color:var(--text2);line-height:1.5}
+  @media (max-width:640px){.feat-grid{grid-template-columns:1fr}}
+
+  /* Steps-card 4 etapas do fechamento mensal (item 03) — etapa 2 com destaque */
+  .steps-card{margin:14px 0 6px}
+  .step-row{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+  .step-row .sr-num{font-size:0.72rem;font-weight:800;color:var(--accent);min-width:60px;text-transform:uppercase;letter-spacing:0.08em}
+  .step-row .sr-body{flex:1}
+  .step-row .sr-title{font-size:0.82rem;font-weight:700;color:var(--accent2);margin-bottom:3px;letter-spacing:-0.01em}
+  .step-row .sr-desc{font-size:0.74rem;color:var(--text2);line-height:1.55}
+  .step-row .sr-desc em{color:var(--text3);font-size:0.7rem}
+  .step-row.gargalo{background:var(--coral-light);border-color:var(--coral-border);border-left:4px solid var(--coral);position:relative}
+  .step-row.gargalo .sr-num{color:var(--coral-text)}
+  .step-row.gargalo .sr-title{color:var(--coral-text)}
+  .step-row.gargalo .sr-desc{color:var(--coral-text)}
+  .step-row .sr-badge{font-size:0.58rem;font-weight:800;color:var(--coral);background:#FFFFFF;border:1px solid var(--coral-border);padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;align-self:flex-start;margin-top:2px}
+
+  /* Cards de duração + modelo */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Fase divider — alta hierarquia visual */
+  .fase-divider{display:flex;align-items:center;gap:10px;margin:22px 0 12px;padding:14px 18px;background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--gold);border-radius:8px;box-shadow:var(--shadow-xs)}
+  .fase-divider .phase-num{font-size:0.62rem;font-weight:800;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase}
+  .fase-divider .phase-title{font-size:1.05rem;font-weight:800;color:var(--accent2);flex:1;letter-spacing:-0.01em}
+  .fase-divider .phase-badge{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 9px;border-radius:4px;background:var(--accent2);color:var(--bg)}
+  .fase-divider .phase-badge.zero{background:var(--green);color:#fff}
+
+  /* Bloco de download (Passo 01 e Desafio) */
+  .materials-block{background:#EFF1EA;border:1px solid #B8CCA0;border-left:3px solid #5C7A5A;border-radius:8px;padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-xs)}
+  [data-palette="dusk"] .materials-block{background:#1F3322;border-color:#3F5D35}
+  .materials-block .mb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#33491F;margin-bottom:6px}
+  [data-palette="dusk"] .materials-block .mb-label{color:#A8C68C}
+  .materials-block .mb-title{font-size:0.86rem;font-weight:700;color:var(--accent2);margin-bottom:10px}
+  .material-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .material-grid.single{grid-template-columns:1fr}
+  @media (max-width:640px){.material-grid{grid-template-columns:1fr}}
+  .material-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--panel);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:inherit;transition:all 0.15s}
+  .material-item:hover{background:var(--accent-lighter);border-color:var(--accent);transform:translateY(-1px)}
+  .material-item .mi-icon{flex-shrink:0;width:34px;height:34px;border-radius:6px;background:var(--accent2);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:800;letter-spacing:0.04em}
+  .material-item .mi-icon.xlsx{background:var(--green)}
+  .material-item .mi-icon.md{background:var(--coral)}
+  .material-item .mi-info{flex:1;min-width:0}
+  .material-item .mi-name{font-size:0.7rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;word-break:break-all;line-height:1.3;margin-bottom:2px}
+  .material-item .mi-desc{font-size:0.62rem;color:var(--text3);line-height:1.4}
+
+  /* Card do Desafio */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:8px 0 8px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:8px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li ul{list-style:none;margin-top:4px}
+  .desafio-card ol li ul li{padding:2px 0 2px 12px;font-size:0.72rem;color:rgba(242,236,224,0.85)}
+  .desafio-card ol li ul li::before{content:'·';background:transparent;color:var(--gold);font-weight:800;width:auto;height:auto;top:0;font-size:1rem}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+
+  /* Lista de checkmarks */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+
+  /* Step-cards Scribehow (item 09) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.92rem;color:var(--text);line-height:1.55;margin:0 0 14px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-img-wrap{background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)}
+  .step-card-img-wrap img{width:100%;display:block;border-radius:4px}
+  .step-card-caption{font-size:0.78rem;color:var(--text3);font-style:italic;margin:8px 0 0;text-align:center}
+  .step-card-textonly .step-card-body{padding-bottom:16px}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Skill de Organização de Lançamentos</h2>
+      <p>Atividade 02 &middot; AI no Financeiro</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> O que é uma Skill<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Gargalo do fechamento<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Como a Skill substitui horas<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Financeiro &rsaquo; <a href="index.html">Índice</a> &rsaquo; 02. Skill de Organização de Lançamentos</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP02 e como ela se conecta com o destino final da A10</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
+          <tr><td>Duração</td><td>14 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Skills (acionada dentro do Project Financeiro Lumina)</td></tr>
+          <tr><td>Pré-requisito</td><td>AP01 concluída &mdash; Project Financeiro Lumina configurado com os 4 arquivos de contexto carregados</td></tr>
+          <tr><td>Entregável</td><td>Skill <code>organizar-lancamentos-lumina</code> instalada + planilha de outubro/2025 com 60 lançamentos classificados</td></tr>
+        </tbody></table>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A10.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP02:</strong> a Skill <em>"organizar-lancamentos-lumina"</em> instalada na sua conta Claude e uma <strong>planilha estruturada de outubro/2025</strong> com 60 lançamentos da Lumina classificados conforme o plano de contas &mdash; pronta para ser usada como input das próximas APs (DRE, análise narrativa e painel).</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP02</div>
+        <div class="eb-title">Skill <code>organizar-lancamentos-lumina</code> + Planilha estruturada</div>
+        <div class="ba-grid">
+          <div class="ba-card before">
+            <div class="ba-tag">&#128229; Antes (planilha bruta)</div>
+            <ul class="ba-list">
+              <li>60 lançamentos sem classificação</li>
+              <li>Coluna "Centro de Custo" vazia</li>
+              <li>Coluna "Conta do Plano" vazia</li>
+            </ul>
+          </div>
+          <div class="ba-arrow">&rarr;</div>
+          <div class="ba-card after">
+            <div class="ba-tag">&#9881; Depois (Skill aplicada)</div>
+            <ul class="ba-list">
+              <li>Classificação conta a conta</li>
+              <li>Centro de Custo preenchido</li>
+              <li>3 abas: dados + 2 resumos</li>
+              <li>Visual minimalismo wellness</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP se conecta com o destino final da A10</div>
+        <p>A planilha classificada que você vai gerar aqui é o <strong>input direto da AP03</strong> &mdash; onde você vai gerar o DRE estruturado e a análise narrativa. <strong>Sem lançamentos classificados corretamente no plano de contas, não há DRE possível.</strong></p>
+        <p>A AP02 é o <strong>primeiro passo do pipeline financeiro mensal automatizado</strong> que você vai construir ao longo da aula.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> O que é uma Skill no Claude</div>
+      <div class="sec-desc">Uma instrução salva permanentemente que você instala uma vez e usa todo mês</div>
+
+      <p class="lead-text">Uma <strong>Skill</strong> no Claude é uma <strong>instrução salva</strong> que o Claude carrega automaticamente sempre que você precisa executar uma tarefa específica. Em vez de digitar o mesmo prompt longo todo mês, você instala a Skill uma vez e ela fica disponível para sempre na sua conta.</p>
+
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="fc-icon">&#9851;</div>
+          <div class="fc-title">Reutilizável</div>
+          <div class="fc-desc">A Skill fica permanentemente instalada na sua conta. Você cria uma vez, usa todo mês.</div>
+        </div>
+        <div class="feat-card">
+          <div class="fc-icon">&#9878;</div>
+          <div class="fc-title">Consistente</div>
+          <div class="fc-desc">Toda vez que a Skill é acionada, ela aplica as mesmas regras na mesma ordem. Sem variação humana mês a mês.</div>
+        </div>
+        <div class="feat-card">
+          <div class="fc-icon">&#128736;</div>
+          <div class="fc-title">Customizável</div>
+          <div class="fc-desc">Cada Skill tem um arquivo <code>SKILL.md</code> com instruções em linguagem natural. Você pode editar quando quiser.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A Skill substitui o prompt repetido</div>
+        <p>Sem a Skill, você teria que enviar um prompt de 50 linhas todo mês explicando o plano de contas, as regras de classificação e o formato de output esperado. Com a Skill, você manda <strong>uma frase curta</strong> ("organize os lançamentos da planilha em anexo") e a Skill faz o resto &mdash; porque toda a instrução longa já está salva permanentemente na sua conta.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Por que classificação é o gargalo do fechamento mensal</div>
+      <div class="sec-desc">As 4 etapas do fechamento &mdash; e onde a operação realmente trava</div>
+
+      <p class="lead-text">Em qualquer empresa, o fechamento mensal financeiro segue 4 etapas:</p>
+
+      <div class="steps-card">
+        <div class="step-row">
+          <div class="sr-num">Etapa 1</div>
+          <div class="sr-body">
+            <div class="sr-title">Coleta dos lançamentos</div>
+            <div class="sr-desc">Exportar do banco, do ERP, do gateway de pagamento, das maquininhas das lojas. <em>Geralmente automatizado.</em></div>
+          </div>
+        </div>
+        <div class="step-row gargalo">
+          <div class="sr-num">Etapa 2</div>
+          <div class="sr-body">
+            <div class="sr-title">Classificação dos lançamentos</div>
+            <div class="sr-desc">Cada lançamento bruto precisa ser categorizado dentro do plano de contas. <em>"Esse pagamento de R$ 12.000 foi para qual influenciadora? É marketing ou é permuta?"</em> Cada decisão dessas, multiplicada por dezenas ou centenas de lançamentos, <strong>toma horas de um analista por mês</strong>.</div>
+          </div>
+          <div class="sr-badge">&#11013; Aqui está o gargalo</div>
+        </div>
+        <div class="step-row">
+          <div class="sr-num">Etapa 3</div>
+          <div class="sr-body">
+            <div class="sr-title">Geração do DRE</div>
+            <div class="sr-desc">Uma vez classificado, somar por grupo é trivial. <em>(Será a AP03.)</em></div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="sr-num">Etapa 4</div>
+          <div class="sr-body">
+            <div class="sr-title">Análise e painel</div>
+            <div class="sr-desc">Interpretar variações, comparar com mês anterior, montar peça visual. <em>(Serão APs 03 e 04.)</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Etapa 2 é o gargalo</div>
+        <p>Não é difícil tecnicamente &mdash; é <strong>demorado e repetitivo</strong>. Cada lançamento precisa ser olhado individualmente. Cada ambiguidade precisa ser resolvida consultando políticas internas. Quando o analista termina, já é dia 5 ou 7 do mês seguinte &mdash; atrasando o fechamento inteiro.</p>
+        <p><strong>A Skill da AP02 elimina esse gargalo:</strong> classifica os 60 lançamentos da Lumina em <strong>menos de 1 minuto</strong>, aplicando rigorosamente o plano de contas e as regras da política de classificação carregados no Project.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; Como a Skill substitui horas de trabalho repetitivo</div>
+      <div class="sec-desc">Você terceiriza a execução repetitiva, não o julgamento financeiro</div>
+
+      <p class="lead-text">Pense em um analista financeiro novo entrando na empresa. No primeiro mês, ele precisa <strong>estudar</strong> o plano de contas, <strong>memorizar</strong> as regras de classificação, <strong>aplicar</strong> essas regras lançamento a lançamento, e <strong>documentar</strong> as decisões ambíguas para o controller revisar.</p>
+
+      <p class="lead-text">Isso leva <strong>3 a 5 dias por mês</strong>, todos os meses, <strong>para sempre</strong>.</p>
+
+      <p class="lead-text">A Skill faz exatamente o mesmo trabalho &mdash; mas <strong>em segundos, e sem inconsistências mês a mês</strong>.</p>
+
+      <div class="insight-box">
+        <div class="insight-label">Analogia</div>
+        <p>Uma Skill é como <strong>automatizar o processo de chegar a uma decisão</strong>, não apenas a decisão em si. O Claude usa o plano de contas e a política de classificação que você carregou no Project para tomar <strong>a mesma decisão que o analista tomaria</strong> &mdash; só que em larga escala, instantaneamente, e sem variação subjetiva entre meses.</p>
+        <p>Você não está terceirizando o <strong>julgamento financeiro</strong> &mdash; está terceirizando a <strong>execução repetitiva</strong> desse julgamento.</p>
+      </div>
+
+      <p class="lead-text">A Skill é declarada em <strong>linguagem natural</strong> num arquivo chamado <code>SKILL.md</code>, com 4 partes principais:</p>
+
+      <div class="overview-card">
+        <h3>As 4 partes do <code>SKILL.md</code></h3>
+        <ul>
+          <li><strong>Frontmatter (YAML):</strong> nome da Skill + descrição com <em>triggers</em> (palavras-chave que ativam a Skill).</li>
+          <li><strong>PASSO 0 &mdash; Contexto obrigatório:</strong> quais arquivos do Project precisam estar carregados.</li>
+          <li><strong>PASSOS 1, 2, 3...:</strong> instruções da operação em sequência (receber, processar, devolver).</li>
+          <li><strong>Tom + Não faça + Tratamento de erros:</strong> garantias de qualidade do output.</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">As duas fases do fluxo da Skill — instalação e acionamento</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo completo da Skill <code>organizar-lancamentos-lumina</code> em duas fases:</p>
+
+      <div class="overview-card">
+        <h3>Fase 01 &mdash; Instalação da Skill na conta Claude (zero mensagens)</h3>
+        <p>O professor abre a página <strong>Customize &gt; Skills</strong> no Claude, faz upload do arquivo <code>organizar-lancamentos-lumina.zip</code> e ativa a Skill. A Skill aparece na lista das Skills instaladas na conta &mdash; pronta para ser usada em qualquer Project.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>Fase 02 &mdash; Acionamento da Skill no Project (1 mensagem)</h3>
+        <p>O professor abre o <strong>Project Financeiro Lumina</strong> (criado na AP01), inicia uma nova conversa dentro do Project e <strong>anexa a planilha bruta de outubro/2025</strong>. Em seguida, envia uma frase curta acionando a Skill:</p>
+        <p style="margin-top:8px"><em>"Organize os lançamentos da planilha em anexo dentro do plano de contas da Lumina."</em></p>
+        <p style="margin-top:8px">O Claude reconhece os triggers da Skill, carrega o <code>plano-de-contas-lumina.md</code> e o <code>politica-classificacao-lancamentos.md</code>, e processa os 60 lançamentos. Em segundos, devolve <strong>2 outputs</strong>:</p>
+        <ul>
+          <li><strong>Resumo no chat</strong> &mdash; tabela com distribuição por categoria + distribuição por centro de custo.</li>
+          <li><strong>Planilha <code>.xlsx</code> como artefato</strong> &mdash; planilha completa com classificação, prontinha para download.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Skill funciona com uma frase curta</div>
+        <p>Toda a inteligência operacional (regras de classificação, mapeamento conta a conta, formato de output) está dentro do <code>SKILL.md</code> instalado na sua conta. Quando você aciona a Skill, o Claude <strong>carrega automaticamente</strong> essas instruções &mdash; você não precisa repetir nada.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstração</div>
+      <div class="sec-desc">A frase curta que aciona a Skill instalada</div>
+
+      <p class="lead-text">Este é o prompt que o professor usa para acionar a Skill na demonstração:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt da demonstração</span>
+        <div class="copy-block" id="prompt-demo">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-text').textContent)">Copiar prompt</button>
+<span id="prompt-demo-text">Organize os lançamentos da planilha em anexo dentro do plano de contas da Lumina.
+
+Use a Skill `organizar-lancamentos-lumina` que está instalada na minha conta. Ela vai consultar o plano de contas e a política de classificação carregados nos arquivos deste Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo no chat (tabelas de distribuição por categoria e por centro de custo)
+2. Planilha .xlsx estruturada como artefato para download</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">5 sinais que diferenciam o output de uma Skill bem configurada</div>
+
+      <ul class="observation-list">
+        <li><strong>A Skill carrega os arquivos do Project automaticamente.</strong> Sem precisar mencionar "leia o plano de contas" ou "consulte a política", o Claude já sabe onde buscar.</li>
+        <li><strong>O resumo no chat aparece em ~30 segundos</strong>, com tabelas de distribuição claras &mdash; antes mesmo da planilha completa terminar de ser gerada.</li>
+        <li><strong>A planilha <code>.xlsx</code> vem como artefato pronto para download</strong>, com formatação visual minimalismo wellness premium da Lumina aplicada (cabeçalho verde-musgo, fonte Inter, linhas alternadas em branco quente).</li>
+        <li><strong>Lançamentos ambíguos têm justificativa explícita</strong> na coluna "Justificativa" da planilha &mdash; o Claude documenta a decisão tomada (ex: <em>"Frete classificado como Despesa Op &middot; Logística porque a descrição menciona 'fulfillment'"</em>).</li>
+        <li><strong>Tudo isso consome 1 mensagem do Claude</strong> &mdash; porque a Skill está instalada e o Project tem o contexto carregado.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">Instale a Skill na conta e processe a planilha de outubro/2025 da Lumina</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">14 min</div>
+          <div class="mc-detail">Fase 01 (instalar) + Fase 02 (acionar)</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.6</div>
+          <div class="mc-detail">Disponível tanto no plano gratuito quanto no pago. <strong>&#128142; Plano pago:</strong> use Opus 4.7 para justificativas mais detalhadas em casos ambíguos.</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai instalar agora a Skill <code>organizar-lancamentos-lumina</code> na sua conta Claude e usar a Skill para organizar a planilha bruta de <strong>outubro/2025</strong> dentro do Project Financeiro Lumina (criado na AP01). Esta AP tem <strong>duas fases</strong>:</p>
+
+      <div class="overview-card">
+        <h3>Estrutura da atividade</h3>
+        <ul>
+          <li><strong>Fase 01 &mdash; Instalação da Skill</strong> &mdash; baixe o pacote da Skill e faça upload em <em>Customize &gt; Skills</em> (zero mensagens ao Claude).</li>
+          <li><strong>Fase 02 &mdash; Acionamento da Skill no Project</strong> &mdash; abra o Project, anexe a planilha bruta e envie a frase curta acionando a Skill (1 mensagem).</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que esta AP só consome 1 mensagem do Claude</div>
+        <p>Você vai instalar a Skill via upload direto do <code>.zip</code> (zero mensagens) e depois acionar a Skill com uma única mensagem curta no chat (1 mensagem). A Skill faz o trabalho pesado consultando os arquivos do Project automaticamente &mdash; você não precisa enviar prompts longos.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">10 passos em 2 fases &mdash; Fase 01 instala a Skill, Fase 02 aciona com 1 mensagem</div>
+
+      <div class="step-card step-card-textonly">
+        <div class="step-card-head"><span class="step-card-num">VISÃO GERAL</span><span class="step-card-title">Antes de começar</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Você vai precisar de <strong>2 arquivos baixados</strong> antes de interagir com o Claude (Passos 01 e 02). Depois você instala a Skill via upload (Passos 03 a 06) e finalmente aciona a Skill no Project Financeiro Lumina com <strong>1 mensagem</strong> (Passos 07 a 10).</p>
+          <p class="step-card-desc"><strong>Pré-requisito:</strong> o Project Financeiro Lumina precisa estar configurado (concluído na AP01) com os 4 arquivos de contexto carregados &mdash; em especial o <code>plano-de-contas-lumina.md</code> e o <code>politica-classificacao-lancamentos.md</code>, que a Skill consulta automaticamente.</p>
+        </div>
+      </div>
+
+      <div class="materials-block">
+        <div class="mb-label">&#128229; Materiais da AP02</div>
+        <div class="mb-title">Baixe os 2 arquivos antes de começar</div>
+        <div class="material-grid">
+          <a class="material-item" href="./assets/organizar-lancamentos-lumina.zip" download>
+            <div class="mi-icon">ZIP</div>
+            <div class="mi-info">
+              <div class="mi-name">organizar-lancamentos-lumina.zip</div>
+              <div class="mi-desc">Pacote da Skill pronta para instalar</div>
+            </div>
+          </a>
+          <a class="material-item" href="./assets/lancamentos-lumina-bruto-outubro-2025.xlsx" download>
+            <div class="mi-icon xlsx">XLSX</div>
+            <div class="mi-info">
+              <div class="mi-name">lancamentos-lumina-bruto-outubro-2025.xlsx</div>
+              <div class="mi-desc">Planilha com 60 lançamentos brutos</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="fase-divider">
+        <span class="phase-num">Fase 01</span>
+        <span class="phase-title">Instalação da Skill na conta Claude</span>
+        <span class="phase-badge zero">zero mensagens</span>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Baixe o pacote da Skill (ZIP)</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique no card <strong>"organizar-lancamentos-lumina.zip"</strong> no bloco <em>Materiais da AP02</em> acima para baixar o pacote da Skill no seu computador. <strong>Não descompacte</strong> &mdash; o Claude precisa do ZIP intacto para instalar.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-01.jpeg" alt="Passo 01 — Baixe organizar-lancamentos-lumina.zip" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 01 &mdash; Baixe o pacote da Skill (ZIP)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Baixe a planilha bruta de outubro/2025</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique no card <strong>"lancamentos-lumina-bruto-outubro-2025.xlsx"</strong> para baixar a planilha bruta de <strong>60 lançamentos</strong> contábeis da Lumina referente a outubro/2025.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-02.jpeg" alt="Passo 02 — Baixe lancamentos-lumina-bruto-outubro-2025.xlsx" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 02 &mdash; Baixe a planilha bruta de outubro/2025 (XLSX)</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Clique no ícone Personalizar</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, clique no ícone <strong>"Personalizar"</strong> (ou <em>Customize</em> dependendo do idioma) para acessar as configurações da sua conta.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-03.jpeg" alt="Passo 03 — Clique em Personalizar" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 03 &mdash; Acesse o menu Personalizar</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Clique em "Habilidades"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Dentro do menu Personalizar, selecione <strong>"Habilidades"</strong> (ou <em>Skills</em>) no submenu. Você vai ver a lista de Skills atualmente instaladas na sua conta.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-04.jpeg" alt="Passo 04 — Clique em Habilidades" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 04 &mdash; Clique em "Habilidades"</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Clique em "Fazer upload de uma habilidade"</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Na página de Habilidades, clique no botão <strong>"Fazer upload de uma habilidade"</strong> (ou <em>+ Add skill</em>) para abrir o seletor de arquivo.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-05.jpeg" alt="Passo 05 — Clique em Fazer upload de uma habilidade" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 05 &mdash; Abra o uploader de Skills</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 06</span><span class="step-card-title">Selecione o arquivo .zip da Skill</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique na área de upload e selecione o arquivo <code>organizar-lancamentos-lumina.zip</code> que você baixou no Passo 01. Após o upload, a Skill <code>organizar-lancamentos-lumina</code> vai aparecer na sua lista com o status <strong>Instalada / Ativada</strong>. Confirme que ela está ativa antes de prosseguir.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-06.jpeg" alt="Passo 06 — Selecione o arquivo .zip da Skill" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 06 &mdash; Selecione o ZIP e instale a Skill</p>
+        </div>
+      </div>
+
+      <div class="fase-divider">
+        <span class="phase-num">Fase 02</span>
+        <span class="phase-title">Acionamento da Skill no Project</span>
+        <span class="phase-badge">consome 1 mensagem</span>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A partir daqui</div>
+        <p>Você vai voltar para o <strong>Project Financeiro Lumina</strong> (criado na AP01) e enviar uma única mensagem com a planilha anexada. A Skill faz o resto.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 07</span><span class="step-card-title">Volte ao Project Financeiro Lumina e abra uma nova conversa</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte ao <strong>Project Financeiro Lumina</strong> (criado na AP01). Inicie uma nova conversa dentro do Project clicando em <strong>"+ Nova conversa"</strong>.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-07.jpeg" alt="Passo 07 — Abra nova conversa no Project Financeiro Lumina" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 07 &mdash; Abra uma nova conversa dentro do Project</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 08</span><span class="step-card-title">Anexe a planilha bruta na mensagem</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No campo de mensagem, <strong>anexe o arquivo <code>lancamentos-lumina-bruto-outubro-2025.xlsx</code></strong> (baixado no Passo 02) clicando no ícone de clipe &#128206; ou arrastando o arquivo para o chat.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-08.jpeg" alt="Passo 08 — Anexe a planilha bruta na mensagem" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 08 &mdash; Anexe a planilha bruta no campo de mensagem</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 09</span><span class="step-card-title">Cole o prompt da AP02 e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Use o botão <strong>"Copiar prompt"</strong> abaixo para copiar o prompt da AP02. Cole no campo de mensagem (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) &mdash; junto com a planilha já anexada &mdash; e clique em enviar.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-09.jpeg" alt="Passo 09 — Cole o prompt e envie" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 09 &mdash; Cole o prompt e envie (1 mensagem)</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP02</span>
+            <div class="copy-block" id="prompt-ap02">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap02-text').textContent)">Copiar prompt</button>
+<span id="prompt-ap02-text">Organize os lançamentos da planilha em anexo dentro do plano de contas da Lumina.
+
+Use a Skill `organizar-lancamentos-lumina` que está instalada na minha conta. Ela vai consultar o plano de contas e a política de classificação carregados nos arquivos deste Project.
+
+Devolva os 2 outputs padrão da Skill:
+1. Resumo no chat (tabelas de distribuição por categoria e por centro de custo)
+2. Planilha .xlsx estruturada como artefato para download</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Tempo de resposta esperado</div>
+        <p>Cerca de <strong>60 a 120 segundos</strong> para o Claude processar os 60 lançamentos e gerar a planilha estruturada com 3 abas.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 10</span><span class="step-card-title">Confira o resumo e baixe a planilha estruturada</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">A resposta do Claude vai aparecer em duas partes:</p>
+          <p class="step-card-desc"><strong>No chat:</strong> tabelas de distribuição por categoria (Receitas, Deduções, CPV, Despesas Op, Despesas Fin) e por centro de custo (E-commerce, Loja SP, Loja RJ, Matriz/Geral). Confira que o número total de lançamentos é <strong>60</strong>.</p>
+          <p class="step-card-desc"><strong>Como artefato:</strong> planilha <code>lancamentos-lumina-classificados-outubro-2025.xlsx</code> com botão de download. Clique em <strong>"Baixar"</strong> para salvar no seu computador.</p>
+          <div class="step-card-img-wrap"><img src="./assets/ap02-passo-10.jpeg" alt="Passo 10 — Confira o resumo e baixe a planilha estruturada" loading="lazy" /></div>
+          <p class="step-card-caption">Passo 10 &mdash; Resumo no chat + planilha estruturada como artefato</p>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">A Skill instalada permanentemente + planilha estruturada de outubro/2025</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>A Skill <code>organizar-lancamentos-lumina</code> <strong>instalada permanentemente</strong> na sua conta Claude &mdash; pronta para ser usada em qualquer mês futuro com qualquer planilha bruta.</li>
+          <li>Uma <strong>planilha estruturada de outubro/2025</strong> com 60 lançamentos da Lumina classificados conforme o plano de contas (3 abas: dados completos + resumo por categoria + resumo por centro de custo).</li>
+          <li><strong>Visibilidade clara da operação financeira da Lumina</strong> em outubro/2025: quanto entrou por canal, quanto saiu em cada categoria de despesa, onde estão os maiores valores.</li>
+          <li>A planilha pronta para ser usada como <strong>input da AP03</strong>, onde você vai gerar o DRE estruturado e a análise narrativa.</li>
+          <li><strong>Confiança operacional:</strong> você acabou de eliminar um dos passos mais demorados do fechamento mensal &mdash; em menos de 14 minutos.</li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP03</div>
+        <p>Na próxima atividade prática você vai usar <strong>2 Skills dentro da mesma conversa</strong>: a Skill <code>gerar-dre-lumina</code> que pega a planilha estruturada da AP02 e produz o DRE do mês, e a Skill <code>analisar-dre-lumina</code> que produz uma análise narrativa executiva no padrão <em>Executive Summary</em>.</p>
+        <p>Você sai da AP03 com o DRE estruturado + análise narrativa do mês &mdash; <strong>material rico para a liderança ler em 30 segundos</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">Replique o mesmo processo &mdash; agora com o contexto real da sua empresa</div>
+
+      <p class="lead-text">Agora que você dominou a Skill de organização de lançamentos com o caso da Lumina, replique o mesmo processo para a <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Crie a Skill <code>organizar-lancamentos-[empresa]</code> customizada</div>
+        <p>O que fazer:</p>
+        <ol>
+          <li><strong>Baixe o prompt de geração da Skill</strong> (<code>prompt-gerar-skill-organizar-lancamentos.md</code> &mdash; disponível abaixo) &mdash; é o prompt que cria a Skill da Lumina, e que você vai customizar para a sua empresa.</li>
+          <li><strong>Adapte o prompt</strong> trocando todas as menções à Lumina pelo perfil real da sua empresa:
+            <ul>
+              <li><strong>Setor</strong> (wellness &rarr; setor da sua empresa)</li>
+              <li><strong>Estrutura</strong> (3 produtos + e-commerce + 2 lojas &rarr; estrutura real da sua operação)</li>
+              <li><strong>Centros de Custo</strong> (E-commerce/Loja SP/Loja RJ &rarr; seus centros de custo reais)</li>
+              <li><strong>Regras de classificação</strong> (frete fulfillment, influenciadores &rarr; regras específicas do seu setor)</li>
+              <li><strong>Identidade visual</strong> (paleta minimalismo wellness &rarr; identidade real da sua marca)</li>
+            </ul>
+          </li>
+          <li><strong>Envie o prompt adaptado</strong> ao Claude e gere a Skill <code>organizar-lancamentos-[empresa]</code> customizada.</li>
+          <li><strong>Faça upload do <code>.zip</code> gerado</strong> em <em>Customize &gt; Skills</em> na sua conta.</li>
+          <li><strong>Garanta que o Project Financeiro da sua empresa</strong> (criado no Desafio da AP01) tem o <code>plano-de-contas-[empresa].md</code> e a <code>politica-classificacao-[empresa].md</code> carregados.</li>
+          <li><strong>Acione a Skill</strong> com a planilha bruta real do mês mais recente fechado da sua empresa e valide o output.</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> uma Skill de organização de lançamentos específica para a realidade financeira da sua empresa, instalada permanentemente na sua conta, pronta para ser usada todo mês no fechamento. <strong>Tempo estimado:</strong> 30 a 45 minutos (a maior parte é mapear seus centros de custo reais e ajustar as regras de classificação para o seu setor).</div>
+      </div>
+
+      <div class="materials-block">
+        <div class="mb-label">&#128229; Material do Desafio</div>
+        <div class="mb-title">Prompt de referência para gerar a Skill customizada</div>
+        <div class="material-grid single">
+          <a class="material-item" href="./assets/prompt-gerar-skill-organizar-lancamentos.md" download>
+            <div class="mi-icon md">MD</div>
+            <div class="mi-info">
+              <div class="mi-name">prompt-gerar-skill-organizar-lancamentos.md</div>
+              <div class="mi-desc">Prompt de referência da Lumina, com instruções de customização para sua empresa</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Por que esse desafio é o passo 2 da jornada de 5 dias</div>
+        <p>Você já configurou o ambiente (AP01) e agora elimina o gargalo da classificação de lançamentos (AP02). Em 2 dias, você já cobriu <strong>40% do pipeline financeiro completo</strong> da sua empresa.</p>
+        <p><strong>Faça este desafio amanhã &mdash; em 5 dias você tem o pipeline rodando com os dados reais da sua empresa.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap02-skill-organizar-lancamentos";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 11;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
