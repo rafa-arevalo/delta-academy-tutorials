@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP02. Matriz Kai-Fu Lee &middot; SALES AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* ================ Palette switch ================ */
+  .palette-switch {
+    position: fixed; top: 12px; right: 12px; z-index: 100;
+    display: inline-flex; gap: 3px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px;
+    box-shadow: var(--shadow-sm);
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .palette-switch button {
+    font: inherit; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 5px 10px; border-radius: 999px;
+    border: none; background: transparent; color: var(--text3);
+    cursor: pointer; transition: all 160ms ease;
+  }
+  .palette-switch button:hover { color: var(--text); }
+  .palette-switch button.is-active { background: var(--accent2); color: var(--bg); }
+
+  /* ================ Tutorial layout ================ */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-group-title.intro,.nav-group-title.demo,.nav-group-title.pratica,.nav-group-title.desafio{color:var(--sidebar-fg);opacity:1}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .lead-text code{background:var(--accent-lighter);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.78rem;color:var(--accent2);font-weight:600}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .instructions{display:flex;flex-direction:column;gap:4px;margin:14px 0}
+  .inst{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:11px 14px;background:var(--panel);border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+  .inst-num{font-size:0.58rem;font-weight:700;color:#fff;background:var(--green);min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .inst-text{font-size:0.78rem;color:var(--text);line-height:1.55;flex:1;min-width:0}
+  .inst-text strong{font-weight:700;color:var(--accent2)}
+  .inst-text .time{color:var(--text3);font-size:0.7rem;font-weight:500}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.78rem;color:#0E1A19;line-height:1.65;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6);max-height:520px;overflow-y:auto}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;z-index:2}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p strong{color:var(--accent2);font-weight:700}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p strong{color:var(--warn-label);font-weight:700}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:center}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.88rem;font-weight:600;color:var(--insight-fg);line-height:1.55}
+  .insight-box p strong{color:var(--insight-strong);font-weight:800}
+  .observation-list{list-style:none;margin:12px 0}
+  .observation-list li{padding:10px 14px;margin-bottom:8px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs)}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+
+  /* P&iacute;lulas de passo */
+  .passo-pill{display:inline-block;background:#EAF3DE;color:#173404;border:1px solid #173404;border-radius:999px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;margin:18px 0 10px}
+  .passo-block{margin-bottom:6px}
+
+  /* Print figure (real screenshot) */
+  .print-figure{margin:14px 0;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow-xs)}
+  .print-figure img{display:block;width:100%;height:auto}
+  .print-figure figcaption{display:flex;gap:10px;align-items:center;font-size:0.7rem;padding:9px 12px;color:var(--text2);background:var(--accent-lighter);border-top:1px solid var(--border2)}
+  .print-figure figcaption .pf-tag{font-size:0.66rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;flex-shrink:0}
+  .print-figure figcaption strong{color:var(--accent2);font-weight:700}
+
+  /* Card de dura&ccedil;&atilde;o + modelo recomendado */
+  .resource-grid{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin:14px 0}
+  .duration-card{background:linear-gradient(135deg,#1F3331 0%,#0E1A19 100%);border:1px solid #C9A961;border-radius:12px;padding:16px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+  .duration-card .dc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9A961;margin-bottom:4px}
+  .duration-card .dc-value{font-size:1.6rem;font-weight:800;color:#F5F0EB;line-height:1}
+  .duration-card .dc-sub{font-size:0.62rem;color:#C9A961;margin-top:2px;font-weight:600}
+  .model-card{background:#EEEDFE;border:1px solid #6B5B95;border-radius:12px;padding:14px 16px}
+  .model-card .mc-label{font-size:0.55rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#3C3489;margin-bottom:4px}
+  .model-card .mc-name{font-size:0.95rem;font-weight:800;color:#3C3489;margin-bottom:6px;line-height:1.2}
+  .model-card .mc-text{font-size:0.7rem;color:#3C3489;line-height:1.55;opacity:0.92}
+
+  /* Matriz Kai-Fu Lee preview (mini visual 2x2) */
+  .kaifu-wrap{margin:18px 0 22px;display:grid;grid-template-columns:auto 1fr;gap:10px}
+  .kaifu-axis-y{writing-mode:vertical-rl;transform:rotate(180deg);font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 0}
+  .kaifu-axis-y .kaxis-arrow{font-size:0.56rem;font-weight:600;color:var(--text3);letter-spacing:0.04em}
+  .kaifu-mat{position:relative}
+  .kaifu-grid{display:grid;grid-template-columns:1fr 1fr;border-radius:10px;overflow:hidden;border:1.5px solid var(--border2);background:#FFFFFF;box-shadow:var(--shadow-sm)}
+  .kaifu-cell{padding:14px 14px;border:0.5px solid var(--border);min-height:100px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
+  .kaifu-cell .kc-num{display:inline-block;font-size:0.62rem;font-weight:800;color:#fff;padding:2px 8px;border-radius:4px;letter-spacing:0.04em;align-self:flex-start}
+  .kaifu-cell.q1 .kc-num{background:#C4883A}
+  .kaifu-cell.q2 .kc-num{background:#6B5B95}
+  .kaifu-cell.q3 .kc-num{background:#3A8C8C}
+  .kaifu-cell.q4 .kc-num{background:#3D7A54}
+  .kaifu-cell .kc-title{font-size:0.78rem;font-weight:800;color:var(--accent2);line-height:1.2}
+  .kaifu-cell .kc-desc{font-size:0.66rem;color:var(--text2);line-height:1.45}
+  .kaifu-axis-x{margin-top:8px;text-align:center;font-size:0.6rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;justify-content:center;gap:8px}
+  .kaifu-axis-x .kaxis-arrow{font-size:0.56rem;font-weight:600;color:var(--text3);letter-spacing:0.04em}
+
+  /* Quadrante list (Q1-Q4 detalhados) */
+  .q-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .q-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;box-shadow:var(--shadow-xs);border-top:3px solid var(--accent)}
+  .q-card.q1{border-top-color:#C4883A}
+  .q-card.q2{border-top-color:#6B5B95}
+  .q-card.q3{border-top-color:#3A8C8C}
+  .q-card.q4{border-top-color:#3D7A54}
+  .q-card .q-num{display:inline-block;font-size:0.58rem;font-weight:800;color:#fff;padding:2px 8px;border-radius:4px;letter-spacing:0.04em;margin-bottom:6px}
+  .q-card.q1 .q-num{background:#C4883A}
+  .q-card.q2 .q-num{background:#6B5B95}
+  .q-card.q3 .q-num{background:#3A8C8C}
+  .q-card.q4 .q-num{background:#3D7A54}
+  .q-card .q-title{font-size:0.82rem;font-weight:800;color:var(--accent2);line-height:1.2;margin-bottom:4px}
+  .q-card .q-axis{font-size:0.6rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+  .q-card .q-text{font-size:0.72rem;color:var(--text2);line-height:1.55}
+  .q-card .q-text strong{color:var(--accent2);font-weight:700}
+
+  /* Checklist outcome (final) */
+  .outcome-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .outcome-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .outcome-item .oi-check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .outcome-item .oi-text{font-size:0.78rem;color:var(--text);line-height:1.55}
+  .outcome-item .oi-text strong{color:var(--accent2);font-weight:700}
+
+  @media (max-width:768px){
+    .sidebar{display:none}
+    .main{padding:20px 16px 40px;max-width:100%}
+    .resource-grid,.q-list{grid-template-columns:1fr}
+    .kaifu-wrap{grid-template-columns:1fr}
+    .kaifu-axis-y{writing-mode:horizontal-tb;transform:none;justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; &Iacute;ndice do Curso</a>
+      <h2>Matriz Kai-Fu Lee</h2>
+      <p>AP02 &middot; SALES AI</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">In&iacute;cio</div>
+      <a class="nav-item active" data-section="sec-home" onclick="showSection('sec-home')"><span class="ni-num">00</span> Vis&atilde;o Geral<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title intro">Introdu&ccedil;&atilde;o</div>
+      <a class="nav-item" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde voc&ecirc; vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Os 4 quadrantes<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> A jornada da AP02<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Personaliza&ccedil;&atilde;o vs template<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title demo">Demonstra&ccedil;&atilde;o</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que voc&ecirc; vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstra&ccedil;&atilde;o<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title pratica">Atividade Pr&aacute;tica</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade pr&aacute;tica<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que voc&ecirc; tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title desafio">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 00 -->
+    <div class="section active" id="sec-home">
+      <div class="breadcrumb">Delta Academy &rsaquo; SALES AI &rsaquo; <a href="index.html">&Iacute;ndice</a> &rsaquo; AP02. Matriz Kai-Fu Lee</div>
+      <div class="sec-title"><span class="snum">00.</span> Vis&atilde;o Geral</div>
+      <div class="sec-desc">AP02 &mdash; Matriz Kai-Fu Lee: onde aplicar IA no seu dia a dia</div>
+
+      <p class="lead-text">Segunda atividade pr&aacute;tica do curso <strong>SALES AI</strong>. Voc&ecirc; vai gerar um <strong>artefato HTML interativo Kai-Fu Lee personalizado</strong> &mdash; criado pelo pr&oacute;prio Conselheiro de IA configurado na AP01, com matriz 2&times;2 clic&aacute;vel, 4 pain&eacute;is colaps&aacute;veis e tabela-resumo executiva.</p>
+
+      <div class="resource-grid">
+        <div class="duration-card">
+          <div class="dc-label">Dura&ccedil;&atilde;o</div>
+          <div class="dc-value">10</div>
+          <div class="dc-sub">minutos</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-name">Claude Sonnet 4.6</div>
+          <div class="mc-text">Modelo padr&atilde;o do plano gratuito, suficiente para gerar o artefato. Se voc&ecirc; tem plano pago, use <strong>Opus 4.7</strong> para classifica&ccedil;&atilde;o ainda mais sofisticada das atividades.</div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Ficha t&eacute;cnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Demonstra&ccedil;&atilde;o + Atividade Pr&aacute;tica</td></tr>
+          <tr><td>Bloco</td><td>Evento Sales AI</td></tr>
+          <tr><td>T&eacute;cnica de AI</td><td>Claude Artefatos &mdash; HTML interativo gerado dentro de Project</td></tr>
+          <tr><td>Pr&eacute;-requisito</td><td>Project Conselheiro de IA configurado na AP01</td></tr>
+          <tr><td>Entreg&aacute;vel</td><td>Artefato HTML Kai-Fu Lee personalizado para seu cargo e equipe</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante</div>
+        <p>Esta AP <strong>depende da AP01</strong>. Voc&ecirc; precisa ter o <strong>Project Conselheiro de IA</strong> configurado (com Nome, Descri&ccedil;&atilde;o e Instru&ccedil;&otilde;es) para fazer essa atividade. Se voc&ecirc; ainda n&atilde;o fez a AP01, <a href="ap01-project-conselheiro.html" style="color:var(--warn-label);font-weight:700;border-bottom:1px solid var(--warn-label);text-decoration:none">volte e fa&ccedil;a antes</a> de seguir.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao &iacute;ndice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step1')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section" id="sec-step1">
+      <span class="section-badge badge-intro">Introdu&ccedil;&atilde;o</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde voc&ecirc; vai chegar</div>
+      <div class="sec-desc">O entreg&aacute;vel final e como ele fecha o ciclo iniciado na AP01</div>
+
+      <p class="lead-text">Antes de come&ccedil;ar, veja o que voc&ecirc; vai conquistar ao final desta atividade pr&aacute;tica &mdash; e como ela fecha o ciclo iniciado na AP01.</p>
+
+      <div class="overview-card">
+        <h3>Entreg&aacute;vel final da AP02</h3>
+        <p>Um <strong>artefato HTML interativo Kai-Fu Lee personalizado</strong> para o seu dia a dia &mdash; gerado pelo pr&oacute;prio Conselheiro de IA que voc&ecirc; criou na AP01. O artefato traz:</p>
+        <ul>
+          <li><strong>Matriz visual clic&aacute;vel 2&times;2</strong> (Compaix&atilde;o &times; Criatividade)</li>
+          <li><strong>4 pain&eacute;is colaps&aacute;veis</strong> (Automa&ccedil;&atilde;o Total, Co-cria&ccedil;&atilde;o Estrat&eacute;gica, Suporte Relacional, Lideran&ccedil;a Humana) com detalhamento de cada quadrante (atividades suas e da equipe mapeadas, aplica&ccedil;&atilde;o pr&aacute;tica de IA com ferramentas Delta Academy nomeadas, resultado tang&iacute;vel e cuidado/risco)</li>
+          <li><strong>Tabela-resumo executiva</strong> consolidada &mdash; pronta para abrir no navegador a qualquer momento e usar como guia de prioriza&ccedil;&atilde;o</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Quando voc&ecirc; descobre IA, a tenta&ccedil;&atilde;o &eacute; querer aplicar em tudo &mdash; e a dispers&atilde;o mata o progresso. O framework Kai-Fu Lee for&ccedil;a <strong>clareza estrat&eacute;gica</strong>: separa atividades por n&iacute;vel de <strong>compaix&atilde;o humana</strong> (eixo Y) e <strong>criatividade</strong> (eixo X), e mostra onde IA j&aacute; faz melhor (Automa&ccedil;&atilde;o Total), onde IA &eacute; parceira estrat&eacute;gica (Co-cria&ccedil;&atilde;o), onde IA d&aacute; suporte (Relacional) e onde o humano lidera (Lideran&ccedil;a Humana). O resultado &eacute; menos ansiedade e mais aplica&ccedil;&atilde;o direcionada.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-home')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdu&ccedil;&atilde;o</span>
+      <div class="sec-title"><span class="snum">02.</span> Os 4 quadrantes da Matriz Kai-Fu Lee</div>
+      <div class="sec-desc">Do livro <em>AI Superpowers</em> (2018) &mdash; classifica&ccedil;&atilde;o por compaix&atilde;o e criatividade</div>
+
+      <p class="lead-text">A Matriz Kai-Fu Lee classifica atividades em <strong>4 quadrantes</strong> baseados em dois eixos:</p>
+
+      <div class="overview-card">
+        <h3>Os 2 eixos</h3>
+        <ul>
+          <li><strong>Eixo X (horizontal)</strong> &mdash; necessidade de <strong>CRIATIVIDADE</strong> (baixa &rarr; alta)</li>
+          <li><strong>Eixo Y (vertical)</strong> &mdash; necessidade de <strong>COMPAIX&Atilde;O</strong>, ou seja, empatia humana (baixa &rarr; alta)</li>
+        </ul>
+      </div>
+
+      <!-- Mini matriz visual -->
+      <div class="kaifu-wrap">
+        <div class="kaifu-axis-y">
+          <span class="kaxis-arrow">&larr; menos</span>
+          <span>Compaix&atilde;o</span>
+          <span class="kaxis-arrow">mais &rarr;</span>
+        </div>
+        <div class="kaifu-mat">
+          <div class="kaifu-grid">
+            <div class="kaifu-cell q3">
+              <span class="kc-num">Q3</span>
+              <div class="kc-title">Suporte Relacional</div>
+              <div class="kc-desc">Baixa criatividade + Alta compaix&atilde;o &mdash; IA d&aacute; suporte, humano conduz.</div>
+            </div>
+            <div class="kaifu-cell q4">
+              <span class="kc-num">Q4</span>
+              <div class="kc-title">Lideran&ccedil;a Humana</div>
+              <div class="kc-desc">Alta criatividade + Alta compaix&atilde;o &mdash; humano insubstitu&iacute;vel.</div>
+            </div>
+            <div class="kaifu-cell q1">
+              <span class="kc-num">Q1</span>
+              <div class="kc-title">Automa&ccedil;&atilde;o Total</div>
+              <div class="kc-desc">Baixa criatividade + Baixa compaix&atilde;o &mdash; IA j&aacute; faz melhor.</div>
+            </div>
+            <div class="kaifu-cell q2">
+              <span class="kc-num">Q2</span>
+              <div class="kc-title">Co-cria&ccedil;&atilde;o Estrat&eacute;gica</div>
+              <div class="kc-desc">Alta criatividade + Baixa compaix&atilde;o &mdash; parceria humano-IA.</div>
+            </div>
+          </div>
+          <div class="kaifu-axis-x">
+            <span class="kaxis-arrow">&larr; menos</span>
+            <span>Criatividade</span>
+            <span class="kaxis-arrow">mais &rarr;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-list">
+        <div class="q-card q1">
+          <span class="q-num">Q1</span>
+          <div class="q-title">Automa&ccedil;&atilde;o Total</div>
+          <div class="q-axis">Baixa criatividade + Baixa compaix&atilde;o</div>
+          <div class="q-text">Tarefas repetitivas e processuais. <strong>IA j&aacute; faz melhor.</strong></div>
+        </div>
+        <div class="q-card q2">
+          <span class="q-num">Q2</span>
+          <div class="q-title">Co-cria&ccedil;&atilde;o Estrat&eacute;gica</div>
+          <div class="q-axis">Alta criatividade + Baixa compaix&atilde;o</div>
+          <div class="q-text">Tarefas anal&iacute;ticas e estrat&eacute;gicas. <strong>Parceria humano-IA.</strong></div>
+        </div>
+        <div class="q-card q3">
+          <span class="q-num">Q3</span>
+          <div class="q-title">Suporte Relacional</div>
+          <div class="q-axis">Baixa criatividade + Alta compaix&atilde;o</div>
+          <div class="q-text">Tarefas relacionais e de suporte. <strong>IA d&aacute; suporte, humano conduz.</strong></div>
+        </div>
+        <div class="q-card q4">
+          <span class="q-num">Q4</span>
+          <div class="q-title">Lideran&ccedil;a Humana</div>
+          <div class="q-axis">Alta criatividade + Alta compaix&atilde;o</div>
+          <div class="q-text">Tarefas de lideran&ccedil;a e decis&atilde;o. <strong>Humano insubstitu&iacute;vel.</strong></div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>A for&ccedil;a do framework n&atilde;o &eacute; s&oacute; apontar onde IA cabe &mdash; &eacute; <strong>deixar expl&iacute;cito o que N&Atilde;O automatizar</strong>. O Q4 (Lideran&ccedil;a Humana) protege as atividades onde voc&ecirc; &eacute; insubstitu&iacute;vel. O Q1 (Automa&ccedil;&atilde;o Total) libera tempo seu para investir no Q4. <strong>A matriz &eacute; uma vacina contra automa&ccedil;&atilde;o cega.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdu&ccedil;&atilde;o</span>
+      <div class="sec-title"><span class="snum">03.</span> A jornada da AP02</div>
+      <div class="sec-desc">Uma &uacute;nica fase &mdash; toda dentro do Project criado na AP01</div>
+
+      <p class="lead-text">Esta atividade pr&aacute;tica tem <strong>uma &uacute;nica fase</strong> &mdash; toda dentro do Project que voc&ecirc; j&aacute; criou na AP01.</p>
+
+      <div class="overview-card">
+        <h3>Fluxo da AP02</h3>
+        <ul>
+          <li><strong>FASE 01 &mdash; Pedir o artefato ao Conselheiro (1 mensagem).</strong> Dentro do Project Conselheiro, voc&ecirc; cola um prompt &uacute;nico pedindo o artefato Kai-Fu Lee aplicado ao seu dia a dia. Como o conselheiro j&aacute; conhece seu cargo, segmento, responsabilidades e equipe (pelas Instru&ccedil;&otilde;es da AP01), o output sai <strong>totalmente personalizado</strong> &mdash; sem voc&ecirc; precisar repetir nada sobre voc&ecirc;. Em ~2 minutos voc&ecirc; tem o HTML interativo pronto para abrir no navegador.</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdu&ccedil;&atilde;o</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; Personaliza&ccedil;&atilde;o vence o template</div>
+      <div class="sec-desc">Por que pedir ao Conselheiro &eacute; diferente de pedir a um chat qualquer</div>
+
+      <p class="lead-text">Voc&ecirc; poderia abrir qualquer chat de IA e pedir <em>&quot;crie uma matriz Kai-Fu Lee para o meu trabalho&quot;</em>. O resultado seria um template gen&eacute;rico &mdash; atividades abstratas, classifica&ccedil;&otilde;es superficiais, plano que serve para qualquer pessoa.</p>
+
+      <p class="lead-text">A AP02 &eacute; diferente porque voc&ecirc; n&atilde;o est&aacute; pedindo a um chat qualquer &mdash; est&aacute; pedindo ao <strong>seu Conselheiro de IA</strong>, que j&aacute; te conhece pelas Instru&ccedil;&otilde;es configuradas na AP01. Cargo, segmento, responsabilidades espec&iacute;ficas, tamanho da equipe, contexto da empresa &mdash; tudo isso entra automaticamente como mat&eacute;ria-prima para a Matriz. <strong>O output n&atilde;o &eacute; uma Matriz Kai-Fu Lee &mdash; &eacute; A SUA Matriz Kai-Fu Lee.</strong></p>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>&Eacute; a diferen&ccedil;a entre <strong>um modelo Word baixado da internet</strong> e um <strong>plano feito sob medida por um consultor que te conhece</strong>. O Conselheiro da AP01 funciona como esse consultor: ele transforma o framework Kai-Fu Lee em algo espec&iacute;fico do seu trabalho real, com atividades que voc&ecirc; reconhece, respons&aacute;veis nomeados e ferramentas Delta apropriadas para o seu contexto.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstra&ccedil;&atilde;o</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que voc&ecirc; vai ver</div>
+      <div class="sec-desc">Fluxo do professor com o Project Conselheiro da persona-exemplo (Gerente Comercial SaaS B2B)</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Importante</div>
+        <p>A demonstra&ccedil;&atilde;o a seguir &eacute; <strong>apenas para ilustra&ccedil;&atilde;o</strong> durante a aula expositiva. Voc&ecirc; n&atilde;o precisa testar agora &mdash; voc&ecirc; ter&aacute; sua pr&oacute;pria atividade pr&aacute;tica logo depois desta se&ccedil;&atilde;o.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo de gera&ccedil;&atilde;o do artefato Kai-Fu Lee usando o Project Conselheiro da persona-exemplo da AP01 (Gerente Comercial em empresa de SaaS B2B):</p>
+
+      <div class="overview-card">
+        <h3>Gera&ccedil;&atilde;o do artefato (1 mensagem)</h3>
+        <p>O professor abre o Project Conselheiro persona-exemplo e cola um prompt &uacute;nico pedindo a Matriz Kai-Fu Lee aplicada ao dia a dia. Em uma &uacute;nica mensagem, o Claude devolve um <strong>HTML interativo autocontido com 3 elementos visuais</strong>:</p>
+        <ul>
+          <li><strong>Matriz visual 2&times;2 clic&aacute;vel</strong> &mdash; mini-mapa com os 4 quadrantes (Q1 Automa&ccedil;&atilde;o Total, Q2 Co-cria&ccedil;&atilde;o Estrat&eacute;gica, Q3 Suporte Relacional, Q4 Lideran&ccedil;a Humana), legendas &uacute;nicas dos eixos Compaix&atilde;o e Criatividade com setas, e clique navega at&eacute; o painel correspondente.</li>
+          <li><strong>4 pain&eacute;is colaps&aacute;veis (accordion)</strong> &mdash; um por quadrante, cada um contendo: O que &eacute;, Atividades mapeadas (suas e da equipe), Aplica&ccedil;&atilde;o pr&aacute;tica de IA com ferramentas Delta Academy nomeadas, Resultado tang&iacute;vel esperado, e Risco/cuidado relevante.</li>
+          <li><strong>Tabela-resumo consolidada</strong> &mdash; 5 colunas (Quadrante com dot colorido, Atividade, Ferramenta Delta Academy, Resultado Esperado, Autonomia da IA Alta/M&eacute;dia/Baixa), incluindo tanto atividades suas quanto da sua equipe.</li>
+        </ul>
+        <p style="margin-top:10px">Ao final, o professor abre o artefato gerado no navegador e percorre os 3 elementos mostrando a interatividade (clique na matriz, accordions abrindo, tabela com cores por n&iacute;vel de autonomia).</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>A diferen&ccedil;a entre um framework gen&eacute;rico (template) e o artefato que voc&ecirc; vai gerar &eacute; o <strong>contexto do conselheiro</strong>. Como ele j&aacute; te conhece (cargo, equipe, responsabilidades), as atividades listadas, os respons&aacute;veis sugeridos e as ferramentas escolhidas s&atilde;o <strong>espec&iacute;ficos do seu trabalho real</strong> &mdash; n&atilde;o exemplos abstratos.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstra&ccedil;&atilde;o</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstra&ccedil;&atilde;o</div>
+      <div class="sec-desc">Prompt &uacute;nico &mdash; sem vari&aacute;veis, pois o conselheiro j&aacute; tem todo o contexto carregado</div>
+
+      <p class="lead-text">Este &eacute; o prompt &uacute;nico que o professor cola dentro do Project Conselheiro persona-exemplo. Como o conselheiro j&aacute; tem todo o contexto profissional carregado nas Instru&ccedil;&otilde;es, o prompt <strong>n&atilde;o tem vari&aacute;veis</strong> &mdash; &eacute; direto.</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt do artefato Kai-Fu Lee</span>
+        <div class="copy-block" id="demo-prompt">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('demo-prompt-text').textContent)">Copiar</button>
+<span id="demo-prompt-text">PAPEL
+Você é um consultor especialista em IA Generativa aplicada a produtividade corporativa, com experiência em diagnóstico de processos e recomendação de ferramentas de IA para times executivos.
+
+AÇÃO
+Considerando tudo que você já sabe sobre mim, minhas atividades e minha equipe pelas Instruções deste Project, mapeie oportunidades de aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica atividades em 4 quadrantes:
+
+- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
+- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+
+Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
+
+Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
+Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
+Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
+Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
+
+Para CADA quadrante:
+- O que é — 1 frase aplicada ao meu contexto
+- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
+- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica da Delta Academy usar
+- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
+- Risco ou cuidado — 1 limitação relevante
+
+Encerre com uma tabela-resumo consolidada com estas colunas:
+| Quadrante | Atividade | Ferramenta Delta Academy | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
+
+A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
+
+CONTEXTO — Ferramentas e técnicas que eu aprendi
+
+Durante a imersão da Delta Academy, aprendi as seguintes ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas:
+
+- Engenharia de Prompt — técnicas estruturadas para obter respostas precisas de IAs generativas
+- Claude (Anthropic): Pesquisa Profunda, Projects, Claude Design, Artefatos, Skills, Claude Cowork, Claude Code
+- Vibe Coding com Lovable — criar aplicações web descrevendo em linguagem natural, sem código
+- Agentes de IA — sistemas autônomos que executam tarefas com múltiplas etapas
+
+EXPECTATIVA — Regras de conteúdo
+- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
+- Use bullet points — sem parágrafos longos
+- Linguagem direta, sem jargão acadêmico
+- Toda recomendação de IA DEVE referenciar uma ferramenta/técnica da Delta Academy
+
+FORMATO DE ENTREGA — artefato HTML interativo
+
+Entregue o resultado como UM artefato HTML único, interativo e responsivo, seguindo EXATAMENTE estas especificações:
+
+Estilo geral
+- Fundo da página: #FAFAF7 (off-white quente)
+- Cor de texto principal: #1a1a1a
+- Cor de texto secundário/muted: #6b7c6e
+- Cor de bordas: #d6d1ca (principais) e #e8e3dc (internas leves)
+- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
+- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
+- Fonte única: Montserrat (Google Fonts), pesos 400, 500, 600, 700
+- Line-height do body: 1.65
+- Anti-aliasing: -webkit-font-smoothing: antialiased
+
+Header
+- Badge no topo: texto "DELTA ACADEMY · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
+- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
+- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
+
+Matriz visual (mini-mapa clicável)
+- Grid 2×2 das 4 células dos quadrantes, gap: 0, border-radius 10px, overflow hidden
+- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
+- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
+- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
+- Hover nas células: fundo muda para #F5F0EB
+- Disposição da matriz:
+  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
+  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
+- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
+
+Eixos da matriz (rótulos únicos com setas, NÃO repetir "Alta/Baixa Compaixão" nem "Alta/Baixa Criatividade" em cada célula)
+
+A matriz deve ser apresentada com apenas DUAS legendas — uma na lateral esquerda (eixo Y = Compaixão) e uma abaixo (eixo X = Criatividade), cada palavra escrita UMA ÚNICA VEZ, complementada por setas indicando o gradiente:
+
+- Eixo Y (lateral esquerda da matriz, rotacionado 90° anti-horário, alinhado verticalmente ao centro):
+  - Texto: "← menos    COMPAIXÃO    mais →"
+  - A palavra "COMPAIXÃO" em destaque (font-size 11px, peso 700, uppercase, letter-spacing 2.5px, cor #1F3331)
+  - As setas "← menos" e "mais →" em font-size 9px, peso 500, cor #6b7c6e
+  - A seta "← menos" fica do lado que aponta para baixo (zona de baixa compaixão), e "mais →" fica do lado que aponta para cima (zona de alta compaixão)
+  - Posicionado por fora da matriz, lado esquerdo, com margem adequada para não sobrepor
+
+- Eixo X (abaixo da matriz, na horizontal, centralizado):
+  - Texto: "← menos    CRIATIVIDADE    mais →"
+  - A palavra "CRIATIVIDADE" em destaque (font-size 11px, peso 700, uppercase, letter-spacing 2.5px, cor #1F3331)
+  - As setas "← menos" e "mais →" em font-size 9px, peso 500, cor #6b7c6e
+  - "← menos" do lado esquerdo (baixa criatividade), "mais →" do lado direito (alta criatividade)
+  - Margem-top adequada para não colar na matriz
+
+- Dentro de cada célula da matriz, mostrar APENAS: número do quadrante (Q1/Q2/Q3/Q4) + título do quadrante (ex: "Automação Total") + 1 linha curta de descrição. NÃO escrever as combinações "Alta Compaixão + Baixa Criatividade" etc dentro das células — essa informação já está implícita pela posição na matriz e pelos rótulos dos eixos.
+
+Cores por quadrante
+- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
+- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
+- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
+- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
+
+Painéis de detalhe (accordion)
+- Cada quadrante é um painel colapsável, fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
+- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
+- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
+- Hover no header: fundo #F5F0EB
+- Chevron rotaciona 180° quando aberto (transition 0.3s)
+- Body do painel: max-height 0 fechado, max-height 2000px aberto (transition 0.4s ease)
+- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
+- Primeiro painel (Q1) começa aberto; demais fechados
+- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s
+
+Dentro de cada painel
+- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
+- Texto de parágrafo: font-size 13px
+- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
+- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
+- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
+- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
+
+Tabela-resumo
+- Título h2: font-size 18px, peso 700, cor #1F3331
+- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
+- Container: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
+- Header (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
+- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
+- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
+- Hover nas linhas: fundo #ede8e1
+- Coluna Autonomia da IA — cores: Alta #3D7A54 peso 700 / Média #C4883A peso 700 / Baixa #3A8C8C peso 700
+- Dots de quadrante na coluna "Quadrante": círculo 8×8px com a cor do quadrante, inline-block, margin-right 5px
+- Min-width da tabela: 720px (scroll horizontal em mobile)
+
+Responsividade (max-width 600px)
+- Container: padding 24px 16px 60px
+- Título h1: font-size 21px
+- Matriz: grid de 1 coluna; nesse caso, o eixo Y lateral pode ser ocultado e o eixo X horizontal permanece centralizado abaixo
+- Painéis: padding lateral 16px
+- Tabela: font-size 11px, padding das células 9px 10px
+
+JavaScript
+- togglePanel(id): alterna a classe open no painel
+- scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout 100ms
+- Cada célula da matriz chama scrollToPanel no onclick
+- Cada header de painel chama togglePanel no onclick</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstra&ccedil;&atilde;o</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar</div>
+      <div class="sec-desc">4 sinais que diferenciam um artefato Kai-Fu Lee bem gerado de um gen&eacute;rico</div>
+
+      <ul class="observation-list">
+        <li><strong>1. Atividades espec&iacute;ficas do cargo da persona.</strong> N&atilde;o s&atilde;o &quot;responder e-mails&quot; e &quot;fazer relat&oacute;rios&quot;, s&atilde;o &quot;qualificar leads do funil enterprise no CRM&quot;, &quot;preparar previs&atilde;o de receita para o board&quot;, &quot;fazer 1:1 semanal com os 5 hunters&quot;. Isso s&oacute; acontece porque o conselheiro <strong>j&aacute; conhece o contexto</strong>.</li>
+        <li><strong>2. Distribui&ccedil;&atilde;o irregular nos 4 quadrantes.</strong> A classifica&ccedil;&atilde;o n&atilde;o distribui igualmente &mdash; atividades de coaching e decis&otilde;es estrat&eacute;gicas concentram em Q4 (Lideran&ccedil;a Humana), an&aacute;lises e relat&oacute;rios em Q1 (Automa&ccedil;&atilde;o Total) e Q2 (Co-cria&ccedil;&atilde;o Estrat&eacute;gica). Essa irregularidade mostra racioc&iacute;nio real, n&atilde;o preenchimento template.</li>
+        <li><strong>3. Coluna FERRAMENTA DELTA ACADEMY com nomes espec&iacute;ficos.</strong> Na tabela-resumo final, a coluna traz nomes espec&iacute;ficos (Claude Projects, Claude Skills, Claude Cowork, Engenharia de Prompt, Vibe Coding com Lovable, Agentes de IA, etc) &mdash; n&atilde;o termos gen&eacute;ricos. Isso &eacute; o que torna o plano acion&aacute;vel com as features que voc&ecirc; acabou de aprender.</li>
+        <li><strong>4. HTML autocontido e interativo.</strong> O HTML gerado abre no navegador, a matriz visual &eacute; clic&aacute;vel e leva direto ao painel do quadrante, os 4 accordions abrem/fecham, e a paleta segue a identidade visual da Delta Academy (cream, verde sage, gold).</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Pr&aacute;tica</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade pr&aacute;tica</div>
+      <div class="sec-desc">Gere o seu pr&oacute;prio artefato Kai-Fu Lee &mdash; espec&iacute;fico para o seu cargo, segmento e dia a dia</div>
+
+      <p class="lead-text">Voc&ecirc; vai gerar agora o <strong>seu pr&oacute;prio artefato Kai-Fu Lee</strong> &mdash; espec&iacute;fico para o seu cargo, segmento e dia a dia &mdash; usando o Project Conselheiro que voc&ecirc; configurou na AP01. Esta AP &eacute; r&aacute;pida: <strong>1 fase s&oacute;</strong> e dura cerca de <strong>10 minutos</strong>.</p>
+
+      <div class="resource-grid">
+        <div class="duration-card">
+          <div class="dc-label">Dura&ccedil;&atilde;o</div>
+          <div class="dc-value">10</div>
+          <div class="dc-sub">minutos</div>
+        </div>
+        <div class="model-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-name">Claude Sonnet 4.6</div>
+          <div class="mc-text">Modelo padr&atilde;o do plano gratuito, suficiente para gerar um artefato de qualidade. Se voc&ecirc; tem acesso ao plano pago, pode usar o <strong>Opus 4.7</strong> para uma classifica&ccedil;&atilde;o ainda mais sofisticada e um HTML interativo mais robusto.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Dica</div>
+        <p>Como o conselheiro da AP01 j&aacute; tem todo o seu contexto profissional carregado nas Instru&ccedil;&otilde;es, o prompt do artefato <strong>n&atilde;o tem vari&aacute;veis para preencher</strong>. Voc&ecirc; cola o prompt direto e o conselheiro gera o artefato personalizado para o seu cargo automaticamente.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Pr&aacute;tica</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">5 passos &mdash; do Project at&eacute; o artefato HTML interativo gerado</div>
+
+      <!-- Passo 01 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 01 &mdash; Acesse o seu Project Conselheiro de IA</div>
+        <p class="lead-text">No menu lateral do Claude, clique em <strong>Projetos</strong> e abra o Project <em>&quot;Meu Conselheiro de IA &mdash; [seu cargo]&quot;</em> que voc&ecirc; criou na AP01.</p>
+        <figure class="print-figure">
+          <img src="https://colony-recorder.s3.amazonaws.com/files/2026-05-12/4c1690d7-1f71-41bc-9da1-919010f484bb/ascreenshot_ff193ab333a3487b98a9112bd4d6f914_text_export.jpeg" alt="Lista de Projects do Claude com o Project Meu Conselheiro de IA destacado" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 01</span><span><strong>Abra o Project</strong> &mdash; menu lateral do Claude com a se&ccedil;&atilde;o Projetos destacada</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- Passo 02 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 02 &mdash; Inicie uma nova conversa dentro do Project</div>
+        <p class="lead-text">Dentro do Project, clique em <strong>Nova conversa</strong> (ou no campo de mensagem na tela inicial do Project). Confirme que o modelo selecionado &eacute; <strong>Claude Sonnet 4.6</strong>.</p>
+        <figure class="print-figure">
+          <img src="https://colony-recorder.s3.amazonaws.com/files/2026-05-12/b199c8ea-df58-4dbb-9844-094d87b407f5/ascreenshot_9a595ab0e72b45a3909ca3df6f21612e_text_export.jpeg" alt="Tela inicial do Project Conselheiro com campo de nova conversa aberto e modelo Sonnet 4.6 selecionado" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 02</span><span><strong>Selecione Sonnet 4.6</strong> &mdash; seletor de modelo dentro do Project</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- Passo 03 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 03 &mdash; Copie o prompt do artefato Kai-Fu Lee</div>
+        <p class="lead-text">Use o bot&atilde;o <strong>&quot;Copiar&quot;</strong> abaixo para copiar o prompt completo da AP02 para a &aacute;rea de transfer&ecirc;ncia.</p>
+
+        <div class="copy-wrap">
+          <span class="copy-label">Prompt do artefato Kai-Fu Lee</span>
+          <div class="copy-block" id="user-prompt">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('user-prompt-text').textContent)">Copiar</button>
+<span id="user-prompt-text">PAPEL
+Você é um consultor especialista em IA Generativa aplicada a produtividade corporativa, com experiência em diagnóstico de processos e recomendação de ferramentas de IA para times executivos.
+
+AÇÃO
+Considerando tudo que você já sabe sobre mim, minhas atividades e minha equipe pelas Instruções deste Project, mapeie oportunidades de aplicação de IA usando a Matriz de Kai-Fu Lee, que classifica atividades em 4 quadrantes:
+
+- Eixo X: Baixa → Alta necessidade de CRIATIVIDADE
+- Eixo Y: Baixa → Alta necessidade de COMPAIXÃO (empatia humana)
+
+Para cada um dos 4 quadrantes, entregue exatamente estes 5 itens:
+
+Q1 — Baixa Criatividade + Baixa Compaixão (tarefas repetitivas e processuais)
+Q2 — Alta Criatividade + Baixa Compaixão (tarefas estratégicas e analíticas)
+Q3 — Baixa Criatividade + Alta Compaixão (tarefas relacionais e de suporte)
+Q4 — Alta Criatividade + Alta Compaixão (tarefas de liderança e decisão humana)
+
+Para CADA quadrante:
+- O que é — 1 frase aplicada ao meu contexto
+- Atividades mapeadas — quais das minhas atividades e da minha equipe se encaixam aqui
+- Aplicação prática de IA — 2 a 3 exemplos concretos, indicando QUAL ferramenta/técnica da Delta Academy usar
+- Resultado tangível — ganho esperado em termos práticos (horas economizadas por semana, velocidade, qualidade, escala)
+- Risco ou cuidado — 1 limitação relevante
+
+Encerre com uma tabela-resumo consolidada com estas colunas:
+| Quadrante | Atividade | Ferramenta Delta Academy | Resultado Esperado | Autonomia da IA (Alta/Média/Baixa) |
+
+A tabela deve incluir tanto as minhas atividades quanto as dos meus colaboradores.
+
+CONTEXTO — Ferramentas e técnicas que eu aprendi
+
+Durante a imersão da Delta Academy, aprendi as seguintes ferramentas e técnicas de IA. Você DEVE recomendar exclusivamente estas:
+
+- Engenharia de Prompt — técnicas estruturadas para obter respostas precisas de IAs generativas
+- Claude (Anthropic): Pesquisa Profunda, Projects, Claude Design, Artefatos, Skills, Claude Cowork, Claude Code
+- Vibe Coding com Lovable — criar aplicações web descrevendo em linguagem natural, sem código
+- Agentes de IA — sistemas autônomos que executam tarefas com múltiplas etapas
+
+EXPECTATIVA — Regras de conteúdo
+- Resposta CURTA e EXECUTIVA: máximo 1 página por quadrante
+- Use bullet points — sem parágrafos longos
+- Linguagem direta, sem jargão acadêmico
+- Toda recomendação de IA DEVE referenciar uma ferramenta/técnica da Delta Academy
+
+FORMATO DE ENTREGA — artefato HTML interativo
+
+Entregue o resultado como UM artefato HTML único, interativo e responsivo, seguindo EXATAMENTE estas especificações:
+
+Estilo geral
+- Fundo da página: #FAFAF7 (off-white quente)
+- Cor de texto principal: #1a1a1a
+- Cor de texto secundário/muted: #6b7c6e
+- Cor de bordas: #d6d1ca (principais) e #e8e3dc (internas leves)
+- Cor de fundo de superfícies (cards, painéis, tabela): #FFFFFF
+- Cor de fundo alternado (linhas de tabela, tags): #F5F0EB (cream/bege claro)
+- Fonte única: Montserrat (Google Fonts), pesos 400, 500, 600, 700
+- Line-height do body: 1.65
+- Anti-aliasing: -webkit-font-smoothing: antialiased
+
+Header
+- Badge no topo: texto "DELTA ACADEMY · IMERSÃO IA", font-size 10px, peso 700, uppercase, letter-spacing 3px, cor #5C6C51, borda 1.5px solid #5C6C51, border-radius 20px, fundo #FFFFFF, padding 6px 18px
+- Título h1: font-size 26px, peso 700, cor #1F3331, letter-spacing -0.3px
+- Subtítulo p: font-size 13px, peso 500, cor #6b7c6e
+
+Matriz visual (mini-mapa clicável)
+- Grid 2×2 das 4 células dos quadrantes, gap: 0, border-radius 10px, overflow hidden
+- Borda externa: 1.5px solid #d6d1ca, fundo #FFFFFF
+- Box-shadow: 0 2px 12px rgba(31,51,49,0.06)
+- Cada célula: padding 20px 22px, borda interna 0.5px solid #e8e3dc
+- Hover nas células: fundo muda para #F5F0EB
+- Disposição da matriz:
+  - Linha de cima: Q3 (esquerda) | Q4 (direita) → zona de Alta Compaixão
+  - Linha de baixo: Q1 (esquerda) | Q2 (direita) → zona de Baixa Compaixão
+- Cada célula clicável — ao clicar, scroll suave até o painel correspondente e abre-o se estiver fechado
+
+Eixos da matriz (rótulos únicos com setas, NÃO repetir "Alta/Baixa Compaixão" nem "Alta/Baixa Criatividade" em cada célula)
+
+A matriz deve ser apresentada com apenas DUAS legendas — uma na lateral esquerda (eixo Y = Compaixão) e uma abaixo (eixo X = Criatividade), cada palavra escrita UMA ÚNICA VEZ, complementada por setas indicando o gradiente:
+
+- Eixo Y (lateral esquerda da matriz, rotacionado 90° anti-horário, alinhado verticalmente ao centro):
+  - Texto: "← menos    COMPAIXÃO    mais →"
+  - A palavra "COMPAIXÃO" em destaque (font-size 11px, peso 700, uppercase, letter-spacing 2.5px, cor #1F3331)
+  - As setas "← menos" e "mais →" em font-size 9px, peso 500, cor #6b7c6e
+  - A seta "← menos" fica do lado que aponta para baixo (zona de baixa compaixão), e "mais →" fica do lado que aponta para cima (zona de alta compaixão)
+  - Posicionado por fora da matriz, lado esquerdo, com margem adequada para não sobrepor
+
+- Eixo X (abaixo da matriz, na horizontal, centralizado):
+  - Texto: "← menos    CRIATIVIDADE    mais →"
+  - A palavra "CRIATIVIDADE" em destaque (font-size 11px, peso 700, uppercase, letter-spacing 2.5px, cor #1F3331)
+  - As setas "← menos" e "mais →" em font-size 9px, peso 500, cor #6b7c6e
+  - "← menos" do lado esquerdo (baixa criatividade), "mais →" do lado direito (alta criatividade)
+  - Margem-top adequada para não colar na matriz
+
+- Dentro de cada célula da matriz, mostrar APENAS: número do quadrante (Q1/Q2/Q3/Q4) + título do quadrante (ex: "Automação Total") + 1 linha curta de descrição. NÃO escrever as combinações "Alta Compaixão + Baixa Criatividade" etc dentro das células — essa informação já está implícita pela posição na matriz e pelos rótulos dos eixos.
+
+Cores por quadrante
+- Q1 (Automação Total): #C4883A — fundo do ícone #fdf6ee, borda do ícone #e8d5b8
+- Q2 (Co-criação Estratégica): #6B5B95 — fundo do ícone #f5f3f9, borda do ícone #d4cee3
+- Q3 (Suporte Relacional): #3A8C8C — fundo do ícone #eef7f7, borda do ícone #b8dada
+- Q4 (Liderança Humana): #3D7A54 — fundo do ícone #eef6f1, borda do ícone #b8d9c4
+
+Painéis de detalhe (accordion)
+- Cada quadrante é um painel colapsável, fundo #FFFFFF, borda 1.5px solid #d6d1ca, border-radius 10px
+- Box-shadow: 0 1px 6px rgba(31,51,49,0.04)
+- Header do painel: padding 18px 22px, flex layout com ícone (38×38px, border-radius 8px) + título + chevron (▼)
+- Hover no header: fundo #F5F0EB
+- Chevron rotaciona 180° quando aberto (transition 0.3s)
+- Body do painel: max-height 0 fechado, max-height 2000px aberto (transition 0.4s ease)
+- Conteúdo separado do header por borda superior 1px solid #e8e3dc, padding-top 18px
+- Primeiro painel (Q1) começa aberto; demais fechados
+- Animação de entrada: slideUp (opacity 0→1, translateY 14px→0), staggered com delays de 0.08s
+
+Dentro de cada painel
+- Section labels: font-size 9px, peso 700, uppercase, letter-spacing 2.5px, cor #5C6C51, margin-bottom 8px
+- Texto de parágrafo: font-size 13px
+- Listas (ul/li): sem bullet nativo, cada item com → como pseudo-element (cor #5C6C51, peso 600), font-size 13px, padding 5px 0
+- Tags de ferramentas: inline-block, fundo #F5F0EB, borda 1px solid #d6d1ca, padding 1px 7px, border-radius 4px, font-size 10px, peso 700, cor #1F3331
+- Box de resultado: fundo #eef6f1, borda-esquerda 3px solid #3D7A54, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #1F3331
+- Box de risco/cuidado: fundo #fef5f0, borda-esquerda 3px solid #c4603a, padding 10px 14px, border-radius 0 6px 6px 0, font-size 12.5px, cor #6b3a22
+
+Tabela-resumo
+- Título h2: font-size 18px, peso 700, cor #1F3331
+- Subtítulo: font-size 12px, peso 500, cor #6b7c6e, margin-bottom 16px
+- Container: border-radius 10px, borda 1.5px solid #d6d1ca, box-shadow 0 2px 12px rgba(31,51,49,0.06), overflow-x auto
+- Header (thead): fundo #1F3331, texto branco #FFFFFF, font-size 9px, peso 700, uppercase, letter-spacing 1.5px
+- Células (td): padding 11px 14px, borda inferior 1px solid #e8e3dc, font-weight 500
+- Linhas alternadas (tr:nth-child(even)): fundo #F5F0EB
+- Hover nas linhas: fundo #ede8e1
+- Coluna Autonomia da IA — cores: Alta #3D7A54 peso 700 / Média #C4883A peso 700 / Baixa #3A8C8C peso 700
+- Dots de quadrante na coluna "Quadrante": círculo 8×8px com a cor do quadrante, inline-block, margin-right 5px
+- Min-width da tabela: 720px (scroll horizontal em mobile)
+
+Responsividade (max-width 600px)
+- Container: padding 24px 16px 60px
+- Título h1: font-size 21px
+- Matriz: grid de 1 coluna; nesse caso, o eixo Y lateral pode ser ocultado e o eixo X horizontal permanece centralizado abaixo
+- Painéis: padding lateral 16px
+- Tabela: font-size 11px, padding das células 9px 10px
+
+JavaScript
+- togglePanel(id): alterna a classe open no painel
+- scrollToPanel(id): adiciona classe open se não tiver, e faz scrollIntoView({ behavior: 'smooth', block: 'start' }) com setTimeout 100ms
+- Cada célula da matriz chama scrollToPanel no onclick
+- Cada header de painel chama togglePanel no onclick</span></div>
+        </div>
+        <figure class="print-figure">
+          <img src="https://colony-recorder.s3.amazonaws.com/files/2026-05-12/03acdcc1-6b4c-4371-bbac-6e3db1cd1769/ascreenshot_1380fe1b61924a6dbf1acca193f25a90_text_export.jpeg" alt="Bot&atilde;o Copiar destacado no bloco de prompt do artefato Kai-Fu Lee" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 03</span><span><strong>Clique em Copiar</strong> &mdash; bot&atilde;o no canto superior direito do bloco de prompt</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- Passo 04 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 04 &mdash; Cole o prompt no Project e envie</div>
+        <p class="lead-text">No campo de mensagem do Project, cole o prompt copiado (<strong>Cmd+V</strong> no Mac ou <strong>Ctrl+V</strong> no Windows) e clique no bot&atilde;o de envio. Tempo de resposta: <strong>90&ndash;180 segundos</strong> (a gera&ccedil;&atilde;o do artefato HTML interativo demora mais que uma resposta de texto comum).</p>
+        <figure class="print-figure">
+          <img src="https://colony-recorder.s3.amazonaws.com/files/2026-05-12/98f2e805-491e-4d78-a433-2912831d31fd/ascreenshot_4f129f046d3941cab0519d6b0828c168_text_export.jpeg" alt="Campo de mensagem do Project com o prompt do artefato Kai-Fu Lee colado e o bot&atilde;o de envio destacado" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 04</span><span><strong>Envie o prompt</strong> &mdash; prompt colado no campo de mensagem do Project</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- Passo 05 -->
+      <div class="passo-block">
+        <div class="passo-pill">Passo 05 &mdash; Aguarde o Claude gerar o artefato HTML interativo</div>
+        <p class="lead-text">O Claude vai entregar primeiro um resumo em texto com a classifica&ccedil;&atilde;o das atividades nos 4 quadrantes e, em seguida, o artefato HTML aparece como um <strong>card lateral</strong> (&agrave; direita do chat no desktop ou abaixo da resposta no mobile). Confirme que o artefato HTML abriu corretamente: matriz visual 2&times;2 com legendas dos eixos, 4 pain&eacute;is colaps&aacute;veis e tabela-resumo final com 5 colunas.</p>
+        <figure class="print-figure">
+          <img src="https://colony-recorder.s3.amazonaws.com/files/2026-05-12/87a6fbcc-51ba-47e6-87bb-053671005792/ascreenshot_7e402be03b7a45aaba06cfa591fe87e2_text_export.jpeg" alt="Resposta do conselheiro com o artefato HTML renderizado ao lado, mostrando a matriz visual, pain&eacute;is dos 4 quadrantes e tabela-resumo" loading="lazy">
+          <figcaption><span class="pf-tag">PRINT 05</span><span><strong>Artefato gerado</strong> &mdash; matriz visual, pain&eacute;is dos 4 quadrantes e tabela-resumo renderizados ao lado do chat</span></figcaption>
+        </figure>
+        <div class="warning-box">
+          <div class="warning-label">Importante</div>
+          <p>Se algum dos elementos n&atilde;o renderizar corretamente ou faltar interatividade (clique na matriz n&atilde;o navega, accordion n&atilde;o abre, tabela sem cores), pe&ccedil;a ao conselheiro: <em>&quot;refa&ccedil;a o artefato HTML garantindo que a matriz 2&times;2 seja clic&aacute;vel, que os 4 accordions abram/fechem e que a tabela-resumo tenha as 5 colunas completas com Autonomia da IA colorida&quot;</em>. Em alguns casos, uma segunda itera&ccedil;&atilde;o &eacute; necess&aacute;ria para o output ficar 100%.</p>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Pr&aacute;tica</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que voc&ecirc; tem ao final desta atividade</div>
+      <div class="sec-desc">Checklist do entreg&aacute;vel</div>
+
+      <p class="lead-text">Voc&ecirc; sai desta atividade com:</p>
+
+      <div class="outcome-list">
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Seu <strong>artefato Kai-Fu Lee personalizado</strong> como HTML interativo autocontido &mdash; pronto para abrir no navegador a qualquer momento.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text"><strong>Atividades do seu dia a dia e da sua equipe</strong> mapeadas nos 4 quadrantes Kai-Fu Lee (Q1 Automa&ccedil;&atilde;o Total, Q2 Co-cria&ccedil;&atilde;o Estrat&eacute;gica, Q3 Suporte Relacional, Q4 Lideran&ccedil;a Humana) &mdash; com aplica&ccedil;&atilde;o pr&aacute;tica de IA, resultado esperado e risco/cuidado para cada quadrante.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text"><strong>Tabela-resumo executiva</strong> com plano consolidado: Quadrante, Atividade, Ferramenta Delta Academy, Resultado Esperado e Autonomia da IA (Alta/M&eacute;dia/Baixa) &mdash; pronto para voc&ecirc; executar essa semana.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Clareza sobre <strong>onde IA n&atilde;o cabe</strong> (Q4 Lideran&ccedil;a Humana) &mdash; prote&ccedil;&atilde;o contra automa&ccedil;&atilde;o cega das atividades onde o humano &eacute; insubstitu&iacute;vel.</div>
+        </div>
+        <div class="outcome-item">
+          <div class="oi-check">&#10003;</div>
+          <div class="oi-text">Um conselheiro de IA que, a partir de agora, <strong>opera com seu plano na m&atilde;o</strong> em qualquer pergunta.</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>Voc&ecirc; acabou de transformar um framework te&oacute;rico em um <strong>plano executivo sob medida</strong>. As atividades listadas s&atilde;o as suas, os respons&aacute;veis s&atilde;o reais, as ferramentas Delta est&atilde;o nomeadas. &Eacute; a diferen&ccedil;a entre <strong>estudar Kai-Fu Lee</strong> e <strong>aplicar Kai-Fu Lee</strong>. A partir daqui, &eacute; execu&ccedil;&atilde;o.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Pr&oacute;ximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">3 a&ccedil;&otilde;es para a pr&oacute;xima semana</div>
+
+      <p class="lead-text">Agora que voc&ecirc; tem seu artefato Kai-Fu Lee personalizado em m&atilde;os, o desafio &eacute; <strong>executar a primeira aplica&ccedil;&atilde;o de IA do seu plano na pr&oacute;xima semana</strong> &mdash; e refinar o artefato com base no aprendizado.</p>
+
+      <div class="instructions">
+        <div class="inst"><div class="inst-num">1</div><div class="inst-text"><strong>Execute uma atividade do Q1 (Automa&ccedil;&atilde;o Total) at&eacute; sexta-feira.</strong><br>Escolha uma atividade do quadrante Q1 (a de maior ganho potencial em horas economizadas) e implemente usando a ferramenta Delta Academy indicada na tabela-resumo (Claude Projects, Skills, Cowork, Engenharia de Prompt, etc). Use o conselheiro como apoio em cada etapa. <strong>Crit&eacute;rio de sucesso:</strong> ao final da semana, essa atividade est&aacute; sendo executada com apoio de IA na sua rotina, n&atilde;o no papel.</div></div>
+        <div class="inst"><div class="inst-num">2</div><div class="inst-text"><strong>Compartilhe o artefato com seu gestor ou par.</strong><br>Mostre o artefato para algu&eacute;m que conhece seu trabalho (gestor direto, par s&ecirc;nior, s&oacute;cio). Pergunte: <em>&quot;voc&ecirc; concorda com essa classifica&ccedil;&atilde;o? alguma atividade parece estar no quadrante errado?&quot;</em>. Use o feedback para refinar &mdash; talvez uma atividade de Q4 deva ir para Q2, ou uma de Q3 esteja mais perto de Q1 na vis&atilde;o de quem te observa de fora.</div></div>
+        <div class="inst"><div class="inst-num">3</div><div class="inst-text"><strong>Volte ao conselheiro depois da execu&ccedil;&atilde;o.</strong><br>Conte para o conselheiro o resultado: o que funcionou, o que n&atilde;o funcionou, o que aprendeu sobre Autonomia da IA na pr&aacute;tica. Pe&ccedil;a para ele <strong>gerar uma nova vers&atilde;o do artefato</strong> considerando esse aprendizado (talvez uma atividade mude de quadrante, talvez surjam novas atividades a mapear). Salve a nova vers&atilde;o como <code>matriz-kaifulee-v2.html</code> para acompanhar a evolu&ccedil;&atilde;o.</div></div>
+      </div>
+
+      <div class="overview-card">
+        <h3>Tempo estimado</h3>
+        <p>60 a 90 minutos espalhados ao longo da semana (execu&ccedil;&atilde;o da aplica&ccedil;&atilde;o de IA escolhida + reuni&otilde;es de valida&ccedil;&atilde;o + atualiza&ccedil;&atilde;o do artefato).</p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Insight</div>
+        <p>O artefato Kai-Fu Lee n&atilde;o &eacute; um documento est&aacute;tico &mdash; &eacute; um <strong>organismo vivo</strong>. A primeira vers&atilde;o que voc&ecirc; gerou hoje &eacute; uma fotografia de hoje. &Agrave; medida que voc&ecirc; implementa IA nas atividades de Q1 e Q2, novas oportunidades aparecem, atividades migram de quadrante, e suas estimativas de Autonomia da IA evoluem. <strong>Refinar o artefato a cada 2 semanas</strong> &eacute; o que separa quem <strong>decora frameworks</strong> de quem <strong>vive frameworks</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao &iacute;ndice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-sales-ai-ap02-matriz-kai-fu-lee";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 12;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-home";
+    completed.add("sec-home");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-home") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
