@@ -1,0 +1,8 @@
+Use a Skill plano-30-60-90-lumina para gerar o plano de integração dos primeiros 90 dias do seguinte novo colaborador da Lumina:
+
+Nome: Ana Silva
+Cargo: Atendente de Loja Física — Loja SP
+Gestor direto: Bruno Almeida (Coordenador da Loja SP)
+Data de início: próxima segunda-feira
+
+Gere o plano completo conforme a estrutura da Skill.

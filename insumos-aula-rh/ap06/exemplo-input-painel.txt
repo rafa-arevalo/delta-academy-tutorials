@@ -1,0 +1,9 @@
+Use a Skill painel-onboarding-lumina para gerar o painel HTML autocontido de acompanhamento da coorte de onboarding da Lumina, com base nos dados do arquivo dados-coorte-onboarding.md carregado no Project.
+
+Inclua:
+- KPIs executivos (total em onboarding, % por status, eNPS médio).
+- Tabela da coorte ordenada por risco decrescente.
+- Alertas e recomendações para o RH agir.
+- Perguntas mais frequentes do AskRH na semana.
+
+Aplique a identidade visual Lumina e gere o painel pronto para apresentar à liderança.

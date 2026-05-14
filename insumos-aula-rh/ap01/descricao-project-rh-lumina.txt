@@ -1,0 +1,1 @@
+Project de RH da Lumina para estruturar o processo de onboarding de novos colaboradores. Centraliza políticas de admissão, plano de cargos, manual cultural e identidade visual da empresa, servindo de base para gerar planos 30/60/90 personalizados, kits de boas-vindas, manuais do colaborador e painéis de acompanhamento da coorte de onboarding.

@@ -1,0 +1,1 @@
+Chatbot interno do RH da Lumina, voltado para colaboradores e gestores tirarem dúvidas operacionais sobre políticas, benefícios, CCT, ponto, férias, jornada e processos internos. Funciona 24/7 com base nos documentos oficiais da empresa, escalando para humano apenas em casos complexos ou sensíveis.

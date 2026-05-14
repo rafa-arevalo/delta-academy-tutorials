@@ -1,0 +1,8 @@
+Use a Skill manual-completo-lumina para gerar o material completo de onboarding em HTML autocontido (carta de boas-vindas + checklist Day 1 + briefing do gestor + manual do colaborador) do seguinte novo colaborador:
+
+Nome: Ana Silva
+Cargo: Atendente de Loja Física — Loja SP
+Gestor direto: Bruno Almeida (Coordenador da Loja SP)
+Data de início: próxima segunda-feira
+
+Gere um único arquivo HTML autocontido aplicando a identidade visual Lumina, com as 4 seções claramente identificadas e navegação interna entre elas.
