@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04. Skill de Geração do Briefing Visual &middot; AI no Comercial &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .tip-box.champagne{background:var(--insight-bg);border-color:var(--gold);border-left-color:var(--gold)}
+  .tip-box.champagne .tip-label{color:var(--gold)}
+  .tip-box.champagne p{color:var(--insight-fg)}
+  .tip-box.champagne p strong{color:var(--gold);font-weight:700}
+  .tip-box.champagne em{color:var(--gold);font-style:italic;font-weight:500}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .observation-list{list-style:none;margin:12px 0;counter-reset:obs}
+  .observation-list li{padding:12px 14px 12px 44px;margin-bottom:10px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs);counter-increment:obs;position:relative}
+  .observation-list li::before{content:counter(obs);position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .observation-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .observation-list li em{color:var(--text);font-style:italic}
+
+  /* ====== Componentes específicos da AP04 Comercial ====== */
+
+  /* Banner do entregável com 2 caminhos A/B (item 01) */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--coral);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--coral);margin-bottom:6px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:12px}
+  .caminhos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  .caminho-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .caminho-card.a{border-top:4px solid var(--green)}
+  .caminho-card.b{border-top:4px solid var(--coral)}
+  .caminho-card .cm-head{display:flex;align-items:center;gap:8px}
+  .caminho-card .cm-icon{font-size:1.2rem;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .caminho-card.a .cm-icon{background:var(--green-light);color:var(--green-text)}
+  .caminho-card.b .cm-icon{background:var(--coral-light);color:var(--coral-text)}
+  .caminho-card .cm-tag{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em}
+  .caminho-card.a .cm-tag{color:var(--green-text)}
+  .caminho-card.b .cm-tag{color:var(--coral-text)}
+  .caminho-card .cm-title{font-size:0.82rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.3}
+  .caminho-card .cm-desc{font-size:0.72rem;color:var(--text2);line-height:1.55}
+  .caminho-card .cm-desc strong{color:var(--accent2);font-weight:700}
+  .caminho-card .cm-rec{font-size:0.66rem;font-weight:700;padding:6px 10px;border-radius:5px;margin-top:auto}
+  .caminho-card.a .cm-rec{background:var(--green-light);color:var(--green-text);border:1px solid var(--green-border)}
+  .caminho-card.b .cm-rec{background:var(--coral-light);color:var(--coral-text);border:1px solid var(--coral-border)}
+  @media (max-width:760px){.caminhos-grid{grid-template-columns:1fr}}
+
+  /* Grid comparativo detalhado (item 02) — Caminho A vs Caminho B com listas */
+  .comp-detalhado{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .comp-detalhado-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-xs)}
+  .comp-detalhado-card.a{background:var(--green-light);border-color:var(--green-border);border-top:4px solid var(--green)}
+  .comp-detalhado-card.b{background:var(--coral-light);border-color:var(--coral-border);border-top:4px solid var(--coral)}
+  .comp-detalhado-card .cdc-head{display:flex;align-items:center;gap:10px}
+  .comp-detalhado-card .cdc-icon{font-size:1.4rem;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .comp-detalhado-card.a .cdc-icon{background:rgba(79,107,62,0.18);color:var(--green-text)}
+  .comp-detalhado-card.b .cdc-icon{background:rgba(201,122,90,0.18);color:var(--coral-text)}
+  .comp-detalhado-card .cdc-title{font-size:0.86rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.3}
+  .comp-detalhado-card .cdc-subtitle{font-size:0.7rem;font-weight:600;color:var(--text3);margin-top:2px}
+  .comp-detalhado-card ul{list-style:none;margin:0}
+  .comp-detalhado-card ul li{font-size:0.7rem;color:var(--text);line-height:1.5;padding:4px 0 4px 22px;position:relative}
+  .comp-detalhado-card ul li::before{content:'\2713';position:absolute;left:0;top:4px;font-weight:800;font-size:0.82rem}
+  .comp-detalhado-card.a ul li::before{color:var(--green)}
+  .comp-detalhado-card.b ul li::before{color:var(--coral)}
+  .comp-detalhado-card ul li.warn::before{content:'\26A0';color:var(--warn-accent)}
+  .comp-detalhado-card ul li strong{color:var(--accent2);font-weight:700}
+  .comp-detalhado-card .cdc-recommend{font-size:0.7rem;font-weight:700;padding:8px 12px;border-radius:6px;margin-top:auto;text-align:center}
+  .comp-detalhado-card.a .cdc-recommend{background:rgba(79,107,62,0.15);color:var(--green-text);border:1px solid var(--green-border)}
+  .comp-detalhado-card.b .cdc-recommend{background:rgba(201,122,90,0.15);color:var(--coral-text);border:1px solid var(--coral-border)}
+  @media (max-width:760px){.comp-detalhado{grid-template-columns:1fr}}
+
+  /* Palette preview (item 03) — 6 swatches Lumina */
+  .palette-preview{margin:14px 0}
+  .palette-preview .pp-label{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:10px}
+  .palette-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .palette-swatch{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-xs)}
+  .palette-swatch .ps-color{width:32px;height:32px;border-radius:6px;flex-shrink:0;border:1px solid rgba(0,0,0,0.08)}
+  .palette-swatch .ps-meta{flex:1;min-width:0}
+  .palette-swatch .ps-name{font-size:0.7rem;font-weight:700;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.01em}
+  .palette-swatch .ps-hex{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.62rem;font-weight:600;color:var(--text3)}
+  @media (max-width:760px){.palette-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:480px){.palette-grid{grid-template-columns:1fr}}
+
+  /* Typo preview (item 03) — Fraunces + Inter com fontes reais */
+  .typo-preview{margin:14px 0}
+  .typo-preview .tp-label{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:10px}
+  .typo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .typo-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:var(--shadow-xs);display:flex;flex-direction:column;gap:8px}
+  .typo-card .tc-role{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--coral)}
+  .typo-card.body .tc-role{color:var(--green-text)}
+  .typo-card .tc-sample.fraunces{font-family:'Fraunces',Georgia,serif;font-size:1.4rem;font-weight:600;color:var(--accent2);line-height:1.2;letter-spacing:-0.01em}
+  .typo-card .tc-sample.inter{font-family:'Inter',system-ui,sans-serif;font-size:0.92rem;font-weight:500;color:var(--text);line-height:1.5}
+  .typo-card .tc-name{font-size:0.72rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em}
+  .typo-card .tc-desc{font-size:0.66rem;color:var(--text2);line-height:1.5}
+  @media (max-width:640px){.typo-grid{grid-template-columns:1fr}}
+
+  /* Full pipeline (item 04) — diagrama vertical do encadeamento */
+  .full-pipeline{margin:14px 0;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 16px;box-shadow:var(--shadow-xs)}
+  .full-pipeline .fp-title{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:14px;text-align:center}
+  .fp-flow{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+  .fp-stage{border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:0.74rem;line-height:1.4;position:relative}
+  .fp-stage .fp-tag{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:3px 7px;border-radius:4px;flex-shrink:0}
+  .fp-stage .fp-body{flex:1;min-width:0}
+  .fp-stage .fp-body strong{font-weight:700;display:block}
+  .fp-stage .fp-body em{font-style:italic;font-size:0.66rem;opacity:0.8}
+  .fp-stage.input{background:var(--blue-light);border:1px solid var(--blue-border);color:var(--blue-text)}
+  .fp-stage.input .fp-tag{background:var(--blue);color:#FFFFFF}
+  .fp-stage.input .fp-body strong{color:var(--blue-text)}
+  .fp-stage.skill-a{background:var(--green-light);border:1px solid var(--green-border);color:var(--green-text)}
+  .fp-stage.skill-a .fp-tag{background:var(--green);color:#FFFFFF}
+  .fp-stage.skill-a .fp-body strong{color:var(--green-text)}
+  .fp-stage.skill-b{background:var(--coral-light);border:1px solid var(--coral-border);color:var(--coral-text)}
+  .fp-stage.skill-b .fp-tag{background:var(--coral);color:#FFFFFF}
+  .fp-stage.skill-b .fp-body strong{color:var(--coral-text)}
+  .fp-stage.current{background:rgba(212,221,201,0.55);border:2px solid var(--green);box-shadow:var(--shadow-sm)}
+  .fp-stage.current .fp-tag{background:var(--accent2);color:var(--bg)}
+  .fp-stage.current .fp-body strong{color:var(--accent2);font-size:0.82rem}
+  .fp-stage.current .fp-badge-current{position:absolute;top:8px;right:10px;background:var(--gold);color:var(--accent2);font-size:0.54rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:3px 7px;border-radius:4px}
+  .fp-stage.output{background:var(--accent2);color:var(--bg);border:1px solid var(--accent2)}
+  .fp-stage.output .fp-tag{background:var(--gold);color:var(--accent2)}
+  .fp-stage.output .fp-body strong{color:var(--gold)}
+  .fp-arrow{text-align:center;font-size:0.9rem;color:var(--text3);font-weight:800;line-height:1;padding:0}
+
+  /* Cards de duração + modelo */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Card do Desafio */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:6px 0 6px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card ol li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:rgba(209,170,83,0.18);padding:1px 5px;border-radius:3px;color:var(--gold)}
+  .desafio-card ol ul{list-style:none;margin:6px 0 6px 0}
+  .desafio-card ol ul li{padding:3px 0 3px 12px;counter-increment:none;font-size:0.72rem;color:rgba(242,236,224,0.85)}
+  .desafio-card ol ul li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--gold);font-size:0;display:block}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+  .desafio-card .dc-meta strong{color:var(--gold)}
+
+  /* Lista de checkmarks */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+  .check-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Step-cards (passo a passo) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600;line-height:1.3}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.84rem;color:var(--text);line-height:1.6;margin:0 0 12px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-desc em{color:var(--text2);font-style:italic}
+  .step-card-list{list-style:none;margin:8px 0 12px;counter-reset:scl}
+  .step-card-list li{counter-increment:scl;position:relative;padding:5px 0 5px 28px;font-size:0.8rem;color:var(--text);line-height:1.55}
+  .step-card-list li::before{content:counter(scl);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--accent-lighter);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .step-card-list li strong{color:var(--accent2);font-weight:700}
+  .step-card-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Bifurcação visual no Passo 05 — sub-seções A/B */
+  .bifurcacao{margin:18px 0 12px}
+  .bifurcacao-head{padding:12px 16px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:10px;border:1px solid;border-bottom:none}
+  .bifurcacao-head .bh-tag{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;padding:4px 9px;border-radius:4px;flex-shrink:0}
+  .bifurcacao-head .bh-title{font-size:0.92rem;font-weight:800;letter-spacing:-0.01em}
+  .bifurcacao-body{padding:14px 16px;border-radius:0 0 8px 8px;border:1px solid;border-top:none;background:var(--panel)}
+  .bifurcacao.caminho-a .bifurcacao-head{background:var(--green-light);border-color:var(--green-border)}
+  .bifurcacao.caminho-a .bifurcacao-head .bh-tag{background:var(--green);color:#FFFFFF}
+  .bifurcacao.caminho-a .bifurcacao-head .bh-title{color:var(--green-text)}
+  .bifurcacao.caminho-a .bifurcacao-body{border-color:var(--green-border);border-left:3px solid var(--green)}
+  .bifurcacao.caminho-b .bifurcacao-head{background:var(--coral-light);border-color:var(--coral-border)}
+  .bifurcacao.caminho-b .bifurcacao-head .bh-tag{background:var(--coral);color:#FFFFFF}
+  .bifurcacao.caminho-b .bifurcacao-head .bh-title{color:var(--coral-text)}
+  .bifurcacao.caminho-b .bifurcacao-body{border-color:var(--coral-border);border-left:3px solid var(--coral)}
+  .bifurcacao-body h4{font-size:0.78rem;font-weight:800;color:var(--accent2);margin:10px 0 6px;letter-spacing:-0.01em}
+  .bifurcacao-body h4:first-child{margin-top:0}
+  .bifurcacao-body p{font-size:0.78rem;color:var(--text);line-height:1.6;margin-bottom:8px}
+  .bifurcacao-body p strong{color:var(--accent2);font-weight:700}
+  .bifurcacao-body p em{color:var(--text2);font-style:italic}
+  .bifurcacao-body p code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .bifurcacao-body ol.bif-list{list-style:none;counter-reset:bl;margin:8px 0 10px}
+  .bifurcacao-body ol.bif-list li{counter-increment:bl;position:relative;padding:6px 0 6px 28px;font-size:0.76rem;color:var(--text);line-height:1.55}
+  .bifurcacao-body ol.bif-list li::before{content:counter(bl);position:absolute;left:0;top:7px;width:20px;height:20px;border-radius:50%;font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .bifurcacao.caminho-a .bifurcacao-body ol.bif-list li::before{background:var(--green);color:#FFFFFF}
+  .bifurcacao.caminho-b .bifurcacao-body ol.bif-list li::before{background:var(--coral);color:#FFFFFF}
+  .bifurcacao-body ol.bif-list li strong{color:var(--accent2);font-weight:700}
+  .bifurcacao-body ol.bif-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .bifurcacao-body ul.bif-bullets{list-style:none;margin:6px 0 10px}
+  .bifurcacao-body ul.bif-bullets li{padding:4px 0 4px 18px;position:relative;font-size:0.74rem;color:var(--text2);line-height:1.5}
+  .bifurcacao-body ul.bif-bullets li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%}
+  .bifurcacao.caminho-a .bifurcacao-body ul.bif-bullets li::before{background:var(--green)}
+  .bifurcacao.caminho-b .bifurcacao-body ul.bif-bullets li::before{background:var(--coral)}
+  .bifurcacao-body ul.bif-bullets li strong{color:var(--accent2);font-weight:700}
+
+  /* Downloads-card (Passo 01) */
+  .downloads-card{background:var(--green-light);border:1px solid var(--green-border);border-left:4px solid var(--green);border-radius:8px;padding:14px 16px;margin:14px 0 4px}
+  .downloads-card .dc-head{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--green-text);margin-bottom:12px}
+  .downloads-card .dl-btn{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:0;text-decoration:none;color:var(--text);transition:all 0.15s}
+  .downloads-card .dl-btn:hover{border-color:var(--accent);background:var(--accent-lighter);transform:translateX(2px)}
+  .downloads-card .dl-btn .dl-icon{font-size:1.3rem;flex-shrink:0;width:36px;height:36px;border-radius:6px;background:var(--green-light);color:var(--green-text);display:flex;align-items:center;justify-content:center}
+  .downloads-card .dl-btn .dl-meta{flex:1;min-width:0}
+  .downloads-card .dl-btn .dl-name{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.74rem;font-weight:600;color:var(--accent2);margin-bottom:2px;word-break:break-all}
+  .downloads-card .dl-btn .dl-desc{font-size:0.7rem;color:var(--text2);line-height:1.45}
+  .downloads-card .dl-btn .dl-arrow{font-size:0.9rem;color:var(--accent);flex-shrink:0;font-weight:800}
+
+  /* Lista de respostas esperadas */
+  .resposta-list{list-style:none;margin:12px 0;counter-reset:rl}
+  .resposta-list li{padding:10px 12px 10px 40px;margin-bottom:8px;background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:6px;font-size:0.78rem;color:var(--text);line-height:1.55;counter-increment:rl;position:relative}
+  .resposta-list li::before{content:counter(rl);position:absolute;left:10px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:0.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .resposta-list li strong{color:var(--accent2);font-weight:700}
+  .resposta-list li em{color:var(--text2);font-style:italic}
+  .resposta-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Skill Gerar Briefing</h2>
+      <p>Atividade 04 &middot; AI no Comercial</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Os 2 caminhos lado a lado<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Identidade visual no briefing (Caminho A)<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Conceito &mdash; Skill como tradutora visual<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Comercial &rsaquo; <a href="index.html">Índice</a> &rsaquo; 04. Skill Gerar Briefing</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP04 em 2 caminhos &mdash; e como ela fecha o pipeline comercial</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
+          <tr><td>Bloco</td><td>A14 &middot; IA no Comercial &middot; Quarta atividade prática</td></tr>
+          <tr><td>Duração</td><td>15 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Skills (acionada dentro do Project Comercial Lumina, na MESMA CONVERSA da AP02 e AP03)</td></tr>
+          <tr><td>Pré-requisito</td><td>AP02 e AP03 concluídas &mdash; pipeline organizado (4 tabelas) e diagnóstico narrativo (5 blocos) visíveis no chat da conversa atual. A AP04 vai rodar <strong>dentro da mesma conversa</strong>.</td></tr>
+          <tr><td>Entregável</td><td>Skill <code>gerar-briefing-lumina</code> instalada + Briefing Semanal do Pipeline em HTML (Caminho A) OU texto enriquecido (Caminho B)</td></tr>
+        </tbody></table>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A14.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP04:</strong> o <strong>Briefing Semanal do Pipeline Lumina · Semana de 13/out</strong> &mdash; em <strong>dois formatos possíveis</strong> dependendo do seu plano do Claude:</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP04 &mdash; 2 caminhos possíveis</div>
+        <div class="eb-title">Briefing Semanal do Pipeline &mdash; Lumina</div>
+
+        <div class="caminhos-grid">
+          <div class="caminho-card a">
+            <div class="cm-head">
+              <div class="cm-icon">&#128196;</div>
+              <div>
+                <div class="cm-tag">Caminho A</div>
+                <div class="cm-title">Briefing em HTML autocontido</div>
+              </div>
+            </div>
+            <div class="cm-desc">Arquivo HTML único (~50 KB) com paleta wellness Lumina, tipografia Fraunces + Inter, 6 blocos visuais com cards, indicadores e botões "Copiar script" funcionais. Print-friendly (Ctrl+P gera PDF perfeito).</div>
+            <div class="cm-rec">&#128142; Recomendado para plano pago &mdash; consome mais créditos via code execution</div>
+          </div>
+          <div class="caminho-card b">
+            <div class="cm-head">
+              <div class="cm-icon">&#128172;</div>
+              <div>
+                <div class="cm-tag">Caminho B</div>
+                <div class="cm-title">Briefing em texto enriquecido</div>
+              </div>
+            </div>
+            <div class="cm-desc">6 blocos formatados em markdown enriquecido (tabelas, blockquotes, scripts em blocos de código copiáveis) diretamente no chat. Sem artefato, sem code execution.</div>
+            <div class="cm-rec">&#9989; Recomendado para plano gratuito &mdash; consumo mínimo de créditos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">A Skill pergunta antes de gerar</div>
+        <p>Diferente das outras Skills da aula, a <code>gerar-briefing-lumina</code> <strong>NÃO gera nada de imediato</strong>. Antes de produzir o briefing, ela faz uma pergunta ao usuário: <em>"Qual caminho você quer &mdash; A (HTML) ou B (texto)?"</em> Você responde com a letra e a Skill gera o briefing no formato escolhido.</p>
+        <p><strong>Isso é proposital</strong> &mdash; alunos do plano gratuito podem escolher B para preservar créditos; alunos do plano pago podem escolher A para ter a peça visual completa.</p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP se conecta com o destino final da A14</div>
+        <p>O briefing que você vai gerar aqui é o <strong>entregável visual final</strong> do pipeline comercial Lumina. É a peça que Carolina vai abrir toda segunda às 8h, lida em 5 minutos com café antes do primeiro horário do dia.</p>
+        <p><strong>Tudo o que o pipeline produz desemboca aqui.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Os 2 caminhos lado a lado</div>
+      <div class="sec-desc">A primeira AP da aula que oferece escolha ao aluno &mdash; veja o que cada caminho entrega</div>
+
+      <p class="lead-text">Esta é a primeira AP da aula que oferece <strong>escolha</strong> ao aluno. Veja o que cada caminho entrega:</p>
+
+      <div class="comp-detalhado">
+        <div class="comp-detalhado-card a">
+          <div class="cdc-head">
+            <div class="cdc-icon">&#128196;</div>
+            <div>
+              <div class="cdc-title">Caminho A &mdash; HTML autocontido</div>
+              <div class="cdc-subtitle">Peça visual completa</div>
+            </div>
+          </div>
+          <ul>
+            <li>Arquivo HTML único (~50 KB) com paleta <strong>wellness Lumina</strong> aplicada</li>
+            <li>Tipografia <strong>Fraunces</strong> (títulos) + <strong>Inter</strong> (corpo) carregadas via Google Fonts</li>
+            <li>6 blocos visuais: cabeçalho institucional, foto da semana, 3 leads urgentes com <strong>botões "Copiar script" funcionais</strong>, tendências, oportunidade da semana, ação recomendada</li>
+            <li>Print-friendly (<strong>Ctrl+P</strong> gera PDF perfeito)</li>
+            <li>Editável (abre em editor de texto se precisar ajustar)</li>
+            <li class="warn">Consome mais créditos (code execution + ~60-90s de geração)</li>
+          </ul>
+          <div class="cdc-recommend">&#128142; Recomendado para alunos com plano pago do Claude</div>
+        </div>
+
+        <div class="comp-detalhado-card b">
+          <div class="cdc-head">
+            <div class="cdc-icon">&#128172;</div>
+            <div>
+              <div class="cdc-title">Caminho B &mdash; Texto enriquecido</div>
+              <div class="cdc-subtitle">No próprio chat</div>
+            </div>
+          </div>
+          <ul>
+            <li>6 blocos formatados em <strong>markdown enriquecido</strong> no próprio chat</li>
+            <li>Tabelas markdown com setas comparativas (<strong>▲▼▬</strong>)</li>
+            <li>Scripts em blocos de código com <strong>botão "Copiar" nativo</strong> do Claude</li>
+            <li>Blockquotes coloridos para hierarquia visual</li>
+            <li>Geração rápida (~20-30s, <strong>sem code execution</strong>)</li>
+            <li>Consumo mínimo de créditos</li>
+          </ul>
+          <div class="cdc-recommend">&#9989; Recomendado para plano gratuito (preserva créditos para a AP05)</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que oferecer 2 caminhos?</div>
+        <p>O Caminho A é a evolução natural do pipeline &mdash; peça visual completa, executiva, pronta para apresentar. Mas gerar HTML via Skill consome créditos significativos do plano gratuito. Se o aluno gastar todos os créditos aqui na AP04, fica sem condição de completar a AP05.</p>
+        <p><strong>A solução: dar escolha.</strong> Quem tem plano pago vai pelo Caminho A. Quem tem plano gratuito vai pelo Caminho B &mdash; e ainda assim consegue um briefing executivo de qualidade, só que em texto.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Como o briefing respeita a identidade visual da Lumina (Caminho A)</div>
+      <div class="sec-desc">Paleta, tipografia e princípios de design aplicados ao HTML do briefing</div>
+
+      <p class="lead-text">Esta seção descreve o que acontece <strong>se você escolher o Caminho A (HTML)</strong>. No Caminho B (texto), a paleta e tipografia não se aplicam &mdash; o briefing usa apenas markdown padrão. <strong>A descrição abaixo é específica do HTML.</strong></p>
+
+      <p class="lead-text">A Skill consulta o arquivo <code>identidade-visual-lumina.md</code> carregado no Project (lá na AP01) e aplica rigorosamente a estética <strong>minimalismo wellness premium</strong> da marca:</p>
+
+      <div class="palette-preview">
+        <div class="pp-label">&#127912; Paleta de cores Lumina</div>
+        <div class="palette-grid">
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#FBF9F5"></div>
+            <div class="ps-meta"><div class="ps-name">Branco quente neutro</div><div class="ps-hex">#FBF9F5</div></div>
+          </div>
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#5C7A5A"></div>
+            <div class="ps-meta"><div class="ps-name">Verde-musgo suave</div><div class="ps-hex">#5C7A5A</div></div>
+          </div>
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#C97A5A"></div>
+            <div class="ps-meta"><div class="ps-name">Coral terroso</div><div class="ps-hex">#C97A5A</div></div>
+          </div>
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#8A857D"></div>
+            <div class="ps-meta"><div class="ps-name">Cinza-taupe quente</div><div class="ps-hex">#8A857D</div></div>
+          </div>
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#D4DDC9"></div>
+            <div class="ps-meta"><div class="ps-name">Verde-claro pálido</div><div class="ps-hex">#D4DDC9</div></div>
+          </div>
+          <div class="palette-swatch">
+            <div class="ps-color" style="background:#D1AA53"></div>
+            <div class="ps-meta"><div class="ps-name">Dourado champagne</div><div class="ps-hex">#D1AA53</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="typo-preview">
+        <div class="tp-label">&#9999; Tipografia Lumina</div>
+        <div class="typo-grid">
+          <div class="typo-card title">
+            <div class="tc-role">Títulos</div>
+            <div class="tc-sample fraunces">Briefing Semanal</div>
+            <div class="tc-name">Fraunces</div>
+            <div class="tc-desc">Serifada moderna com toque artesanal &mdash; autoridade premium sem rigidez</div>
+          </div>
+          <div class="typo-card body">
+            <div class="tc-role">Corpo</div>
+            <div class="tc-sample inter">B2B Distribuidores acelerou 12% esta semana</div>
+            <div class="tc-name">Inter</div>
+            <div class="tc-desc">Sans-serif clean e neutra &mdash; máxima legibilidade</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <h3>6 princípios visuais aplicados ao briefing HTML</h3>
+        <ul>
+          <li><strong>Espaço negativo é protagonista</strong> &mdash; nunca preencher mais de 60% da página</li>
+          <li><strong>Dados acima de ornamentos</strong> &mdash; números e indicadores são o foco, decoração é mínima</li>
+          <li><strong>Linhas finas, nunca grossas</strong> &mdash; 1px para divisores, sem bordas dramáticas</li>
+          <li><strong>Sem grade visível em tabelas</strong> &mdash; só linhas horizontais finas entre seções</li>
+          <li><strong>Hierarquia por espaçamento</strong> &mdash; não por cor ou tamanho extremo</li>
+          <li><strong>Sem sombras pesadas, sem gradientes</strong> &mdash; estética calma e contida</li>
+        </ul>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; A Skill como tradutora visual</div>
+      <div class="sec-desc">Uma quarta categoria de Skill: a Skill que traduz</div>
+
+      <p class="lead-text">Até agora você usou Skills para <strong>padronizar</strong> (AP02) e <strong>diagnosticar</strong> (AP03). A AP04 introduz uma quarta categoria de Skill: a Skill que <strong>traduz</strong>.</p>
+
+      <div class="full-pipeline">
+        <div class="fp-title">&#128208; Pipeline comercial completo da Lumina</div>
+        <div class="fp-flow">
+          <div class="fp-stage input">
+            <span class="fp-tag">Input</span>
+            <div class="fp-body"><strong>Planilha bruta de pipeline da semana</strong><em>Exportada do CRM toda segunda</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage skill-a">
+            <span class="fp-tag">Skill &middot; AP02</span>
+            <div class="fp-body"><strong>organizar-pipeline-lumina</strong><em>Padroniza nos 5 estágios &mdash; 4 tabelas no chat</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage skill-b">
+            <span class="fp-tag">Skill &middot; AP03</span>
+            <div class="fp-body"><strong>diagnosticar-pipeline-lumina</strong><em>Diagnostica em 5 blocos narrativos no chat</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage current">
+            <span class="fp-tag">Skill &middot; AP04</span>
+            <div class="fp-body"><strong>gerar-briefing-lumina</strong><em>Traduz tudo em peça visual ou texto enriquecido</em></div>
+            <span class="fp-badge-current">&larr; Você está aqui</span>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage output">
+            <span class="fp-tag">Output</span>
+            <div class="fp-body"><strong>Briefing pronto para Carolina ler em 5 minutos</strong><em>Toda segunda às 8h, com café</em></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="lead-text">A Skill <code>gerar-briefing-lumina</code> <strong>não inventa conteúdo novo</strong> &mdash; ela apenas pega o pipeline organizado (AP02) e o diagnóstico (AP03) que já estão na conversa e os organiza visualmente respeitando rigorosamente a identidade da marca (no Caminho A) ou em markdown enriquecido (no Caminho B). <strong>É uma operação de tradução, não de criação.</strong></p>
+
+      <div class="insight-box">
+        <div class="insight-label">Analogia</div>
+        <p>A Skill tradutora visual é como <strong>um designer editorial sênior</strong> de uma equipe comercial: ele não é o analista que padroniza os dados, nem o coordenador que faz o diagnóstico. Ele é quem pega tudo isso pronto e <strong>transforma em algo que Carolina consegue ler em 5 minutos</strong> sem perder profundidade.</p>
+        <p>O conteúdo intelectual já existe. O trabalho dele é tornar esse conteúdo <strong>visualmente acessível para uso semanal</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">Fluxo completo da Skill gerar-briefing-lumina &mdash; com a pergunta A/B em ação</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo completo da Skill <code>gerar-briefing-lumina</code> em <strong>uma sequência linear de passos simples</strong> &mdash; porque o trabalho pesado de encadeamento já foi feito nas APs anteriores.</p>
+
+      <div class="overview-card">
+        <h3>Fluxo completo da demonstração</h3>
+        <p>O professor abre a página <code>Customize &rsaquo; Skills</code> e faz upload do arquivo <code>gerar-briefing-lumina.zip</code>. Em seguida volta para a <strong>mesma conversa do Project</strong> onde a AP02 e a AP03 já rodaram (com pipeline organizado e diagnóstico narrativo visíveis no chat).</p>
+        <p>Envia uma frase curta acionando a Skill. <strong>A Skill NÃO gera nada de imediato</strong> &mdash; ela pergunta ao professor: <em>"Qual caminho você quer? A (HTML autocontido) ou B (texto enriquecido)?"</em> O professor responde "A" para demonstrar a versão visual completa.</p>
+        <p>Em <strong>~60-90 segundos</strong>, a Skill devolve <strong>1 artefato HTML único</strong> com botão de download &mdash; o <strong>Briefing Semanal do Pipeline Lumina · Semana de 13/out</strong>. O professor abre o HTML no navegador, mostra os 6 blocos visuais com paleta wellness, testa os botões "Copiar script" dos 3 leads urgentes, e demonstra <code>Ctrl+P</code> para gerar PDF.</p>
+        <p><strong>(Demonstração opcional do Caminho B):</strong> se houver tempo, o professor inicia outra conversa de teste no Project, refaz AP02 e AP03 brevemente, e aciona a Skill respondendo "B" &mdash; para mostrar como fica a versão em texto enriquecido no próprio chat, sem artefato.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Skill pergunta antes de gerar</div>
+        <p>A pergunta sobre caminho A/B é <strong>obrigatória dentro da Skill</strong>. O motivo: o aluno do plano gratuito não percebe sozinho que gerar HTML consome muitos créditos &mdash; pode escolher A pensando "vou ver a versão bonita" e depois ficar sem créditos para a AP05.</p>
+        <p>A pergunta força uma decisão informada antes do consumo. <strong>A Skill explicita as características de cada caminho e recomenda o B para plano gratuito.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstração</div>
+      <div class="sec-desc">O prompt que o professor usa para acionar a Skill na demonstração</div>
+
+      <p class="lead-text">Este é o prompt que o professor usa para acionar a Skill na demonstração:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt da demonstração</span>
+        <div class="copy-block" id="prompt-demo">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-text').textContent)">Copiar</button>
+<span id="prompt-demo-text">Gere agora o Briefing Semanal Lumina usando a Skill gerar-briefing-lumina.</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">O prompt é curto de propósito</div>
+        <p>Note que o prompt <strong>não menciona qual caminho</strong> &mdash; quem decide isso é o aluno, depois que a Skill pergunta. <strong>Isso preserva a flexibilidade da Skill</strong> para o aluno escolher o caminho certo para o seu plano do Claude.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">6 sinais que diferenciam um briefing bem gerado em ambos os caminhos</div>
+
+      <ul class="observation-list">
+        <li><strong>A Skill confirma o contexto antes de qualquer outra coisa.</strong> Começa com mensagem curta tipo <em>"✅ Identidade visual Lumina carregada. Pronto para gerar briefing."</em></li>
+        <li><strong>A Skill faz a pergunta sobre caminho A ou B antes de gerar.</strong> Apresenta as características de cada caminho, menciona explicitamente o consumo de créditos, e recomenda B para plano gratuito. Espera resposta do usuário antes de prosseguir.</li>
+        <li><strong>(Caminho A) O briefing respeita rigorosamente a paleta wellness Lumina.</strong> Branco quente como fundo, verde-musgo como cor estrutural, coral terroso para acentos. Sem cores fora dessa paleta.</li>
+        <li><strong>(Caminho A) A tipografia está correta.</strong> Fraunces serifada nos títulos, Inter sans-serif no corpo. Combinação cria hierarquia natural sem precisar de cores agressivas ou tamanhos extremos.</li>
+        <li><strong>(Caminho A) Os botões "Copiar script" dos 3 leads urgentes funcionam.</strong> Clique copia o conteúdo para clipboard e muda visual do botão por 2 segundos.</li>
+        <li><strong>(Caminho A) Print-friendly funciona perfeitamente.</strong> <code>Ctrl+P</code> (ou <code>Cmd+P</code>) gera PDF com formatação preservada, cores corretas no impresso, botões "Copiar script" ocultos automaticamente na versão impressa.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">5 passos lineares &mdash; consome apenas 1 mensagem do Claude em 2 etapas técnicas</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">15 min</div>
+          <div class="mc-detail">5 passos sequenciais</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.6</div>
+          <div class="mc-detail">Disponível tanto no plano gratuito quanto no pago. <strong>&#128142; Plano pago:</strong> use Claude Opus 4.7 &mdash; refinamentos visuais ainda mais sofisticados (espaçamentos, hierarquia tipográfica, transições sutis no HTML; estrutura mais polida no texto enriquecido).</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai instalar agora a Skill <code>gerar-briefing-lumina</code> na sua conta Claude e gerar o <strong>Briefing Semanal do Pipeline Lumina · Semana de 13/out</strong> a partir do pipeline organizado e do diagnóstico que você já gerou nas APs 02 e 03 (que estão visíveis no chat). Esta AP tem <strong>5 passos lineares</strong>.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Esta AP consome apenas 1 mensagem do Claude &mdash; mas em 2 etapas</div>
+        <p>Você vai instalar a Skill via upload direto do <code>.zip</code> (zero mensagens), voltar à conversa da AP03 (zero mensagens), acionar a Skill com uma única mensagem curta (1 mensagem), e responder "A" ou "B" para a pergunta da Skill (mesma mensagem técnica).</p>
+        <p>Total acumulado da aula até aqui: <strong>4 de 4-5 mensagens previstas</strong> &mdash; você termina a AP04 dentro do orçamento.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">5 passos numerados sequencialmente &mdash; sem fases, estrutura linear simples</div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Baixe a Skill gerar-briefing-lumina.zip</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Esta AP precisa de <strong>1 arquivo baixado</strong> &mdash; a Skill que você vai instalar.</p>
+
+          <div class="downloads-card">
+            <div class="dc-head">&#128229; Material da AP04</div>
+
+            <a class="dl-btn" href="./assets/gerar-briefing-lumina.zip" download>
+              <span class="dl-icon">&#128230;</span>
+              <span class="dl-meta">
+                <span class="dl-name">gerar-briefing-lumina.zip</span>
+                <span class="dl-desc">Skill que produz o briefing visual em HTML autocontido OU em texto enriquecido (escolha do aluno).</span>
+              </span>
+              <span class="dl-arrow">&darr;</span>
+            </a>
+          </div>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong> clique no botão de download acima. O arquivo <code>.zip</code> (~6 KB) será salvo na sua pasta padrão de downloads. <strong>Não descompacte o arquivo</strong> &mdash; você vai fazer upload do <code>.zip</code> diretamente no Claude.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Faça upload da Skill em Customize &rsaquo; Skills</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, abra <strong>Customize</strong> (ou <strong>Personalizar</strong>) e acesse a aba <strong>Skills</strong>. Em seguida, faça upload do arquivo <code>gerar-briefing-lumina.zip</code> que você baixou no Passo 01.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>No Claude, localize o menu <strong>Customize</strong> (geralmente no menu lateral esquerdo, ou em "Configurações"). Clique para abrir.</li>
+            <li>Dentro de Customize, vá até a aba <strong>Skills</strong> (ou <strong>Habilidades</strong>).</li>
+            <li>Clique no botão <strong>+ Upload Skill</strong> (ou <strong>Carregar Skill</strong> / <strong>Adicionar Skill</strong>).</li>
+            <li>Selecione o arquivo <code>gerar-briefing-lumina.zip</code> da sua pasta de Downloads.</li>
+            <li>Aguarde o Claude processar o upload (alguns segundos).</li>
+            <li><strong>Validação visual:</strong> confirme que a Skill <code>gerar-briefing-lumina</code> aparece na lista de Skills instaladas, com status <strong>Instalada</strong> (ou <strong>Ativada</strong>). A descrição da Skill deve mencionar "Briefing Semanal" e "dois caminhos possíveis".</li>
+          </ol>
+
+          <p class="step-card-desc"><strong>Validação adicional:</strong> confirme também que as Skills <code>organizar-pipeline-lumina</code> (AP02) e <code>diagnosticar-pipeline-lumina</code> (AP03) continuam instaladas &mdash; você deve ter as <strong>3 Skills</strong> coexistindo na sua conta a partir de agora.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Volte à MESMA conversa do Project onde rodaram AP02 e AP03</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc"><strong>ATENÇÃO &mdash; assim como na AP03, este passo é crítico.</strong> Você precisa retomar <strong>exatamente a conversa</strong> onde rodou a AP02 e a AP03. <strong>Não crie nova conversa.</strong></p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>No menu lateral do Claude, clique em <strong>Projetos</strong> (ou <strong>Projects</strong>).</li>
+            <li>Localize na lista o Project <strong>"Comercial &mdash; Lumina"</strong> e clique para abrir.</li>
+            <li>Dentro do Project, no menu lateral interno (à esquerda), localize a <strong>lista de conversas existentes</strong> dentro deste Project.</li>
+            <li>Clique na conversa onde você rodou AP02 e AP03 (deve ser a mais recente, com as 4 tabelas do pipeline organizado <strong>e</strong> os 5 blocos do diagnóstico narrativo visíveis no histórico).</li>
+            <li><strong>Validação visual:</strong> role o histórico da conversa para confirmar que você está vendo: o prompt da AP02 + as 4 tabelas geradas pela Skill <code>organizar-pipeline-lumina</code>, e o prompt da AP03 + os 5 blocos gerados pela Skill <code>diagnosticar-pipeline-lumina</code> (incluindo os 3 scripts em blocos de código).</li>
+          </ol>
+
+          <div class="warning-box">
+            <div class="warning-label">Por que a "mesma conversa" continua sendo crítica</div>
+            <p>A Skill <code>gerar-briefing-lumina</code> lê <strong>três coisas que só estão disponíveis nesta conversa específica:</strong></p>
+            <p>1. As <strong>4 tabelas do pipeline organizado</strong> (geradas na AP02)<br>2. Os <strong>5 blocos do diagnóstico narrativo</strong> (gerados na AP03)<br>3. Os <strong>arquivos de contexto do Project</strong> (carregados na AP01, incluindo <code>identidade-visual-lumina.md</code> que é essencial para o Caminho A)</p>
+            <p>Se você iniciar nova conversa, vai precisar refazer AP02 e AP03 &mdash; <strong>consumindo 2 mensagens extras</strong> que vão estourar o orçamento da aula. Por isso: <strong>mesma conversa, sempre.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Cole o prompt abaixo e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No campo de mensagem da mesma conversa, use o botão <strong>Copiar</strong> abaixo para copiar o prompt da AP04. Cole no campo (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em <strong>Enviar</strong> (ou <code>Enter</code>).</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP04</span>
+            <div class="copy-block" id="prompt-ap04">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap04-text').textContent)">Copiar</button>
+<span id="prompt-ap04-text">Gere agora o Briefing Semanal Lumina usando a Skill gerar-briefing-lumina.</span></div>
+          </div>
+
+          <div class="tip-box">
+            <div class="tip-label">Tempo de resposta esperado nesta etapa</div>
+            <p>Cerca de <strong>10 a 15 segundos</strong> para a Skill carregar os arquivos de contexto e fazer a pergunta sobre qual caminho seguir.</p>
+          </div>
+
+          <p class="step-card-desc"><strong>O que esperar na resposta do Claude (PRIMEIRA ETAPA &mdash; antes da escolha A ou B):</strong></p>
+
+          <ul class="resposta-list">
+            <li><strong>Linha de confirmação inicial:</strong> <em>"✅ Identidade visual Lumina carregada. Pronto para gerar briefing."</em></li>
+            <li><strong>Pergunta sobre caminho A ou B</strong> &mdash; a Skill apresenta as características de cada caminho: 📄 <strong>CAMINHO A</strong> (Briefing em HTML autocontido) com lista de características (paleta wellness, tipografia, 6 blocos visuais, botões funcionais, print-friendly), marca consumo (<em>"⚠️ Consome mais créditos &mdash; usa code execution"</em>) e recomendação (<em>"Recomendado para alunos com plano pago do Claude"</em>); 💬 <strong>CAMINHO B</strong> (Briefing em texto enriquecido) com lista de características (6 blocos formatados, sem artefato, sem code execution), marca consumo (<em>"✅ Consumo mínimo de créditos &mdash; gera em poucos segundos"</em>) e recomendação (<em>"Recomendado para alunos com plano gratuito"</em>).</li>
+            <li><strong>Pergunta final:</strong> <em>"Qual caminho você quer? Responda apenas 'A' ou 'B'."</em></li>
+          </ul>
+
+          <p class="step-card-desc"><strong>A Skill espera sua resposta antes de prosseguir</strong> &mdash; não gera nada até receber "A" ou "B".</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 05</span><span class="step-card-title">Responda "A" ou "B" e receba o briefing</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Decida qual caminho seguir baseado no seu plano:</p>
+          <ul class="check-list">
+            <li><strong>Plano pago do Claude?</strong> Responda <strong>"A"</strong> para receber o briefing em HTML autocontido (visual completo).</li>
+            <li><strong>Plano gratuito do Claude?</strong> Responda <strong>"B"</strong> para receber o briefing em texto enriquecido (consumo mínimo de créditos, preserva orçamento para a AP05).</li>
+          </ul>
+          <p class="step-card-desc">Digite apenas a letra escolhida (sem aspas) no campo de mensagem e envie.</p>
+
+          <div class="tip-box">
+            <div class="tip-label">Tempo de resposta esperado</div>
+            <p>~60-90 segundos para o <strong>Caminho A</strong> (geração de HTML) ou ~20-30 segundos para o <strong>Caminho B</strong> (geração de texto).</p>
+          </div>
+
+          <!-- BIFURCAÇÃO CAMINHO A -->
+          <div class="bifurcacao caminho-a">
+            <div class="bifurcacao-head">
+              <span class="bh-tag">Caminho A</span>
+              <span class="bh-title">&#128196; Se você escolheu HTML autocontido</span>
+            </div>
+            <div class="bifurcacao-body">
+              <h4>O que esperar</h4>
+              <ol class="bif-list">
+                <li><strong>Mensagem curta no chat:</strong> <em>"✅ Briefing Semanal Lumina · Semana de 13/out gerado em HTML. Arquivo HTML autocontido pronto para download. Abra no navegador para visualizar &mdash; os scripts dos 3 leads urgentes têm botão 'Copiar' funcional. Para imprimir ou exportar como PDF, use Ctrl+P (Cmd+P no Mac)."</em></li>
+                <li><strong>Artefato HTML</strong> com nome <code>briefing-lumina-semana-13out2025.html</code> aparecendo na lateral do chat com botão de download.</li>
+                <li><strong>Nota final sobre Live Artifacts</strong> (no chat após o artefato).</li>
+              </ol>
+
+              <h4>O que fazer</h4>
+              <ol class="bif-list">
+                <li>Clique em <strong>Baixar</strong> no artefato. O arquivo <code>.html</code> (~50 KB) será salvo no seu computador.</li>
+                <li><strong>Abra o HTML no navegador</strong> (clique duplo no arquivo baixado). O briefing vai abrir como uma página web.</li>
+                <li><strong>Confira os 6 blocos visuais:</strong>
+                  <ul class="bif-bullets">
+                    <li><strong>Bloco 1 &mdash; Cabeçalho institucional:</strong> Logo SVG Lumina + título "Briefing Semanal do Pipeline" + saudação para Carolina + indicador de humor (🟢/🟡/🔴) com texto explicativo</li>
+                    <li><strong>Bloco 2 &mdash; Foto da semana:</strong> 5 cards horizontais por estágio (Lead → Qualificado → Proposta → Negociação → Fechado) com comparativo vs semana anterior (▲▼▬) + tabela limpa por canal</li>
+                    <li><strong>Bloco 3 &mdash; 3 leads urgentes:</strong> 3 cards editoriais com badge de urgência, dados do lead, diagnóstico, e <strong>botão "Copiar script" funcional</strong> em cada um</li>
+                    <li><strong>Bloco 4 &mdash; Tendências detectadas:</strong> 3 sub-blocos visuais (canal acelerando 🚀, canal desacelerando 📉, estágio travado 🚧)</li>
+                    <li><strong>Bloco 5 &mdash; Oportunidade da semana:</strong> card destacado com fundo gradiente sutil, ícone 💡 e ação sugerida</li>
+                    <li><strong>Bloco 6 &mdash; Ação recomendada:</strong> background verde-musgo escuro com texto branco quente, frase imperativa central + 3 bullets cronológicos (Hoje, Até quarta, Antes de sexta)</li>
+                  </ul>
+                </li>
+                <li><strong>Teste os 3 botões "Copiar script"</strong> do Bloco 3 &mdash; clique e veja o conteúdo ser copiado, o botão mudar para "Copiado ✓" por 2 segundos, e voltar ao estado original.</li>
+                <li><strong>(Bônus) Exporte como PDF</strong> &mdash; pressione <code>Ctrl+P</code> (ou <code>Cmd+P</code> no Mac), selecione "Salvar como PDF" no destino, e salve. O PDF mantém formatação visual perfeita.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- BIFURCAÇÃO CAMINHO B -->
+          <div class="bifurcacao caminho-b">
+            <div class="bifurcacao-head">
+              <span class="bh-tag">Caminho B</span>
+              <span class="bh-title">&#128172; Se você escolheu texto enriquecido</span>
+            </div>
+            <div class="bifurcacao-body">
+              <h4>O que esperar (tudo no chat &mdash; sem artefato)</h4>
+              <ol class="bif-list">
+                <li><strong>Cabeçalho do briefing:</strong> <em>"📋 Briefing Semanal do Pipeline &mdash; Lumina | Semana de 13/out | Boa segunda-feira, Carolina. [🟡] Humor do pipeline: ATENÇÃO &mdash; [frase de 1 linha resumindo o estado]"</em></li>
+                <li><strong>Bloco 1 &mdash; Cabeçalho contextual</strong> já coberto no cabeçalho acima.</li>
+                <li><strong>Bloco 2 &mdash; Foto da semana:</strong> 2 tabelas markdown enriquecidas &mdash; tabela de Estágios com 5 linhas + comparativo vs semana anterior (▲▼▬) e tabela de Canais com 4 linhas + comparativo.</li>
+                <li><strong>Bloco 3 &mdash; 3 leads urgentes:</strong> mini-cards em blockquote com diagnóstico + <strong>scripts em blocos de código copiáveis</strong> (botão "Copiar" nativo do Claude).</li>
+                <li><strong>Bloco 4 &mdash; Tendências detectadas:</strong> 3 sub-blocos em blockquotes (🚀 acelerando, 📉 desacelerando, 🚧 estágio travado).</li>
+                <li><strong>Bloco 5 &mdash; Oportunidade da semana:</strong> blockquote destacado com 💡.</li>
+                <li><strong>Bloco 6 &mdash; Ação recomendada da semana:</strong> frase imperativa em destaque + 3 bullets cronológicos.</li>
+                <li><strong>Mensagem de encerramento</strong> + <strong>nota sobre Live Artifacts</strong> (plano pago).</li>
+              </ol>
+
+              <h4>O que fazer</h4>
+              <ol class="bif-list">
+                <li>Role o chat e leia os 6 blocos.</li>
+                <li><strong>Teste os botões "Copiar"</strong> dos 3 scripts no Bloco 3 &mdash; passe o mouse sobre cada bloco de código e clique no botão "Copiar" que aparece no canto.</li>
+                <li><strong>(Opcional) Copie o briefing inteiro</strong> &mdash; selecione todo o texto dos 6 blocos no chat e copie para um documento (Notion, Google Docs, Word) se quiser arquivar.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="tip-box champagne">
+            <div class="tip-label">&#128142; Em ambos os caminhos &mdash; observação sobre Live Artifacts</div>
+            <p>Ao final do briefing (em ambos os caminhos), a Skill apresenta uma observação destacada:</p>
+            <p><em>"Próximo nível (plano pago): se você tem acesso ao plano pago do Claude, pode usar Live Artifacts conectados a planilhas no seu computador ou Google Drive. Toda vez que você atualizar a planilha de pipeline, o briefing HTML se atualiza sozinho &mdash; sem precisar acionar a Skill novamente. É a evolução natural quando você quiser zero clique manual na rotina semanal."</em></p>
+            <p>Esta nota é importante: mostra o próximo nível de automação possível no plano pago, sem ser pushy. <strong>Carolina (na empresa real) pode considerar migrar para plano pago quando perceber que está atualizando a planilha toda segunda manualmente.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Skill de briefing instalada + 3 Skills encadeadas + briefing semanal completo</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>A Skill <code>gerar-briefing-lumina</code> <strong>instalada permanentemente</strong> na sua conta Claude &mdash; pronta para gerar o briefing de qualquer semana futura.</li>
+          <li>O <strong>Briefing Semanal do Pipeline Lumina · Semana de 13/out</strong> em HTML autocontido (~50 KB salvo no seu computador) <strong>OU</strong> em texto enriquecido (visível no chat e copiável manualmente).</li>
+          <li><strong>3 Skills encadeadas</strong> rodando no Project Comercial Lumina &mdash; você cobriu todo o pipeline manual de gestão semanal.</li>
+          <li><strong>3 scripts de aproximação prontos para copiar</strong> com botão "Copiar" funcional (no HTML do Caminho A ou nos blocos de código do Caminho B).</li>
+          <li>A capacidade de <strong>exportar o briefing como PDF</strong> via <code>Ctrl+P</code> (apenas Caminho A) &mdash; formatação preservada para envio por email ou impressão.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box champagne">
+        <div class="tip-label">&#128142; Como customizar a Skill para a empresa do aluno</div>
+        <p>A Skill <code>gerar-briefing-lumina</code> foi pré-construída com a identidade visual específica da Lumina (paleta wellness, Fraunces + Inter, princípios de design minimalismo). <strong>Quando for fazer o Desafio na sua empresa</strong>, você vai precisar de uma Skill <code>gerar-briefing-[sua-empresa]</code> calibrada para a identidade visual da sua marca. Use o prompt abaixo como base no Desafio (ao final desta AP):</p>
+        <p><em>"Vou criar uma Skill no Claude que produz o Briefing Semanal do Pipeline da minha empresa em DOIS CAMINHOS (HTML autocontido OU texto enriquecido). A persona alvo é [NOME, CARGO]. A identidade visual da minha marca tem: paleta [HEX CODES DA SUA MARCA], tipografia [FONTES DA SUA MARCA] (ou indique 'sem identidade visual definida &mdash; use combinação neutra'), princípios visuais [DESCRIÇÃO DO ESTILO &mdash; corporativo / tech minimalista / premium / casual moderno]. Por favor, gere uma Skill <code>gerar-briefing-[empresa]</code> em formato <code>.zip</code> que: (1) sempre pergunte ao usuário qual caminho A ou B antes de gerar, (2) no Caminho A produza um HTML autocontido com 6 blocos visuais (cabeçalho, foto da semana, 3 leads urgentes com botões Copiar, tendências, oportunidade, ação recomendada), aplicando paleta e tipografia da marca, com print-friendly via @media print, (3) no Caminho B produza os 6 blocos em markdown enriquecido no chat (tabelas, blockquotes, scripts em blocos de código), (4) em ambos os caminhos, adicione nota final sobre Live Artifacts (plano pago). Entregue como artefato <code>.zip</code> para download."</em></p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP05</div>
+        <p>Na próxima atividade prática você vai <strong>estabelecer a rotina semanal</strong> de geração do briefing &mdash; com <strong>3 caminhos à sua escolha</strong>:</p>
+        <p>&bull; <strong>Caminho 1</strong> &mdash; Tarefa Agendada no Cowork (💎 plano pago) &mdash; automação completa toda segunda 8h<br>&bull; <strong>Caminho 2</strong> &mdash; Project pinned + prompt salvo (qualquer plano) &mdash; 2 minutos de esforço semanal<br>&bull; <strong>Caminho 3</strong> &mdash; Lembrete no Calendário com link e prompt no corpo do evento (qualquer plano) &mdash; não esquece, 5 minutos de esforço semanal</p>
+        <p><strong>A AP05 não consome mensagens do Claude</strong> &mdash; toda configuração é via interface.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">Replique o processo &mdash; calibre a Skill de briefing para a identidade visual da sua marca</div>
+
+      <p class="lead-text">Agora que você dominou o conceito da Skill tradutora visual com o caso da Lumina (e os 2 caminhos A/B), replique o processo para a <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Crie a Skill gerar-briefing-[sua-empresa]</div>
+        <p>O que fazer:</p>
+        <ol>
+          <li><strong>Reúna as referências de identidade visual da sua empresa:</strong>
+            <ul>
+              <li>Paleta de cores oficial (consulte seu manual de marca &mdash; entre 4 e 6 cores, com códigos HEX)</li>
+              <li>Tipografia oficial (1 fonte para títulos + 1 fonte para corpo). Se sua empresa não tiver tipografia definida, use combinações neutras: Georgia + Inter, Playfair Display + Source Sans, Cormorant + Lato.</li>
+              <li>Princípios visuais (corporativo, tech minimalista, premium dourado, casual moderno, wellness, brutalist, editorial?)</li>
+              <li>Persona alvo do briefing (quem vai receber e ler toda segunda &mdash; nome + cargo)</li>
+            </ul>
+          </li>
+          <li><strong>Gere a Skill <code>gerar-briefing-[sua-empresa]</code>.</strong> Use o prompt sugerido na observação do item 10 desta AP &mdash; substitua os campos <em>[NOME, CARGO]</em>, <em>[HEX CODES]</em>, <em>[FONTES]</em> e <em>[DESCRIÇÃO DO ESTILO]</em> pelos valores reais da sua marca. Envie o prompt ao Claude e gere a Skill em formato <code>.zip</code>.</li>
+          <li><strong>Instale a Skill gerada</strong> em <code>Customize &rsaquo; Skills</code> na sua conta Claude.</li>
+          <li><strong>Garanta que as Skills <code>organizar-pipeline-[empresa]</code> e <code>diagnosticar-pipeline-[empresa]</code></strong> (geradas nos Desafios das APs 02 e 03) já estão instaladas e funcionais &mdash; você vai precisar delas primeiro para gerar pipeline organizado e diagnóstico.</li>
+          <li><strong>Garanta que o Project Comercial da sua empresa</strong> (criado no Desafio da AP01) tem o <code>identidade-visual-[empresa].md</code> carregado.</li>
+          <li><strong>Acione a Skill de briefing</strong> na mesma conversa onde Skills organizadora e diagnóstica da sua empresa rodaram. Use o prompt: <em>"Gere agora o Briefing Semanal usando a Skill <code>gerar-briefing-[empresa]</code>."</em></li>
+          <li><strong>Responda A ou B</strong> quando a Skill perguntar (baseado no seu plano).</li>
+          <li><strong>Avalie o briefing:</strong>
+            <ul>
+              <li><strong>(Caminho A)</strong> O HTML respeita a identidade visual da sua marca? Os 6 blocos estão visualmente claros? Os botões "Copiar script" funcionam? <code>Ctrl+P</code> gera PDF aceitável?</li>
+              <li><strong>(Caminho B)</strong> Os 6 blocos no chat estão visualmente distintos? As tabelas com setas comparativas estão legíveis? Os scripts em blocos de código têm botão "Copiar" nativo?</li>
+            </ul>
+          </li>
+          <li><strong>Itere a Skill se necessário.</strong> Skills de geração visual sempre precisam de 1-2 iterações para calibrar &mdash; ajuste paleta, tipografia, espaçamentos, hierarquia visual conforme sua marca.</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> uma Skill de briefing semanal com a identidade visual da sua marca, instalada permanentemente, pronta para fechar a semana com peça visual única (ou texto enriquecido) toda segunda. <strong>Tempo estimado:</strong> 60 a 90 minutos (a maior parte é levantar paleta e tipografia oficial + iterar 1-2 vezes a Skill até calibrar visualmente).</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Por que esse desafio é o passo 4 da jornada de 5 dias</div>
+        <p>Você já configurou o ambiente (AP01), estruturou o pipeline (AP02), produziu o diagnóstico narrativo (AP03), e agora tem a <strong>peça visual final</strong> (AP04). Em 4 dias, você cobriu <strong>80% do pipeline comercial completo</strong> da sua empresa.</p>
+        <p>Resta 1 desafio: a automação da rotina semanal (AP05).</p>
+        <p><strong>Faça este desafio em 1 dia</strong> após terminar o Desafio da AP03 &mdash; em 5 dias você tem o pipeline rodando com dados reais da sua empresa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap04-skill-gerar-briefing";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 11;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
