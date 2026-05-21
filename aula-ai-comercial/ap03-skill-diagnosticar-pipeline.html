@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03. Skill de Diagnóstico do Pipeline &middot; AI no Comercial &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .tip-box.champagne{background:var(--insight-bg);border-color:var(--gold);border-left-color:var(--gold)}
+  .tip-box.champagne .tip-label{color:var(--gold)}
+  .tip-box.champagne p{color:var(--insight-fg)}
+  .tip-box.champagne p strong{color:var(--gold);font-weight:700}
+  .tip-box.champagne em{color:var(--gold);font-style:italic;font-weight:500}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .insight-box.featured{padding:22px 26px;border-left:4px solid var(--gold)}
+  .insight-box.featured p{font-size:0.95rem;font-weight:600;line-height:1.55;letter-spacing:-0.005em}
+  .insight-box.featured p em{color:var(--gold);font-style:italic;font-weight:500;font-size:0.85rem}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .observation-list{list-style:none;margin:12px 0;counter-reset:obs}
+  .observation-list li{padding:12px 14px 12px 44px;margin-bottom:10px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs);counter-increment:obs;position:relative}
+  .observation-list li::before{content:counter(obs);position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+  .observation-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .observation-list li em{color:var(--text);font-style:italic}
+
+  /* ====== Componentes específicos da AP03 Comercial ====== */
+
+  /* Banner do entregável (item 01) — 5 blocos do diagnóstico empilhados */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--coral);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--coral);margin-bottom:6px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:12px}
+  .diag-blocks{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .diag-block{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+  .diag-block .db-icon{font-size:1.05rem;flex-shrink:0;width:28px;height:28px;border-radius:6px;background:var(--accent-lighter);display:flex;align-items:center;justify-content:center}
+  .diag-block .db-body{flex:1;min-width:0}
+  .diag-block .db-title{font-size:0.76rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.01em}
+  .diag-block .db-desc{font-size:0.7rem;color:var(--text2);line-height:1.45}
+
+  /* Recap-card item 02 — 4 etapas com status */
+  .recap-card{margin:14px 0}
+  .recap-row{display:flex;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:8px;align-items:flex-start;position:relative}
+  .recap-row .rr-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--accent-lighter);color:var(--accent2);font-weight:800;font-size:0.78rem;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .recap-row .rr-body{flex:1;font-size:0.76rem;color:var(--text2);line-height:1.5}
+  .recap-row .rr-body strong{color:var(--accent2);font-weight:700;font-size:0.8rem;display:block;margin-bottom:2px}
+  .recap-row .rr-badge{flex-shrink:0;background:var(--text3);color:#FFFFFF;font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 9px;border-radius:4px;font-family:'Montserrat',sans-serif;align-self:center}
+  .recap-row.done{background:var(--green-light);border-color:var(--green-border)}
+  .recap-row.done .rr-num{background:var(--green);color:#FFFFFF}
+  .recap-row.done .rr-body strong{color:var(--green-text)}
+  .recap-row.done .rr-body{color:var(--green-text)}
+  .recap-row.done .rr-badge{background:var(--green);color:#FFFFFF}
+  .recap-row.current{background:var(--coral-light);border:1px solid var(--coral-border);border-left:4px solid var(--coral);box-shadow:var(--shadow-sm)}
+  .recap-row.current .rr-num{background:var(--coral);color:#FFFFFF;width:34px;height:34px;font-size:0.86rem}
+  .recap-row.current .rr-body strong{color:var(--coral-text);font-size:0.86rem}
+  .recap-row.current .rr-body{color:var(--coral-text)}
+  .recap-row.current .rr-badge{background:var(--coral);color:#FFFFFF}
+  .recap-row.future{opacity:0.55}
+  .recap-row.future .rr-badge{background:var(--text3);color:#FFFFFF}
+
+  /* Grid comparativo 2 cards (item 03) — Skill organizadora vs diagnóstica */
+  .comparativo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .comp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:var(--shadow-xs);display:flex;flex-direction:column;gap:8px}
+  .comp-card.organizadora{background:var(--green-light);border-color:var(--green-border);border-top:4px solid var(--green)}
+  .comp-card.diagnostica{background:var(--coral-light);border-color:var(--coral-border);border-top:4px solid var(--coral)}
+  .comp-card .cc-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+  .comp-card.organizadora .cc-icon{background:rgba(79,107,62,0.18);color:var(--green-text)}
+  .comp-card.diagnostica .cc-icon{background:rgba(201,122,90,0.18);color:var(--coral-text)}
+  .comp-card .cc-tag{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em}
+  .comp-card.organizadora .cc-tag{color:var(--green-text)}
+  .comp-card.diagnostica .cc-tag{color:var(--coral-text)}
+  .comp-card .cc-title{font-size:0.86rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.3}
+  .comp-card .cc-file{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.66rem;font-weight:600;padding:3px 8px;border-radius:4px;display:inline-block;width:fit-content;word-break:break-all}
+  .comp-card.organizadora .cc-file{background:rgba(79,107,62,0.15);color:var(--green-text);border:1px solid var(--green-border)}
+  .comp-card.diagnostica .cc-file{background:rgba(201,122,90,0.15);color:var(--coral-text);border:1px solid var(--coral-border)}
+  .comp-card .cc-mode{font-size:0.66rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em}
+  .comp-card .cc-desc{font-size:0.74rem;color:var(--text2);line-height:1.55}
+  .comp-card .cc-desc strong{color:var(--accent2);font-weight:700}
+  @media (max-width:760px){.comparativo-grid{grid-template-columns:1fr}}
+
+  /* Cards de duração + modelo */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Card do Desafio */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:6px 0 6px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card ol ul{list-style:none;margin:6px 0 6px 0}
+  .desafio-card ol ul li{padding:3px 0 3px 12px;counter-increment:none;font-size:0.72rem;color:rgba(242,236,224,0.85)}
+  .desafio-card ol ul li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--gold);font-size:0;display:block}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+  .desafio-card .dc-meta strong{color:var(--gold)}
+
+  /* Lista de checkmarks */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+  .check-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Step-cards (passo a passo) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600;line-height:1.3}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.84rem;color:var(--text);line-height:1.6;margin:0 0 12px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-desc em{color:var(--text2);font-style:italic}
+  .step-card-list{list-style:none;margin:8px 0 12px;counter-reset:scl}
+  .step-card-list li{counter-increment:scl;position:relative;padding:5px 0 5px 28px;font-size:0.8rem;color:var(--text);line-height:1.55}
+  .step-card-list li::before{content:counter(scl);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--accent-lighter);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .step-card-list li strong{color:var(--accent2);font-weight:700}
+  .step-card-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Downloads-card (Passo 01) */
+  .downloads-card{background:var(--green-light);border:1px solid var(--green-border);border-left:4px solid var(--green);border-radius:8px;padding:14px 16px;margin:14px 0 4px}
+  .downloads-card .dc-head{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--green-text);margin-bottom:12px}
+  .downloads-card .dl-btn{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:0;text-decoration:none;color:var(--text);transition:all 0.15s}
+  .downloads-card .dl-btn:hover{border-color:var(--accent);background:var(--accent-lighter);transform:translateX(2px)}
+  .downloads-card .dl-btn .dl-icon{font-size:1.3rem;flex-shrink:0;width:36px;height:36px;border-radius:6px;background:var(--green-light);color:var(--green-text);display:flex;align-items:center;justify-content:center}
+  .downloads-card .dl-btn .dl-meta{flex:1;min-width:0}
+  .downloads-card .dl-btn .dl-name{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.74rem;font-weight:600;color:var(--accent2);margin-bottom:2px;word-break:break-all}
+  .downloads-card .dl-btn .dl-desc{font-size:0.7rem;color:var(--text2);line-height:1.45}
+  .downloads-card .dl-btn .dl-arrow{font-size:0.9rem;color:var(--accent);flex-shrink:0;font-weight:800}
+
+  /* Lista de respostas esperadas */
+  .resposta-list{list-style:none;margin:12px 0;counter-reset:rl}
+  .resposta-list li{padding:10px 12px 10px 40px;margin-bottom:8px;background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:6px;font-size:0.78rem;color:var(--text);line-height:1.55;counter-increment:rl;position:relative}
+  .resposta-list li::before{content:counter(rl);position:absolute;left:10px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:0.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .resposta-list li strong{color:var(--accent2);font-weight:700}
+  .resposta-list li em{color:var(--text2);font-style:italic}
+  .resposta-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Skill Diagnosticar Pipeline</h2>
+      <p>Atividade 03 &middot; AI no Comercial</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Onde você está no fluxo semanal<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Por que diagnóstico precisa de Skill dedicada<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Conceito &mdash; Skill como olho gerencial<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt da demonstração<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Passo a passo<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Comercial &rsaquo; <a href="index.html">Índice</a> &rsaquo; 03. Skill Diagnosticar Pipeline</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP03 e como ela se conecta com o destino final da A14</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
+          <tr><td>Bloco</td><td>A14 &middot; IA no Comercial &middot; Terceira atividade prática</td></tr>
+          <tr><td>Duração</td><td>12 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>Claude Skills (acionada dentro do Project Comercial Lumina, na MESMA CONVERSA da AP02)</td></tr>
+          <tr><td>Pré-requisito</td><td>AP02 concluída &mdash; pipeline organizado nos 5 estágios padrão visível no chat da conversa atual. A AP03 vai rodar <strong>dentro da mesma conversa da AP02</strong>.</td></tr>
+          <tr><td>Entregável</td><td>Skill <code>diagnosticar-pipeline-lumina</code> instalada + diagnóstico narrativo executivo em 5 blocos no chat</td></tr>
+        </tbody></table>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela se conecta ao destino final da aula A14.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP03:</strong> a Skill <em>"diagnosticar-pipeline-lumina"</em> instalada na sua conta Claude e o <strong>diagnóstico narrativo executivo em 5 blocos</strong> do pipeline da Lumina · semana de 13/out &mdash; apresentado diretamente no chat, com humor do pipeline, 3 leads urgentes com scripts copiáveis para abordagem, tendências por canal, oportunidade da semana e ação recomendada cronológica.</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP03</div>
+        <div class="eb-title">&#128203; Diagnóstico Semanal do Pipeline &mdash; Lumina</div>
+
+        <div class="diag-blocks">
+          <div class="diag-block">
+            <div class="db-icon">&#128993;</div>
+            <div class="db-body">
+              <div class="db-title">Bloco 1 &mdash; Humor do Pipeline</div>
+              <div class="db-desc">Estado geral em uma palavra + movimento mais relevante + sinal positivo ou de alerta</div>
+            </div>
+          </div>
+          <div class="diag-block">
+            <div class="db-icon">&#127919;</div>
+            <div class="db-body">
+              <div class="db-title">Bloco 2 &mdash; 3 leads urgentes</div>
+              <div class="db-desc">ID + Nome + Canal + Valor + Diagnóstico + Script copiável (com botão Copiar nativo)</div>
+            </div>
+          </div>
+          <div class="diag-block">
+            <div class="db-icon">&#128200;</div>
+            <div class="db-body">
+              <div class="db-title">Bloco 3 &mdash; Tendências detectadas</div>
+              <div class="db-desc">Canal acelerando &middot; Canal desacelerando &middot; Estágio travado</div>
+            </div>
+          </div>
+          <div class="diag-block">
+            <div class="db-icon">&#128161;</div>
+            <div class="db-body">
+              <div class="db-title">Bloco 4 &mdash; Oportunidade da semana</div>
+              <div class="db-desc">1 padrão proativo identificado</div>
+            </div>
+          </div>
+          <div class="diag-block">
+            <div class="db-icon">&#9989;</div>
+            <div class="db-body">
+              <div class="db-title">Bloco 5 &mdash; Ação recomendada</div>
+              <div class="db-desc">Hoje &middot; Até quarta &middot; Antes de sexta</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP se conecta com o destino final da A14</div>
+        <p>O diagnóstico narrativo que você vai gerar aqui é o <strong>conteúdo bruto</strong> do Briefing Semanal do Pipeline Lumina &mdash; a peça visual única que Carolina vai abrir toda segunda de manhã (AP04). Sem essa AP, a AP04 não tem o que renderizar.</p>
+        <p><strong>A AP03 é o miolo intelectual do pipeline comercial &mdash; o pensamento estratégico acontece aqui.</strong></p>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Saída totalmente no chat &mdash; sem artefatos</div>
+        <p>Assim como a AP02, esta Skill <strong>NÃO gera artefato <code>.md</code></strong> para download. Toda a saída vem como <strong>5 blocos em markdown enriquecido no próprio chat</strong>, com scripts em blocos de código copiáveis (o Claude oferece botão "Copiar" nativamente em blocos de código).</p>
+        <p>Isso preserva créditos do plano gratuito para a AP04 e AP05.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Onde você está no fluxo da rotina semanal</div>
+      <div class="sec-desc">Recapitulando as 4 etapas da rotina semanal &mdash; e onde a AP03 se posiciona</div>
+
+      <p class="lead-text">Recapitulando as 4 etapas da rotina semanal de gestão de pipeline &mdash; e onde a AP03 se posiciona:</p>
+
+      <div class="recap-card">
+        <div class="recap-row done">
+          <div class="rr-num">1</div>
+          <div class="rr-body">
+            <strong>Atualização do pipeline no CRM/Excel</strong>
+            + ambiente Project configurado <em>(você fez na AP01)</em>
+          </div>
+          <span class="rr-badge">&#10003; AP01</span>
+        </div>
+
+        <div class="recap-row done">
+          <div class="rr-num">2</div>
+          <div class="rr-body">
+            <strong>Estruturação do pipeline</strong>
+            nos 5 estágios padrão <em>(você fez na AP02)</em>
+          </div>
+          <span class="rr-badge">&#10003; AP02</span>
+        </div>
+
+        <div class="recap-row current">
+          <div class="rr-num">3</div>
+          <div class="rr-body">
+            <strong>Diagnóstico semanal narrativo</strong>
+            Você está aqui agora
+          </div>
+          <span class="rr-badge">&larr; AP03</span>
+        </div>
+
+        <div class="recap-row future">
+          <div class="rr-num">4</div>
+          <div class="rr-body">
+            <strong>Briefing visual + automação semanal</strong>
+            <em>(próximas APs)</em>
+          </div>
+          <span class="rr-badge">AP04</span>
+        </div>
+      </div>
+
+      <p class="lead-text">A AP03 é a etapa <strong>mais valiosa intelectualmente</strong> do pipeline semanal &mdash; é onde acontece a interpretação, a priorização e a recomendação de ação. <strong>A AP04 (briefing visual) é apenas a tradução visual do que você gera aqui.</strong></p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Por que o diagnóstico narrativo precisa de uma Skill dedicada</div>
+      <div class="sec-desc">Olhar tabelas e interpretar tabelas são trabalhos cognitivos diferentes</div>
+
+      <p class="lead-text">Você poderia pensar: <em>"Mas eu acabei de organizar o pipeline na AP02 &mdash; por que preciso de outra Skill para 'diagnosticar'? Não basta olhar as tabelas?"</em></p>
+
+      <p class="lead-text">A resposta é: olhar tabelas e <strong>interpretar tabelas</strong> são trabalhos cognitivos diferentes.</p>
+
+      <div class="comparativo-grid">
+        <div class="comp-card organizadora">
+          <div class="cc-icon">&#129001;</div>
+          <div class="cc-tag">Skill 1 &middot; AP02</div>
+          <div class="cc-title">organizar-pipeline-lumina</div>
+          <div class="cc-file">Operação determinística</div>
+          <div class="cc-mode">Padroniza e exibe</div>
+          <div class="cc-desc">Pega a planilha bruta, normaliza estágios e canais, calcula SLAs, devolve 4 tabelas no chat. <strong>Não interpreta</strong> &mdash; só estrutura.</div>
+        </div>
+        <div class="comp-card diagnostica">
+          <div class="cc-icon">&#128992;</div>
+          <div class="cc-tag">Skill 2 &middot; AP03</div>
+          <div class="cc-title">diagnosticar-pipeline-lumina</div>
+          <div class="cc-file">Operação interpretativa</div>
+          <div class="cc-mode">Lê, compara, identifica</div>
+          <div class="cc-desc">Lê as tabelas, compara com semana anterior, consulta histórico, <strong>identifica padrões</strong>. Produz diagnóstico narrativo com root causes, scripts de aproximação, tendências e ação recomendada cronológica.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que separar em duas Skills</div>
+        <p>Uma Skill monolítica que fizesse tudo (estruturar + diagnosticar) entregaria um output muito longo, confuso e demorado. Separando em duas Skills focadas, cada uma faz uma coisa bem feita &mdash; e o aluno tem <strong>dois pontos de checagem</strong> entre uma e outra (você vê o pipeline organizado primeiro, depois pede o diagnóstico).</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que o diagnóstico exige interpretação humana-like</div>
+        <p>Quando Carolina olha 48 oportunidades distribuídas em 5 estágios, ela precisa fazer perguntas como: <em>"Quais 3 leads precisam de atenção HOJE?"</em>, <em>"O B2B Distribuidores está acelerando ou desacelerando?"</em>, <em>"Tem algum cluster geográfico ou de perfil que eu não estou enxergando?"</em>, <em>"Qual a ação prioritária da semana?"</em>.</p>
+        <p>Essas são perguntas de <strong>julgamento + análise + recomendação</strong> &mdash; tarefa cognitiva alta. A Skill <code>diagnosticar-pipeline-lumina</code> é construída para fazer exatamente essas perguntas, semana após semana, com consistência.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; A Skill como olho gerencial</div>
+      <div class="sec-desc">A categoria mais valiosa de Skills &mdash; e a mais difícil de construir bem</div>
+
+      <p class="lead-text">Até aqui você viu Skills que <strong>padronizam</strong> dados (AP02). A AP03 introduz uma natureza completamente diferente: a Skill que <strong>diagnostica e recomenda ação</strong>.</p>
+
+      <p class="lead-text">Essa é a categoria mais valiosa de Skills &mdash; e a mais difícil de construir bem.</p>
+
+      <div class="insight-box featured">
+        <div class="insight-label">O olhar gerencial</div>
+        <p>A diferença entre uma planilha bonita e um briefing executivo está no <strong>olhar gerencial</strong> sobre os dados. A Skill <code style="background:rgba(209,170,83,0.18);padding:2px 6px;border-radius:4px;color:#D1AA53;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.88em">diagnosticar-pipeline-lumina</code> é construída para ter esse olhar &mdash; <em>toda semana, em 30 segundos.</em></p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Analogia</div>
+        <p>A Skill da AP02 é como <strong>um analista júnior</strong> que prepara a tabela bonita para a reunião. A Skill da AP03 é como <strong>um head de comercial sênior</strong> que olha a tabela e fala: <em>"Carolina, esses 3 leads precisam de ligação hoje. O B2B está acelerando &mdash; vale pisar no acelerador. A Proposta está travada &mdash; investiga por quê. E essa semana, foca em reabrir as 4 propostas paradas em B2B Distribuidores."</em></p>
+        <p>Não é a mesma pessoa fazendo as duas coisas. Não é nem a mesma habilidade. <strong>A Skill da AP03 é o seu head de comercial sênior assalariado &mdash; disponível toda segunda às 8h, custando frações de centavo por execução.</strong></p>
+      </div>
+
+      <p class="lead-text"><strong>Por isso o slogan da aula é:</strong> <em>"Da hora de reunião à hora do café &mdash; IA que diagnostica seu pipeline semanalmente."</em> O olhar gerencial que antes só acontecia ao vivo na reunião de pipeline review <strong>agora acontece em 30 segundos no chat, antes mesmo da reunião precisar começar.</strong></p>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">Fluxo de acionamento da Skill diagnosticar-pipeline-lumina &mdash; o encadeamento de Skills em ação</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra o fluxo de acionamento da Skill <code>diagnosticar-pipeline-lumina</code> em <strong>uma sequência simples &mdash; porque o trabalho pesado de encadeamento já foi feito</strong>.</p>
+
+      <div class="overview-card">
+        <h3>Fluxo completo da demonstração</h3>
+        <p>O professor abre <code>claude.ai</code>, vai em <strong>Customize &rarr; Skills</strong> e faz upload do arquivo <code>diagnosticar-pipeline-lumina.zip</code>. Aguarda a Skill aparecer como "Instalada".</p>
+        <p>Em seguida, <strong>volta à mesma conversa do Project onde rodou a AP02</strong> (onde as 4 tabelas do pipeline organizado já estão visíveis no chat). Sem anexar nada novo, envia apenas uma frase curta acionando a Skill.</p>
+        <p>Em <strong>menos de 60 segundos</strong>, o Claude devolve no chat o <strong>diagnóstico narrativo em 5 blocos</strong>: humor do pipeline (com semáforo), 3 leads urgentes com scripts copiáveis em blocos de código, tendências detectadas (canal acelerando, canal desacelerando, estágio travado), oportunidade proativa da semana e ação recomendada cronológica (Hoje, Até quarta, Antes de sexta).</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que a Skill da AP03 não precisa de nenhum arquivo anexado</div>
+        <p>A Skill <code>diagnosticar-pipeline-lumina</code> lê <strong>3 coisas que já estão disponíveis na conversa</strong>:</p>
+        <p>1. <strong>O pipeline organizado</strong> &mdash; as 4 tabelas que a Skill da AP02 acabou de gerar no chat<br>2. <strong>O snapshot da semana anterior</strong> &mdash; Aba 2 da planilha anexada na AP02 (o Claude ainda tem essa planilha em contexto na conversa)<br>3. <strong>O histórico de fechados</strong> &mdash; Aba 3 da mesma planilha</p>
+        <p>Esse é o princípio do <strong>encadeamento de Skills</strong>: cada Skill consome o que a anterior produziu, <strong>sem retrabalho</strong>. Por isso é fundamental que a AP03 rode na <strong>mesma conversa da AP02</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt da demonstração</div>
+      <div class="sec-desc">O prompt que o professor usa para acionar a Skill na demonstração</div>
+
+      <p class="lead-text">Este é o prompt que o professor usa para acionar a Skill na demonstração:</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt da demonstração</span>
+        <div class="copy-block" id="prompt-demo">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-demo-text').textContent)">Copiar</button>
+<span id="prompt-demo-text">Agora gere o diagnóstico semanal do pipeline desta semana usando a Skill diagnosticar-pipeline-lumina.</span></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">5 sinais que diferenciam uma Skill de diagnóstico bem construída</div>
+
+      <ul class="observation-list">
+        <li><strong>A Skill confirma o contexto antes de processar.</strong> Começa com mensagem curta tipo <em>"✅ Contexto comercial Lumina carregado. Gerando diagnóstico do pipeline."</em> Isso mostra que a Skill está usando os 3 arquivos de contexto do Project (plano de vendas, estágios, identidade visual) como base de regras.</li>
+        <li><strong>O Bloco 1 (Humor do Pipeline) é denso.</strong> Não é um parágrafo genérico ("foi uma semana desafiadora"), e sim 2-3 frases com <strong>números específicos</strong> (R$ X, +Y%, comparativo vs semana anterior). Em 15 segundos de leitura, Carolina sabe se a semana é 🟢 saudável, 🟡 atenção ou 🔴 alerta.</li>
+        <li><strong>Os 3 scripts de aproximação são copiáveis e em tom Lumina.</strong> Cada um vem dentro de um bloco de código (delimitado por três acentos graves) que o Claude renderiza com <strong>botão "Copiar" nativo</strong>. O tom dos scripts é wellness premium: sofisticado, contido, sem agressividade, sem "última chance", sem desconto fora de hora. <strong>Carolina copia e cola sem editar.</strong></li>
+        <li><strong>As tendências têm número e root cause.</strong> Não é "o canal cresceu" e sim <em>"B2B Distribuidores +R$ 22K (+12%) vs semana passada &mdash; root cause provável: efeito tardio da campanha de feira no início de outubro"</em>. Sem qualificadores fracos ("um pouquinho", "talvez").</li>
+        <li><strong>A ação recomendada é cronológica e específica.</strong> Não é "fechar mais negócios" e sim <em>"Hoje: ligar para Suplementos Vital (PR-0192). Até quarta: enviar follow-up de fechamento para NG-0148. Antes de sexta: reunião 1:1 com Bruno sobre carga de B2B."</em> <strong>Carolina sai do briefing sabendo exatamente o que fazer.</strong></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">4 passos lineares &mdash; consome apenas 1 mensagem do Claude (sem anexar planilha)</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">12 min</div>
+          <div class="mc-detail">4 passos sequenciais</div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">Sonnet 4.6</div>
+          <div class="mc-detail">Disponível tanto no plano gratuito quanto no pago. <strong>&#128142; Plano pago:</strong> use Claude Opus 4.7 &mdash; diagnósticos com root causes mais sofisticados, scripts mais polidos e padrões mais sutis.</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai instalar agora a Skill <code>diagnosticar-pipeline-lumina</code> na sua conta Claude e gerar o diagnóstico narrativo do pipeline da Lumina · semana de 13/out a partir do pipeline organizado que está no chat (da AP02). Esta AP tem <strong>4 passos lineares</strong>.</p>
+
+      <div class="tip-box">
+        <div class="tip-label">Esta AP consome apenas 1 mensagem do Claude</div>
+        <p>Você vai instalar a Skill via upload direto do <code>.zip</code> (zero mensagens), voltar à conversa da AP02 (zero mensagens), e acionar a Skill com uma única mensagem curta (1 mensagem). <strong>Não precisa anexar planilha</strong> &mdash; a Skill lê o pipeline organizado e o snapshot da semana anterior que já estão na conversa.</p>
+        <p>Total acumulado da aula até aqui: <strong>3 de 4-5 mensagens previstas</strong>.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Passo a passo</div>
+      <div class="sec-desc">4 passos numerados sequencialmente &mdash; sem fases, estrutura linear simples</div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Baixe a Skill diagnosticar-pipeline-lumina.zip</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Esta AP precisa de <strong>1 arquivo baixado</strong> &mdash; a Skill que você vai instalar.</p>
+
+          <div class="downloads-card">
+            <div class="dc-head">&#128229; Material da AP03</div>
+
+            <a class="dl-btn" href="./assets/diagnosticar-pipeline-lumina.zip" download>
+              <span class="dl-icon">&#128230;</span>
+              <span class="dl-meta">
+                <span class="dl-name">diagnosticar-pipeline-lumina.zip</span>
+                <span class="dl-desc">Skill que lê o pipeline organizado e produz diagnóstico narrativo em 5 blocos no chat (humor, 3 leads urgentes com scripts, tendências, oportunidade, ação recomendada).</span>
+              </span>
+              <span class="dl-arrow">&darr;</span>
+            </a>
+          </div>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong> clique no botão de download acima. O arquivo <code>.zip</code> (~5 KB) será salvo na sua pasta padrão de downloads. <strong>Não descompacte o arquivo</strong> &mdash; você vai fazer upload do <code>.zip</code> diretamente no Claude.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Faça upload da Skill em Customize &rsaquo; Skills</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, abra <strong>Customize</strong> (ou <strong>Personalizar</strong>) e acesse a aba <strong>Skills</strong>. Em seguida, faça upload do arquivo <code>diagnosticar-pipeline-lumina.zip</code> que você baixou no Passo 01.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>No Claude, localize o menu <strong>Customize</strong> (geralmente no menu lateral esquerdo, ou em "Configurações"). Clique para abrir.</li>
+            <li>Dentro de Customize, vá até a aba <strong>Skills</strong> (ou <strong>Habilidades</strong>).</li>
+            <li>Clique no botão <strong>+ Upload Skill</strong> (ou <strong>Carregar Skill</strong> / <strong>Adicionar Skill</strong>).</li>
+            <li>Selecione o arquivo <code>diagnosticar-pipeline-lumina.zip</code> da sua pasta de Downloads.</li>
+            <li>Aguarde o Claude processar o upload (alguns segundos).</li>
+            <li><strong>Validação visual:</strong> confirme que a Skill <code>diagnosticar-pipeline-lumina</code> aparece na lista de Skills instaladas, com status <strong>Instalada</strong> (ou <strong>Ativada</strong>). A descrição da Skill deve mencionar "diagnóstico narrativo executivo" e "5 blocos".</li>
+          </ol>
+
+          <p class="step-card-desc"><strong>Validação adicional:</strong> confirme também que a Skill <code>organizar-pipeline-lumina</code> (da AP02) continua instalada na lista &mdash; você vai ter as duas Skills coexistindo na sua conta a partir de agora.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Volte à MESMA conversa do Project onde rodou a AP02</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc"><strong>ATENÇÃO &mdash; este passo é o mais importante da AP03.</strong> Você precisa retomar <strong>exatamente a conversa</strong> onde rodou a AP02. <strong>Não crie nova conversa.</strong></p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>No menu lateral do Claude, clique em <strong>Projetos</strong> (ou <strong>Projects</strong>).</li>
+            <li>Localize na lista o Project <strong>"Comercial &mdash; Lumina"</strong> e clique para abrir.</li>
+            <li>Dentro do Project, no menu lateral interno (à esquerda), localize a <strong>lista de conversas existentes</strong> dentro deste Project.</li>
+            <li>Clique na conversa onde você rodou a AP02 (deve ser a mais recente, com as 4 tabelas do pipeline organizado visíveis no histórico).</li>
+            <li><strong>Validação visual:</strong> role o histórico da conversa para confirmar que você está vendo: o prompt que você enviou na AP02 (com a planilha anexada), as 4 tabelas geradas pela Skill <code>organizar-pipeline-lumina</code> (Distribuição por Estágio, Canal, Vendedor, Top SLA Estourado), e a mensagem de encerramento que direciona para a Skill <code>diagnosticar-pipeline-lumina</code>.</li>
+          </ol>
+
+          <div class="warning-box">
+            <div class="warning-label">Por que a "mesma conversa" é crítica nesta AP</div>
+            <p>A Skill <code>diagnosticar-pipeline-lumina</code> lê três coisas que <strong>só estão disponíveis na conversa específica da AP02:</strong></p>
+            <p>1. As <strong>4 tabelas do pipeline organizado</strong> que aparecem no chat (geradas pela Skill da AP02)<br>2. A <strong>planilha bruta</strong> que foi anexada na AP02 (o Claude ainda tem ela em contexto, com as 3 abas: pipeline atual, semana anterior, histórico de fechados)<br>3. As <strong>informações contextuais já estabelecidas</strong> na conversa (data do snapshot, perfil da semana)</p>
+            <p>Se você iniciar nova conversa, vai precisar reanexar a planilha e refazer a AP02 &mdash; <strong>consumindo 1 mensagem a mais</strong> do orçamento de 4-5. Por isso: <strong>mesma conversa, sempre.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Cole o prompt abaixo e envie</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No campo de mensagem da mesma conversa da AP02, use o botão <strong>Copiar</strong> abaixo para copiar o prompt da AP03. Cole no campo (<code>Cmd+V</code> no Mac ou <code>Ctrl+V</code> no Windows) e clique em <strong>Enviar</strong> (ou <code>Enter</code>).</p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Prompt da AP03</span>
+            <div class="copy-block" id="prompt-ap03">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-ap03-text').textContent)">Copiar</button>
+<span id="prompt-ap03-text">Agora gere o diagnóstico semanal do pipeline desta semana usando a Skill diagnosticar-pipeline-lumina.</span></div>
+          </div>
+
+          <div class="tip-box">
+            <div class="tip-label">Tempo de resposta esperado</div>
+            <p>Cerca de <strong>30 a 60 segundos</strong> para o Claude consultar os arquivos do Project, ler o pipeline organizado + snapshot da semana anterior + histórico, aplicar as 5 regras de diagnóstico e produzir os 5 blocos narrativos.</p>
+          </div>
+
+          <p class="step-card-desc"><strong>O que esperar na resposta do Claude (no próprio chat &mdash; sem artefato):</strong></p>
+
+          <ul class="resposta-list">
+            <li><strong>Linha de confirmação inicial:</strong> <em>"✅ Contexto comercial Lumina carregado. Gerando diagnóstico do pipeline."</em></li>
+            <li><strong>Cabeçalho</strong> com a semana de [data] e comparativo vs semana anterior.</li>
+            <li><strong>Bloco 1 &mdash; Humor do Pipeline</strong> com título colorido (🟢 SAUDÁVEL / 🟡 ATENÇÃO / 🔴 ALERTA) e parágrafo único de 2-3 frases densas. <strong>Esperado para os dados desta semana:</strong> 🟡 ATENÇÃO (aproximadamente 25% das oportunidades em SLA estourado).</li>
+            <li><strong>Bloco 2 &mdash; 3 leads urgentes</strong> apresentados como mini-cards em blockquote. Cada lead inclui: <em>header</em> com badge de urgência (🔴 Crítico) + ID + Nome do cliente; <em>linha de metadados</em> com Canal + Vendedor + Estágio + Valor + Dias parado; <em>diagnóstico</em> de 1-2 frases sobre o que travou; e <em>script de aproximação em bloco de código</em> (delimitado por três acentos graves) &mdash; pronto para copiar com botão "Copiar" nativo do Claude. <strong>Candidatos esperados:</strong> <code>PR-0192</code> (Suplementos Vital, 25 dias, R$ 21K), <code>NG-0150</code> (Suplementos Definitivo, 12 dias, R$ 22K), <code>NG-0147</code> (Loja Vitalidade Plus, 11 dias, R$ 19.5K), ou <code>PR-0188</code> (Academia BiggerBody, 18 dias, R$ 6.5K). A Skill escolhe os 3 mais urgentes.</li>
+            <li><strong>Bloco 3 &mdash; Tendências detectadas</strong>, com 3 sub-blocos em blockquotes: 🚀 <strong>Canal acelerando</strong> &mdash; movimento quantificado + root cause + ação; 📉 <strong>Canal desacelerando</strong> &mdash; idem; 🚧 <strong>Estágio travado</strong> &mdash; idem. Se algum sub-bloco não tiver achados materiais, vai aparecer "Sem tendências materiais nesta categoria esta semana".</li>
+            <li><strong>Bloco 4 &mdash; Oportunidade da semana</strong> em blockquote destacado com 💡, contendo padrão proativo identificado + parágrafo de contexto + ação sugerida.</li>
+            <li><strong>Bloco 5 &mdash; Ação recomendada da semana</strong> com frase imperativa em destaque (✅) + 3 bullets cronológicos (Hoje, Até quarta, Antes de sexta).</li>
+            <li><strong>Mensagem de encerramento</strong> direcionando para a Skill <code>gerar-briefing-lumina</code> (próxima AP).</li>
+          </ul>
+
+          <div class="tip-box">
+            <div class="tip-label">Teste os botões "Copiar" dos scripts</div>
+            <p>Antes de prosseguir para a AP04, <strong>passe o mouse sobre os 3 blocos de código dos scripts de aproximação</strong> (Bloco 2 do diagnóstico). Confirme que aparece o botão <strong>"Copiar"</strong> no canto superior direito de cada bloco. Clique em um deles para testar &mdash; o conteúdo do script deve ser copiado para a área de transferência.</p>
+            <p><strong>Este é o mecanismo que Carolina vai usar toda segunda para abordar leads urgentes &mdash; sem precisar de HTML, direto do chat.</strong></p>
+          </div>
+
+          <div class="tip-box">
+            <div class="tip-label">Leitura crítica dos scripts</div>
+            <p>Leia em voz alta cada um dos 3 scripts. Se você fosse Carolina:</p>
+            <p>&bull; O texto soa wellness premium Lumina (sofisticado, contido, sem agressividade)?<br>&bull; Você copiaria e enviaria sem editar?<br>&bull; O script menciona especificamente o tempo desde a última conversa e oferece retomada concreta?</p>
+            <p>Se as três respostas forem sim, a Skill está calibrada corretamente. Se algum script soou genérico ou agressivo, é sinal de que precisa ajustar a Skill no Desafio (na sua empresa).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Skill diagnóstica instalada + diagnóstico semanal completo no chat, pronto para a AP04</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>A Skill <code>diagnosticar-pipeline-lumina</code> <strong>instalada permanentemente</strong> na sua conta Claude &mdash; pronta para diagnosticar o pipeline da Lumina toda segunda nas próximas semanas.</li>
+          <li>O <strong>diagnóstico narrativo executivo da semana de 13/out</strong> visível no chat em 5 blocos.</li>
+          <li><strong>3 scripts de aproximação prontos para copiar</strong> &mdash; para os leads urgentes da semana, em tom Lumina wellness premium.</li>
+          <li><strong>Tendências quantificadas</strong> por canal e estágio (acelerando, desacelerando, travado).</li>
+          <li><strong>1 oportunidade proativa</strong> identificada para a semana (cluster ou padrão).</li>
+          <li><strong>Ação recomendada cronológica</strong> (Hoje, Até quarta, Antes de sexta) &mdash; Carolina sai sabendo exatamente o que fazer.</li>
+          <li><strong>Zero artefatos gerados</strong> &mdash; créditos preservados para as próximas APs.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box champagne">
+        <div class="tip-label">&#128142; Como customizar a Skill para a empresa do aluno</div>
+        <p>A Skill <code>diagnosticar-pipeline-lumina</code> foi pré-construída para a operação específica da Lumina (5 estágios, 4 canais, equipe Lumina, tom wellness premium). <strong>Quando for fazer o Desafio na sua empresa</strong>, você vai precisar de uma Skill <code>diagnosticar-pipeline-[sua-empresa]</code> calibrada para o tom da sua marca e para os critérios de priorização que fazem sentido no seu ciclo de vendas. Use o prompt abaixo como base no Desafio (ao final desta AP):</p>
+        <p><em>"Vou criar uma Skill no Claude que lê o pipeline organizado da minha empresa e produz diagnóstico narrativo executivo em 5 blocos no padrão Executive Summary. A persona alvo do briefing é [NOME, CARGO]. O tom da marca é [DESCRIÇÃO DO TOM &mdash; corporativo / tech minimalista / premium / casual moderno]. Os critérios de priorização dos leads urgentes para o meu ciclo são: [VALOR MÍNIMO QUE SIGNIFICA ALTO VALOR] + [DIAS PARADOS QUE SIGNIFICAM ESFRIANDO]. Por favor, gere uma Skill <code>diagnosticar-pipeline-[empresa]</code> em formato <code>.zip</code> que produza os 5 blocos no próprio chat (sem artefato): humor do pipeline, 3 leads urgentes com scripts copiáveis em tom da marca, tendências detectadas, oportunidade da semana, ação recomendada cronológica. Entregue como artefato <code>.zip</code> para download."</em></p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Próximo passo &mdash; AP04</div>
+        <p>Na próxima atividade prática você vai instalar a <strong>terceira e última Skill do pipeline: <code style="background:rgba(209,170,83,0.18);padding:2px 6px;border-radius:4px;color:#D1AA53">gerar-briefing-lumina</code></strong>. Ela vai ler o pipeline organizado (AP02) + o diagnóstico que você acabou de gerar (AP03) e vai produzir o <strong>briefing semanal final</strong> &mdash; com <strong>2 caminhos à sua escolha</strong>:</p>
+        <p>&bull; <strong>Caminho A</strong> &mdash; Briefing em HTML autocontido (artefato visual com paleta wellness Lumina, recomendado para plano pago)<br>&bull; <strong>Caminho B</strong> &mdash; Briefing em texto enriquecido no chat (6 blocos visualmente estruturados, recomendado para plano gratuito para preservar créditos)</p>
+        <p><strong>A AP04 também vai rodar na mesma conversa. Não inicie nova conversa.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">11.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">Replique o processo &mdash; calibre a Skill diagnóstica para o tom e ciclo da sua empresa</div>
+
+      <p class="lead-text">Agora que você dominou o conceito da Skill diagnóstica com o caso da Lumina, replique o processo para a <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Crie a Skill diagnosticar-pipeline-[sua-empresa]</div>
+        <p>O que fazer:</p>
+        <ol>
+          <li><strong>Defina os critérios de diagnóstico da sua empresa:</strong>
+            <ul>
+              <li>Quem é a persona alvo do briefing? (Nome + cargo)</li>
+              <li>Qual o tom da sua marca? (Corporativo? Tech minimalista? Premium? Casual moderno?)</li>
+              <li>O que significa "valor alto" no seu pipeline? (R$ 5K, R$ 50K, R$ 500K?)</li>
+              <li>O que significa "esfriando" no seu ciclo? (5 dias parados? 30 dias?)</li>
+              <li>Quais canais aceleram/desaceleram naturalmente em diferentes momentos? (Sazonalidade)</li>
+            </ul>
+          </li>
+          <li><strong>Gere a Skill <code>diagnosticar-pipeline-[sua-empresa]</code>.</strong> Use o prompt sugerido na observação do item 10 desta AP &mdash; substitua os campos pelos valores reais da sua operação. Envie o prompt ao Claude e gere a Skill em formato <code>.zip</code>.</li>
+          <li><strong>Instale a Skill gerada</strong> em <code>Customize &rsaquo; Skills</code> na sua conta Claude.</li>
+          <li><strong>Garanta que a Skill <code>organizar-pipeline-[empresa]</code></strong> (gerada no Desafio da AP02) já está instalada e funcional &mdash; você vai precisar dela primeiro.</li>
+          <li><strong>Acione a Skill diagnóstica</strong> na mesma conversa onde a Skill organizadora da sua empresa rodou (o pipeline organizado precisa estar no chat). Use o prompt: <em>"Agora gere o diagnóstico semanal do pipeline desta semana usando a Skill <code>diagnosticar-pipeline-[empresa]</code>."</em></li>
+          <li><strong>Avalie o diagnóstico:</strong>
+            <ul>
+              <li>O Humor do Pipeline reflete bem o estado real?</li>
+              <li>Os 3 leads urgentes são os que você diria que precisam de atenção?</li>
+              <li>Os scripts soam como a sua marca?</li>
+              <li>As tendências batem com sua percepção do mercado?</li>
+              <li>A ação recomendada é executável?</li>
+            </ul>
+          </li>
+          <li><strong>Itere a Skill se necessário.</strong> Diagnóstico não calibra na primeira tentativa &mdash; ajuste os critérios de priorização, o tom dos scripts e os thresholds de tendência conforme sua realidade.</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> uma Skill diagnóstica específica para o tom, ciclo e estrutura comercial da sua empresa &mdash; produzindo briefings narrativos que parecem ter sido escritos pelo seu head de comercial sênior. <strong>Tempo estimado:</strong> 60 a 90 minutos (a maior parte é iterar 2-3 vezes a Skill até calibrar tom e critérios &mdash; Skills diagnósticas são as mais sensíveis a ajustes).</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Por que esse desafio é o passo 3 da jornada de 5 dias</div>
+        <p>Você já configurou o ambiente (AP01), estruturou o pipeline (AP02), e agora resolveu o <strong>gargalo do diagnóstico semanal</strong> (AP03). Em 3 dias, você cobriu <strong>o miolo intelectual do pipeline comercial</strong> com IA.</p>
+        <p>Restam 2 desafios: briefing visual (AP04) e automação da rotina semanal (AP05).</p>
+        <p><strong>Faça este desafio em 1 dia</strong> após terminar o Desafio da AP02 &mdash; em 5 dias você tem todo o pipeline rodando com dados reais da sua empresa.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Anterior</button>
+        <a class="nav-btn primary" href="index.html">&#8617; Voltar ao índice</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap03-skill-diagnosticar-pipeline";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 11;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
