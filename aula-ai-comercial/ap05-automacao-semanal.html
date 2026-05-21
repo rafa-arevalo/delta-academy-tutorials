@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-palette="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05. Automação Semanal do Pipeline &middot; AI no Comercial &mdash; Delta Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  /* ================ Paletas (inline) ================ */
+  [data-palette="forest"] {
+    --bg: #F5F0EB; --white: #FFFFFF; --panel: #FFFFFF;
+    --accent: #5C6C51; --accent2: #1F3331;
+    --accent-light: #EDE8E2; --accent-lighter: #F0EBE4;
+    --accent-border: #DDD8D2; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #EAF1F7; --blue-border: #C8D8E5; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #ECF2E5; --green-border: #C6D4B3; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F5E5DD; --coral-border: #E5C2B0; --coral-text: #7A4A36;
+    --gold: #C8A968;
+    --text: #1A1A1A; --text2: #4A4A4A; --text3: #7A7A7A;
+    --border: #EDE8E2; --border2: #DDD8D2;
+    --ficha-td1-bg: #FAF8F4; --ficha-th-bg: #EDE8E2;
+    --card-num: #C8D1C0; --card-tag-bg: #5C6C51; --card-tag-fg: #F5F0EB;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F5F0EB; --sidebar-sub: #C8A968;
+    --sidebar-muted: rgba(245,240,235,0.5); --sidebar-item: rgba(245,240,235,0.7);
+    --sidebar-border: rgba(245,240,235,0.1); --sidebar-hover: rgba(92,108,81,0.2);
+    --sidebar-active-bg: #5C6C51; --sidebar-active-fg: #F5F0EB;
+    --sp-bar-track: rgba(245,240,235,0.1); --sp-bar-fill: #C8A968;
+    --copy-block-bg: #F0EBE4; --copy-block-border: #DDD8D2; --copy-block-fg: #2A2A2A;
+    --copy-btn-bg: #EDE8E2; --copy-btn-border: #DDD8D2; --copy-btn-fg: #5C6C51;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F5F0EB;
+    --warn-bg: #FEF3E2; --warn-border: #F5C96A; --warn-accent: #D97706;
+    --warn-label: #92610A; --warn-text: #7A520D;
+    --insight-bg: #1F3331; --insight-label: #C8A968; --insight-fg: #F5F0EB; --insight-strong: #C8A968;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  }
+  [data-palette="dusk"] {
+    --bg: #141F1D; --white: #1A2927; --panel: #1A2927;
+    --accent: #A4AE9C; --accent2: #D1AA53;
+    --accent-light: #2A433F; --accent-lighter: #223532;
+    --accent-border: #385652; --accent-text: #E3E6DE;
+    --blue: #8BB3D9; --blue-light: #1E3147; --blue-border: #385D80; --blue-text: #C4DBEF;
+    --green: #A8C68C; --green-light: #1F3322; --green-border: #3F5D35; --green-text: #D4E5BF;
+    --coral: #D9967A; --coral-light: #2E2620; --coral-border: #5C3F30; --coral-text: #F0CFB9;
+    --gold: #D1AA53;
+    --text: #ECEAE0; --text2: #C7CEC1; --text3: #8A938F;
+    --border: #2A433F; --border2: #385652;
+    --ficha-td1-bg: #1F3331; --ficha-th-bg: #223532;
+    --card-num: #385652; --card-tag-bg: #D1AA53; --card-tag-fg: #141F1D;
+    --sidebar-bg: #0A1211; --sidebar-fg: #ECEAE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(236,234,224,0.5); --sidebar-item: rgba(236,234,224,0.75);
+    --sidebar-border: rgba(236,234,224,0.08); --sidebar-hover: rgba(209,170,83,0.12);
+    --sidebar-active-bg: #2A433F; --sidebar-active-fg: #D1AA53;
+    --sp-bar-track: rgba(236,234,224,0.1); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #0A1211; --copy-block-border: #2A433F; --copy-block-fg: #ECEAE0;
+    --copy-btn-bg: #1A2927; --copy-btn-border: #2A433F; --copy-btn-fg: #A4AE9C;
+    --copy-btn-hover-bg: #D1AA53; --copy-btn-hover-fg: #141F1D;
+    --warn-bg: #2E2512; --warn-border: #B8933E; --warn-accent: #D1AA53;
+    --warn-label: #E6C784; --warn-text: #E6C784;
+    --insight-bg: #0A1211; --insight-label: #D1AA53; --insight-fg: #ECEAE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5),0 1px 2px rgba(0,0,0,0.3);
+  }
+  [data-palette="cream"] {
+    --bg: #F2ECE0; --white: #FBF7EC; --panel: #FBF7EC;
+    --accent: #8A6E2C; --accent2: #1F3331;
+    --accent-light: #E7DFCE; --accent-lighter: #EFE8D7;
+    --accent-border: #D8CFB7; --accent-text: #1F3331;
+    --blue: #2B5B8E; --blue-light: #E5EBF3; --blue-border: #B8C9DC; --blue-text: #1A3D5F;
+    --green: #4F6B3E; --green-light: #E5EBD8; --green-border: #B8CCA0; --green-text: #33491F;
+    --coral: #C97A5A; --coral-light: #F2E2D6; --coral-border: #DBB7A1; --coral-text: #7A4A36;
+    --gold: #B8933E;
+    --text: #1A1A1A; --text2: #4A4538; --text3: #8A7F64;
+    --border: #E1D8C2; --border2: #D1C7AD;
+    --ficha-td1-bg: #F5EED9; --ficha-th-bg: #E7DFCE;
+    --card-num: #C7BB9D; --card-tag-bg: #1F3331; --card-tag-fg: #F2ECE0;
+    --sidebar-bg: #1F3331; --sidebar-fg: #F2ECE0; --sidebar-sub: #D1AA53;
+    --sidebar-muted: rgba(242,236,224,0.5); --sidebar-item: rgba(242,236,224,0.72);
+    --sidebar-border: rgba(242,236,224,0.1); --sidebar-hover: rgba(184,147,62,0.18);
+    --sidebar-active-bg: #B8933E; --sidebar-active-fg: #1F3331;
+    --sp-bar-track: rgba(242,236,224,0.12); --sp-bar-fill: #D1AA53;
+    --copy-block-bg: #E7DFCE; --copy-block-border: #D1C7AD; --copy-block-fg: #1F3331;
+    --copy-btn-bg: #FBF7EC; --copy-btn-border: #D1C7AD; --copy-btn-fg: #8A6E2C;
+    --copy-btn-hover-bg: #1F3331; --copy-btn-hover-fg: #F2ECE0;
+    --warn-bg: #F5E4B8; --warn-border: #D1AA53; --warn-accent: #8A6E2C;
+    --warn-label: #5A4414; --warn-text: #5A4414;
+    --insight-bg: #1F3331; --insight-label: #D1AA53; --insight-fg: #F2ECE0; --insight-strong: #D1AA53;
+    --shadow-xs: 0 1px 2px rgba(31,51,49,0.06);
+    --shadow-sm: 0 1px 3px rgba(31,51,49,0.08),0 1px 2px rgba(31,51,49,0.05);
+  }
+
+  /* Palette switch */
+  .palette-switch{position:fixed;top:12px;right:12px;z-index:100;display:inline-flex;gap:3px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;box-shadow:var(--shadow-sm);font-family:'Montserrat',system-ui,sans-serif}
+  .palette-switch button{font:inherit;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 160ms ease}
+  .palette-switch button:hover{color:var(--text)}
+  .palette-switch button.is-active{background:var(--accent2);color:var(--bg)}
+
+  /* Layout */
+  body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 200ms ease, color 200ms ease}
+  .layout{display:flex;min-height:100vh}
+  .sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:var(--sidebar-muted);border-radius:3px}
+  .sidebar-header{padding:20px 16px 16px;border-bottom:1px solid var(--sidebar-border)}
+  .sidebar-header h2{font-size:0.88rem;font-weight:700;color:var(--sidebar-fg);letter-spacing:-0.02em}
+  .sidebar-header p{font-size:0.65rem;color:var(--sidebar-sub);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px}
+  .sidebar-header .back-link{font-size:0.68rem;color:var(--sidebar-muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;font-weight:600}
+  .sidebar-header .back-link:hover{color:var(--sidebar-fg)}
+  .nav-group{padding:10px 0 2px}
+  .nav-group-title{padding:2px 16px 2px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--sidebar-fg)}
+  .nav-subgroup{padding:2px 16px 2px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--sidebar-sub);margin:6px 0 2px}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 16px;cursor:pointer;transition:all 0.15s;text-decoration:none;color:var(--sidebar-item);font-size:0.74rem;font-weight:400;border-left:2px solid transparent}
+  .nav-item:hover{background:var(--sidebar-hover);color:var(--sidebar-fg)}
+  .nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active-fg);border-left-color:var(--sidebar-active-fg);font-weight:600}
+  .nav-item .ni-num{font-size:0.6rem;font-weight:600;color:var(--sidebar-muted);min-width:17px}
+  .nav-item.active .ni-num{color:var(--sidebar-active-fg)}
+  .nav-item .ni-check{margin-left:auto;font-size:0.62rem;color:var(--sidebar-muted);opacity:0;transition:opacity 0.2s}
+  .nav-item.completed .ni-check{opacity:1}
+  .sidebar-progress{padding:14px 16px;border-top:1px solid var(--sidebar-border);margin-top:auto}
+  .sp-label{font-size:0.62rem;color:var(--sidebar-muted);margin-bottom:6px}
+  .sp-bar{height:3px;background:var(--sp-bar-track);border-radius:2px;overflow:hidden}
+  .sp-fill{height:100%;background:var(--sp-bar-fill);border-radius:2px;transition:width 0.4s ease;width:0%}
+  .main{flex:1;padding:20px 36px 40px;max-width:780px}
+  .section{display:none;animation:fadeIn 0.25s ease}
+  .section.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .breadcrumb{font-size:0.64rem;color:var(--text3);margin-bottom:10px}
+  .breadcrumb a{color:var(--text3);text-decoration:none;font-weight:600}
+  .breadcrumb a:hover{color:var(--accent)}
+  .section-badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;border-radius:4px;margin-bottom:12px;background:var(--accent2);color:var(--bg)}
+  .badge-intro,.badge-demo,.badge-pratica,.badge-desafio{background:var(--accent2);color:var(--bg)}
+  .badge-desafio{background:var(--gold);color:var(--accent2)}
+  .sec-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
+  .sec-title .snum{color:var(--accent)}
+  .sec-title.demo .snum{color:var(--blue)}
+  .sec-title.pratica .snum{color:var(--green)}
+  .sec-title.desafio .snum{color:var(--gold)}
+  .sec-desc{font-size:0.8rem;color:var(--text2);margin-bottom:18px}
+  .lead-text{font-size:0.82rem;color:var(--text);line-height:1.7;margin-bottom:14px}
+  .lead-text strong{font-weight:700;color:var(--accent2)}
+  .lead-text code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .overview-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-xs)}
+  .overview-card h3{font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:8px}
+  .overview-card p,.overview-card li{font-size:0.76rem;color:var(--text2);line-height:1.6}
+  .overview-card ul{list-style:none;margin-top:8px}
+  .overview-card ul li{padding:4px 0;padding-left:16px;position:relative}
+  .overview-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .overview-card ul li strong{color:var(--accent2);font-weight:700}
+  .overview-card code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .ficha-table{width:100%;border-collapse:collapse;font-size:0.74rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+  .ficha-table th{background:var(--ficha-th-bg);color:var(--text2);font-weight:600;text-align:left;padding:8px 12px;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .ficha-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;font-size:0.74rem}
+  .ficha-table tr:last-child td{border-bottom:none}
+  .ficha-table td:first-child{font-weight:600;color:var(--text);width:35%;background:var(--ficha-td1-bg)}
+  .copy-wrap{margin:14px 0 16px}
+  .copy-wrap .copy-label{display:inline-block;font-family:'Montserrat',system-ui,sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent2);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--accent2)}
+  .copy-block{position:relative;background:#FFFFFF;border:1px solid var(--border2);border-left:4px solid var(--accent2);border-radius:8px;padding:20px 24px;font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.84rem;color:#0E1A19;line-height:1.72;white-space:pre-wrap;word-break:break-word;font-weight:500;box-shadow:0 1px 3px rgba(31,51,49,0.08),inset 0 0 0 1px rgba(255,255,255,0.6)}
+  [data-palette="dusk"] .copy-block{background:#0F1918;color:#F4F1E3;border-color:#2A433F}
+  .copy-btn{position:absolute;top:8px;right:8px;background:var(--copy-btn-bg);border:1px solid var(--copy-btn-border);color:var(--copy-btn-fg);padding:4px 12px;border-radius:5px;font-size:0.64rem;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif}
+  .copy-btn:hover{background:var(--copy-btn-hover-bg);color:var(--copy-btn-hover-fg);border-color:var(--copy-btn-hover-bg)}
+  .tip-box{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .tip-box .tip-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px}
+  .tip-box p{font-size:0.76rem;color:var(--accent-text);line-height:1.55}
+  .tip-box p+p{margin-top:6px}
+  .tip-box.champagne{background:var(--insight-bg);border-color:var(--gold);border-left-color:var(--gold)}
+  .tip-box.champagne .tip-label{color:var(--gold)}
+  .tip-box.champagne p{color:var(--insight-fg)}
+  .tip-box.champagne p strong{color:var(--gold);font-weight:700}
+  .tip-box.champagne em{color:var(--gold);font-style:italic;font-weight:500}
+  .tip-box.champagne code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:rgba(209,170,83,0.18);padding:1px 5px;border-radius:3px;color:var(--gold)}
+  .warning-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-left:3px solid var(--warn-accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0}
+  .warning-box .warning-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn-label);margin-bottom:4px}
+  .warning-box p{font-size:0.76rem;color:var(--warn-text);line-height:1.55}
+  .warning-box p+p{margin-top:6px}
+  .warning-box strong{font-weight:700;color:var(--warn-label)}
+  .insight-box{background:var(--insight-bg);border-radius:10px;padding:18px 22px;margin:16px 0;text-align:left}
+  .insight-box .insight-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--insight-label);margin-bottom:6px}
+  .insight-box p{font-size:0.84rem;font-weight:500;color:var(--insight-fg);line-height:1.6}
+  .insight-box p+p{margin-top:8px}
+  .insight-box p strong{color:var(--insight-strong);font-weight:700}
+  .insight-box code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:rgba(209,170,83,0.18);padding:1px 5px;border-radius:3px;color:var(--gold)}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:28px;padding-top:14px;border-top:1px solid var(--border)}
+  .nav-btn{display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text2);transition:all 0.15s;font-family:'Montserrat',system-ui,sans-serif;text-decoration:none}
+  .nav-btn:hover{background:var(--accent-lighter);border-color:var(--accent-border);color:var(--accent2)}
+  .nav-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .nav-btn.primary:hover{background:var(--accent2);color:var(--bg)}
+  .nav-btn.concluir{background:var(--gold);border-color:var(--gold);color:var(--accent2);font-weight:800}
+  .nav-btn.concluir:hover{background:var(--accent2);color:var(--gold);border-color:var(--accent2)}
+  .observation-list{list-style:none;margin:12px 0;counter-reset:obs}
+  .observation-list li{padding:12px 14px 12px 44px;margin-bottom:10px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;font-size:0.76rem;color:var(--text2);line-height:1.55;box-shadow:var(--shadow-xs);counter-increment:obs;position:relative}
+  .observation-list li::before{content:counter(obs);position:absolute;left:14px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:0.66rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .observation-list li strong{color:var(--blue-text);font-weight:700}
+
+  /* ====== Componentes específicos da AP05 Comercial ====== */
+
+  /* Banner do entregável com 3 caminhos lado a lado (item 01) */
+  .entregavel-banner{background:var(--accent-lighter);border:1px solid var(--accent-border);border-left:4px solid var(--coral);border-radius:8px;padding:16px 18px;margin:14px 0 16px}
+  .entregavel-banner .eb-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--coral);margin-bottom:6px}
+  .entregavel-banner .eb-title{font-size:0.92rem;font-weight:700;color:var(--accent2);margin-bottom:12px}
+  .caminhos-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+  .caminho-3-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+  .caminho-3-card.cowork{border-top:4px solid var(--gold)}
+  .caminho-3-card.pinned{border-top:4px solid var(--green)}
+  .caminho-3-card.cal{border-top:4px solid var(--coral)}
+  .caminho-3-card .c3-icon{font-size:1.6rem;line-height:1}
+  .caminho-3-card .c3-num{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em}
+  .caminho-3-card.cowork .c3-num{color:var(--gold)}
+  .caminho-3-card.pinned .c3-num{color:var(--green-text)}
+  .caminho-3-card.cal .c3-num{color:var(--coral-text)}
+  .caminho-3-card .c3-title{font-size:0.78rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.25}
+  .caminho-3-card .c3-desc{font-size:0.68rem;color:var(--text2);line-height:1.45}
+  .caminho-3-card .c3-meta{font-size:0.64rem;font-weight:600;color:var(--text);padding:6px 8px;border-radius:5px;margin-top:auto}
+  .caminho-3-card.cowork .c3-meta{background:rgba(184,147,62,0.15);color:var(--gold);border:1px solid rgba(184,147,62,0.3)}
+  .caminho-3-card.pinned .c3-meta{background:var(--green-light);color:var(--green-text);border:1px solid var(--green-border)}
+  .caminho-3-card.cal .c3-meta{background:var(--coral-light);color:var(--coral-text);border:1px solid var(--coral-border)}
+  @media (max-width:760px){.caminhos-3{grid-template-columns:1fr}}
+
+  /* Grid comparativo 3 caminhos (item 02) */
+  .comp-3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+  .comp-3-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-xs)}
+  .comp-3-card.cowork{border-top:4px solid var(--gold)}
+  .comp-3-card.pinned{border-top:4px solid var(--green)}
+  .comp-3-card.cal{border-top:4px solid var(--coral)}
+  .comp-3-card .c3c-icon{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+  .comp-3-card.cowork .c3c-icon{background:rgba(184,147,62,0.18);color:var(--gold)}
+  .comp-3-card.pinned .c3c-icon{background:rgba(79,107,62,0.18);color:var(--green-text)}
+  .comp-3-card.cal .c3c-icon{background:rgba(201,122,90,0.18);color:var(--coral-text)}
+  .comp-3-card .c3c-tag{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em}
+  .comp-3-card.cowork .c3c-tag{color:var(--gold)}
+  .comp-3-card.pinned .c3c-tag{color:var(--green-text)}
+  .comp-3-card.cal .c3c-tag{color:var(--coral-text)}
+  .comp-3-card .c3c-title{font-size:0.82rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.25}
+  .comp-3-card dl{display:flex;flex-direction:column;gap:4px;margin:4px 0;font-size:0.66rem}
+  .comp-3-card dl dt{font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;font-size:0.6rem}
+  .comp-3-card dl dd{color:var(--text);font-weight:500;line-height:1.4;margin-bottom:2px}
+  .comp-3-card .c3c-howto{font-size:0.68rem;color:var(--text2);line-height:1.55;padding-top:6px;border-top:1px solid var(--border);margin-top:auto}
+  .comp-3-card .c3c-howto strong{color:var(--accent2);font-weight:700}
+  @media (max-width:900px){.comp-3-grid{grid-template-columns:1fr}}
+
+  /* Maturidade steps (item 03) */
+  .maturidade-card{margin:14px 0}
+  .mat-row{display:flex;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;align-items:flex-start;position:relative}
+  .mat-row .mr-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--accent-lighter);color:var(--text3);font-weight:800;font-size:0.78rem;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .mat-row .mr-body{flex:1;font-size:0.76rem;color:var(--text2);line-height:1.5}
+  .mat-row .mr-body strong{color:var(--accent2);font-weight:700;font-size:0.8rem;display:block;margin-bottom:3px}
+  .mat-row .mr-body em{color:var(--text3);font-style:italic;font-size:0.7rem}
+  .mat-row.estado2{border-left:3px solid var(--coral)}
+  .mat-row.estado2 .mr-num{background:var(--coral-light);color:var(--coral-text)}
+  .mat-row.estado3{background:#D4DDC9;border:1px solid var(--green-border);border-left:4px solid var(--green);box-shadow:var(--shadow-sm)}
+  .mat-row.estado3 .mr-num{background:var(--green);color:#FFFFFF;width:34px;height:34px;font-size:0.86rem}
+  .mat-row.estado3 .mr-body strong{color:var(--green-text);font-size:0.86rem}
+  .mat-row.estado3 .mr-body{color:#33491F}
+  .mat-row.estado3 .mr-body em{color:var(--green-text)}
+  .mat-row.estado3 .mr-badge{flex-shrink:0;background:var(--green);color:#FFFFFF;font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 9px;border-radius:4px;font-family:'Montserrat',sans-serif;align-self:center;line-height:1.3;max-width:130px;text-align:center}
+  @media (max-width:640px){.mat-row.estado3 .mr-badge{align-self:flex-start;margin-top:4px}}
+
+  /* Full-pipeline-automated (item 04) */
+  .full-pipeline{margin:14px 0;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 16px;box-shadow:var(--shadow-xs)}
+  .full-pipeline .fp-title{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:14px;text-align:center}
+  .fp-flow{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+  .fp-stage{border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:0.74rem;line-height:1.4;position:relative}
+  .fp-stage .fp-tag{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:3px 7px;border-radius:4px;flex-shrink:0}
+  .fp-stage .fp-body{flex:1;min-width:0}
+  .fp-stage .fp-body strong{font-weight:700;display:block}
+  .fp-stage .fp-body em{font-style:italic;font-size:0.66rem;opacity:0.85;display:block;margin-top:2px}
+  .fp-stage.trigger{background:rgba(184,147,62,0.18);border:1px solid rgba(184,147,62,0.5);color:#5A4414}
+  .fp-stage.trigger .fp-tag{background:var(--gold);color:var(--accent2)}
+  .fp-stage.trigger .fp-body strong{color:#5A4414}
+  .fp-stage.master{background:var(--green-light);border:2px solid var(--green);box-shadow:var(--shadow-sm);color:var(--green-text)}
+  .fp-stage.master .fp-tag{background:var(--green);color:#FFFFFF}
+  .fp-stage.master .fp-body strong{color:var(--green-text);font-size:0.82rem}
+  .fp-stage.master .fp-badge-new{position:absolute;top:8px;right:10px;background:var(--accent2);color:var(--gold);font-size:0.54rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:3px 7px;border-radius:4px}
+  .fp-stage.skill-1{background:var(--blue-light);border:1px solid var(--blue-border);color:var(--blue-text)}
+  .fp-stage.skill-1 .fp-tag{background:var(--blue);color:#FFFFFF}
+  .fp-stage.skill-1 .fp-body strong{color:var(--blue-text)}
+  .fp-stage.skill-2{background:var(--coral-light);border:1px solid var(--coral-border);color:var(--coral-text)}
+  .fp-stage.skill-2 .fp-tag{background:var(--coral);color:#FFFFFF}
+  .fp-stage.skill-2 .fp-body strong{color:var(--coral-text)}
+  .fp-stage.skill-3{background:#D4DDC9;border:1px solid var(--green-border);color:var(--green-text)}
+  .fp-stage.skill-3 .fp-tag{background:var(--green);color:#FFFFFF}
+  .fp-stage.skill-3 .fp-body strong{color:var(--green-text)}
+  .fp-stage.output{background:var(--accent2);color:var(--bg);border:1px solid var(--accent2)}
+  .fp-stage.output .fp-tag{background:var(--gold);color:var(--accent2)}
+  .fp-stage.output .fp-body strong{color:var(--gold)}
+  .fp-arrow{text-align:center;font-size:0.9rem;color:var(--text3);font-weight:800;line-height:1;padding:0}
+
+  /* Cards de duração + modelo */
+  .meta-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  .meta-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow-xs)}
+  .meta-card .mc-label{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:4px}
+  .meta-card .mc-value{font-size:1.1rem;font-weight:800;color:var(--accent2);margin-bottom:2px;letter-spacing:-0.02em}
+  .meta-card .mc-detail{font-size:0.66rem;color:var(--text3);line-height:1.45}
+  .meta-card .mc-detail strong{color:var(--text2)}
+  @media (max-width:640px){.meta-cards{grid-template-columns:1fr}}
+
+  /* Caminho header (itens 09, 10, 11) — banner identificador no topo */
+  .caminho-header{padding:14px 18px;border-radius:10px;margin:18px 0 14px;display:flex;align-items:center;gap:14px;border:1px solid;border-left-width:4px}
+  .caminho-header.cowork{background:rgba(184,147,62,0.12);border-color:rgba(184,147,62,0.5);border-left-color:var(--gold)}
+  .caminho-header.pinned{background:var(--green-light);border-color:var(--green-border);border-left-color:var(--green)}
+  .caminho-header.cal{background:var(--coral-light);border-color:var(--coral-border);border-left-color:var(--coral)}
+  .caminho-header .ch-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+  .caminho-header.cowork .ch-icon{background:rgba(184,147,62,0.22);color:var(--gold)}
+  .caminho-header.pinned .ch-icon{background:rgba(79,107,62,0.18);color:var(--green-text)}
+  .caminho-header.cal .ch-icon{background:rgba(201,122,90,0.18);color:var(--coral-text)}
+  .caminho-header .ch-meta{flex:1;min-width:0}
+  .caminho-header .ch-tag{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:3px}
+  .caminho-header.cowork .ch-tag{color:var(--gold)}
+  .caminho-header.pinned .ch-tag{color:var(--green-text)}
+  .caminho-header.cal .ch-tag{color:var(--coral-text)}
+  .caminho-header .ch-title{font-size:0.95rem;font-weight:800;color:var(--accent2);letter-spacing:-0.01em;line-height:1.3}
+  .caminho-header .ch-plan{flex-shrink:0;font-size:0.62rem;font-weight:700;padding:5px 10px;border-radius:5px;text-align:center;line-height:1.3}
+  .caminho-header.cowork .ch-plan{background:rgba(184,147,62,0.22);color:var(--gold);border:1px solid rgba(184,147,62,0.4)}
+  .caminho-header.pinned .ch-plan{background:rgba(79,107,62,0.18);color:var(--green-text);border:1px solid var(--green-border)}
+  .caminho-header.cal .ch-plan{background:rgba(201,122,90,0.18);color:var(--coral-text);border:1px solid var(--coral-border)}
+  @media (max-width:640px){.caminho-header{flex-wrap:wrap}.caminho-header .ch-plan{order:3;width:100%}}
+
+  /* Step-cards (passo a passo) */
+  .step-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .step-card-head{background:var(--accent2);padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .step-card-num{background:var(--gold);color:var(--accent2);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
+  .step-card-title{color:var(--bg);font-size:0.95rem;font-weight:600;line-height:1.3}
+  .step-card-body{padding:16px 18px}
+  .step-card-desc{font-size:0.84rem;color:var(--text);line-height:1.6;margin:0 0 12px}
+  .step-card-desc:last-child{margin-bottom:0}
+  .step-card-desc strong{color:var(--accent2);font-weight:700}
+  .step-card-desc code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+  .step-card-desc em{color:var(--text2);font-style:italic}
+  .step-card-list{list-style:none;margin:8px 0 12px;counter-reset:scl}
+  .step-card-list li{counter-increment:scl;position:relative;padding:5px 0 5px 28px;font-size:0.8rem;color:var(--text);line-height:1.55}
+  .step-card-list li::before{content:counter(scl);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--accent-lighter);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif}
+  .step-card-list li strong{color:var(--accent2);font-weight:700}
+  .step-card-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Grid de 3 opções de salvamento (Caminho 2 Passo 03) */
+  .opcoes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+  .opcao-card{background:var(--accent-lighter);border:1px solid var(--accent-border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+  .opcao-card .op-letter{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em}
+  .opcao-card .op-title{font-size:0.78rem;font-weight:800;color:var(--accent2);line-height:1.3;margin-bottom:2px}
+  .opcao-card ol{list-style:none;counter-reset:opc;margin:4px 0 0}
+  .opcao-card ol li{counter-increment:opc;position:relative;padding:3px 0 3px 22px;font-size:0.7rem;color:var(--text2);line-height:1.45}
+  .opcao-card ol li::before{content:counter(opc);position:absolute;left:0;top:4px;width:16px;height:16px;border-radius:50%;background:var(--panel);color:var(--accent2);font-size:0.55rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;border:1px solid var(--accent-border)}
+  .opcao-card ol li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--panel);padding:1px 4px;border-radius:3px;color:var(--accent2)}
+  .opcao-card .op-footer{font-size:0.66rem;color:var(--text2);font-style:italic;line-height:1.4;padding-top:6px;border-top:1px solid var(--accent-border);margin-top:auto}
+  @media (max-width:900px){.opcoes-grid{grid-template-columns:1fr}}
+
+  /* Card do Desafio */
+  .desafio-card{background:var(--insight-bg);color:var(--insight-fg);border-radius:10px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--gold)}
+  .desafio-card .dc-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px}
+  .desafio-card .dc-title{font-size:0.95rem;font-weight:700;color:var(--insight-fg);margin-bottom:8px}
+  .desafio-card p{font-size:0.78rem;color:var(--insight-fg);line-height:1.6;margin-bottom:10px}
+  .desafio-card ol{list-style:none;counter-reset:dc;margin:8px 0}
+  .desafio-card ol li{position:relative;padding:6px 0 6px 30px;counter-increment:dc;font-size:0.76rem;color:var(--insight-fg);line-height:1.55}
+  .desafio-card ol li::before{content:counter(dc);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--accent2);font-size:0.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .desafio-card ol li strong{color:var(--gold);font-weight:700}
+  .desafio-card ol li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:rgba(209,170,83,0.18);padding:1px 5px;border-radius:3px;color:var(--gold)}
+  .desafio-card ol ul{list-style:none;margin:6px 0 6px 0}
+  .desafio-card ol ul li{padding:3px 0 3px 12px;counter-increment:none;font-size:0.72rem;color:rgba(242,236,224,0.85)}
+  .desafio-card ol ul li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--gold);font-size:0;display:block}
+  .desafio-card .dc-meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);font-size:0.7rem;color:rgba(242,236,224,0.7)}
+  .desafio-card .dc-meta strong{color:var(--gold)}
+
+  /* Lista de checkmarks */
+  .check-list{list-style:none;margin:10px 0}
+  .check-list li{padding:6px 0 6px 22px;position:relative;font-size:0.78rem;color:var(--text);line-height:1.55}
+  .check-list li::before{content:'\2713';position:absolute;left:0;top:6px;color:var(--accent);font-weight:800;font-size:0.86rem}
+  .check-list li strong{color:var(--accent2);font-weight:700}
+  .check-list li code{font-family:'JetBrains Mono','Courier New',ui-monospace,monospace;font-size:0.86em;background:var(--ficha-td1-bg);padding:1px 5px;border-radius:3px;color:var(--accent2)}
+
+  /* Métricas de impacto destacadas (item 12) */
+  .metricas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+  .metrica-card{background:var(--insight-bg);border-radius:8px;padding:14px 12px;text-align:center;border-top:3px solid var(--gold)}
+  .metrica-card .met-value{font-size:1.2rem;font-weight:800;color:var(--gold);line-height:1.15;letter-spacing:-0.02em;margin-bottom:4px}
+  .metrica-card .met-label{font-size:0.66rem;font-weight:600;color:var(--insight-fg);line-height:1.4}
+  @media (max-width:640px){.metricas-grid{grid-template-columns:1fr}}
+
+  @media (max-width:768px){.sidebar{display:none}.main{padding:20px 16px 40px;max-width:100%}}
+</style>
+</head>
+<body>
+
+<div class="palette-switch" role="tablist" aria-label="Escolher paleta">
+  <button data-palette="forest">Forest</button>
+  <button data-palette="dusk">Dusk</button>
+  <button data-palette="cream" class="is-active">Cream</button>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <a class="back-link" href="index.html">&#8592; Índice da Aula</a>
+      <h2>Automação Semanal</h2>
+      <p>Atividade 05 &middot; AI no Comercial</p>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Introdução</div>
+      <a class="nav-item active" data-section="sec-step1" onclick="showSection('sec-step1')"><span class="ni-num">01</span> Onde você vai chegar<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step2" onclick="showSection('sec-step2')"><span class="ni-num">02</span> Os 3 caminhos lado a lado<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step3" onclick="showSection('sec-step3')"><span class="ni-num">03</span> Automação vs uso pontual<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step4" onclick="showSection('sec-step4')"><span class="ni-num">04</span> Conceito &mdash; Automação por encadeamento<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Demonstração</div>
+      <a class="nav-item" data-section="sec-step5" onclick="showSection('sec-step5')"><span class="ni-num">05</span> O que você vai ver<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step6" onclick="showSection('sec-step6')"><span class="ni-num">06</span> Prompt-mestre da rotina<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step7" onclick="showSection('sec-step7')"><span class="ni-num">07</span> O que observar<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Atividade Prática</div>
+      <a class="nav-item" data-section="sec-step8" onclick="showSection('sec-step8')"><span class="ni-num">08</span> Sua atividade prática<span class="ni-check">&#10003;</span></a>
+      <div class="nav-subgroup">Escolha 1 caminho</div>
+      <a class="nav-item" data-section="sec-step9" onclick="showSection('sec-step9')"><span class="ni-num">09</span> Caminho 1 &mdash; Cowork<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step10" onclick="showSection('sec-step10')"><span class="ni-num">10</span> Caminho 2 &mdash; Project Pinned<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step11" onclick="showSection('sec-step11')"><span class="ni-num">11</span> Caminho 3 &mdash; Calendário<span class="ni-check">&#10003;</span></a>
+      <a class="nav-item" data-section="sec-step12" onclick="showSection('sec-step12')"><span class="ni-num">12</span> O que você tem ao final<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">Desafio</div>
+      <a class="nav-item" data-section="sec-step13" onclick="showSection('sec-step13')"><span class="ni-num">13</span> Implementando na sua empresa<span class="ni-check">&#10003;</span></a>
+    </div>
+    <div class="sidebar-progress">
+      <div class="sp-label">Progresso &mdash; <span id="pct">0</span>%</div>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- 01 -->
+    <div class="section active" id="sec-step1">
+      <div class="breadcrumb">Delta Academy &rsaquo; AI no Comercial &rsaquo; <a href="index.html">Índice</a> &rsaquo; 05. Automação Semanal</div>
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">01.</span> Onde você vai chegar</div>
+      <div class="sec-desc">O entregável final da AP05 em 3 caminhos &mdash; e como ela fecha a aula A14</div>
+
+      <div class="overview-card">
+        <h3>Ficha técnica</h3>
+        <table class="ficha-table"><tbody>
+          <tr><td>Tipo</td><td>Introdução + Demonstração + Atividade Prática + Desafio</td></tr>
+          <tr><td>Bloco</td><td>A14 &middot; IA no Comercial &middot; Quinta e última atividade prática</td></tr>
+          <tr><td>Duração</td><td>10 minutos</td></tr>
+          <tr><td>Ferramenta</td><td>Configuração via interface (Cowork OU Project pinned OU Calendário externo) &mdash; <strong>ZERO mensagens ao Claude</strong></td></tr>
+          <tr><td>Pré-requisito</td><td>AP01, AP02, AP03 e AP04 concluídas &mdash; Project Comercial Lumina configurado, 3 Skills instaladas e briefing semanal gerado pelo menos uma vez.</td></tr>
+          <tr><td>Entregável</td><td>Rotina semanal estabelecida de geração automática (ou semi-automática) do Briefing Semanal &mdash; em 1 dos 3 caminhos possíveis</td></tr>
+        </tbody></table>
+      </div>
+
+      <p class="lead-text">Antes de começar, veja o que você vai conquistar ao final desta atividade prática &mdash; e como ela fecha a aula A14.</p>
+
+      <p class="lead-text"><strong>Entregável final da AP05:</strong> uma <strong>rotina semanal estabelecida</strong> de geração automática (ou semi-automática) do Briefing Semanal do Pipeline Lumina &mdash; toda segunda às 8h, sem precisar lembrar manualmente, em 1 dos 3 caminhos possíveis.</p>
+
+      <div class="entregavel-banner">
+        <div class="eb-label">Entregável da AP05 &mdash; 3 caminhos possíveis</div>
+        <div class="eb-title">Rotina semanal de geração do Briefing Lumina</div>
+
+        <div class="caminhos-3">
+          <div class="caminho-3-card cowork">
+            <div class="c3-icon">&#129302;</div>
+            <div class="c3-num">Caminho 1</div>
+            <div class="c3-title">Tarefa Agendada no Cowork</div>
+            <div class="c3-desc">Cowork dispara automaticamente toda segunda 8h, lembra Carolina de subir a planilha atualizada e, quando ela responde, executa as 3 Skills em sequência.</div>
+            <div class="c3-meta">&#128142; Plano pago &middot; Esforço semanal: <strong>zero clique manual</strong></div>
+          </div>
+          <div class="caminho-3-card pinned">
+            <div class="c3-icon">&#128204;</div>
+            <div class="c3-num">Caminho 2</div>
+            <div class="c3-title">Project pinned + prompt-mestre salvo</div>
+            <div class="c3-desc">Project fixado no topo do menu lateral + prompt-mestre salvo em local de acesso rápido. Carolina cola o prompt + anexa planilha + as 3 Skills rodam em sequência.</div>
+            <div class="c3-meta">&#128994; Plano gratuito &middot; Esforço semanal: <strong>2 minutos</strong></div>
+          </div>
+          <div class="caminho-3-card cal">
+            <div class="c3-icon">&#128197;</div>
+            <div class="c3-num">Caminho 3</div>
+            <div class="c3-title">Lembrete no Calendário com prompt no corpo</div>
+            <div class="c3-desc">Evento recorrente toda segunda 8h-8h15, notificação 10 min antes, link do Project e prompt-mestre completo no corpo do evento. Calendário lembra, Carolina abre, copia, cola, anexa.</div>
+            <div class="c3-meta">&#128994; Plano gratuito &middot; Esforço semanal: <strong>5 minutos</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Você escolhe 1 caminho &mdash; não precisa fazer os 3</div>
+        <p>Os 3 caminhos resolvem o mesmo problema (estabelecer rotina semanal), mas com <strong>trade-offs diferentes</strong> entre automação (Cowork), velocidade (Pinned) e segurança contra esquecimento (Calendário). Escolha o caminho que melhor se encaixa no seu perfil e no seu plano do Claude.</p>
+        <p><strong>Não há "caminho certo" &mdash; há o caminho certo para você.</strong></p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Como esta AP fecha a aula A14</div>
+        <p>As APs 01 a 04 entregaram o pipeline completo de geração do briefing. <strong>Mas pipeline sem rotina vira novidade que ninguém usa.</strong></p>
+        <p>A AP05 transforma "saber gerar o briefing" em "gerar o briefing toda semana sem esforço" &mdash; completando a transição da reunião de 1h para 5 minutos de leitura com café.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <a class="nav-btn" href="index.html">&#8617; Voltar ao índice</a>
+        <button class="nav-btn primary" onclick="showSection('sec-step2')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section" id="sec-step2">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">02.</span> Os 3 caminhos lado a lado</div>
+      <div class="sec-desc">A escolha depende de 3 variáveis: plano do Claude, hábito de uso, padrão de lembrança</div>
+
+      <p class="lead-text">A escolha do caminho depende de <strong>3 variáveis</strong>: seu plano do Claude, seu hábito de uso, e seu padrão de lembrança/disciplina semanal.</p>
+
+      <div class="comp-3-grid">
+        <div class="comp-3-card cowork">
+          <div class="c3c-icon">&#129302;</div>
+          <div class="c3c-tag">Caminho 1</div>
+          <div class="c3c-title">Tarefa Agendada no Cowork</div>
+          <dl>
+            <dt>&#128142; Plano necessário</dt><dd>Pago</dd>
+            <dt>&#9201; Esforço inicial</dt><dd>10 minutos (configurar a Tarefa Agendada uma única vez)</dd>
+            <dt>&#128257; Esforço semanal</dt><dd>Zero clique manual (Cowork dispara sozinho)</dd>
+          </dl>
+          <div class="c3c-howto"><strong>Como funciona:</strong> toda segunda às 8h, o Cowork envia automaticamente uma mensagem no Project Comercial Lumina pedindo a planilha da semana. Você responde anexando a planilha. As 3 Skills rodam em sequência sem você acionar uma por uma.</div>
+        </div>
+
+        <div class="comp-3-card pinned">
+          <div class="c3c-icon">&#128204;</div>
+          <div class="c3c-tag">Caminho 2</div>
+          <div class="c3c-title">Project pinned + prompt-mestre salvo</div>
+          <dl>
+            <dt>&#128994; Plano necessário</dt><dd>Gratuito (ou qualquer plano)</dd>
+            <dt>&#9201; Esforço inicial</dt><dd>5 minutos (fixar Project + salvar prompt-mestre em snippet)</dd>
+            <dt>&#128257; Esforço semanal</dt><dd>2 minutos (abrir Project pinned + colar prompt + anexar planilha)</dd>
+          </dl>
+          <div class="c3c-howto"><strong>Como funciona:</strong> o Project Comercial Lumina fica fixado no topo do menu lateral do Claude. Você sabe onde clicar toda segunda. O prompt-mestre está salvo em local de acesso rápido (Notion, TextExpander, rascunho do Claude) &mdash; você cola, anexa a planilha, e as 3 Skills rodam.</div>
+        </div>
+
+        <div class="comp-3-card cal">
+          <div class="c3c-icon">&#128197;</div>
+          <div class="c3c-tag">Caminho 3</div>
+          <div class="c3c-title">Lembrete no Calendário</div>
+          <dl>
+            <dt>&#128994; Plano necessário</dt><dd>Gratuito (ou qualquer plano)</dd>
+            <dt>&#9201; Esforço inicial</dt><dd>3 minutos (criar evento recorrente com link + prompt no corpo)</dd>
+            <dt>&#128257; Esforço semanal</dt><dd>5 minutos (notificação → abrir evento → copiar prompt → colar + anexar)</dd>
+          </dl>
+          <div class="c3c-howto"><strong>Como funciona:</strong> evento recorrente no calendário toda segunda 8h-8h15, notificação 10 min antes. O corpo do evento contém o link do Project e o prompt-mestre completo. Você é "lembrado de fora" &mdash; perfeito para quem não vive dentro do Claude diariamente.</div>
+        </div>
+      </div>
+
+      <div class="tip-box champagne">
+        <div class="tip-label">&#128142; Combinação Caminhos 2 + 3 &mdash; para quem quer segurança máxima sem plano pago</div>
+        <p>Você pode combinar <strong>Caminho 2 + Caminho 3</strong> simultaneamente: fixa o Project no Claude (Caminho 2) E cria o evento no calendário (Caminho 3). Esforço inicial total: 8 minutos. Esforço semanal: 3 minutos (calendário lembra + Project está fixado).</p>
+        <p><strong>É a melhor combinação no plano gratuito.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step1')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step3')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="section" id="sec-step3">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">03.</span> Por que automação semanal é o que diferencia uso pontual de transformação real</div>
+      <div class="sec-desc">3 estados de maturidade &mdash; só o terceiro entrega resultado real</div>
+
+      <p class="lead-text">Uma das maiores falhas em projetos de IA no comercial é: ferramenta é instalada, gera resultado bom uma vez, e <strong>morre porque ninguém usou na semana seguinte</strong>.</p>
+
+      <div class="maturidade-card">
+        <div class="mat-row">
+          <div class="mr-num">1</div>
+          <div class="mr-body">
+            <strong>Uso pontual</strong>
+            Você usa a Skill 1 ou 2 vezes para "testar". Depois esquece. <em>Sem impacto no resultado.</em>
+          </div>
+        </div>
+
+        <div class="mat-row estado2">
+          <div class="mr-num">2</div>
+          <div class="mr-body">
+            <strong>Uso semanal manual</strong>
+            Você lembra de usar a Skill toda segunda, mas precisa lembrar <strong>toda segunda</strong>. Em 1-2 meses, com correria do trabalho, falha algumas semanas. <em>Impacto parcial.</em>
+          </div>
+        </div>
+
+        <div class="mat-row estado3">
+          <div class="mr-num">3</div>
+          <div class="mr-body">
+            <strong>Automação ou rotina formalizada</strong>
+            A geração do briefing está <strong>fora do seu controle voluntário</strong> &mdash; está numa Tarefa Agendada do Cowork, num lembrete do calendário, ou num atalho de teclado. Você não pode esquecer porque o sistema externo lembra por você. <strong>Em 6 meses de uso ininterrupto</strong>, a transformação acontece &mdash; pipeline review virou 5 minutos de leitura, equipe ganhou 12h/mês, taxa de conversão subiu 3-5%.
+          </div>
+          <span class="mr-badge">&larr; Aqui está a transformação real</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que isso é o gargalo final</div>
+        <p>Não basta saber gerar o briefing (você já sabe &mdash; AP01 a AP04). Não basta querer fazer toda semana (você já quer). <strong>O gargalo é a memória + disciplina</strong> &mdash; coisas que humanos falham sistematicamente.</p>
+        <p>A AP05 resolve isso colocando a rotina num sistema externo (Cowork, Calendário, Pin do Claude). <strong>O sistema lembra; você só executa.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step2')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step4')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section" id="sec-step4">
+      <span class="section-badge badge-intro">Introdução</span>
+      <div class="sec-title"><span class="snum">04.</span> Conceito &mdash; Automação por encadeamento de Skills</div>
+      <div class="sec-desc">Um único prompt-mestre que dispara as 3 Skills em sequência</div>
+
+      <p class="lead-text">Você viu nas APs anteriores que as 3 Skills (<code>organizar-pipeline</code>, <code>diagnosticar-pipeline</code>, <code>gerar-briefing</code>) podem rodar em sequência <strong>dentro da mesma conversa</strong> &mdash; cada Skill consome o que a anterior produziu, sem retrabalho. Isso é o <strong>encadeamento de Skills</strong> que apresentei na AP03.</p>
+
+      <p class="lead-text">A AP05 leva esse princípio um passo adiante: <strong>automatizar o encadeamento</strong> com um <strong>único prompt-mestre</strong> que dispara as 3 Skills em sequência. Em vez de você acionar uma por uma (3 prompts curtos), você envia 1 prompt-mestre só, e o Claude executa as 3 em ordem.</p>
+
+      <div class="full-pipeline">
+        <div class="fp-title">&#128208; Pipeline automatizado completo da Lumina</div>
+        <div class="fp-flow">
+          <div class="fp-stage trigger">
+            <span class="fp-tag">Trigger</span>
+            <div class="fp-body"><strong>Tarefa Agendada do Cowork OU notificação de Calendário OU Project pinned no menu lateral</strong><em>O sinal externo que dispara a rotina toda segunda 8h</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage master">
+            <span class="fp-tag">Prompt-mestre</span>
+            <div class="fp-body"><strong>Um único prompt curto + planilha anexada</strong><em>Dispara as 3 Skills em sequência numa só mensagem</em></div>
+            <span class="fp-badge-new">&larr; Novo na AP05</span>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage skill-1">
+            <span class="fp-tag">Skill 1</span>
+            <div class="fp-body"><strong>organizar-pipeline-lumina</strong><em>Executa automaticamente &mdash; padroniza nos 5 estágios</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage skill-2">
+            <span class="fp-tag">Skill 2</span>
+            <div class="fp-body"><strong>diagnosticar-pipeline-lumina</strong><em>Executa automaticamente &mdash; diagnóstico em 5 blocos</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage skill-3">
+            <span class="fp-tag">Skill 3</span>
+            <div class="fp-body"><strong>gerar-briefing-lumina</strong><em>Executa automaticamente (perguntando A ou B antes)</em></div>
+          </div>
+          <div class="fp-arrow">&darr;</div>
+          <div class="fp-stage output">
+            <span class="fp-tag">Output</span>
+            <div class="fp-body"><strong>Briefing pronto para Carolina ler em 5 minutos</strong><em>Toda segunda às 8h, com café</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">Analogia &mdash; o maestro com a partitura escrita</div>
+        <p>Sem automação, você é como um <strong>maestro que precisa entrar no palco e dar a entrada de cada instrumento individualmente</strong> todas as semanas. Funciona, mas exige sua presença ativa toda vez.</p>
+        <p>Com automação, você é o <strong>maestro que escreveu a partitura uma vez</strong>. A orquestra (Skills) sabe a ordem em que entra. Você só precisa garantir que <strong>o sinal de início</strong> (Tarefa Agendada / Calendário / Pin) aconteça. A partitura toca sozinha.</p>
+        <p><strong>Em 1 ano, isso é a diferença entre 52 reuniões de 1h (52 horas) e 52 briefings de 5 minutos (4,3 horas) &mdash; recuperando 47 horas de capacidade vendedora por ano.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step3')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step5')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="section" id="sec-step5">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">05.</span> O que você vai ver</div>
+      <div class="sec-desc">Os 3 caminhos demonstrados lado a lado &mdash; configuração de cada um</div>
+
+      <div class="warning-box">
+        <div class="warning-label">Aviso</div>
+        <p>A demonstração a seguir é <strong>apenas para ilustração</strong> durante a aula expositiva. Você não precisa testar agora &mdash; você terá sua própria atividade prática logo depois desta seção.</p>
+      </div>
+
+      <p class="lead-text">O professor demonstra <strong>os 3 caminhos lado a lado</strong> em sequência, mostrando o setup de cada um.</p>
+
+      <div class="overview-card">
+        <h3>&#129302; Caminho 1 &mdash; Tarefa Agendada no Cowork</h3>
+        <p>O professor acessa o Cowork no Claude (apenas plano pago), cria uma Tarefa Agendada nova com nome <strong>"Briefing Semanal Pipeline Lumina"</strong>, periodicidade semanal toda segunda 8h, Project vinculado <strong>"Comercial &mdash; Lumina"</strong>, e cola o prompt-mestre da rotina. Salva e mostra a Tarefa ativa na lista do Cowork. <strong>Pode opcionalmente clicar em "Executar agora" para demonstrar o disparo manualmente.</strong></p>
+      </div>
+
+      <div class="overview-card">
+        <h3>&#128204; Caminho 2 &mdash; Project pinned + prompt-mestre salvo</h3>
+        <p>O professor abre o Project Comercial Lumina, clica no ícone de pin (&#128204;) ao lado do nome, e mostra que o Project agora aparece pinned no topo do menu lateral. Em seguida abre uma nota no Notion (ou Apple Notes, ou qualquer ferramenta de notas), cria uma nota com título <strong>"Briefing Lumina &mdash; Prompt-Mestre"</strong> e cola o prompt-mestre. Salva.</p>
+        <p><strong>Demonstração rápida do fluxo de uso:</strong> clica no Project pinned → cola prompt → anexa planilha → envia.</p>
+      </div>
+
+      <div class="overview-card">
+        <h3>&#128197; Caminho 3 &mdash; Lembrete no Calendário com prompt no corpo</h3>
+        <p>O professor abre o Google Calendar (ou Apple Calendar, ou Outlook), cria um evento recorrente toda segunda 8h-8h15, notificação 10 min antes, título <strong>"📊 Gerar Briefing Pipeline Lumina"</strong>. No corpo do evento, cola o link do Project Comercial Lumina + o prompt-mestre completo. Salva e mostra o evento configurado na visualização semanal do calendário.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que esta AP não consome mensagens do Claude</div>
+        <p>Toda a configuração da rotina semanal acontece <strong>fora do Claude</strong> &mdash; no Cowork (interface), no calendário externo, ou no menu de pins do Claude (interface). <strong>A AP05 não envia nenhuma mensagem ao Claude.</strong></p>
+        <p>A primeira execução real da rotina (com mensagem ao Claude) acontece na <strong>semana seguinte</strong>, quando o trigger configurado disparar.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step4')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step6')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="section" id="sec-step6">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">06.</span> Prompt-mestre da rotina semanal</div>
+      <div class="sec-desc">Um único prompt que dispara as 3 Skills em sequência &mdash; usado nos 3 caminhos</div>
+
+      <p class="lead-text">Este é o <strong>prompt-mestre</strong> que dispara as 3 Skills em sequência. Você vai usar o mesmo prompt nos 3 caminhos (apenas o trigger muda &mdash; Cowork, Pin manual, ou Calendário).</p>
+
+      <div class="copy-wrap">
+        <span class="copy-label">Prompt-mestre da rotina semanal</span>
+        <div class="copy-block" id="prompt-mestre">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-mestre-text').textContent)">Copiar</button>
+<span id="prompt-mestre-text">Bom dia. Vou rodar agora o pipeline completo de geração do Briefing Semanal Lumina desta semana.
+
+Anexei a planilha atualizada do pipeline (snapshot da segunda atual).
+
+Por favor, execute as 3 Skills em sequência nesta conversa:
+
+1. PRIMEIRO: use a Skill organizar-pipeline-lumina para estruturar o pipeline nos 5 estágios padrão.
+
+2. DEPOIS: use a Skill diagnosticar-pipeline-lumina para gerar o diagnóstico narrativo em 5 blocos.
+
+3. POR FIM: use a Skill gerar-briefing-lumina para gerar o briefing semanal (vou escolher o caminho A ou B quando você perguntar).
+
+Comece pelo passo 1 agora.</span></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">Por que este prompt é o "mestre"</div>
+        <p>Em vez de você acionar 3 prompts separados (um para cada Skill), o prompt-mestre dispara o <strong>encadeamento completo numa única mensagem</strong>. O Claude lê, identifica as 3 Skills mencionadas, e executa em sequência aguardando os outputs intermediários (organizar → diagnosticar → gerar-briefing).</p>
+        <p><strong>A única pausa é quando a Skill <code>gerar-briefing-lumina</code> pergunta A ou B</strong> &mdash; você responde, e ela conclui.</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step5')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step7')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="section" id="sec-step7">
+      <span class="section-badge badge-demo">Demonstração</span>
+      <div class="sec-title demo"><span class="snum">07.</span> O que observar durante a demonstração</div>
+      <div class="sec-desc">5 sinais que diferenciam uma automação semanal bem configurada</div>
+
+      <ul class="observation-list">
+        <li><strong>O trigger escolhido é confiável.</strong> Cowork dispara sozinho se for plano pago; calendário com notificação 10 min antes para gratuito; pin do Project como reforço visual. <strong>O trigger fora do Claude é o que garante que a rotina não morre.</strong></li>
+        <li><strong>O prompt-mestre é único e padronizado.</strong> Toda semana o mesmo prompt, em qualquer caminho. Você não pensa "o que vou pedir hoje" &mdash; pensa "vou rodar a rotina semanal". O mesmo prompt usado nos 3 caminhos garante reprodutibilidade.</li>
+        <li><strong>O encadeamento funciona automaticamente.</strong> Depois de enviar o prompt-mestre + planilha, você só intervém uma vez: quando a Skill <code>gerar-briefing-lumina</code> pergunta A ou B (Passo da AP04). O resto é automático.</li>
+        <li><strong>A periodicidade é compatível com o ciclo comercial real.</strong> Segunda 8h é o horário ideal: antes da semana começar, depois do fim de semana terminar. Ajustável se a sua empresa tem ciclo diferente (exemplo: terça 9h se você faz reunião de pipeline toda terça à tarde).</li>
+        <li><strong>A automação não substitui o pipeline review presencial.</strong> O briefing prepara Carolina para a reunião, não elimina a reunião. <strong>Em algumas semanas o briefing é tão completo que dispensa a reunião; em outras semanas, sinaliza que precisa de discussão presencial.</strong> Carolina decide caso a caso.</li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step6')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step8')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="section" id="sec-step8">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">08.</span> Sua atividade prática</div>
+      <div class="sec-desc">Escolha 1 dos 3 caminhos &mdash; zero mensagens ao Claude</div>
+
+      <div class="meta-cards">
+        <div class="meta-card">
+          <div class="mc-label">Duração total</div>
+          <div class="mc-value">10 min</div>
+          <div class="mc-detail">Você escolhe <strong>1 dos 3 caminhos</strong></div>
+        </div>
+        <div class="meta-card">
+          <div class="mc-label">Modelo recomendado</div>
+          <div class="mc-value">N/A</div>
+          <div class="mc-detail">Esta AP <strong>não envia mensagens ao Claude</strong>. Toda configuração é via interface (Cowork, menu de Projects, calendário externo). Primeira execução real acontece na próxima segunda.</div>
+        </div>
+      </div>
+
+      <p class="lead-text">Você vai estabelecer agora <strong>a rotina semanal</strong> de geração do Briefing Semanal Lumina. Esta AP é diferente das anteriores &mdash; ela <strong>não envia mensagens ao Claude</strong>. Toda configuração acontece via interface (Cowork, menu de Projects, calendário externo).</p>
+
+      <div class="overview-card">
+        <h3>Escolha 1 dos 3 caminhos abaixo, baseado no seu perfil</h3>
+        <ul class="check-list">
+          <li><strong>Tem plano pago do Claude?</strong> Escolha <strong>Caminho 1 (Cowork)</strong> &mdash; é o mais elegante e automatizado.</li>
+          <li><strong>Tem plano gratuito e usa o Claude diariamente?</strong> Escolha <strong>Caminho 2 (Project pinned)</strong> &mdash; é o mais rápido para quem já vive no Claude.</li>
+          <li><strong>Tem plano gratuito e precisa de lembrete externo?</strong> Escolha <strong>Caminho 3 (Calendário)</strong> &mdash; não esquece, perfeito para quem não abre o Claude diariamente.</li>
+          <li><strong>Quer segurança máxima sem plano pago?</strong> Combine <strong>Caminho 2 + Caminho 3</strong> &mdash; esforço inicial de 8 minutos, esforço semanal de 3 minutos.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box champagne">
+        <div class="tip-label">&#128142; Esta AP consome ZERO mensagens do Claude</div>
+        <p>Toda a configuração da rotina semanal é via interface &mdash; Cowork (Caminho 1), menu de Projects do Claude (Caminho 2), ou aplicativo de calendário externo (Caminho 3). <strong>Você não envia nenhuma mensagem ao Claude nesta AP.</strong></p>
+        <p>Total acumulado da aula até aqui: <strong>4 mensagens</strong> (de 4-5 totais previstos). <em>Você terminou a aula completa dentro do orçamento do plano gratuito.</em></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step7')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step9')">Caminho 1 &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 09 — Caminho 1 -->
+    <div class="section" id="sec-step9">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">09.</span> Caminho 1 &mdash; Tarefa Agendada no Cowork</div>
+      <div class="sec-desc">3 passos &mdash; configura uma vez, dispara sozinho toda segunda 8h</div>
+
+      <div class="caminho-header cowork">
+        <div class="ch-icon">&#129302;</div>
+        <div class="ch-meta">
+          <div class="ch-tag">Caminho 1 &middot; Cowork</div>
+          <div class="ch-title">Tarefa Agendada com disparo automático</div>
+        </div>
+        <div class="ch-plan">&#128142; Plano pago<br>Esforço semanal: zero</div>
+      </div>
+
+      <div class="warning-box">
+        <div class="warning-label">Este caminho exige plano pago do Claude</div>
+        <p>Se você está no plano gratuito, pule para o <strong>Caminho 2</strong> (item 10) ou <strong>Caminho 3</strong> (item 11) abaixo.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Acesse o Cowork</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral do Claude, localize <strong>Cowork</strong> (geralmente em "Configurações" ou no menu principal de produtos do Claude &mdash; pode estar como "Tarefas Agendadas" dependendo da interface).</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>No Claude, abra <strong>Configurações</strong> ou <strong>menu de produtos</strong> (geralmente ícone de engrenagem no canto inferior esquerdo).</li>
+            <li>Localize <strong>Cowork</strong> ou <strong>Tarefas Agendadas</strong>. Clique para abrir.</li>
+            <li>Você vai ver uma lista de Tarefas Agendadas existentes (provavelmente vazia se for sua primeira vez) e um botão grande para criar uma nova.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Crie uma nova Tarefa Agendada</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique no botão <strong>+ Nova Tarefa</strong> (ou <strong>+ New Task</strong> / <strong>+ New Scheduled Task</strong>) para abrir o formulário de criação.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento &mdash; preencha os campos do formulário:</strong></p>
+          <ol class="step-card-list">
+            <li><strong>Nome da Tarefa:</strong> <code>Briefing Semanal Pipeline Lumina</code></li>
+            <li><strong>Periodicidade:</strong> Semanal</li>
+            <li><strong>Dia da semana:</strong> Segunda-feira</li>
+            <li><strong>Horário:</strong> 08:00 (ou ajuste para o horário que faz sentido na sua rotina)</li>
+            <li><strong>Project vinculado:</strong> selecione <code>Comercial &mdash; Lumina</code> da lista de Projects (criado na AP01)</li>
+            <li><strong>Prompt inicial:</strong> cole o prompt-mestre do item 06 desta AP (você pode usar o botão "Copiar" naquela seção e colar aqui)</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Salve a Tarefa e teste o disparo manual</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique em <strong>Salvar</strong> (ou <strong>Save Task</strong> / <strong>Criar Tarefa</strong>) para confirmar a criação da Tarefa Agendada.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>Confirme que a Tarefa aparece na lista do Cowork com status <strong>Ativa</strong> (ou <strong>Active</strong>).</li>
+            <li><strong>Validação visual:</strong> clique em <strong>Executar agora</strong> (ou <strong>Run Now</strong> / <strong>Test</strong>) &mdash; botão geralmente disponível na linha da Tarefa. Isso dispara a Tarefa imediatamente, sem esperar a próxima segunda.</li>
+            <li>Abra o Project Comercial Lumina e veja a nova conversa criada automaticamente com a mensagem do prompt-mestre. <strong>A partir daqui, é apenas anexar a planilha bruta da semana e o pipeline roda em sequência.</strong></li>
+            <li><strong>Se o teste funcionou:</strong> sua Tarefa está pronta. Toda segunda 8h, a partir de agora, ela vai disparar automaticamente.</li>
+          </ol>
+
+          <div class="tip-box">
+            <div class="tip-label">Você ainda precisa anexar a planilha toda semana</div>
+            <p>O Cowork dispara o prompt automaticamente, mas <strong>a planilha bruta de pipeline ainda muda toda semana</strong> &mdash; você ainda precisa anexá-la manualmente quando receber a notificação da Tarefa.</p>
+            <p><strong>Para automação 100%</strong> (sem precisar anexar), você precisaria de <strong>Live Artifacts no plano pago</strong> conectado a uma planilha sincronizada (Google Sheets ou similar) &mdash; esse é o próximo nível mencionado na nota da AP04.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step8')">&#8592; Anterior</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step10')">Caminho 2 &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 10 — Caminho 2 -->
+    <div class="section" id="sec-step10">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">10.</span> Caminho 2 &mdash; Project pinned + prompt-mestre salvo</div>
+      <div class="sec-desc">4 passos &mdash; 2 minutos por semana, qualquer plano do Claude</div>
+
+      <div class="caminho-header pinned">
+        <div class="ch-icon">&#128204;</div>
+        <div class="ch-meta">
+          <div class="ch-tag">Caminho 2 &middot; Pinned</div>
+          <div class="ch-title">Project fixado + prompt-mestre em local de acesso rápido</div>
+        </div>
+        <div class="ch-plan">&#128994; Plano gratuito<br>Esforço semanal: 2 min</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Fixe o Project Comercial Lumina no menu lateral</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No menu lateral esquerdo do Claude, localize o Project <strong>Comercial &mdash; Lumina</strong> na lista de Projects.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>Passe o mouse sobre o nome do Project Comercial Lumina na lista.</li>
+            <li>Vai aparecer um <strong>ícone de pin (&#128204;)</strong> ao lado do nome (ou em um menu de 3 pontinhos <code>&#8943;</code> que aparece ao passar o mouse).</li>
+            <li>Clique no ícone de pin.</li>
+            <li><strong>Validação visual:</strong> confirme que o Project Comercial Lumina aparece agora <strong>no topo</strong> do menu lateral, em uma seção de Projects fixados (geralmente separada visualmente dos demais Projects).</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Copie o prompt-mestre</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Volte ao item 06 desta AP e use o botão <strong>Copiar</strong> para copiar o prompt-mestre completo da rotina semanal.</p>
+          <p class="step-card-desc"><strong>Detalhamento:</strong> o prompt-mestre tem aproximadamente 10 linhas &mdash; incluindo instruções para o Claude executar as 3 Skills em sequência. Você precisa salvá-lo em algum lugar de acesso rápido para colar toda segunda sem precisar voltar a esta página.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Salve o prompt-mestre em local de acesso rápido</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Escolha <strong>uma das 3 opções</strong> abaixo para salvar o prompt-mestre:</p>
+
+          <div class="opcoes-grid">
+            <div class="opcao-card">
+              <div class="op-letter">Opção A</div>
+              <div class="op-title">Aplicativo de notas</div>
+              <ol>
+                <li>Abra Notion / Apple Notes / Google Keep / Evernote</li>
+                <li>Crie uma nota com título <strong>"Briefing Lumina &mdash; Prompt-Mestre Semanal"</strong></li>
+                <li>Cole o prompt-mestre no corpo da nota</li>
+                <li>Salve</li>
+              </ol>
+              <div class="op-footer">Toda segunda você abre essa nota, copia o prompt, vai ao Claude e cola.</div>
+            </div>
+
+            <div class="opcao-card">
+              <div class="op-letter">Opção B</div>
+              <div class="op-title">Snippet com atalho</div>
+              <ol>
+                <li>Abra TextExpander / Espanso / Raycast extension / aText</li>
+                <li>Crie um snippet novo com atalho <code>;briefinglumina</code></li>
+                <li>Cole o prompt-mestre como conteúdo do snippet</li>
+                <li>Salve</li>
+              </ol>
+              <div class="op-footer">Toda segunda você digita <code>;briefinglumina</code> no campo de mensagem do Claude e o prompt é expandido automaticamente.</div>
+            </div>
+
+            <div class="opcao-card">
+              <div class="op-letter">Opção C</div>
+              <div class="op-title">Rascunho no Claude</div>
+              <ol>
+                <li>Abra o Project Comercial Lumina (já pinned)</li>
+                <li>Inicie uma nova conversa</li>
+                <li>Cole o prompt-mestre no campo de mensagem</li>
+                <li><strong>Não envie</strong> &mdash; procure <strong>Salvar como rascunho</strong> (ou ícone &#128278;)</li>
+              </ol>
+              <div class="op-footer">Toda segunda você abre o Project pinned e clica em <strong>Rascunhos</strong> &mdash; o prompt-mestre está pronto.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Teste o fluxo de uso (mental ou real)</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Faça o teste mental de uma segunda-feira normal:</p>
+          <ol class="step-card-list">
+            <li>São 8h05 da segunda. Você abre o Claude.</li>
+            <li>Vê o <strong>Project Comercial Lumina pinned no topo</strong> do menu lateral.</li>
+            <li>Clica nele. Inicia nova conversa.</li>
+            <li>Abre seu <strong>lugar de salvamento</strong> (Notion, snippet, ou rascunhos do Claude) e copia o prompt-mestre.</li>
+            <li>Cola no campo de mensagem do Claude.</li>
+            <li><strong>Anexa a planilha da semana</strong> (exportada do CRM ou atualizada manualmente &mdash; geralmente fica em <code>Downloads</code>).</li>
+            <li>Envia.</li>
+          </ol>
+          <p class="step-card-desc"><strong>Tempo total: 2 minutos.</strong> O pipeline roda em sequência depois disso (3 Skills automaticamente).</p>
+
+          <div class="tip-box">
+            <div class="tip-label">Quando você esquece de fazer numa segunda</div>
+            <p>Mesmo com Project pinned, em semanas corridas você pode esquecer de gerar o briefing. <strong>Por isso, recomendamos combinar Caminho 2 + Caminho 3</strong> &mdash; o calendário lembra externamente (Caminho 3), o pin do Project acelera a execução (Caminho 2).</p>
+            <p>Esforço total semanal: 3 minutos. Garantia de não esquecer: 99%.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step9')">&#8592; Caminho 1</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step11')">Caminho 3 &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 11 — Caminho 3 -->
+    <div class="section" id="sec-step11">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">11.</span> Caminho 3 &mdash; Lembrete no Calendário com prompt no corpo</div>
+      <div class="sec-desc">4 passos &mdash; 5 minutos por semana, lembrança externa garantida</div>
+
+      <div class="caminho-header cal">
+        <div class="ch-icon">&#128197;</div>
+        <div class="ch-meta">
+          <div class="ch-tag">Caminho 3 &middot; Calendário</div>
+          <div class="ch-title">Evento recorrente com link e prompt no corpo</div>
+        </div>
+        <div class="ch-plan">&#128994; Plano gratuito<br>Esforço semanal: 5 min</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 01</span><span class="step-card-title">Abra seu aplicativo de calendário</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Abra <strong>Google Calendar</strong> (ou <strong>Apple Calendar</strong> / <strong>Outlook Calendar</strong>, conforme seu sistema).</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>Acesse o aplicativo de calendário que você usa no dia a dia profissional.</li>
+            <li>Vá para a visualização semanal ou diária.</li>
+            <li>Localize a próxima segunda-feira no calendário.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 02</span><span class="step-card-title">Crie um evento recorrente</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique na próxima segunda às 8h e crie um evento novo. Configure os seguintes campos:</p>
+
+          <p class="step-card-desc"><strong>Detalhamento &mdash; preencha os campos do evento:</strong></p>
+          <ol class="step-card-list">
+            <li><strong>Título:</strong> <code>&#128202; Gerar Briefing Pipeline Lumina</code></li>
+            <li><strong>Data e horário:</strong> próxima segunda-feira, 8h00 às 8h15</li>
+            <li><strong>Duração:</strong> 15 minutos</li>
+            <li><strong>Repetição:</strong> Semanal &mdash; toda segunda-feira (sem data de término)</li>
+            <li><strong>Notificação:</strong> 10 minutos antes (no Google Calendar, isso é configurado em "Adicionar notificação")</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 03</span><span class="step-card-title">Cole o link do Project e o prompt-mestre no corpo do evento</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">No campo <strong>Descrição</strong> (ou <strong>Notas</strong> / <strong>Detalhes</strong>) do evento, cole o link do Project Comercial Lumina e o prompt-mestre completo.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento &mdash; copie o link do Project:</strong></p>
+          <ol class="step-card-list">
+            <li>Abra o Claude em outra aba do navegador.</li>
+            <li>Acesse o Project Comercial Lumina.</li>
+            <li>Na barra de URL do navegador, copie o link completo (geralmente algo como <code>https://claude.ai/projects/[ID-DO-PROJECT]</code>).</li>
+            <li>Volte ao evento do calendário.</li>
+          </ol>
+
+          <p class="step-card-desc"><strong>Estrutura recomendada do corpo do evento:</strong></p>
+
+          <div class="copy-wrap">
+            <span class="copy-label">Template do corpo do evento</span>
+            <div class="copy-block" id="prompt-evento">
+<button class="copy-btn" onclick="copyText(this, document.getElementById('prompt-evento-text').textContent)">Copiar</button>
+<span id="prompt-evento-text">🔗 LINK DO PROJECT:
+[cole aqui o link do Project Comercial Lumina copiado do Claude]
+
+📋 PASSOS:
+1. Clicar no link acima (abre o Project no Claude)
+2. Iniciar nova conversa
+3. Anexar a planilha atualizada do pipeline da semana
+4. Copiar o prompt-mestre abaixo e colar no Claude
+5. Aguardar o briefing (3-5 minutos)
+
+📝 PROMPT-MESTRE:
+Bom dia. Vou rodar agora o pipeline completo de geração do Briefing Semanal Lumina desta semana.
+
+Anexei a planilha atualizada do pipeline (snapshot da segunda atual).
+
+Por favor, execute as 3 Skills em sequência nesta conversa:
+
+1. PRIMEIRO: use a Skill organizar-pipeline-lumina para estruturar o pipeline nos 5 estágios padrão.
+
+2. DEPOIS: use a Skill diagnosticar-pipeline-lumina para gerar o diagnóstico narrativo em 5 blocos.
+
+3. POR FIM: use a Skill gerar-briefing-lumina para gerar o briefing semanal (vou escolher o caminho A ou B quando você perguntar).
+
+Comece pelo passo 1 agora.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head"><span class="step-card-num">PASSO 04</span><span class="step-card-title">Salve o evento e teste a notificação</span></div>
+        <div class="step-card-body">
+          <p class="step-card-desc">Clique em <strong>Salvar</strong> (ou <strong>Criar Evento</strong>) para confirmar o evento recorrente.</p>
+
+          <p class="step-card-desc"><strong>Detalhamento:</strong></p>
+          <ol class="step-card-list">
+            <li>Confirme que o evento aparece na visualização semanal do calendário, na próxima segunda 8h-8h15.</li>
+            <li><strong>Validação:</strong> vá para a semana seguinte (e a seguinte) no calendário e confirme que o evento aparece toda segunda &mdash; sinal de que a recorrência está configurada corretamente.</li>
+            <li><strong>(Bônus)</strong> Convide outros membros da equipe comercial para o evento se quiser que eles tenham acesso ao link do Project + prompt-mestre &mdash; pode ser útil para sucessão (se você sair de férias, alguém da equipe consegue gerar o briefing).</li>
+          </ol>
+
+          <div class="tip-box">
+            <div class="tip-label">Quando a notificação chegar segunda 7h50</div>
+            <p>Você vai receber notificação 10 minutos antes do evento. Quando ela chegar:</p>
+            <p>1. Abra o evento do calendário (clique na notificação).<br>2. Clique no <strong>link do Project</strong> no corpo do evento &mdash; abre o Claude direto no Project Comercial Lumina.<br>3. Inicie nova conversa, anexe a planilha da semana.<br>4. Volte ao calendário, copie o <strong>prompt-mestre</strong> do corpo do evento.<br>5. Cole no Claude e envie.</p>
+            <p><strong>Tempo total: 5 minutos.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step10')">&#8592; Caminho 2</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step12')">Próximo &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="section" id="sec-step12">
+      <span class="section-badge badge-pratica">Atividade Prática</span>
+      <div class="sec-title pratica"><span class="snum">12.</span> O que você tem ao final desta atividade</div>
+      <div class="sec-desc">Rotina semanal estabelecida + aula A14 completa</div>
+
+      <div class="overview-card">
+        <h3>Você sai desta atividade com</h3>
+        <ul class="check-list">
+          <li>Uma <strong>rotina semanal estabelecida e replicável</strong> de geração do briefing &mdash; no caminho que melhor se encaixa no seu plano e perfil.</li>
+          <li>Acesso rápido ao <strong>Project Comercial Lumina</strong> (pinned no menu lateral, link no calendário, ou disparo automático via Cowork).</li>
+          <li>O <strong>prompt-mestre</strong> salvo em local de acesso rápido (Notion, snippet, rascunho do Claude, ou no corpo do evento do calendário).</li>
+          <li><strong>Briefing semanal pronto em 3-5 minutos toda segunda</strong> &mdash; em vez da reunião de pipeline review de 1 hora.</li>
+          <li><strong>Aula A14 completa</strong> &mdash; você terminou os 5 passos do pipeline comercial com IA na Lumina.</li>
+        </ul>
+      </div>
+
+      <div class="tip-box champagne">
+        <div class="tip-label">&#128142; Como replicar a rotina na empresa do aluno</div>
+        <p>A configuração que você fez aqui foi para a Lumina (Project Comercial Lumina, prompt-mestre Lumina). <strong>Quando for fazer o Desafio na sua empresa real</strong>, você vai precisar configurar a rotina apontando para o Project Comercial da sua empresa (criado no Desafio da AP01) e usar o prompt-mestre adaptado com os nomes das suas Skills customizadas (<code>organizar-pipeline-[empresa]</code>, <code>diagnosticar-pipeline-[empresa]</code>, <code>gerar-briefing-[empresa]</code> &mdash; geradas nos Desafios das APs 02, 03 e 04).</p>
+        <p><strong>Prompt-mestre adaptado para sua empresa (template):</strong></p>
+        <p><em>"Bom dia. Vou rodar agora o pipeline completo de geração do Briefing Semanal da [SUA EMPRESA] desta semana. Anexei a planilha atualizada do pipeline (snapshot da segunda atual). Por favor, execute as 3 Skills em sequência nesta conversa: 1. PRIMEIRO: use a Skill <code>organizar-pipeline-[empresa]</code>. 2. DEPOIS: use a Skill <code>diagnosticar-pipeline-[empresa]</code>. 3. POR FIM: use a Skill <code>gerar-briefing-[empresa]</code>. Comece pelo passo 1 agora."</em></p>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">&#127881; Aula A14 completa &mdash; em 60 minutos você cobriu o pipeline inteiro</div>
+        <p>Você terminou a A14. <strong>Em 60 minutos de aula</strong>, você configurou um Project, instalou 3 Skills, gerou pipeline organizado + diagnóstico narrativo + briefing visual, e estabeleceu rotina semanal automatizada. <strong>Na sua empresa, em 5 dias</strong>, você terá o mesmo pipeline rodando com dados reais.</p>
+        <p>Em 90 dias de uso consistente da rotina semanal, a meta é:</p>
+
+        <div class="metricas-grid">
+          <div class="metrica-card">
+            <div class="met-value">12h/mês</div>
+            <div class="met-label">Capacidade vendedora recuperada (reunião de pipeline review 1h × 4 sem × 6 pessoas substituída por 5 min de leitura)</div>
+          </div>
+          <div class="metrica-card">
+            <div class="met-value">+15-25%</div>
+            <div class="met-label">Recuperação de leads que esfriavam por inação semanal</div>
+          </div>
+          <div class="metrica-card">
+            <div class="met-value">+3 a 5%</div>
+            <div class="met-label">Conversão geral do pipeline em 90 dias</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step11')">&#8592; Caminho 3</button>
+        <button class="nav-btn primary" onclick="showSection('sec-step13')">Desafio &#8594;</button>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="section" id="sec-step13">
+      <span class="section-badge badge-desafio">Desafio</span>
+      <div class="sec-title desafio"><span class="snum">13.</span> Implementando na sua empresa</div>
+      <div class="sec-desc">Configure a rotina semanal na realidade da sua empresa &mdash; passo 5 e final da jornada</div>
+
+      <p class="lead-text">Agora que você dominou os 3 caminhos de automação com o caso da Lumina, configure a rotina semanal na <strong>realidade da sua empresa</strong>.</p>
+
+      <div class="desafio-card">
+        <div class="dc-label">Desafio na sua empresa</div>
+        <div class="dc-title">Estabeleça a rotina semanal real na sua empresa</div>
+        <p>O que fazer:</p>
+        <ol>
+          <li><strong>Escolha o caminho ideal para o seu perfil:</strong>
+            <ul>
+              <li>&#128142; Plano pago do Claude → <strong>Caminho 1 (Cowork)</strong></li>
+              <li>&#128994; Plano gratuito + uso diário do Claude → <strong>Caminho 2 (Pinned)</strong></li>
+              <li>&#128994; Plano gratuito + uso esporádico do Claude → <strong>Caminho 3 (Calendário)</strong></li>
+              <li>&#128994; Plano gratuito + quer segurança máxima → <strong>Caminho 2 + Caminho 3 combinados</strong></li>
+            </ul>
+          </li>
+          <li><strong>Adapte o prompt-mestre para a sua empresa.</strong> Use o template fornecido na observação do item 12 desta AP &mdash; substitua <em>[SUA EMPRESA]</em> e os nomes das 3 Skills pelos nomes reais que você gerou nos Desafios das APs 02, 03 e 04.</li>
+          <li><strong>Configure o caminho escolhido</strong> apontando para o Project Comercial da sua empresa (criado no Desafio da AP01).</li>
+          <li><strong>Salve o prompt-mestre adaptado</strong> no local de acesso rápido (Notion, snippet, rascunho do Claude, ou corpo do evento de calendário).</li>
+          <li><strong>Teste o disparo</strong> &mdash; Cowork via "Executar agora" (Caminho 1), simulação manual de segunda-feira (Caminho 2), ou aguardar próxima segunda receber a notificação (Caminho 3).</li>
+          <li><strong>Rode o pipeline real pela primeira vez</strong> com a planilha da sua empresa &mdash; exporte do seu CRM ou atualize sua planilha manual de pipeline, anexe à conversa, e veja as 3 Skills rodarem em sequência.</li>
+          <li><strong>Avalie a primeira execução:</strong>
+            <ul>
+              <li>O trigger disparou no horário certo?</li>
+              <li>As 3 Skills rodaram em sequência sem erro?</li>
+              <li>O briefing final ficou utilizável?</li>
+              <li>O tempo total (do trigger ao briefing pronto) está dentro de 5-10 minutos?</li>
+            </ul>
+          </li>
+          <li><strong>Itere a rotina se necessário.</strong> Pode ser que você queira ajustar o horário (segunda 8h não é ideal para todas as empresas), o dia da semana (algumas empresas fazem pipeline review terça), ou a frequência (algumas equipes operam com pipeline review quinzenal).</li>
+        </ol>
+        <div class="dc-meta"><strong>Resultado esperado:</strong> rotina semanal de geração do briefing rodando na sua empresa real, com trigger confiável e prompt-mestre adaptado. A partir daí, é apenas executar toda semana &mdash; durante 90 dias &mdash; para colher os resultados. <strong>Tempo estimado:</strong> 30 a 45 minutos (a maior parte é decidir qual caminho usar + configurar o trigger + adaptar o prompt-mestre para os nomes das suas Skills).</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">&#127919; Por que esse desafio fecha a jornada de 5 dias</div>
+        <p>Você fez Desafios das APs 01 a 04 nos últimos dias &mdash; configurou Project, gerou 3 Skills customizadas, e produziu o primeiro briefing real. <strong>Este Desafio da AP05 é o último passo: estabelecer a rotina sustentável.</strong></p>
+        <p><strong>Em 5 dias, você sai de zero IA no comercial para pipeline review automatizado com 3 Skills encadeadas rodando toda segunda.</strong> Os próximos 90 dias são apenas execução &mdash; colher os resultados de redução de tempo, recuperação de leads e aumento de conversão.</p>
+        <p><strong>Hoje é o dia 5. A partir de amanhã, é só executar.</strong></p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('sec-step12')">&#8592; Anterior</button>
+        <a class="nav-btn concluir" href="index.html">&#127881; Concluir Aula A14</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Palette switcher (shared)
+  (function(){
+    const KEY="delta-tut-palette";
+    const saved=localStorage.getItem(KEY)||"cream";
+    document.documentElement.setAttribute("data-palette",saved);
+    const apply=(p)=>{
+      document.documentElement.setAttribute("data-palette",p);
+      localStorage.setItem(KEY,p);
+      document.querySelectorAll(".palette-switch button").forEach(b=>b.classList.toggle("is-active",b.dataset.palette===p));
+    };
+    document.querySelectorAll(".palette-switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.palette)));
+    apply(saved);
+  })();
+
+  // Section navigation + progress
+  const PKEY = "delta-tut-ap05-automacao-semanal";
+  const completed = new Set(JSON.parse(localStorage.getItem(PKEY) || "[]"));
+  const TOTAL = 13;
+
+  function renderProgress() {
+    document.querySelectorAll(".nav-item").forEach(ni => {
+      const s = ni.dataset.section;
+      ni.classList.toggle("completed", completed.has(s));
+    });
+    const pct = Math.round((completed.size / TOTAL) * 100);
+    document.getElementById("pct").textContent = pct;
+    document.getElementById("sp-fill").style.width = pct + "%";
+  }
+
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add("active");
+    const nav = document.querySelector(`.nav-item[data-section="${id}"]`);
+    if (nav) nav.classList.add("active");
+    completed.add(id);
+    localStorage.setItem(PKEY, JSON.stringify([...completed]));
+    renderProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const old = btn.textContent;
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = old, 1600);
+    });
+  }
+
+  (function init(){
+    const last = localStorage.getItem(PKEY + ":last") || "sec-step1";
+    completed.add("sec-step1");
+    renderProgress();
+    const origShow = showSection;
+    window.showSection = function(id){ origShow(id); localStorage.setItem(PKEY + ":last", id); };
+    if (last !== "sec-step1") window.showSection(last);
+  })();
+</script>
+</body>
+</html>
